@@ -15,7 +15,7 @@
 
 <body>
   <div class="wrapper" id="wrapper">
-      @include('administrator.includes.sidebar')
+      {{-- @include('administrator.includes.sidebar') --}}
       @yield('content')
   </div>
   <script src="{{ asset('src/js/dashboard.js') }}"></script>
