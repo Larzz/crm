@@ -29839,3 +29839,34 @@ input.datetimepicker[data-color='yellow'] + .bootstrap-datetimepicker-widget.dro
 {
     background: transparent;
 }
+
+
+/* custom css */
+
+.nav-sub-sx {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+}
+
+.nav-sub-sx li {
+ margin-right: 14px;
+}
+
+.nav-sub-sx li a {
+    color: white;
+    font-size: 20px;
+}
+
+.nav-sub-sx li a:hover {
+    color: white;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+/* bulettin container */
+
+
+.bulettin-container {
+    height: 428px;
+}

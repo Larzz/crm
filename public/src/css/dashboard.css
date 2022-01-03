@@ -23787,8 +23787,6 @@ textarea[resize='horizontal']
 .navbar-top.border-bottom.navbar-dark
 {
     border-color: rgba(255, 255, 255, .08) !important;
-    background-color: white !important;
-
 }
 .navbar-top.border-bottom.navbar-light
 {
@@ -30802,4 +30800,35 @@ input.datetimepicker[data-color='yellow'] + .bootstrap-datetimepicker-widget.dro
 .bootstrap-datetimepicker-widget.dropdown-black table td .btn[data-action='togglePeriod']
 {
     background: transparent;
+}
+
+
+/* custom css */
+
+.nav-sub-sx {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+}
+
+.nav-sub-sx li {
+ margin-right: 14px;
+}
+
+.nav-sub-sx li a {
+    color: white;
+    font-size: 20px;
+}
+
+.nav-sub-sx li a:hover {
+    color: white;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+/* bulettin container */
+
+
+.bulettin-container {
+    height: 428px;
 }
