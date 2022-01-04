@@ -17,3 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::namespace('API')->group(function() {
+
+    Route::prefix('v1')->namespace('v1')->middleware('auth:api')->group(function() {
+
+        Route::prefix('bulletin')->namespace('Administrator')->group(function() {
+            Route::post('/', 'BulletinController@addBulletin')->name('api.bulletin.create');
+            Route::get('/', 'BulletinController@getBulletins')->name('api.bulletin.get');
+            Route::get('{id}', 'BulletinController@getBulletin')->name('api.bulletin.specific');
+            Route::patch('{id}', 'BulletinController@editBulletin')->name('api.bulletin.edit');
+            Route::delete('{id}', 'BulletinController@deleteBulletin')->name('api.bulletin.delete');
+        });
+    
+    });
+
+});
+

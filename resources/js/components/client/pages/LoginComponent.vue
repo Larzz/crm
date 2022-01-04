@@ -28,7 +28,6 @@
             <p>Forgot password? <a href="#" @click="login_page=false;password_page=true">Click here.</a></p>
           </div>
         </div>
-       
 
         <!--Forgot-->
         <div class="" v-if="password_page">
