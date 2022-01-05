@@ -57,6 +57,10 @@ class HomeController extends Controller
                     $url = route('admin.home');
                 } 
 
+                if ($user->hasRole('employee')) {
+                    $url = route('staff.home');
+                }
+
                 if($user->hasRole('client')) {
                     $url = route('client.index');
                 } 

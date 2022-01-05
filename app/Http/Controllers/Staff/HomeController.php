@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     //
     public function index() {
-        return view('staff.pages.index');
+        $meta = array('active' => 'dashboard', 'title' => 'Dashboard');
+        return view('staff.pages.index', $meta);
     }
 }
