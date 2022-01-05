@@ -11,8 +11,55 @@
             </div>
             <div class="card-body">
                 <!-- Chart -->
-                <div class="chart">
-                    <canvas id="chart-bars" class="chart-canvas"></canvas>
+
+                <div class="row">
+                    <div class="col-xl-8" id="date-picker">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>From</h4>
+                                <input type="date" class="form-control">
+                                <h5>August 5, 2021</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h4>To</h4>
+                                <input type="date" class="form-control">
+                                <h5>August 5, 2021</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4">
+                            <div class="available-section">
+                                <h4> Available <span>24 days</span></h4>
+                            </div>
+
+                            <div class="used-days-section">
+                                <h4> <span> 4 days</span></h4>
+                            </div>
+
+                            <hr>
+                            <div class="remaining-section">
+                                <h3>Remaining <span>23 days</span></h3>
+                            </div>
+
+                            <div class="form-group right mt-2">
+                                <a href="" class="btn btn-primary">Submit</a>
+                            </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="row">
+                        <div class="col-xl-4">
+                             <h4>Previous Vacation</h4>
+                        </div>
+                        <div class="col-xl-4">
+                            <h4>Pending Vacation</h4>
+                        </div>
+                        <div class="col-xl-4"></div>
+                    </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -21,11 +68,48 @@
 
 <script>
     export default {
+        data() {
+            return {
 
+            }
+        },
+        mounted() {
+
+        },
+        methods: {
+
+        }
     }
 
 </script>
 
-<style>
+<style scoped>
+
+    #date-picker h5 {
+        margin-top: 11px;
+        font-size: 15px;
+        font-weight: 400;
+    }
+
+    hr {
+        margin-top: 6rem;
+    }
+
+    .card {
+        min-height: 467px;
+    }
+
+    .available-section span {
+        float: right;
+    }
+
+    .used-days-section {
+        float: right;
+        margin-top: 18px;
+    }
+
+    .remaining-section {
+        float: right;
+    }
 
 </style>
