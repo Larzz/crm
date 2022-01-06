@@ -2708,14 +2708,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -22862,147 +22854,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header border-0" }, [
-          _c("div", { staticClass: "row align-items-center" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "col text-right" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-sm btn-primary",
-                  attrs: { href: "#!" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("show-client-popup", true)
-                    }
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header border-0" }, [
+        _c("div", { staticClass: "row align-items-center" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col text-right" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { href: "#!" },
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("show-client-popup", true)
                   }
-                },
-                [_vm._v("Create")]
-              )
-            ])
+                }
+              },
+              [_vm._v("Create")]
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "table-responsive" }, [
-          _c(
-            "table",
-            { staticClass: "table align-items-center table-flush" },
-            [
-              _vm.clients
-                ? [
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.clients, function(client, index) {
-                        return _c("tr", { key: index }, [
-                          _c("th", { attrs: { scope: "row" } }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(client.name) +
-                                "\n                            "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "div",
-                              { staticClass: "d-flex align-items-center" },
-                              [
-                                _c("ul", [
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": client.id,
-                                          title: "View Employee"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.viewEmployee(client.id)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-eye" })]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": client.id,
-                                          title: "Update Employee"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.editEmployee(client.id)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-pen" })]
-                                    )
-                                  ])
-                                ])
-                              ]
-                            )
-                          ])
-                        ])
-                      }),
-                      0
-                    )
-                  ]
-                : _vm._e(),
-              _vm._v(" "),
-              [_vm._m(1)]
-            ],
-            2
-          )
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "popup",
-        {
-          on: {
-            "show-client-popup": function($event) {
-              return _vm.OpenClientPopup($event)
-            }
-          }
-        },
-        [
-          _c("h1", [_vm._v("Lorem Ipsum")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem provident explicabo accusamus\n            laudantium voluptatum nobis sed nesciunt neque possimus molestiae?"
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "button",
-              on: {
-                click: function($event) {
-                  return _vm.$emit("show-client-popup", false)
-                }
-              }
-            },
-            [_vm._v("\n            Close Modal\n        ")]
-          )
-        ]
-      )
-    ],
-    1
-  )
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table align-items-center table-flush" },
+          [
+            _vm.clients
+              ? [
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.clients, function(client, index) {
+                      return _c("tr", { key: index }, [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(client.name) +
+                              "\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "div",
+                            { staticClass: "d-flex align-items-center" },
+                            [
+                              _c("ul", [
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "#!",
+                                        "data-id": client.id,
+                                        title: "View Employee"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.viewEmployee(client.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-eye" })]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "#!",
+                                        "data-id": client.id,
+                                        title: "Update Employee"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editEmployee(client.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-pen" })]
+                                  )
+                                ])
+                              ])
+                            ]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              : _vm._e(),
+            _vm._v(" "),
+            [_vm._m(1)]
+          ],
+          2
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {

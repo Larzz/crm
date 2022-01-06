@@ -44,15 +44,7 @@
             </div>
         </div>
 
-        <popup @show-client-popup="OpenClientPopup($event)">
-            <h1>Lorem Ipsum</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem provident explicabo accusamus
-                laudantium voluptatum nobis sed nesciunt neque possimus molestiae?</p>
-            <button class="button" @click="$emit('show-client-popup', false)">
-                Close Modal
-            </button>
-        </popup>
-            
+      
     </div>
     
 
