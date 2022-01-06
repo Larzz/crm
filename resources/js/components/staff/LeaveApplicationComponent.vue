@@ -11,19 +11,18 @@
             </div>
             <div class="card-body">
                 <!-- Chart -->
-
                 <div class="row">
                     <div class="col-xl-8" id="date-picker">
                         <div class="row">
                             <div class="col-md-6">
                                 <h4>From</h4>
-                                <input type="date" class="form-control">
+                                <input v-model="field.leave_from" type="date" class="form-control">
                                 <h5>August 5, 2021</h5>
                             </div>
 
                             <div class="col-md-6">
                                 <h4>To</h4>
-                                <input type="date" class="form-control">
+                                <input v-model="field.leave_to" type="date" class="form-control">
                                 <h5>August 5, 2021</h5>
                             </div>
                         </div>
@@ -35,7 +34,7 @@
                             </div>
 
                             <div class="used-days-section">
-                                <h4> <span> 4 days</span></h4>
+                                <h4> {{ field.total_day_used }} days</h4>
                             </div>
 
                             <hr>
@@ -44,12 +43,12 @@
                             </div>
 
                             <div class="form-group right mt-2">
-                                <a href="" class="btn btn-primary">Submit</a>
+                                <a href="javascript:;" @click="submitVacation()" class="btn btn-primary">Submit</a>
                             </div>
                     </div>
 
                     <div class="col-xl-12">
-                        <div class="row">
+                        <div class="row mt-5">
                         <div class="col-xl-4">
                              <h4>Previous Vacation</h4>
                         </div>
@@ -70,14 +69,20 @@
     export default {
         data() {
             return {
-
+                field: {
+                    leave_from: '',
+                    leave_to: '',
+                    total_day_used: 0,
+                }
             }
         },
         mounted() {
 
         },
         methods: {
-
+            submitVacation() {
+                console.log(this.field)
+            }
         }
     }
 
@@ -96,7 +101,7 @@
     }
 
     .card {
-        min-height: 467px;
+        min-height: 390px;
     }
 
     .available-section span {
@@ -110,6 +115,14 @@
 
     .remaining-section {
         float: right;
+    }
+
+    .right {
+         float: right;
+        position: absolute;
+        top: 213px;
+        right: 10px;
+        z-index: 100;
     }
 
 </style>

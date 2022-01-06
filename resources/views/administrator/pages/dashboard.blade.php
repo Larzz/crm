@@ -51,8 +51,14 @@
                 <linked-in> </linked-in>
             </div>
         </div>
+
+        <general-client-popup></general-client-popup>
+        <general-document-popup></general-document-popup>
+        
         <!-- Footer -->
         @include('administrator.includes.footer')
+
+     
     </div>
 </div>
 

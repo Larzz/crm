@@ -7,14 +7,14 @@
                         <h3 class="mb-0">Clients</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">Create</a>
+                        <a href="#!" @click="$emit('show-client-popup', true)" class="btn btn-sm btn-primary">Create</a>
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
-                    <template v-if="clients"> 
+                    <template v-if="clients">
                         <tbody>
                             <tr v-for="(client, index) in clients" :key="index">
                                 <th scope="row">
@@ -22,34 +22,48 @@
                                 </th>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                            <ul>
-                                                <li><a href="#!" :data-id="client.id" @click="viewEmployee(client.id)" title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                                <li> <a href="#!" :data-id="client.id" @click="editEmployee(client.id)" title="Update Employee"><i class="fas fa-pen"></i></a> </li>
-                                            </ul>
-                                        </div>
+                                        <ul>
+                                            <li><a href="#!" :data-id="client.id" @click="viewEmployee(client.id)"
+                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" :data-id="client.id" @click="editEmployee(client.id)"
+                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </template>
-                    <template v-eles> 
-                       <div class="container">
+                    <template v-eles>
+                        <div class="container">
                             <div class="alert alert-warning" role="alert">
                                 <strong>Sorry!</strong> No Record Found
                             </div>
-                       </div>
+                        </div>
                     </template>
                 </table>
             </div>
         </div>
-    </div>
-</template>
 
+        <popup @show-client-popup="OpenClientPopup($event)">
+            <h1>Lorem Ipsum</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem provident explicabo accusamus
+                laudantium voluptatum nobis sed nesciunt neque possimus molestiae?</p>
+            <button class="button" @click="$emit('show-client-popup', false)">
+                Close Modal
+            </button>
+        </popup>
+            
+    </div>
+    
+
+</template>
 
 <script>
     export default {
         data() {
             return {
-                clients: []
+                clients: [],
+                showPopup: false
             }
         },
         mounted() {
@@ -57,15 +71,21 @@
         },
         methods: {
             getClients() {
-                return 
+                return
+            },
+            OpenClientPopup(status) {
+                console.log(status)
             }
+          
         }
     }
 
 </script>
 
 <style scoped>
+
     .card {
         min-height: 355px;
     }
+
 </style>

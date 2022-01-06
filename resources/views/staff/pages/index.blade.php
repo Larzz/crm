@@ -25,6 +25,16 @@
           </div>
       </div>
   </div>
+
+  <popup @client-popup="OpenClientPopup($event)">
+      <h1>Lorem Ipsum</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem provident explicabo accusamus
+          laudantium voluptatum nobis sed nesciunt neque possimus molestiae?</p>
+      <button class="button" @click="$emit('show-client-popup', false)">
+          Close Modal
+      </button>
+  </popup>
+    
     <!-- Page content -->
     <div class="container-fluid mt--6">
       <div class="row">
@@ -53,7 +63,7 @@
 
       <div class="col-lx-12">
           <linked-in></linked-in>
-      </div>
+      </div>    
 
       <!-- Footer -->
       @include('staff.includes.footer')
