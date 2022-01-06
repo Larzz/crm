@@ -43,15 +43,14 @@
                 </table>
             </div>
         </div>
-
-      
+          
     </div>
-    
 
 </template>
 
 <script>
     export default {
+        
         data() {
             return {
                 clients: [],
@@ -65,19 +64,12 @@
             getClients() {
                 return
             },
-            OpenClientPopup(status) {
-                console.log(status)
-            }
-          
         }
     }
-
 </script>
 
 <style scoped>
-
     .card {
         min-height: 355px;
     }
-
 </style>

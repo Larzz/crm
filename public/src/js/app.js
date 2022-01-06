@@ -2706,8 +2706,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2721,9 +2719,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getClients: function getClients() {
       return;
-    },
-    OpenClientPopup: function OpenClientPopup(status) {
-      console.log(status);
     }
   }
 });
@@ -3120,7 +3115,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card[data-v-472c0430] {\n    min-height: 355px;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-472c0430] {\n    min-height: 355px;\n}\n", ""]);
 
 // exports
 

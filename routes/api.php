@@ -29,6 +29,14 @@ Route::namespace('API')->group(function() {
             Route::patch('{id}', 'BulletinController@editBulletin')->name('api.bulletin.edit');
             Route::delete('{id}', 'BulletinController@deleteBulletin')->name('api.bulletin.delete');
         });
+
+        Route::prefix('leave')->group(function() {
+            Route::post('/', 'LeaveController@addLeave');
+            Route::get('/', 'LeaveController@getLeaves');
+            Route::get('{id}', 'LeaveController@getLeave');
+            Route::patch('{id}', 'LeaveController@editLeave');
+            Route::delete('{id}', 'LeaveController@deleteLeave');
+        });
     
     });
 
