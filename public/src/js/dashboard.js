@@ -15590,8 +15590,7 @@ var Layout = function () {
     $('.sidenav-toggler').data('action', 'sidenav-unpin');
     $('body').removeClass('g-sidenav-hidden').addClass('g-sidenav-show g-sidenav-pinned');
     $('body').append('<div class="backdrop d-xl-none" data-action="sidenav-unpin" data-target=' + $('#sidenav-main').data('target') + ' />'); // Store the sidenav state in a cookie session
-
-    Cookies.set('sidenav-state', 'pinned');
+    // Cookies.set('sidenav-state', 'pinned');
   }
 
   function unpinSidenav() {
@@ -15599,21 +15598,19 @@ var Layout = function () {
     $('.sidenav-toggler').data('action', 'sidenav-pin');
     $('body').removeClass('g-sidenav-pinned').addClass('g-sidenav-hidden');
     $('body').find('.backdrop').remove(); // Store the sidenav state in a cookie session
-
-    Cookies.set('sidenav-state', 'unpinned');
+    // Cookies.set('sidenav-state', 'unpinned');
   } // Set sidenav state from cookie
 
 
-  var $sidenavState = Cookies.get('sidenav-state') ? Cookies.get('sidenav-state') : 'pinned';
+  var $sidenavState = 'pinned'; //Cookies.get('sidenav-state') ? Cookies.get('sidenav-state') : 'pinned';
 
   if ($(window).width() > 1200) {
     if ($sidenavState == 'pinned') {
       pinSidenav();
-    }
+    } // if(Cookies.get('sidenav-state') == 'unpinned') {
+    //     unpinSidenav()
+    // }
 
-    if (Cookies.get('sidenav-state') == 'unpinned') {
-      unpinSidenav();
-    }
 
     $(window).resize(function () {
       if ($('body').hasClass('g-sidenav-show') && !$('body').hasClass('g-sidenav-pinned')) {

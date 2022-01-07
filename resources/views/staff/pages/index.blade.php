@@ -50,6 +50,7 @@
         <div class="col-xl-4">
           <general-client-card></general-client-card>
         </div>
+        
       </div>
 
       <div class="col-lx-12">

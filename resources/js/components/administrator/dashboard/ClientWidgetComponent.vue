@@ -7,7 +7,7 @@
                         <h3 class="mb-0">Clients</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">Create</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Create</a>
                     </div>
                 </div>
             </div>
@@ -41,6 +41,8 @@
                 </table>
             </div>
         </div>
+
+        <create-client-popup :showPopup="showPopup" @close="showPopup=false"></create-client-popup>
     </div>
 </template>
 
@@ -49,7 +51,8 @@
     export default {
         data() {
             return {
-                clients: []
+                clients: [],
+                showPopup: false
             }
         },
         mounted() {

@@ -7,7 +7,7 @@
                         <h3 class="mb-0">Clients</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="$emit('show-client-popup', true)" class="btn btn-sm btn-primary">Create</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Create</a>
                     </div>
                 </div>
             </div>
@@ -43,14 +43,15 @@
                 </table>
             </div>
         </div>
-          
+
+            <create-client-popup :showPopup="showPopup" @close="showPopup = false"> </create-client-popup>
+            
     </div>
 
 </template>
 
 <script>
     export default {
-        
         data() {
             return {
                 clients: [],
@@ -66,10 +67,13 @@
             },
         }
     }
+
 </script>
 
 <style scoped>
+
     .card {
         min-height: 355px;
     }
+
 </style>

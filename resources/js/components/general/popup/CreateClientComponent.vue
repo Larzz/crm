@@ -12,8 +12,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Remarks</label>
+                         <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea>
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Save changes</button>
@@ -43,7 +62,6 @@
             }
         }
     }
-
 </script>
 
 <style scoped>

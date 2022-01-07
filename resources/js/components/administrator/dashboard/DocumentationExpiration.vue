@@ -7,7 +7,7 @@
                         <h3 class="mb-0">Document Expiration</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">Create</a>
+                        <!-- <a href="#!" class="btn btn-sm btn-primary">Create</a> -->
                     </div>
                 </div>
             </div>

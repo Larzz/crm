@@ -274,10 +274,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      clients: []
+      clients: [],
+      showPopup: false
     };
   },
   mounted: function mounted() {
@@ -425,10 +428,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      employees: []
+      employees: [],
+      showPopup: false
     };
   },
   mounted: function mounted() {
@@ -1422,110 +1430,131 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table align-items-center table-flush" },
-          [
-            _vm.clients
-              ? [
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.clients, function(client, index) {
-                      return _c("tr", { key: index }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(client.name) +
-                              "\n                            "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "div",
-                            { staticClass: "d-flex align-items-center" },
-                            [
-                              _c("ul", [
-                                _c("li", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href: "#!",
-                                        "data-id": client.id,
-                                        title: "View Employee"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.viewEmployee(client.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-eye" })]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href: "#!",
-                                        "data-id": client.id,
-                                        title: "Update Employee"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editEmployee(client.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-pen" })]
-                                  )
-                                ])
-                              ])
-                            ]
-                          )
-                        ])
-                      ])
-                    }),
-                    0
-                  )
-                ]
-              : _vm._e(),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header border-0" }, [
+          _c("div", { staticClass: "row align-items-center" }, [
+            _vm._m(0),
             _vm._v(" "),
-            [_vm._m(1)]
-          ],
-          2
-        )
-      ])
-    ])
-  ])
+            _c("div", { staticClass: "col text-right" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function($event) {
+                      _vm.showPopup = true
+                    }
+                  }
+                },
+                [_vm._v("Create")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "table",
+            { staticClass: "table align-items-center table-flush" },
+            [
+              _vm.clients
+                ? [
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.clients, function(client, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(client.name) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
+                                _c("ul", [
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
+                                          "data-id": client.id,
+                                          title: "View Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.viewEmployee(client.id)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
+                                          "data-id": client.id,
+                                          title: "Update Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editEmployee(client.id)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-pen" })]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                : _vm._e(),
+              _vm._v(" "),
+              [_vm._m(1)]
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("create-client-popup", {
+        attrs: { showPopup: _vm.showPopup },
+        on: {
+          close: function($event) {
+            _vm.showPopup = false
+          }
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header border-0" }, [
-      _c("div", { staticClass: "row align-items-center" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h3", { staticClass: "mb-0" }, [_vm._v("Clients")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col text-right" }, [
-          _c(
-            "a",
-            { staticClass: "btn btn-sm btn-primary", attrs: { href: "#!" } },
-            [_vm._v("Create")]
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "col" }, [
+      _c("h3", { staticClass: "mb-0" }, [_vm._v("Clients")])
     ])
   },
   function() {
@@ -1661,13 +1690,7 @@ var staticRenderFns = [
           _c("h3", { staticClass: "mb-0" }, [_vm._v("Document Expiration")])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col text-right" }, [
-          _c(
-            "a",
-            { staticClass: "btn btn-sm btn-primary", attrs: { href: "#!" } },
-            [_vm._v("Create")]
-          )
-        ])
+        _c("div", { staticClass: "col text-right" })
       ])
     ])
   },
@@ -1709,86 +1732,120 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "card" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table align-items-center table-flush" },
-          [
-            _vm.employees
-              ? [
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.employees, function(employee, index) {
-                      return _c("tr", { key: index }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(employee.name) +
-                              "\n                            "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "div",
-                            { staticClass: "d-flex align-items-center" },
-                            [
-                              _c("ul", [
-                                _c("li", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href: "#!",
-                                        "data-id": employee.id,
-                                        title: "View Employee"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.viewEmployee(employee.id)
+    _c(
+      "div",
+      { staticClass: "card" },
+      [
+        _c("div", { staticClass: "card-header border-0" }, [
+          _c("div", { staticClass: "row align-items-center" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col text-right" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function($event) {
+                      _vm.showPopup = true
+                    }
+                  }
+                },
+                [_vm._v("Create")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "table",
+            { staticClass: "table align-items-center table-flush" },
+            [
+              _vm.employees
+                ? [
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.employees, function(employee, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(employee.name) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
+                                _c("ul", [
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
+                                          "data-id": employee.id,
+                                          title: "View Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.viewEmployee(employee.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-eye" })]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href: "#!",
-                                        "data-id": employee.id,
-                                        title: "Update Employee"
                                       },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editEmployee(employee.id)
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
+                                          "data-id": employee.id,
+                                          title: "Update Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editEmployee(employee.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-pen" })]
-                                  )
+                                      },
+                                      [_c("i", { staticClass: "fas fa-pen" })]
+                                    )
+                                  ])
                                 ])
-                              ])
-                            ]
-                          )
+                              ]
+                            )
+                          ])
                         ])
-                      ])
-                    }),
-                    0
-                  )
-                ]
-              : [_vm._m(1)]
-          ],
-          2
-        )
-      ])
-    ])
+                      }),
+                      0
+                    )
+                  ]
+                : [_vm._m(1)]
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("create-employee-popup", {
+          attrs: { showPopup: _vm.showPopup },
+          on: {
+            close: function($event) {
+              _vm.showPopup = false
+            }
+          }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -1796,20 +1853,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header border-0" }, [
-      _c("div", { staticClass: "row align-items-center" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h3", { staticClass: "mb-0" }, [_vm._v("Employees")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col text-right" }, [
-          _c(
-            "a",
-            { staticClass: "btn btn-sm btn-primary", attrs: { href: "#!" } },
-            [_vm._v("Create")]
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "col" }, [
+      _c("h3", { staticClass: "mb-0" }, [_vm._v("Employees")])
     ])
   },
   function() {

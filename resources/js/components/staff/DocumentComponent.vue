@@ -7,7 +7,7 @@
                         <h3 class="mb-0">My Documents</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">Upload</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
@@ -53,6 +53,9 @@
 
             </div>
         </div>
+
+    <upload-document-popup :showPopup="showPopup"  @close="showPopup = false"></upload-document-popup>
+
     </div>
 </template>
 
@@ -60,7 +63,8 @@
     export default {
         data() {
             return {
-                documents: []
+                documents: [],
+                showPopup: false
             }
         },
         mounted() {
@@ -69,6 +73,9 @@
         methods: {
             getDocumentExpires() {
                 return null
+            },
+            close() {
+                this.$emit('close', false)
             }
         }
     }

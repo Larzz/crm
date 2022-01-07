@@ -7,10 +7,11 @@
                         <h3 class="mb-0">Employees</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" class="btn btn-sm btn-primary">Create</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Create</a>
                     </div>
                 </div>
             </div>
+            
             <div class="table-responsive">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
@@ -42,6 +43,9 @@
                     </template>
                 </table>
             </div>
+
+            <create-employee-popup :showPopup="showPopup" @close="showPopup = false"></create-employee-popup>
+
         </div>
     </div>
 </template>
@@ -50,7 +54,8 @@
     export default {
         data() {
             return {
-                employees: []
+                employees: [],
+                showPopup: false
             }
         },
         mounted() {
