@@ -86,20 +86,54 @@
                this.$emit('close', false)
             },
             addEmployee() {
-            //    console.log(this.fields)
+               console.log(this.fields)
+                
+                let $this = this
 
-                 axios.get('/api/v1/employee')
-                    .then(function (response) {
-                        // handle success
-                        console.log(response);
-                        this.employees = response.data.result
-                    })
-                    .catch(function (error) {
-                         this.$toastr.e(error);
-                    })
-                    .then(function () {
-                        // always executed
-                    });
+                if (!this.fields.name) {
+                    $this.$toastr.e('Name is Required');
+                    return false
+                }
+
+                if(!this.fields.email) {
+                    $this.$toastr.e('Name is Required');
+                    return false
+                }
+
+                if(!this.fields.password) {
+                    $this.$toastr.e('Name is Required');
+                    return false
+                }
+
+                if(!this.fields.position) {
+                    $this.$toastr.e('Position is Required')
+                    return false
+                }
+
+                if(!this.fields.birth_date) {
+                    $this.$toastr.e('Birth Data is Required')
+                    return false
+                }
+
+                if (!this.fields.mobile_number) {
+                    $this.$toastr.e('Mobile Number is Required')
+                    return false
+                }
+
+                axios({
+                  method: 'post',
+                  url: '/api/v1/employee?api_token='+this.api_token,
+                  data: this.fields
+                }).then(function (response) {
+                    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+                })
+                .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                    $this.$toastr.e(error);
+                });
+
 
             }
         }
