@@ -37,6 +37,22 @@ Route::namespace('API')->group(function() {
             Route::patch('{id}', 'LeaveController@editLeave');
             Route::delete('{id}', 'LeaveController@deleteLeave');
         });
+
+        Route::prefix('employee')->namespace('Administrator')->group(function() {
+            Route::post('/', 'EmployeeController@addEmployee');
+            Route::get('/', 'EmployeeController@getEmployees');
+            Route::get('{id}', 'EmployeeController@getEmployee');
+            Route::patch('{id}', 'EmployeeController@editEmployee');
+            Route::delete('{id}', 'EmployeeController@deleteEmployee');
+        });
+
+        Route::prefix('client')->group(function() {
+            Route::post('/', 'ClientController@addClient');
+            Route::get('/', 'ClientController@getClients');
+            Route::get('{id}', 'ClientController@getClient');
+            Route::patch('{id}', 'ClientController@editClient');
+            Route::delete('{id}', 'ClientController@deleteClient');
+        });
     
     });
 

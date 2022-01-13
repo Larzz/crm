@@ -42,7 +42,6 @@ var Layout = (function() {
         $('.sidenav-toggler').data('action', 'sidenav-pin');
         $('body').removeClass('g-sidenav-pinned').addClass('g-sidenav-hidden');
         $('body').find('.backdrop').remove();
-
         // Store the sidenav state in a cookie session
         // Cookies.set('sidenav-state', 'unpinned');
     }

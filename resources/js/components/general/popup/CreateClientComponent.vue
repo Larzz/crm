@@ -6,36 +6,45 @@
         <transition name="slide" appear>
             <div class="modal" v-if="showPopup">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Client Add</h6>
+                    <h6 class="modal-title" id="modal-title-default">Client Creation</h6>
                     <button type="button" @click.prevent="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    
-                    <div class="form-group">
-                        <label for="">Name</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="">Email</label>
-                        <input type="email" class="form-control">
-                    </div>
+              
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <input type="text" v-model="fields.name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Contact Email</label>
+                                <input type="email" v-model="fields.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="text" v-model="fields.password" class="form-control">
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="">Password</label>
-                        <input type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Remarks</label>
-                         <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Date Joined</label>
+                                <input type="date" v-model="fields.date_joined" class="form-control">
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="">Contact Numer</label>
+                                <input type="text" v-model="fields.mobile_number" class="form-control">
+                            </div>
+                        </div>
                     </div>
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" @click="addClient" class="btn btn-primary">Save changes</button>
                     <button type="button" @click.prevent="close" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -47,7 +56,14 @@
     export default {
         data() {
             return {
-                showClientPopup: false
+                showClientPopup: false,
+                fields: {
+                    name: null,
+                    email: null,
+                    password: null,
+                    date_joined: null,
+                    mobile_number: null
+                }
             }
         },
         props: {
@@ -59,6 +75,17 @@
         methods: {
             close() {
                 this.$emit('close', false)
+            },
+            addClient() {
+
+                axios({
+                  method: 'post',
+                  url: '/api/v1/client',
+                  data: this.fields
+                }).then(function (response) {
+                    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+                });
+                    
             }
         }
     }
@@ -104,10 +131,10 @@
         max-width: 50%;
         background-color: #FFF;
         border-radius: 16px;
-        padding: 25px;
+        padding: 0px;
         display: block;
         height: 50%;
-        min-height: 75%;
+        min-height: 58%;
     }
 
     h1 {

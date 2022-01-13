@@ -30,7 +30,6 @@
     <div class="container-fluid mt--6">
       <div class="row">
         <div class="col-xl-6">
-          {{-- bulettin --}}
           <general-bulletin-card> </general-bulletin-card>
         </div>
         <div class="col-xl-6">
@@ -50,7 +49,7 @@
         <div class="col-xl-4">
           <general-client-card></general-client-card>
         </div>
-        
+
       </div>
 
       <div class="col-lx-12">
