@@ -39,7 +39,7 @@
       <div class="row">
 
         <div class="col-xl-4">
-          <staff-profile></staff-profile>
+          <staff-profile :employee="{{ Auth::User() }}"></staff-profile>
         </div>
 
         <div class="col-xl-4">

@@ -78,12 +78,45 @@
             },
             addClient() {
 
+                let $this = this
+
+                if(!this.fields.name) {
+                    $this.$toastr.e('Name is Required')
+                    return;
+                }
+
+                if(!this.fields.email) {
+                    $this.$toastr.e('Email is Required')
+                    return;
+                }
+
+                if(!this.fields.password) {
+                    $this.$toastr.e('Password is Required')
+                    return;
+                }
+
+                if(!this.fields.date_joined) {
+                    $this.$toastr.e('Date Joined is Required')
+                    return;
+                }
+
+                if(!this.fields.mobile_number) {
+                    $this.$toastr.e('Moble Number is Required')
+                    return;
+                }
+
                 axios({
                   method: 'post',
                   url: '/api/v1/client',
                   data: this.fields
                 }).then(function (response) {
                     response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+                })
+                 .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                    $this.$toastr.e(error);
                 });
                     
             }

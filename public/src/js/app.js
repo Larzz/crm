@@ -2878,12 +2878,43 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('close', false);
     },
     addClient: function addClient() {
+      var $this = this;
+
+      if (!this.fields.name) {
+        $this.$toastr.e('Name is Required');
+        return;
+      }
+
+      if (!this.fields.email) {
+        $this.$toastr.e('Email is Required');
+        return;
+      }
+
+      if (!this.fields.password) {
+        $this.$toastr.e('Password is Required');
+        return;
+      }
+
+      if (!this.fields.date_joined) {
+        $this.$toastr.e('Date Joined is Required');
+        return;
+      }
+
+      if (!this.fields.mobile_number) {
+        $this.$toastr.e('Moble Number is Required');
+        return;
+      }
+
       axios({
         method: 'post',
         url: '/api/v1/client',
         data: this.fields
       }).then(function (response) {
         response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'));
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        $this.$toastr.e(error);
       });
     }
   }
@@ -3401,7 +3432,30 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     submitVacation: function submitVacation() {
-      console.log(this.field);
+      var $this = this;
+
+      if (!this.field.leave_from) {
+        $this.$toastr.e('Leave From is Required');
+        return;
+      }
+
+      if (!this.field.leave_to) {
+        $this.$toastr.e('Leave to is Required');
+        return;
+      }
+
+      JsLoadingOverlay.show(this.$configs);
+      axios({
+        method: 'post',
+        url: '/api/v1/leave?api_token=' + this.api_token,
+        data: this.fields
+      }).then(function (response) {
+        response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'));
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        $this.$toastr.e(error);
+      });
     }
   }
 });
@@ -3446,6 +3500,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
+  props: ['employee'],
   mounted: function mounted() {},
   methods: {}
 });
@@ -3578,7 +3633,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-56767808],\n.fade-leave-active[data-v-56767808] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-56767808],\n.fade-leave-to[data-v-56767808] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-56767808],\n.slide-leave-active[data-v-56767808] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-56767808],\n.slide-leave-to[data-v-56767808] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-56767808] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-56767808] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 25px;\n    display: block;\n    height: 50%;\n    min-height: 75%;\n}\nh1[data-v-56767808] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-56767808] {\n    float: right;\n}\n.btn[data-v-56767808] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-56767808] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-56767808] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-56767808],\n.fade-leave-active[data-v-56767808] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-56767808],\n.fade-leave-to[data-v-56767808] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-56767808],\n.slide-leave-active[data-v-56767808] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-56767808],\n.slide-leave-to[data-v-56767808] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-56767808] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-56767808] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 50%;\n    min-height: 75%;\n}\nh1[data-v-56767808] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-56767808] {\n    float: right;\n}\n.btn[data-v-56767808] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-56767808] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -3726,6 +3781,18 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/js-loading-overlay/dist/js-loading-overlay.min.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/js-loading-overlay/dist/js-loading-overlay.min.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+!function(e){var t={};function n(o){if(t[o])return t[o].exports;var i=t[o]={i:o,l:!1,exports:{}};return e[o].call(i.exports,i,i.exports,n),i.l=!0,i.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var i in e)n.d(o,i,function(t){return e[t]}.bind(null,i));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){e.exports=n(1)},function(e,t){function n(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}var o=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={overlayBackgroundColor:"#666666",overlayOpacity:.6,spinnerIcon:"ball-circus",spinnerColor:"#000",spinnerSize:"3x",overlayIDName:"overlay",spinnerIDName:"spinner",offsetY:0,offsetX:0,lockScroll:!1,containerID:null,spinnerZIndex:99999,overlayZIndex:99998},this.stylesheetBaseURL="https://cdn.jsdelivr.net/npm/load-awesome@1.1.0/css/",this.spinner=null,this.spinnerStylesheetURL=null,this.numberOfEmptyDivForSpinner={"ball-8bits":16,"ball-atom":4,"ball-beat":3,"ball-circus":5,"ball-climbing-dot":1,"ball-clip-rotate":1,"ball-clip-rotate-multiple":2,"ball-clip-rotate-pulse":2,"ball-elastic-dots":5,"ball-fall":3,"ball-fussion":4,"ball-grid-beat":9,"ball-grid-pulse":9,"ball-newton-cradle":4,"ball-pulse":3,"ball-pulse-rise":5,"ball-pulse-sync":3,"ball-rotate":1,"ball-running-dots":5,"ball-scale":1,"ball-scale-multiple":3,"ball-scale-pulse":2,"ball-scale-ripple":1,"ball-scale-ripple-multiple":3,"ball-spin":8,"ball-spin-clockwise":8,"ball-spin-clockwise-fade":8,"ball-spin-clockwise-fade-rotating":8,"ball-spin-fade":8,"ball-spin-fade-rotating":8,"ball-spin-rotate":2,"ball-square-clockwise-spin":8,"ball-square-spin":8,"ball-triangle-path":3,"ball-zig-zag":2,"ball-zig-zag-deflect":2,cog:1,"cube-transition":2,fire:3,"line-scale":5,"line-scale-party":5,"line-scale-pulse-out":5,"line-scale-pulse-out-rapid":5,"line-spin-clockwise-fade":8,"line-spin-clockwise-fade-rotating":8,"line-spin-fade":8,"line-spin-fade-rotating":8,pacman:6,"square-jelly-box":2,"square-loader":1,"square-spin":1,timer:1,"triangle-skew-spin":1}}var t,o,i;return t=e,(o=[{key:"show",value:function(e){this.setOptions(e),this.addSpinnerStylesheet(),this.generateSpinnerElement(),this.options.lockScroll&&(document.body.style.overflow="hidden",document.documentElement.style.overflow="hidden"),this.generateAndAddOverlayElement()}},{key:"hide",value:function(){this.options.lockScroll&&(document.body.style.overflow="",document.documentElement.style.overflow="");var e=document.getElementById("loading-overlay-stylesheet");e&&(e.disabled=!0,e.parentNode.removeChild(e),document.getElementById(this.options.overlayIDName).remove(),document.getElementById(this.options.spinnerIDName).remove())}},{key:"setOptions",value:function(e){if(void 0!==e)for(var t in e)this.options[t]=e[t]}},{key:"generateAndAddOverlayElement",value:function(){var e="50%";0!==this.options.offsetX&&(e="calc(50% + "+this.options.offsetX+")");var t="50%";if(0!==this.options.offsetY&&(t="calc(50% + "+this.options.offsetY+")"),this.options.containerID&&document.body.contains(document.getElementById(this.options.containerID))){var n='<div id="'.concat(this.options.overlayIDName,'" style="display: block !important; position: absolute; top: 0; left: 0; overflow: auto; opacity: ').concat(this.options.overlayOpacity,"; background: ").concat(this.options.overlayBackgroundColor,'; z-index: 50; width: 100%; height: 100%;"></div><div id="').concat(this.options.spinnerIDName,'" style="display: block !important; position: absolute; top: ').concat(t,"; left: ").concat(e,'; -webkit-transform: translate(-50%); -ms-transform: translate(-50%); transform: translate(-50%); z-index: 9999;">').concat(this.spinner,"</div>"),o=document.getElementById(this.options.containerID);return o.style.position="relative",void o.insertAdjacentHTML("beforeend",n)}var i='<div id="'.concat(this.options.overlayIDName,'" style="display: block !important; position: fixed; top: 0; left: 0; overflow: auto; opacity: ').concat(this.options.overlayOpacity,"; background: ").concat(this.options.overlayBackgroundColor,"; z-index: ").concat(this.options.overlayZIndex,'; width: 100%; height: 100%;"></div><div id="').concat(this.options.spinnerIDName,'" style="display: block !important; position: fixed; top: ').concat(t,"; left: ").concat(e,"; -webkit-transform: translate(-50%); -ms-transform: translate(-50%); transform: translate(-50%); z-index: ").concat(this.options.spinnerZIndex,';">').concat(this.spinner,"</div>");document.body.insertAdjacentHTML("beforeend",i)}},{key:"generateSpinnerElement",value:function(){var e=this,t=Object.keys(this.numberOfEmptyDivForSpinner).find((function(t){return t===e.options.spinnerIcon})),n=this.generateEmptyDivElement(this.numberOfEmptyDivForSpinner[t]);this.spinner='<div style="color: '.concat(this.options.spinnerColor,'" class="la-').concat(this.options.spinnerIcon," la-").concat(this.options.spinnerSize,'">').concat(n,"</div>")}},{key:"addSpinnerStylesheet",value:function(){this.setSpinnerStylesheetURL();var e=document.createElement("link");e.setAttribute("id","loading-overlay-stylesheet"),e.setAttribute("rel","stylesheet"),e.setAttribute("type","text/css"),e.setAttribute("href",this.spinnerStylesheetURL),document.getElementsByTagName("head")[0].appendChild(e)}},{key:"setSpinnerStylesheetURL",value:function(){this.spinnerStylesheetURL=this.stylesheetBaseURL+this.options.spinnerIcon+".min.css"}},{key:"generateEmptyDivElement",value:function(e){for(var t="",n=1;n<=e;n++)t+="<div></div>";return t}}])&&n(t.prototype,o),i&&n(t,i),e}();window.JsLoadingOverlay=new o,e.exports=JsLoadingOverlay}]);
+//# sourceMappingURL=js-loading-overlay.min.js.map
 
 /***/ }),
 
@@ -24800,7 +24867,9 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("h5", [_vm._v("August 5, 2021")])
+                _c("h5", {
+                  domProps: { innerHTML: _vm._s(_vm.field.leave_from) }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [
@@ -24828,7 +24897,9 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("h5", [_vm._v("August 5, 2021")])
+                _c("h5", {
+                  domProps: { innerHTML: _vm._s(_vm.field.leave_to) }
+                })
               ])
             ])
           ]),
@@ -24938,76 +25009,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "card profile-card-2" }, [
+      _c("div", { staticClass: "card-body pt-5" }, [
+        _c("img", {
+          staticClass: "profile",
+          attrs: {
+            src: "https://randomuser.me/api/portraits/men/64.jpg",
+            alt: "profile-image"
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "information" }, [
+          _c("div", { staticClass: "name-info" }, [
+            _c("h5", { staticClass: "personal-name" }, [
+              _vm._v(_vm._s(_vm.employee.name))
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "position" }, [
+              _vm._v(_vm._s(_vm.employee.position))
+            ]),
+            _vm._v(" "),
+            _c("h4", { staticClass: "date-joined" }, [
+              _vm._v("Date Joined: "),
+              _c("span", [_vm._v(_vm._s(_vm.employee.date_joined))])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "personal-info" }, [
+          _c("h2", [_vm._v("Personal Information: ")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Birth date "),
+            _c("span", { staticClass: "colon" }, [_vm._v(":")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "answer" }, [
+              _vm._v(_vm._s(_vm.employee.birth_date))
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Email Address "),
+            _c("span", { staticClass: "colon" }, [_vm._v(":")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "answer" }, [
+              _vm._v(" " + _vm._s(_vm.employee.email))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Mobile Number "),
+            _c("span", { staticClass: "colon" }, [_vm._v(":")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "answer" }, [
+              _vm._v(_vm._s(_vm.employee.mobile_number))
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card profile-card-2" }, [
-        _c("div", { staticClass: "card-body pt-5" }, [
-          _c("img", {
-            staticClass: "profile",
-            attrs: {
-              src: "https://randomuser.me/api/portraits/men/64.jpg",
-              alt: "profile-image"
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "information" }, [
-            _c("div", { staticClass: "name-info" }, [
-              _c("h5", { staticClass: "personal-name" }, [
-                _vm._v("Landon Hunt")
-              ]),
-              _vm._v(" "),
-              _c("h6", { staticClass: "position" }, [
-                _vm._v("Product Engineer")
-              ]),
-              _vm._v(" "),
-              _c("h4", { staticClass: "date-joined" }, [
-                _vm._v("Date Joined: "),
-                _c("span", [_vm._v("October 1, 2021")])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "personal-info" }, [
-            _c("h2", [_vm._v("Personal Information: ")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Birth date "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }, [_vm._v("June 26, 1999")])
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Gender "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }, [_vm._v("Female")])
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Email Address "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }, [
-                _vm._v(" zaira@creativouae.com")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Mobile Number "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }, [_vm._v("056-894-9453")])
-            ])
-          ])
-        ])
-      ])
+    return _c("p", [
+      _vm._v("Gender "),
+      _c("span", { staticClass: "colon" }, [_vm._v(":")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "answer" }, [_vm._v("Female")])
     ])
   }
 ]
@@ -40144,13 +40219,31 @@ Vue.component('document-expiration-widget', _components_administrator_dashboard_
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var _clients_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./clients.js */ "./resources/js/clients.js");
-/* harmony import */ var _administrator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./administrator */ "./resources/js/administrator.js");
-/* harmony import */ var _general__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./general */ "./resources/js/general.js");
-/* harmony import */ var _staff__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./staff */ "./resources/js/staff.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var js_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-loading-overlay */ "./node_modules/js-loading-overlay/dist/js-loading-overlay.min.js");
+/* harmony import */ var js_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clients_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./clients.js */ "./resources/js/clients.js");
+/* harmony import */ var _administrator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./administrator */ "./resources/js/administrator.js");
+/* harmony import */ var _general__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./general */ "./resources/js/general.js");
+/* harmony import */ var _staff__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./staff */ "./resources/js/staff.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // const
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var configs = {
+  'overlayBackgroundColor': '#fff',
+  'overlayOpacity': 0.6,
+  'spinnerIcon': 'ball-circus',
+  'spinnerColor': '#f26f24',
+  'spinnerSize': '1x',
+  'overlayIDName': 'overlay',
+  'spinnerIDName': 'spinner',
+  'offsetY': 0,
+  'offsetX': 0,
+  'lockScroll': false,
+  'containerID': null
+}; // global variable
+
+Vue.prototype.$configs = configs; // const
 
 window.BASE_URL = process.env.BASE_URL;
 

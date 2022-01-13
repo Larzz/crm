@@ -17,13 +17,13 @@
                             <div class="col-md-6">
                                 <h4>From</h4>
                                 <input v-model="field.leave_from" type="date" class="form-control">
-                                <h5>August 5, 2021</h5>
+                                <h5 v-html="field.leave_from"></h5>
                             </div>
 
                             <div class="col-md-6">
                                 <h4>To</h4>
                                 <input v-model="field.leave_to" type="date" class="form-control">
-                                <h5>August 5, 2021</h5>
+                                <h5 v-html="field.leave_to"></h5>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,37 @@
 
         },
         methods: {
-            submitVacation() {
-                console.log(this.field)
+          
+          submitVacation() {
+
+                let $this = this
+
+                if (!this.field.leave_from) {
+                    $this.$toastr.e('Leave From is Required')
+                    return;    
+                }
+
+                if(!this.field.leave_to) {
+                    $this.$toastr.e('Leave to is Required')
+                    return;
+                }
+
+                JsLoadingOverlay.show(this.$configs);
+
+               axios({
+                  method: 'post',
+                  url: '/api/v1/leave?api_token='+this.api_token,
+                  data: this.fields
+                }).then(function (response) {
+                    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+                })
+                .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                    $this.$toastr.e(error);
+                });
+
             }
         }
     }

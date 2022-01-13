@@ -115,6 +115,11 @@
 </script>
 
 <style scoped>
+    
+    .form-group {
+        margin-bottom: 10px;
+    }
+
     .fade-enter-active,
     .fade-leave-active {
         transition: opacity .5s;
@@ -154,7 +159,7 @@
         max-width: 50%;
         background-color: #FFF;
         border-radius: 16px;
-        padding: 25px;
+        padding: 0px;
         display: block;
         height: 50%;
         min-height: 75%;

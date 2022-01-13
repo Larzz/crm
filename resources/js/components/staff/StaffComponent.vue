@@ -5,17 +5,17 @@
                 <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile" />
                 <div class="information">
                     <div class="name-info">
-                        <h5 class="personal-name">Landon Hunt</h5>
-                        <h6 class="position">Product Engineer</h6>
-                        <h4 class="date-joined">Date Joined: <span>October 1, 2021</span></h4>
+                        <h5 class="personal-name">{{ employee.name }}</h5>
+                        <h6 class="position">{{ employee.position }}</h6>
+                        <h4 class="date-joined">Date Joined: <span>{{ employee.date_joined }}</span></h4>
                     </div>
                 </div>
                 <div class="personal-info">
                     <h2>Personal Information: </h2>
-                    <p>Birth date <span class="colon">:</span> <span class="answer">June 26, 1999</span></p>
+                    <p>Birth date <span class="colon">:</span> <span class="answer">{{ employee.birth_date}}</span></p>
                     <p>Gender <span class="colon">:</span> <span class="answer">Female</span></p>
-                    <p>Email Address <span class="colon">:</span> <span class="answer"> zaira@creativouae.com</span></p>
-                    <p>Mobile Number <span class="colon">:</span>  <span class="answer">056-894-9453</span> </p>                    
+                    <p>Email Address <span class="colon">:</span> <span class="answer"> {{ employee.email }}</span></p>
+                    <p>Mobile Number <span class="colon">:</span>  <span class="answer">{{ employee.mobile_number }}</span> </p>                    
                 </div>
               
             </div>
@@ -30,6 +30,7 @@
 
             }
         },
+        props: ['employee'],
         mounted() {
 
         },
