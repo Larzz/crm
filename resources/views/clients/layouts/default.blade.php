@@ -16,6 +16,9 @@
 <body>
     @include('clients.includes.sidebar')
     @yield('content')
-<script src="{{ asset('src/js/dashboard') }}"></script>
+    <script>
+      window.Laravel = <?php echo json_encode(['api_token' => (Auth::user())->api_token]); ?>
+    </script>
+    <script src="{{ asset('src/js/dashboard') }}"></script>
 </body>
 </html>

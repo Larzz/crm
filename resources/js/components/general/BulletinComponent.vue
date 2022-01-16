@@ -43,7 +43,24 @@
         },
         methods: {
             getBulettin() {
-                return null;
+                
+                  let $this = this
+                
+                 axios({
+                  method: 'get',
+                  url: '/api/v1/bulletin?api_toekn='+window.Laravel.api_token,
+                  data: this.fields
+                }).then(function (response) {
+                    console.log(response)
+                })
+                 .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                    $this.$toastr.e(error);
+                });
+
+
             }
         }
     }

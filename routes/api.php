@@ -53,6 +53,14 @@ Route::namespace('API')->group(function() {
             Route::patch('{id}', 'ClientController@editClient');
             Route::delete('{id}', 'ClientController@deleteClient');
         });
+
+        Route::prefix('documents')->group(function() {
+            Route::post('/', 'DocumentController@addDocument');
+            Route::get('/', 'DocumentController@getDocuments');
+            Route::get('{id}', 'DocumentController@getDocument');
+            Route::patch('{id}', 'DocumentController@editDocument');
+            Route::delete('{id}', 'DocumentController@deleteDocument');
+        });
     
     });
 

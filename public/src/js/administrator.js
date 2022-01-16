@@ -139,7 +139,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getBulettin: function getBulettin() {
-      return null;
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
+        data: {
+          config: {
+            headers: {
+              Authorization: 'Bearer ' + window.Laravel.api_token,
+              Accept: 'application/json'
+            }
+          }
+        }
+      }).then(function (response) {// console.log(response)
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
     }
   }
 });
@@ -195,8 +210,6 @@ __webpack_require__.r(__webpack_exports__);
   props: [],
   methods: {
     create: function create() {
-      var _this = this;
-
       if (!this.forms.title) {
         this.$toastr.e("Sorry, Title is Required");
         return false;
@@ -207,10 +220,14 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
-      axios.post('/api/v1/bulletin', {
+      axios({
+        method: 'post',
+        url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
         data: this.forms
       }).then(function (response) {})["catch"](function (error) {
-        _this.$toastr.e(error.response);
+        $this.$toastr.e(error);
+      }).then(function () {
+        $this.$toastr.e();
       });
     }
   }
@@ -284,11 +301,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.clients = this.getClients;
+    this.clients = this.getClients();
   },
   methods: {
     getClients: function getClients() {
-      return;
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/client?api_token=' + window.Laravel.api_token //   data: this.fields
+
+      }).then(function (response) {
+        $this.clients = response.data.clients;
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
     }
   }
 });
@@ -364,7 +390,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getExpiredDocumentExpired: function getExpiredDocumentExpired() {
-      return null;
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+        data: this.fields
+      }).then(function (response) {})["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
     }
   }
 });
@@ -440,20 +473,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.employees = this.getEmployees();
+    this.getEmployees();
   },
   methods: {
     getEmployees: function getEmployees() {
-      axios.get('/api/v1/bulletin').then(function (response) {
-        // handle success
-        console.log(response);
-        this.employees = response.data.result;
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/employee?api_token=' + window.Laravel.api_token //   data: this.fields
+
+      }).then(function (response) {
+        $this.employees = response.data.employees; // console.log(this.employees)
+
+        console.log(response.data.employees);
       })["catch"](function (error) {
-        // handle error
-        console.log(error);
-      }).then(function () {// always executed
-      });
-      return;
+        $this.$toastr.e(error);
+      }).then(function () {});
     }
   }
 });
@@ -540,7 +575,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getLeaves: function getLeaves() {
-      return null;
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/leave?api_token=' + window.Laravel.api_token,
+        data: this.fields
+      }).then(function (response) {})["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
     }
   }
 });
@@ -1203,7 +1245,7 @@ module.exports = function (css) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -1225,31 +1267,31 @@ var render = function() {
                       "\n                        " +
                         _vm._s(this.bulletin.message) +
                         "\n                    "
-                    )
-                  ])
-                ])
+                    ),
+                  ]),
+                ]),
               ]
-            : [_vm._m(1)]
+            : [_vm._m(1)],
         ],
         2
-      )
-    ])
+      ),
+    ]),
   ])
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-transparent" }, [
       _c("div", { staticClass: "row align-items-center" }, [
         _c("div", { staticClass: "col" }, [
-          _c("h4", { staticClass: "h3 mb-0" }, [_vm._v("Bulettin")])
-        ])
-      ])
+          _c("h4", { staticClass: "h3 mb-0" }, [_vm._v("Bulettin")]),
+        ]),
+      ]),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -1259,11 +1301,11 @@ var staticRenderFns = [
         { staticClass: "alert alert-warning", attrs: { role: "alert" } },
         [
           _c("strong", [_vm._v("Sorry!")]),
-          _vm._v(" No Record Found\n                    ")
+          _vm._v(" No Record Found\n                    "),
         ]
-      )
+      ),
     ])
-  }
+  },
 ]
 render._withStripped = true
 
@@ -1282,7 +1324,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -1298,21 +1340,21 @@ var render = function() {
                 name: "model",
                 rawName: "v-model",
                 value: _vm.forms.title,
-                expression: "forms.title"
-              }
+                expression: "forms.title",
+              },
             ],
             staticClass: "form-control",
             attrs: { type: "text" },
             domProps: { value: _vm.forms.title },
             on: {
-              input: function($event) {
+              input: function ($event) {
                 if ($event.target.composing) {
                   return
                 }
                 _vm.$set(_vm.forms, "title", $event.target.value)
-              }
-            }
-          })
+              },
+            },
+          }),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
@@ -1324,21 +1366,21 @@ var render = function() {
                 name: "model",
                 rawName: "v-model",
                 value: _vm.forms.message,
-                expression: "forms.message"
-              }
+                expression: "forms.message",
+              },
             ],
             staticClass: "form-control",
             attrs: { name: "", id: "", cols: "30", rows: "5" },
             domProps: { value: _vm.forms.message },
             on: {
-              input: function($event) {
+              input: function ($event) {
                 if ($event.target.composing) {
                   return
                 }
                 _vm.$set(_vm.forms, "message", $event.target.value)
-              }
-            }
-          })
+              },
+            },
+          }),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
@@ -1352,18 +1394,18 @@ var render = function() {
                   name: "model",
                   rawName: "v-model",
                   value: _vm.forms.active,
-                  expression: "forms.active"
-                }
+                  expression: "forms.active",
+                },
               ],
               staticClass: "form-control",
               attrs: { name: "", id: "" },
               on: {
-                change: function($event) {
+                change: function ($event) {
                   var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
+                    .call($event.target.options, function (o) {
                       return o.selected
                     })
-                    .map(function(o) {
+                    .map(function (o) {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
@@ -1372,8 +1414,8 @@ var render = function() {
                     "active",
                     $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                   )
-                }
-              }
+                },
+              },
             },
             [
               _c(
@@ -1386,9 +1428,9 @@ var render = function() {
                 "option",
                 { staticClass: "form-control", attrs: { value: "No" } },
                 [_vm._v("No")]
-              )
+              ),
             ]
-          )
+          ),
         ]),
         _vm._v(" "),
         _c(
@@ -1397,15 +1439,15 @@ var render = function() {
             staticClass: "btn btn-primary",
             attrs: { href: "#!" },
             on: {
-              click: function($event) {
+              click: function ($event) {
                 return _vm.create()
-              }
-            }
+              },
+            },
           },
           [_vm._v("Add")]
-        )
-      ])
-    ])
+        ),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -1426,7 +1468,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -1445,15 +1487,15 @@ var render = function() {
                   staticClass: "btn btn-sm btn-primary",
                   attrs: { href: "#!" },
                   on: {
-                    click: function($event) {
+                    click: function ($event) {
                       _vm.showPopup = true
-                    }
-                  }
+                    },
+                  },
                 },
                 [_vm._v("Create")]
-              )
-            ])
-          ])
+              ),
+            ]),
+          ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
@@ -1465,14 +1507,14 @@ var render = function() {
                 ? [
                     _c(
                       "tbody",
-                      _vm._l(_vm.clients, function(client, index) {
+                      _vm._l(_vm.clients, function (client, index) {
                         return _c("tr", { key: index }, [
                           _c("th", { attrs: { scope: "row" } }, [
                             _vm._v(
                               "\n                                " +
                                 _vm._s(client.name) +
                                 "\n                            "
-                            )
+                            ),
                           ]),
                           _vm._v(" "),
                           _c("td", [
@@ -1488,16 +1530,16 @@ var render = function() {
                                         attrs: {
                                           href: "#!",
                                           "data-id": client.id,
-                                          title: "View Employee"
+                                          title: "View Employee",
                                         },
                                         on: {
-                                          click: function($event) {
+                                          click: function ($event) {
                                             return _vm.viewEmployee(client.id)
-                                          }
-                                        }
+                                          },
+                                        },
                                       },
                                       [_c("i", { staticClass: "fas fa-eye" })]
-                                    )
+                                    ),
                                   ]),
                                   _vm._v(" "),
                                   _c("li", [
@@ -1507,57 +1549,55 @@ var render = function() {
                                         attrs: {
                                           href: "#!",
                                           "data-id": client.id,
-                                          title: "Update Employee"
+                                          title: "Update Employee",
                                         },
                                         on: {
-                                          click: function($event) {
+                                          click: function ($event) {
                                             return _vm.editEmployee(client.id)
-                                          }
-                                        }
+                                          },
+                                        },
                                       },
                                       [_c("i", { staticClass: "fas fa-pen" })]
-                                    )
-                                  ])
-                                ])
+                                    ),
+                                  ]),
+                                ]),
                               ]
-                            )
-                          ])
+                            ),
+                          ]),
                         ])
                       }),
                       0
-                    )
+                    ),
                   ]
-                : _vm._e(),
-              _vm._v(" "),
-              [_vm._m(1)]
+                : [_vm._m(1)],
             ],
             2
-          )
-        ])
+          ),
+        ]),
       ]),
       _vm._v(" "),
       _c("create-client-popup", {
         attrs: { showPopup: _vm.showPopup },
         on: {
-          close: function($event) {
+          close: function ($event) {
             _vm.showPopup = false
-          }
-        }
-      })
+          },
+        },
+      }),
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
-      _c("h3", { staticClass: "mb-0" }, [_vm._v("Clients")])
+      _c("h3", { staticClass: "mb-0" }, [_vm._v("Clients")]),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -1567,11 +1607,11 @@ var staticRenderFns = [
         { staticClass: "alert alert-warning", attrs: { role: "alert" } },
         [
           _c("strong", [_vm._v("Sorry!")]),
-          _vm._v(" No Record Found\n                        ")
+          _vm._v(" No Record Found\n                        "),
         ]
-      )
+      ),
     ])
-  }
+  },
 ]
 render._withStripped = true
 
@@ -1590,7 +1630,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -1607,14 +1647,14 @@ var render = function() {
               ? [
                   _c(
                     "tbody",
-                    _vm._l(_vm.documents, function(document, index) {
+                    _vm._l(_vm.documents, function (document, index) {
                       return _c("tr", { key: index }, [
                         _c("th", { attrs: { scope: "row" } }, [
                           _vm._v(
                             "\n                                  " +
                               _vm._s(document.name) +
                               "\n                              "
-                          )
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("td", [_vm._v("August 5, 2021")]),
@@ -1632,16 +1672,16 @@ var render = function() {
                                       attrs: {
                                         href: "#!",
                                         "data-id": document.id,
-                                        title: "View Employee"
+                                        title: "View Employee",
                                       },
                                       on: {
-                                        click: function($event) {
+                                        click: function ($event) {
                                           return _vm.viewdocument(document.id)
-                                        }
-                                      }
+                                        },
+                                      },
                                     },
                                     [_c("i", { staticClass: "fas fa-eye" })]
-                                  )
+                                  ),
                                 ]),
                                 _vm._v(" "),
                                 _c("li", [
@@ -1651,50 +1691,50 @@ var render = function() {
                                       attrs: {
                                         href: "#!",
                                         "data-id": document.id,
-                                        title: "Update Employee"
+                                        title: "Update Employee",
                                       },
                                       on: {
-                                        click: function($event) {
+                                        click: function ($event) {
                                           return _vm.editdocument(document.id)
-                                        }
-                                      }
+                                        },
+                                      },
                                     },
                                     [_c("i", { staticClass: "fas fa-pen" })]
-                                  )
-                                ])
-                              ])
+                                  ),
+                                ]),
+                              ]),
                             ]
-                          )
-                        ])
+                          ),
+                        ]),
                       ])
                     }),
                     0
-                  )
+                  ),
                 ]
-              : [_vm._m(1)]
+              : [_vm._m(1)],
           ],
           2
-        )
-      ])
-    ])
+        ),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header border-0" }, [
       _c("div", { staticClass: "row align-items-center" }, [
         _c("div", { staticClass: "col" }, [
-          _c("h3", { staticClass: "mb-0" }, [_vm._v("Document Expiration")])
+          _c("h3", { staticClass: "mb-0" }, [_vm._v("Document Expiration")]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col text-right" })
-      ])
+        _c("div", { staticClass: "col text-right" }),
+      ]),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -1704,11 +1744,11 @@ var staticRenderFns = [
         { staticClass: "alert alert-warning", attrs: { role: "alert" } },
         [
           _c("strong", [_vm._v("Sorry!")]),
-          _vm._v(" No Record Found\n                          ")
+          _vm._v(" No Record Found\n                          "),
         ]
-      )
+      ),
     ])
-  }
+  },
 ]
 render._withStripped = true
 
@@ -1727,7 +1767,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -1747,15 +1787,15 @@ var render = function() {
                   staticClass: "btn btn-sm btn-primary",
                   attrs: { href: "#!" },
                   on: {
-                    click: function($event) {
+                    click: function ($event) {
                       _vm.showPopup = true
-                    }
-                  }
+                    },
+                  },
                 },
                 [_vm._v("Create")]
-              )
-            ])
-          ])
+              ),
+            ]),
+          ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
@@ -1767,14 +1807,14 @@ var render = function() {
                 ? [
                     _c(
                       "tbody",
-                      _vm._l(_vm.employees, function(employee, index) {
+                      _vm._l(_vm.employees, function (employee, index) {
                         return _c("tr", { key: index }, [
                           _c("th", { attrs: { scope: "row" } }, [
                             _vm._v(
                               "\n                                " +
                                 _vm._s(employee.name) +
                                 "\n                            "
-                            )
+                            ),
                           ]),
                           _vm._v(" "),
                           _c("td", [
@@ -1790,16 +1830,16 @@ var render = function() {
                                         attrs: {
                                           href: "#!",
                                           "data-id": employee.id,
-                                          title: "View Employee"
+                                          title: "View Employee",
                                         },
                                         on: {
-                                          click: function($event) {
+                                          click: function ($event) {
                                             return _vm.viewEmployee(employee.id)
-                                          }
-                                        }
+                                          },
+                                        },
                                       },
                                       [_c("i", { staticClass: "fas fa-eye" })]
-                                    )
+                                    ),
                                   ]),
                                   _vm._v(" "),
                                   _c("li", [
@@ -1809,55 +1849,55 @@ var render = function() {
                                         attrs: {
                                           href: "#!",
                                           "data-id": employee.id,
-                                          title: "Update Employee"
+                                          title: "Update Employee",
                                         },
                                         on: {
-                                          click: function($event) {
+                                          click: function ($event) {
                                             return _vm.editEmployee(employee.id)
-                                          }
-                                        }
+                                          },
+                                        },
                                       },
                                       [_c("i", { staticClass: "fas fa-pen" })]
-                                    )
-                                  ])
-                                ])
+                                    ),
+                                  ]),
+                                ]),
                               ]
-                            )
-                          ])
+                            ),
+                          ]),
                         ])
                       }),
                       0
-                    )
+                    ),
                   ]
-                : [_vm._m(1)]
+                : [_vm._m(1)],
             ],
             2
-          )
+          ),
         ]),
         _vm._v(" "),
         _c("create-employee-popup", {
           attrs: { showPopup: _vm.showPopup },
           on: {
-            close: function($event) {
+            close: function ($event) {
               _vm.showPopup = false
-            }
-          }
-        })
+            },
+          },
+        }),
       ],
       1
-    )
+    ),
   ])
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
-      _c("h3", { staticClass: "mb-0" }, [_vm._v("Employees")])
+      _c("h3", { staticClass: "mb-0" }, [_vm._v("Employees")]),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -1867,11 +1907,11 @@ var staticRenderFns = [
         { staticClass: "alert alert-warning", attrs: { role: "alert" } },
         [
           _c("strong", [_vm._v("Sorry!")]),
-          _vm._v(" No Record Found\n                        ")
+          _vm._v(" No Record Found\n                        "),
         ]
-      )
+      ),
     ])
-  }
+  },
 ]
 render._withStripped = true
 
@@ -1890,7 +1930,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -1909,14 +1949,14 @@ var render = function() {
               ? [
                   _c(
                     "tbody",
-                    _vm._l(_vm.leaves, function(leave, index) {
+                    _vm._l(_vm.leaves, function (leave, index) {
                       return _c("tr", { key: index }, [
                         _c("th", { attrs: { scope: "row" } }, [
                           _vm._v(
                             "\n                                " +
                               _vm._s(leave.name) +
                               "\n                            "
-                          )
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -1924,7 +1964,7 @@ var render = function() {
                             "\n                                " +
                               _vm._s(leave.leave_from) +
                               "\n                            "
-                          )
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -1932,7 +1972,7 @@ var render = function() {
                             "\n                                " +
                               _vm._s(leave.leave_to) +
                               "\n                            "
-                          )
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -1940,7 +1980,7 @@ var render = function() {
                             "\n                                " +
                               _vm._s(leave.days) +
                               "\n                            "
-                          )
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -1948,43 +1988,43 @@ var render = function() {
                             "\n                                " +
                               _vm._s(leave.balance) +
                               "\n                            "
-                          )
+                          ),
                         ]),
                         _vm._v(" "),
-                        _vm._m(2, true)
+                        _vm._m(2, true),
                       ])
                     }),
                     0
-                  )
+                  ),
                 ]
-              : _vm._e()
+              : _vm._e(),
           ],
           2
         ),
         _vm._v(" "),
         !_vm.leaves
           ? _c("div", { staticClass: "container mt-3" }, [_vm._m(3)])
-          : _vm._e()
-      ])
-    ])
+          : _vm._e(),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header border-0" }, [
       _c("div", { staticClass: "row align-items-center" }, [
         _c("div", { staticClass: "col" }, [
-          _c("h3", { staticClass: "mb-0" }, [_vm._v("Leave Application")])
+          _c("h3", { staticClass: "mb-0" }, [_vm._v("Leave Application")]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col text-right" })
-      ])
+        _c("div", { staticClass: "col text-right" }),
+      ]),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -2000,11 +2040,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Balance")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
-      ])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -2019,10 +2059,10 @@ var staticRenderFns = [
         "a",
         { staticClass: "btn btn-sm btn-primary", attrs: { href: "#!" } },
         [_vm._v("Declined")]
-      )
+      ),
     ])
   },
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -2031,10 +2071,10 @@ var staticRenderFns = [
       { staticClass: "alert alert-warning", attrs: { role: "alert" } },
       [
         _c("strong", [_vm._v("Sorry!")]),
-        _vm._v(" No Record Found\n                ")
+        _vm._v(" No Record Found\n                "),
       ]
     )
-  }
+  },
 ]
 render._withStripped = true
 
@@ -2526,7 +2566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeWidgetComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--5-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EmployeeWidgetComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/dashboard/EmployeeWidgetComponent.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeWidgetComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeWidgetComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeWidgetComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeWidgetComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_EmployeeWidgetComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
 
 /***/ }),
 
@@ -2624,7 +2664,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp2020\htdocs\crm\resources\js\administrator.js */"./resources/js/administrator.js");
+module.exports = __webpack_require__(/*! /Users/larryparba/web/crm/resources/js/administrator.js */"./resources/js/administrator.js");
 
 
 /***/ })

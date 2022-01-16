@@ -52,12 +52,18 @@
                     return false;                 
                 }
 
-                axios.post('/api/v1/bulletin', {data:this.forms}).then(function(response) {
-
-                }).catch(error=>{
-                     this.$toastr.e(error.response);
+                axios({
+                  method: 'post',
+                  url: '/api/v1/bulletin?api_token='+window.Laravel.api_token,
+                  data: this.forms
+                }).then(function (response) {
+                })
+                 .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                    $this.$toastr.e();
                 });
-
 
             }
         }

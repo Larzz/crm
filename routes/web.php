@@ -70,6 +70,11 @@ Route::prefix('administrator')->namespace('Administrator')->group(function() {
 
 });
 
+
+Route::prefix('guidelines')->group(function() {
+   // Route::get
+});
+
 Route::prefix('my')->namespace('Client')->group(function() {
 
    Route::get('/', 'HomeController@index')->name('client.index');

@@ -59,7 +59,21 @@
         },
         methods: {
             getExpiredDocumentExpired() {
-                return null;
+                
+              let $this = this
+                
+               axios({
+                  method: 'get',
+                  url: '/api/v1/documents?api_token='+window.Laravel.api_token,
+                  data: this.fields
+                }).then(function (response) {
+                })
+                 .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                });
+
             }
         },
         

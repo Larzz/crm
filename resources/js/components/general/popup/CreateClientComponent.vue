@@ -107,16 +107,14 @@
 
                 axios({
                   method: 'post',
-                  url: '/api/v1/client',
+                  url: '/api/v1/client?api_token='+window.Laravel.api_token,
                   data: this.fields
                 }).then(function (response) {
-                    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
                 })
                  .catch(function (error) {
                     $this.$toastr.e(error);
                 })
                 .then(function () {
-                    $this.$toastr.e(error);
                 });
                     
             }
@@ -166,8 +164,8 @@
         border-radius: 16px;
         padding: 0px;
         display: block;
-        height: 50%;
-        min-height: 58%;
+        height: 70%;
+        min-height: 70%;
     }
 
     h1 {
@@ -194,6 +192,14 @@
         border-color: #f26f24;
         background-color: #f26f24;
         box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+    }
+
+    .modal-footer {
+        padding:10px;
+    }
+
+    .modal-body {
+        padding:10px;
     }
 
 </style>

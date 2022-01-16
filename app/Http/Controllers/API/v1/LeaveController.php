@@ -15,5 +15,28 @@ class LeaveController extends Controller
     public function apply_leave() {
 
     }
+
+    public function addLeave() {
+
+    }
+
+
+    public function getLeaves() {
+
+    }
+
+
+    public function getLeave() {
+
+    }
+
+    public function editLeave() {
+
+    }
+
+
+    public function deleteLeave() {
+        
+    }
     
 }

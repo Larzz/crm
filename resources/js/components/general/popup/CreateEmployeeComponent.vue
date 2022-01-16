@@ -122,10 +122,19 @@
 
                 axios({
                   method: 'post',
-                  url: '/api/v1/employee?api_token='+this.api_token,
-                  data: this.fields
+                  url: '/api/v1/employee?api_token='+window.Laravel.api_token,
+                //   data: {
+                        // config: {
+                        //     headers: {
+                        //         Authorization: 'Bearer ' + window.Laravel.api_token,
+                        //         Accept: 'application/json'
+                        //     }
+                        // },
+                        // data: this.fields
+                //   }
+                data: this.fields
                 }).then(function (response) {
-                    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+                    $this.$toastr.s('Successfully Added Employee');
                 })
                 .catch(function (error) {
                     $this.$toastr.e(error);

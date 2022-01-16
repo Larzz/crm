@@ -18,6 +18,9 @@
       @yield('content')
   </div>
   <script src="{{ asset('src/js/dashboard.js') }}"></script>
+  <script>
+    window.Laravel = <?php echo json_encode(['api_token' => (Auth::user())->api_token]); ?>
+  </script>
   <script src="{{ asset('src/js/app.js') }}"></script>
 </body>
 </html>

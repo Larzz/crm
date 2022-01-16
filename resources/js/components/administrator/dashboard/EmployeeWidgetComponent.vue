@@ -59,27 +59,28 @@
             }
         },
         mounted() {
-            this.employees = this.getEmployees()
+             this.getEmployees()
         },
         methods: {
             getEmployees() {
 
-                axios.get('/api/v1/bulletin')
-                    .then(function (response) {
-                        // handle success
-                        console.log(response);
-                        this.employees = response.data.result
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .then(function () {
-                        // always executed
-                    });
-
-                return;
-
+               let $this = this
+                
+               axios({
+                  method: 'get',
+                  url: '/api/v1/employee?api_token='+window.Laravel.api_token,
+                //   data: this.fields
+                }).then(function (response) {
+                    $this.employees = response.data.employees
+                    // console.log(this.employees)
+                    console.log(response.data.employees)
+                })
+                 .catch(function (error) {
+                    $this.$toastr.e(error);
+                })
+                .then(function () {
+                });
+               
             }
         }
     }
