@@ -22,41 +22,41 @@
 
                             <div class="col-md-6">
                                 <h4>To</h4>
-                                <input v-model="field.leave_to" type="date" class="form-control">
+                                <input v-model="field.leave_to" @change="validate" type="date" class="form-control">
                                 <h5 v-html="field.leave_to"></h5>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xl-4">
-                            <div class="available-section">
-                                <h4> Available <span>24 days</span></h4>
-                            </div>
+                        <div class="available-section">
+                            <h4> Available <span>{{ leave.available_days }} days</span></h4>
+                        </div>
 
-                            <div class="used-days-section">
-                                <h4> {{ field.total_day_used }} days</h4>
-                            </div>
+                        <div class="used-days-section">
+                            <h4> {{ field.used_days }} days</h4>
+                        </div>
 
-                            <hr>
-                            <div class="remaining-section">
-                                <h3>Remaining <span>23 days</span></h3>
-                            </div>
+                        <hr>
+                        <div class="remaining-section">
+                            <h3>Remaining <span>{{ field.remaining_days }} days</span></h3>
+                        </div>
 
-                            <div class="form-group right mt-2">
-                                <a href="javascript:;" @click="submitVacation()" class="btn btn-primary">Submit</a>
-                            </div>
+                        <div class="form-group right mt-2">
+                            <a href="javascript:;" @click="submitVacation()" class="btn btn-primary">Submit</a>
+                        </div>
                     </div>
 
                     <div class="col-xl-12">
                         <div class="row mt-5">
-                        <div class="col-xl-4">
-                             <h4>Previous Vacation</h4>
+                            <div class="col-xl-4">
+                                <h4>Previous Vacation</h4>
+                            </div>
+                            <div class="col-xl-4">
+                                <h4>Pending Vacation</h4>
+                            </div>
+                            <div class="col-xl-4"></div>
                         </div>
-                        <div class="col-xl-4">
-                            <h4>Pending Vacation</h4>
-                        </div>
-                        <div class="col-xl-4"></div>
-                    </div>
                     </div>
 
                 </div>
@@ -73,52 +73,80 @@
                     leave_from: '',
                     leave_to: '',
                     total_day_used: 0,
-                }
+                    remaining_days: 0,
+                    used_days: 0,
+                    leave_id: null
+                },
+            
             }
         },
+        props: ['leave'],
         mounted() {
-
+            this.field.remaining_days = this.leave.available_days
+            this.field.used_days = this.leave.used_days
+            this.field.leave_id = this.leave.id
         },
         methods: {
-          
-          submitVacation() {
+
+            validate() {
+
+                this.field.remaining_days = this.leave.available_days
+                this.field.used_days = this.leave.used_days
+
+                const date1 = new Date(this.field.leave_from);
+                const date2 = new Date(this.field.leave_to);
+
+                const oneDay = 1000 * 60 * 60 * 24;
+
+                const diffInTime = date2.getTime() - date1.getTime();
+                const diffInDays = diffInTime / oneDay;
+                
+                this.field.used_days = diffInDays
+                this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(diffInDays)
+
+            },
+
+            submitVacation() {
 
                 let $this = this
 
                 if (!this.field.leave_from) {
                     $this.$toastr.e('Leave From is Required')
-                    return;    
+                    return;
                 }
 
-                if(!this.field.leave_to) {
+                if (!this.field.leave_to) {
                     $this.$toastr.e('Leave to is Required')
                     return;
                 }
 
                 JsLoadingOverlay.show(this.$configs);
 
-               axios({
-                  method: 'post',
-                  url: '/api/v1/leave?api_token='+this.api_token,
-                  data: this.fields
-                }).then(function (response) {
-                    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-                })
-                .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                    $this.$toastr.e(error);
-                });
+                axios({
+                        method: 'post',
+                        url: '/api/v1/leave?api_token='+window.Laravel.api_token,
+                        data: this.field
+                    }).then(function (response) {
+                        JsLoadingOverlay.hide()
+                        if (response.data.status) {
+                            $this.$toastr.s('Successfully submitted your request!');
+                        }
+                    })
+                    .catch(function (error) {
+                        JsLoadingOverlay.hide()
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                    });
 
-            }
+            },
+
         }
     }
 
 </script>
 
 <style scoped>
-
     #date-picker h5 {
         margin-top: 11px;
         font-size: 15px;
@@ -147,7 +175,7 @@
     }
 
     .right {
-         float: right;
+        float: right;
         position: absolute;
         top: 213px;
         right: 10px;

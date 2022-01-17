@@ -42,6 +42,8 @@
 
             create() {
 
+                let $this = this
+
                 if (!this.forms.title) {
                     this.$toastr.e("Sorry, Title is Required");
                     return false;   
@@ -57,6 +59,9 @@
                   url: '/api/v1/bulletin?api_token='+window.Laravel.api_token,
                   data: this.forms
                 }).then(function (response) {
+                    if(response.data.status) {
+                        $this.$toastr.s('Successfully added bulletin.');
+                    }
                 })
                  .catch(function (error) {
                     $this.$toastr.e(error);

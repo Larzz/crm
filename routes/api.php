@@ -36,6 +36,10 @@ Route::namespace('API')->group(function() {
             Route::get('{id}', 'LeaveController@getLeave');
             Route::patch('{id}', 'LeaveController@editLeave');
             Route::delete('{id}', 'LeaveController@deleteLeave');
+
+            Route::post('approved', 'LeaveController@approved');
+            Route::post('declined', 'LeaveController@declined');
+
         });
 
         Route::prefix('employee')->namespace('Administrator')->group(function() {

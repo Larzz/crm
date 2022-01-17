@@ -17,7 +17,11 @@
   <div class="wrapper" id="wrapper">
       @yield('content')
   </div>
+  <script>
+    window.Laravel = <?php echo json_encode(['api_token' => (Auth::user())->api_token]); ?>
+  </script>
   <script src="{{ asset('src/js/dashboard.js') }}"></script>
   <script src="{{ asset('src/js/app.js') }}"></script>
+
 </body>
 </html>

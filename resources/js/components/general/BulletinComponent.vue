@@ -39,7 +39,7 @@
             }
         },
         mounted() {
-            this.bulletin = this.getBulettin()
+            this.getBulettin()
         },
         methods: {
             getBulettin() {
@@ -48,16 +48,16 @@
                 
                  axios({
                   method: 'get',
-                  url: '/api/v1/bulletin?api_toekn='+window.Laravel.api_token,
+                  url: '/api/v1/bulletin?api_token='+window.Laravel.api_token,
                   data: this.fields
                 }).then(function (response) {
                     console.log(response)
+                    this.bulletin = response.data.bulletins
                 })
                  .catch(function (error) {
                     $this.$toastr.e(error);
                 })
                 .then(function () {
-                    $this.$toastr.e(error);
                 });
 
 

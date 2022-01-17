@@ -39,7 +39,7 @@
             }
         },
         mounted() {
-            this.bulletin = this.getBulettin()
+           this.getBulettin()
         },
         methods: {
 
@@ -59,7 +59,7 @@
                         },
                   }
                 }).then(function (response) {
-                    // console.log(response)
+                    $this.bulletin = response.data.bulletins
                 })
                 .catch(function (error) {
                     $this.$toastr.e(error);

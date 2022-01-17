@@ -44,7 +44,7 @@ class BulletinController extends Controller
     }
 
     public function getBulletins() {
-        return response()->json(['status' => true, 'bulletins' => Bulletin::get()], 201);
+        return response()->json(['status' => true, 'bulletins' => Bulletin::orderBy('created_at', 'desc')->first() ], 201);
     }
 
     public function getBulletin($bulletin_id) {

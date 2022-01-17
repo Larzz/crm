@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Leave;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +54,17 @@ class EmployeeController extends Controller
 
             $user->attachRole('employee');
 
-            return response()->json(['status' => true], 201);
+            // assign leave
+            $leave = new Leave;
+            $leave->year = date('Y');
+            $leave->available_days = 23;
+            $leave->used_days = 0;
+            $leave->is_forfeited = false;
+            $leave->user_id = $user->id;
+
+            if($leave->save()) {
+                return response()->json(['status' => true], 201);
+            }
         }
 
         return response()->json(['status' => false], 404);

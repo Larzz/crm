@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Leave extends Model
+class LeaveDetails extends Model
 {
     //
-    protected $table = 'leave';
-    
+    protected $table = 'leave_details';
 }

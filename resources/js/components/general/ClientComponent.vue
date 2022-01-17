@@ -33,7 +33,7 @@
                             </tr>
                         </tbody>
                     </template>
-                    <template v-eles>
+                    <template v-else>
                         <div class="container">
                             <div class="alert alert-warning" role="alert">
                                 <strong>Sorry!</strong> No Record Found
@@ -59,7 +59,7 @@
             }
         },
         mounted() {
-            this.clients = this.getClients()
+         this.getClients()
         },
         methods: {
             getClients() {
@@ -68,10 +68,10 @@
 
                  axios({
                   method: 'get',
-                  url: '/api/v1/clients?api_token='+window.Laravel.api_token,
+                  url: '/api/v1/client?api_token='+window.Laravel.api_token,
                   data: this.fields
                 }).then(function (response) {
-                    console.log(response)
+                    $this.clients = response.data.clients
                 })
                  .catch(function (error) {
                     $this.$toastr.e(error);

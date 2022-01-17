@@ -33,7 +33,7 @@
           <general-bulletin-card> </general-bulletin-card>
         </div>
         <div class="col-xl-6">
-          <staff-leave-application> </staff-leave-application>
+          <staff-leave-application :leave="{{ $leave }}"> </staff-leave-application>
         </div>
       </div>
       <div class="row">
