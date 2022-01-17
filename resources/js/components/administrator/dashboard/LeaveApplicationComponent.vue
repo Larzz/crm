@@ -70,7 +70,7 @@
         },
         mounted() {
             this.getLeaves()
-            
+
         },
         methods: {
             getLeaves() {
@@ -95,7 +95,7 @@
                 let $this = this
 
                 Swal.fire({
-                    icon:'question',
+                    icon: 'question',
                     title: 'Are you sure you want to approved this leave?',
                     showCancelButton: true,
                     confirmButtonText: 'Approved',
@@ -127,7 +127,7 @@
             declined(leave_id) {
 
                 Swal.fire({
-                    icon:'question',
+                    icon: 'question',
                     title: 'Are you sure you want to declined this leave?',
                     showCancelButton: true,
                     confirmButtonText: 'Declined',
@@ -152,7 +152,7 @@
                         Swal.fire('Changes are not saved', '', 'info')
                     }
                 })
-               
+
             }
 
         }
