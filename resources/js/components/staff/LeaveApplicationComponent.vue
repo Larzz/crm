@@ -4,13 +4,11 @@
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <div class="col">
-                        <!-- <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6> -->
                         <h5 class="h3 mb-0">Apply for Vacation</h5>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <!-- Chart -->
                 <div class="row">
                     <div class="col-xl-8" id="date-picker">
                         <div class="row">

@@ -19,6 +19,7 @@
                             <th scope="col">Leave To</th>
                             <th scope="col">Days</th>
                             <th scope="col">Balance</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -39,6 +40,8 @@
                                 </td>
                                 <td>
                                     {{ leave.balance }}
+                                </td>
+                                <td v-html="getStatus(leave.status)">
                                 </td>
                                 <td>
                                     <a href="#!" @click="approved(leave.id)" class="btn btn-sm btn-primary">Approved</a>
@@ -100,7 +103,6 @@
                     showCancelButton: true,
                     confirmButtonText: 'Approved',
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
 
                         axios({
@@ -110,7 +112,10 @@
                                     leave_id: leave_id
                                 }
                             }).then(function (response) {
-                                $this.$toastr.s('Successfully Approved');
+                                if (response.data.status) {
+                                    $this.$toastr.s('Successfully Approved');
+                                    $this.getLeaves()
+                                }
                             })
                             .catch(function (error) {
                                 $this.$toastr.e(error);
@@ -125,6 +130,8 @@
 
             },
             declined(leave_id) {
+
+                let $this = this
 
                 Swal.fire({
                     icon: 'question',
@@ -142,7 +149,10 @@
                                     leave_id: leave_id
                                 }
                             }).then(function (response) {
-                                $this.$toastr.s('Successfully Declined');
+                                if (response.data.status) {
+                                    $this.$toastr.s('Successfully Declined');
+                                    $this.getLeaves()
+                                }
                             })
                             .catch(function (error) {
                                 $this.$toastr.e(error);
@@ -153,6 +163,21 @@
                     }
                 })
 
+            },
+            getStatus(status_id) {
+                switch (status_id) {
+                    case 0:
+                        return '<i class="bg-warning"></i> Pending'
+                        break;
+                    case 1:
+                        return '<i class="bg-success"></i> Approved'
+                        break;
+                    case 2:
+                        return '<i class="bg-error"></i> Declined'
+                        break;
+
+
+                }
             }
 
         }

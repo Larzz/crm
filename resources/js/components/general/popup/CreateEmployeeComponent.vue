@@ -83,11 +83,10 @@
         },
         methods: {
             close() {
-               this.$emit('close', false)
+                this.$emit('close', false)
             },
             addEmployee() {
-               console.log(this.fields)
-                
+
                 let $this = this
 
                 if (!this.fields.name) {
@@ -95,22 +94,22 @@
                     return false
                 }
 
-                if(!this.fields.email) {
+                if (!this.fields.email) {
                     $this.$toastr.e('Name is Required');
                     return false
                 }
 
-                if(!this.fields.password) {
+                if (!this.fields.password) {
                     $this.$toastr.e('Name is Required');
                     return false
                 }
 
-                if(!this.fields.position) {
+                if (!this.fields.position) {
                     $this.$toastr.e('Position is Required')
                     return false
                 }
 
-                if(!this.fields.birth_date) {
+                if (!this.fields.birth_date) {
                     $this.$toastr.e('Birth Data is Required')
                     return false
                 }
@@ -121,29 +120,33 @@
                 }
 
                 axios({
-                  method: 'post',
-                  url: '/api/v1/employee?api_token='+window.Laravel.api_token,
-                //   data: {
-                        // config: {
-                        //     headers: {
-                        //         Authorization: 'Bearer ' + window.Laravel.api_token,
-                        //         Accept: 'application/json'
-                        //     }
-                        // },
-                        // data: this.fields
-                //   }
-                data: this.fields
-                }).then(function (response) {
-                    $this.$toastr.s('Successfully Added Employee');
-                })
-                .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                    $this.$toastr.e(error);
-                });
+                        method: 'post',
+                        url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.$emit('new_employee', true)
+                            $this.resetForms()
+                            $this.close()
+                            $this.$toastr.s('Successfully Added Employee');
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                        $this.$toastr.e(error);
+                    });
 
-
+            },
+            resetForms() {
+                this.fields.name = null
+                this.fields.email = null
+                this.fields.password = null
+                this.fields.position = null
+                this.fields.date_joined = null
+                this.fields.birth_date = null
+                this.fields.mobile_number = null
             }
         }
     }
@@ -151,7 +154,6 @@
 </script>
 
 <style scoped>
-
     .form-group {
         margin-bottom: 13px;
     }

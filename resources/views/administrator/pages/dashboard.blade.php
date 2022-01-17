@@ -41,7 +41,7 @@
             </div>
             <div class="col-xl-4">
                 <employee-widget> </employee-widget>
-                <client-widget> </client-widget>
+                <general-client-card></general-client-card>
                 <document-expiration-widget></document-expiration-widget>
             </div>
         </div>

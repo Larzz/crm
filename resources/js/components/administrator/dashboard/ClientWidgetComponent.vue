@@ -14,7 +14,7 @@
             <div class="table-responsive">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
-                    <template v-if="clients"> 
+                    <template v-if="clients">
                         <tbody>
                             <tr v-for="(client, index) in clients" :key="index">
                                 <th scope="row">
@@ -22,21 +22,23 @@
                                 </th>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                            <ul>
-                                                <li><a href="#!" :data-id="client.id" @click="viewEmployee(client.id)" title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                                <li> <a href="#!" :data-id="client.id" @click="editEmployee(client.id)" title="Update Employee"><i class="fas fa-pen"></i></a> </li>
-                                            </ul>
-                                        </div>
+                                        <ul>
+                                            <li><a href="#!" :data-id="client.id" @click="viewEmployee(client.id)"
+                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" :data-id="client.id" @click="editEmployee(client.id)"
+                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </template>
-                    <template v-else> 
-                       <div class="container">
+                    <template v-else>
+                        <div class="container">
                             <div class="alert alert-warning" role="alert">
                                 <strong>Sorry!</strong> No Record Found
                             </div>
-                       </div>
+                        </div>
                     </template>
                 </table>
             </div>
@@ -48,6 +50,8 @@
 
 
 <script>
+
+
     export default {
         data() {
             return {
@@ -56,26 +60,24 @@
             }
         },
         mounted() {
-            this.clients = this.getClients()
+            this.getClients()
         },
         methods: {
             getClients() {
 
 
-              let $this = this
-                
-               axios({
-                  method: 'get',
-                  url: '/api/v1/client?api_token='+window.Laravel.api_token,
-                //   data: this.fields
-                }).then(function (response) {
-                    $this.clients = response.data.clients
-                })
-                 .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                });
+                let $this = this
+
+                axios({
+                        method: 'get',
+                        url: '/api/v1/client?api_token=' + window.Laravel.api_token,
+                    }).then(function (response) {
+                        $this.clients = response.data.clients
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {});
 
             }
         }

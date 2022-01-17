@@ -65,28 +65,23 @@ class LeaveController extends Controller
 
 
     public function getLeaves() {
-
-        $leaves = LeaveDetails::leftjoin('users', 'users.id', '=', 'leave_details.user_id')->get();
+        $leaves = LeaveDetails::leftjoin('users', 'users.id', '=', 'leave_details.user_id')->select('users.name', 'leave_details.*')->get();
         return response()->json(['status' => true, 'leaves' => $leaves]);
-
     }
 
 
     public function getLeave() {
-
     }
 
     public function editLeave() {
-
     }
 
     public function deleteLeave() {
-        
     }
 
     public function approved() {
         
-        $leave = LeaveDetails::where('leave_id', $this->request->leave_id)->update(['status' => 1]);
+        $leave = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 1]);
         if ($leave) {
             return response()->json(['status' => true]);
         }
@@ -96,7 +91,7 @@ class LeaveController extends Controller
 
     public function declined() {
         
-        $leave = LeaveDetails::where('leave_id', $this->request->leave_id)->update(['status' => 2]);
+        $leave = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 2]);
         if ($leave) {
             return response()->json(['status' => true]);
         }

@@ -110,12 +110,12 @@ class ClientController extends Controller
 
 
 
-    public function deleteClient($client_id) {
+    public function deleteClient($id) {
 
-            $client = User::where('id', $client_id)->first();
+            $client = User::where('id', $id)->first();
 
             if($client) {
-                $client->destroy();
+                $client->delete();
                 return response()->json(['status' => true]);
             }
 

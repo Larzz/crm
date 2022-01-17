@@ -27,7 +27,7 @@
 <script>
     export default {
         data() {
-            return  {
+            return {
                 forms: {
                     title: null,
                     message: null,
@@ -36,8 +36,7 @@
                 errors: []
             }
         },
-        props: [
-        ],
+        props: [],
         methods: {
 
             create() {
@@ -46,33 +45,35 @@
 
                 if (!this.forms.title) {
                     this.$toastr.e("Sorry, Title is Required");
-                    return false;   
+                    return false;
                 }
 
                 if (!this.forms.message) {
                     this.$toastr.e("Sorry, Message is Required");
-                    return false;                 
+                    return false;
                 }
 
                 axios({
-                  method: 'post',
-                  url: '/api/v1/bulletin?api_token='+window.Laravel.api_token,
-                  data: this.forms
-                }).then(function (response) {
-                    if(response.data.status) {
-                        $this.$toastr.s('Successfully added bulletin.');
-                    }
-                })
-                 .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                    $this.$toastr.e();
-                });
+                        method: 'post',
+                        url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
+                        data: this.forms
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.$toastr.s('Successfully added bulletin.');
+                            $this.$emit('new_record')
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                        $this.$toastr.e();
+                    });
 
             }
         }
     }
+
 </script>
 
 <style>

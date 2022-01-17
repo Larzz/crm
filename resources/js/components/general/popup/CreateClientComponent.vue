@@ -8,11 +8,11 @@
                 <div class="modal-header">
                     <h6 class="modal-title" id="modal-title-default">Client Creation</h6>
                     <button type="button" @click.prevent="close" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-              
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -34,18 +34,19 @@
                                 <label for="">Date Joined</label>
                                 <input type="date" v-model="fields.date_joined" class="form-control">
                             </div>
-                        
+
                             <div class="form-group">
                                 <label for="">Contact Numer</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" @click="addClient" class="btn btn-primary">Save changes</button>
-                    <button type="button" @click.prevent="close" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
+                    <button type="button" @click.prevent="close" class="btn btn-link  ml-auto"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </transition>
@@ -70,7 +71,27 @@
             showPopup: {
                 required: true,
                 type: Boolean
+            },
+            isEdit: {
+                required: false,
+                type: Boolean
+            },
+            editClient: {
+                required: false,
+                type: Object
             }
+        },
+        mounted() {
+
+            console.log(this.editClient)
+          if(this.isEdit) {
+            
+             this.fields.name = this.editClient.name 
+             this.fields.email = this.editClient.email
+             this.fields.password = null
+             this.fields.date_joined = this.editClient.date_joined
+             this.fields.mobile_number = this.editClient.mobile_number
+          }
         },
         methods: {
             close() {
@@ -80,46 +101,60 @@
 
                 let $this = this
 
-                if(!this.fields.name) {
+                if (!this.fields.name) {
                     $this.$toastr.e('Name is Required')
                     return;
                 }
 
-                if(!this.fields.email) {
+                if (!this.fields.email) {
                     $this.$toastr.e('Email is Required')
                     return;
                 }
 
-                if(!this.fields.password) {
+                if (!this.fields.password) {
                     $this.$toastr.e('Password is Required')
                     return;
                 }
 
-                if(!this.fields.date_joined) {
+                if (!this.fields.date_joined) {
                     $this.$toastr.e('Date Joined is Required')
                     return;
                 }
 
-                if(!this.fields.mobile_number) {
+                if (!this.fields.mobile_number) {
                     $this.$toastr.e('Moble Number is Required')
                     return;
                 }
 
                 axios({
-                  method: 'post',
-                  url: '/api/v1/client?api_token='+window.Laravel.api_token,
-                  data: this.fields
-                }).then(function (response) {
-                })
-                 .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                });
-                    
+                        method: 'post',
+                        url: '/api/v1/client?api_token=' + window.Laravel.api_token,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.$emit('new_client', true)
+                            $this.close()
+                            $this.resetForm()
+
+                            $this.$toastr.s('Succesfully Added new Client')
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {});
+
+            },
+            resetForm() {
+                this.fields.name = null
+                this.fields.email = null
+                this.fields.password = null
+                this.fields.date_joined = null
+                this.fields.mobile_number = null
             }
         }
     }
+
 </script>
 
 <style scoped>
@@ -195,11 +230,11 @@
     }
 
     .modal-footer {
-        padding:10px;
+        padding: 10px;
     }
 
     .modal-body {
-        padding:10px;
+        padding: 10px;
     }
 
 </style>
