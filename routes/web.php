@@ -18,6 +18,10 @@ Route::get('/login', function() {
    return redirect(route('home.login'));
 });
 
+Route::get('email', function() {
+   return view('emails.leavemail');
+});
+
 Route::get('register','HomeController@register')->name('home.register');
 Route::get('/','HomeController@login')->name('home.login');
 Route::get('logout', 'HomeController@logout')->name('home.logout');
