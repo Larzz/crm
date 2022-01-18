@@ -59,7 +59,9 @@
                         },
                   }
                 }).then(function (response) {
-                    $this.bulletin = response.data.bulletins
+                    if (response.data.status) {
+                        $this.bulletin = response.data.bulletins
+                    }
                 })
                 .catch(function (error) {
                     $this.$toastr.e(error);

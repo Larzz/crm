@@ -61,9 +61,11 @@ Route::namespace('API')->group(function() {
         Route::prefix('documents')->group(function() {
             Route::post('/', 'DocumentController@addDocument');
             Route::get('/', 'DocumentController@getDocuments');
+            Route::get('type', 'DocumentController@getDocumentTypes');
             Route::get('{id}', 'DocumentController@getDocument');
             Route::patch('{id}', 'DocumentController@editDocument');
             Route::delete('{id}', 'DocumentController@deleteDocument');
+
         });
     
     });

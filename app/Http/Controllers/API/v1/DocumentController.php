@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Documents;
+use App\Models\DocumentType;
 
 class DocumentController extends Controller
 {
@@ -35,6 +36,10 @@ class DocumentController extends Controller
 
     public function deleteDocument() {
 
+    }
+
+    public function getDocumentTypes() {
+        return response()->json(['status' => true, 'types' => DocumentType::get()]);
     }
 
 

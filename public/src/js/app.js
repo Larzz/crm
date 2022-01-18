@@ -1965,7 +1965,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }).then(function (response) {
-        $this.bulletin = response.data.bulletins;
+        if (response.data.status) {
+          $this.bulletin = response.data.bulletins;
+        }
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -3374,10 +3376,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3386,7 +3384,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showClientPopup: false,
-      files: []
+      files: [],
+      types: [],
+      fields: {
+        name: null,
+        type: null,
+        renewal_date: null,
+        expiration_date: null
+      }
     };
   },
   props: {
@@ -3395,9 +3400,73 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean
     }
   },
+  mounted: function mounted() {
+    this.getDocumentTypes();
+  },
   methods: {
     close: function close() {
       this.$emit('close', false);
+    },
+
+    /** Get Document Type
+     * 
+     * 
+     * 
+     * */
+    getDocumentTypes: function getDocumentTypes() {
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.types = response.data.types;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
+    },
+
+    /**
+     * Has changed
+     * @param  Object|undefined   newFile   Read only
+     * @param  Object|undefined   oldFile   Read only
+     * @return undefined
+     */
+    inputFile: function inputFile(newFile, oldFile) {
+      if (newFile && oldFile && !newFile.active && oldFile.active) {
+        // Get response data
+        console.log('response', newFile.response);
+
+        if (newFile.xhr) {
+          //  Get the response status code
+          console.log('status', newFile.xhr.status);
+        }
+      }
+    },
+
+    /**
+     * Pretreatment
+     * @param  Object|undefined   newFile   Read and write
+     * @param  Object|undefined   oldFile   Read only
+     * @param  Function           prevent   Prevent changing
+     * @return undefined
+     */
+    inputFilter: function inputFilter(newFile, oldFile, prevent) {
+      if (newFile && !oldFile) {
+        // Filter non-image file
+        if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+          return prevent();
+        }
+      } // Create a blob field
+
+
+      newFile.blob = '';
+      var URL = window.URL || window.webkitURL;
+
+      if (URL && URL.createObjectURL) {
+        newFile.blob = URL.createObjectURL(newFile.file);
+      }
     }
   }
 });
@@ -27945,94 +28014,180 @@ var render = function () {
                   _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.name,
+                        expression: "fields.name",
+                      },
+                    ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
+                    domProps: { value: _vm.fields.name },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.fields, "name", $event.target.value)
+                      },
+                    },
                   }),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Document Type"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "select",
                     {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.type,
+                          expression: "fields.type",
+                        },
+                      ],
                       staticClass: "form-control",
                       attrs: { name: "", id: "" },
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.fields,
+                            "type",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                      },
                     },
                     [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("Driver License"),
+                      _c("option", { attrs: { value: "", selected: "" } }, [
+                        _vm._v("Select Document Type"),
                       ]),
-                    ]
+                      _vm._v(" "),
+                      _vm.types
+                        ? _vm._l(_vm.types, function (type, index) {
+                            return _c("option", { key: index }, [
+                              _vm._v(_vm._s(type.name)),
+                            ])
+                          })
+                        : _vm._e(),
+                    ],
+                    2
                   ),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Expiration Date"),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.expiration_date,
+                        expression: "fields.expiration_date",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date" },
+                    domProps: { value: _vm.fields.expiration_date },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.fields,
+                          "expiration_date",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Renewal Date")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.renewal_date,
+                        expression: "fields.renewal_date",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date" },
+                    domProps: { value: _vm.fields.renewal_date },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.fields,
+                          "renewal_date",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
                   _c("div", { staticClass: "example-drag" }, [
-                    _c("div", { staticClass: "upload" }, [
-                      _vm.files.length
-                        ? _c(
-                            "ul",
-                            _vm._l(_vm.files, function (file) {
-                              return _c("li", { key: file.id }, [
-                                _c("span", [_vm._v(_vm._s(file.name))]),
-                                _vm._v(
-                                  " -\n                                    "
-                                ),
-                                _c("span", [
-                                  _vm._v(_vm._s(_vm.$formatSize(file.size))),
-                                ]),
-                                _vm._v(
-                                  " -\n                                    "
-                                ),
-                                file.error
-                                  ? _c("span", [_vm._v(_vm._s(file.error))])
-                                  : file.success
-                                  ? _c("span", [_vm._v("success")])
-                                  : file.active
-                                  ? _c("span", [_vm._v("active")])
-                                  : _c("span"),
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("ul", [
-                            _c("td", { attrs: { colspan: "7" } }, [
-                              _c("div", { staticClass: "text-center p-5" }, [
-                                _c("h4", [
-                                  _vm._v("Drop files anywhere to upload"),
-                                  _c("br"),
-                                  _vm._v("or"),
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass: "btn btn-lg btn-primary",
-                                    attrs: { for: "file" },
-                                  },
-                                  [_vm._v("Select Files")]
-                                ),
-                              ]),
-                            ]),
-                          ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value:
-                                _vm.$refs.upload && _vm.$refs.upload.dropActive,
-                              expression:
-                                "$refs.upload && $refs.upload.dropActive",
+                    _c(
+                      "div",
+                      { staticClass: "upload" },
+                      [
+                        _c(
+                          "file-upload",
+                          {
+                            ref: "upload",
+                            attrs: {
+                              "post-action": "/post.method",
+                              "put-action": "/put.method",
                             },
-                          ],
-                          staticClass: "drop-active",
-                        },
-                        [_c("h3", [_vm._v("Drop files to upload")])]
-                      ),
-                    ]),
+                            on: {
+                              "input-file": _vm.inputFile,
+                              "input-filter": _vm.inputFilter,
+                            },
+                            model: {
+                              value: _vm.files,
+                              callback: function ($$v) {
+                                _vm.files = $$v
+                              },
+                              expression: "files",
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Upload file\n                            "
+                            ),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
                   ]),
                 ]),
               ]),
@@ -45262,7 +45417,7 @@ Vue.component('staff-document', _components_staff_DocumentComponent_vue__WEBPACK
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp2020\htdocs\crm\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/larryparba/web/crm/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

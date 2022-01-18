@@ -13,41 +13,37 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Name</label>
-                        <input type="text" class="form-control">
+                        <label for="" >Name</label>
+                        <input type="text" v-model="fields.name" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">Driver License</option>
+                         <label for="">Document Type</label>
+                        <select v-model="fields.type" name="" id="" class="form-control">
+                            <option value="" selected>Select Document Type</option>
+                            <template v-if="types">
+                                <option v-for="(type, index) in types" :key="index" >{{ type.name }}</option>
+                            </template>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Expiration Date</label>
+                        <input type="date" class="form-control" v-model="fields.expiration_date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Renewal Date</label>
+                        <input type="date" class="form-control" v-model="fields.renewal_date">
                     </div>
 
                     <div class="form-group">
                         <div class="example-drag">
                             <div class="upload">
-                                <ul v-if="files.length">
-                                    <li v-for="file in files" :key="file.id">
-                                        <span>{{file.name}}</span> -
-                                        <span>{{$formatSize(file.size)}}</span> -
-                                        <span v-if="file.error">{{file.error}}</span>
-                                        <span v-else-if="file.success">success</span>
-                                        <span v-else-if="file.active">active</span>
-                                        <span v-else></span>
-                                    </li>
-                                </ul>
-                                <ul v-else>
-                                    <td colspan="7">
-                                        <div class="text-center p-5">
-                                            <h4>Drop files anywhere to upload<br />or</h4>
-                                            <label for="file" class="btn btn-lg btn-primary">Select Files</label>
-                                        </div>
-                                    </td>
-                                </ul>
-
-                                <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-                                    <h3>Drop files to upload</h3>
-                                </div>
+                                <file-upload ref="upload" v-model="files" post-action="/post.method"
+                                    put-action="/put.method" @input-file="inputFile" @input-filter="inputFilter">
+                                    Upload file
+                                </file-upload>
                             </div>
                         </div>
                     </div>
@@ -73,6 +69,13 @@
             return {
                 showClientPopup: false,
                 files: [],
+                types: [],
+                fields: {
+                    name: null,
+                    type: null,
+                    renewal_date: null,
+                    expiration_date:null
+                }
             }
         },
         props: {
@@ -81,17 +84,80 @@
                 type: Boolean
             }
         },
+        mounted() {
+            this.getDocumentTypes()
+        },
         methods: {
             close() {
                 this.$emit('close', false)
+            },
+            /** Get Document Type
+             * 
+             * 
+             * 
+             * */
+            getDocumentTypes: function () {
+
+                let $this = this
+                axios({
+                        method: 'get',
+                        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token,
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.types = response.data.types
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {});
+
+            },
+            /**
+             * Has changed
+             * @param  Object|undefined   newFile   Read only
+             * @param  Object|undefined   oldFile   Read only
+             * @return undefined
+             */
+            inputFile: function (newFile, oldFile) {
+                if (newFile && oldFile && !newFile.active && oldFile.active) {
+                    // Get response data
+                    console.log('response', newFile.response)
+                    if (newFile.xhr) {
+                        //  Get the response status code
+                        console.log('status', newFile.xhr.status)
+                    }
+                }
+            },
+            /**
+             * Pretreatment
+             * @param  Object|undefined   newFile   Read and write
+             * @param  Object|undefined   oldFile   Read only
+             * @param  Function           prevent   Prevent changing
+             * @return undefined
+             */
+            inputFilter: function (newFile, oldFile, prevent) {
+                if (newFile && !oldFile) {
+                    // Filter non-image file
+                    if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                        return prevent()
+                    }
+                }
+
+                // Create a blob field
+                newFile.blob = ''
+                let URL = window.URL || window.webkitURL
+                if (URL && URL.createObjectURL) {
+                    newFile.blob = URL.createObjectURL(newFile.file)
+                }
             }
+
         }
     }
 
 </script>
 
 <style scoped>
-    
     .form-group {
         margin-bottom: 10px;
     }

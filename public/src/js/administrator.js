@@ -152,7 +152,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }).then(function (response) {
-        $this.bulletin = response.data.bulletins;
+        if (response.data.status) {
+          $this.bulletin = response.data.bulletins;
+        }
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -5855,7 +5857,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp2020\htdocs\crm\resources\js\administrator.js */"./resources/js/administrator.js");
+module.exports = __webpack_require__(/*! /Users/larryparba/web/crm/resources/js/administrator.js */"./resources/js/administrator.js");
 
 
 /***/ })
