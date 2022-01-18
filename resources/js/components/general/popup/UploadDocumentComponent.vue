@@ -13,16 +13,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="" >Name</label>
+                        <label for="">Name</label>
                         <input type="text" v-model="fields.name" class="form-control">
                     </div>
 
                     <div class="form-group">
-                         <label for="">Document Type</label>
+                        <label for="">Document Type</label>
                         <select v-model="fields.type" name="" id="" class="form-control">
                             <option value="" selected>Select Document Type</option>
                             <template v-if="types">
-                                <option v-for="(type, index) in types" :key="index" >{{ type.name }}</option>
+                                <option v-for="(type, index) in types" :key="index">{{ type.name }}</option>
                             </template>
                         </select>
                     </div>
@@ -38,18 +38,28 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="example-drag">
-                            <div class="upload">
-                                <file-upload ref="upload" v-model="files" post-action="/post.method"
-                                    put-action="/put.method" @input-file="inputFile" @input-filter="inputFilter">
-                                    Upload file
-                                </file-upload>
-                            </div>
-                        </div>
+                        <!-- <label for="">File</label> -->
+                        <ul>
+                            <li v-for="file in files">{{file.name}} - Error: {{file.error}}, Success: {{file.success}}</li>
+                        </ul>
+                        <file-upload
+                            ref="upload"
+                            v-model="files"
+                            :data="{api_token: api_token }"
+                            post-action="/api/v1/documents/upload/docs"
+                            @input-file="inputFile"
+                            @input-filter="inputFilter"
+                            @response="uploadResponse"
+                        >
+                        Upload file
+                        </file-upload>
+                         <button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
+                        <button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
+                        <!-- <small>We only Accept Image and PDF files</small> -->
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" @click="postDocument" class="btn btn-primary">Save changes</button>
                     <button type="button" @click.prevent="close" class="btn btn-link  ml-auto"
                         data-dismiss="modal">Close</button>
                 </div>
@@ -59,9 +69,12 @@
 </template>
 
 <script>
+    import {
+        ref
+    } from 'vue'
     import FileUpload from 'vue-upload-component'
-
     export default {
+
         components: {
             FileUpload,
         },
@@ -74,8 +87,10 @@
                     name: null,
                     type: null,
                     renewal_date: null,
-                    expiration_date:null
-                }
+                    expiration_date: null,
+                    filename: null
+                },
+                api_token: window.Laravel.api_token
             }
         },
         props: {
@@ -88,13 +103,17 @@
             this.getDocumentTypes()
         },
         methods: {
+            /** Close Document
+             * 
+             * @return Object| list of documents
+             * */
             close() {
                 this.$emit('close', false)
+                this.$emit('fetchDocument')
             },
             /** Get Document Type
              * 
-             * 
-             * 
+             * @return Object| list of documents
              * */
             getDocumentTypes: function () {
 
@@ -114,6 +133,51 @@
 
             },
             /**
+             * On Submit Data
+             * @param  Object|undefined   newFile   Read only
+             * @return undefined
+             */
+            postDocument: function () {
+
+                if (!this.fields.name) {
+                    return this.$toastr.e('Name is Required');
+                }
+
+                if (!this.fields.type) {
+                    return this.$toastr.e('Type is Required');
+                }
+
+                if (!this.fields.renewal_date) {
+                    return this.$toastr.e('Renewal Date is Required');
+                }
+
+                if (!this.fields.expiration_date) {
+                    return this.$toastr.e('Expiration Date is Required');
+                }
+
+                if (!this.fields.filename) {
+                    return this.$toastr.e('File is Required');
+                }
+
+                let $this = this
+
+                axios({
+                        method: 'post',
+                        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+                        data: $this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.$toastr.s('Successfully added your document');
+                            $this.clearFields()
+                            $this.close()
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {});
+            },
+            /**
              * Has changed
              * @param  Object|undefined   newFile   Read only
              * @param  Object|undefined   oldFile   Read only
@@ -125,7 +189,12 @@
                     console.log('response', newFile.response)
                     if (newFile.xhr) {
                         //  Get the response status code
-                        console.log('status', newFile.xhr.status)
+                        // console.log('status', newFile.xhr.status)
+                        if (newFile.response.status) {
+                             this.$toastr.s('Successfully Uploaded');
+                             this.fields.filename = newFile.response.filename
+                        }
+                           
                     }
                 }
             },
@@ -139,7 +208,7 @@
             inputFilter: function (newFile, oldFile, prevent) {
                 if (newFile && !oldFile) {
                     // Filter non-image file
-                    if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                    if (!/\.(jpeg|jpe|jpg|gif|png|pdf|docx|webp)$/i.test(newFile.name)) {
                         return prevent()
                     }
                 }
@@ -150,8 +219,21 @@
                 if (URL && URL.createObjectURL) {
                     newFile.blob = URL.createObjectURL(newFile.file)
                 }
-            }
 
+            },
+            uploadResponse: function(data) {
+                if(data.status) {
+                    this.$toastr.s('Successfully Uploaded');
+                    this.fields.filename = data.filename
+                }
+            },
+            clearFields: function() {
+                   this.fields.name = null
+                   this.fields.type = null
+                   this.fields.renewal_date = null
+                   this.fields.expiration_date = null
+                   this.fields.filename = null
+            }
         }
     }
 

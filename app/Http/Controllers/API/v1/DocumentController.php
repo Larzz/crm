@@ -14,16 +14,45 @@ class DocumentController extends Controller
 
     private $request;
     
-    public function __construct() {
-
+    public function __construct(Request $request) {
+        $this->request = $request;
     }
 
     public function addDocument() {
 
+        $document = new Documents;
+        $document->name = $this->request->name;
+        $document->description = $this->request->type;
+        $document->attachment = $this->request->filename;
+        $document->user_id = auth()->user()->id;
+        $document->type = $this->request->type;
+        $document->expiration_date = $this->request->expiration_date;
+        $document->renewal_date = $this->request->renewal_date;
+
+        if($document->save()) {
+            $response = ['status' => true, 'success' => true];
+            return response()->json($response);
+        }
+
+        return response()->json(['status' => false]);
+
+    }
+
+    public function uploadDocument() {
+        
+        $filename = $this->request->file->getClientOriginalName() .'-'. time() . '.' . $this->request->file->getClientOriginalExtension();
+        $filetype = $this->request->file->getClientOriginalExtension();
+        $filesize = filesize($this->request->file);
+
+        if($this->request->file->move(public_path('documents'), $filename)) {
+            return response()->json(['status' => true, 'filename' => $filename]);
+        }
+
+        return response()->json(['status' => false]);
     }
 
     public function getDocuments() {
-
+        return response()->json(['status' => true, 'documents' => Documents::where('user_id', auth()->user()->id)->get()]);
     }
 
     public function getDocument() {

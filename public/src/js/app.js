@@ -3314,8 +3314,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-upload-component */ "./node_modules/vue-upload-component/dist/vue-upload-component.js");
-/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_upload_component__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-upload-component */ "./node_modules/vue-upload-component/dist/vue-upload-component.js");
+/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_upload_component__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3377,9 +3389,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    FileUpload: vue_upload_component__WEBPACK_IMPORTED_MODULE_0___default.a
+    FileUpload: vue_upload_component__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
@@ -3390,8 +3403,10 @@ __webpack_require__.r(__webpack_exports__);
         name: null,
         type: null,
         renewal_date: null,
-        expiration_date: null
-      }
+        expiration_date: null,
+        filename: null
+      },
+      api_token: window.Laravel.api_token
     };
   },
   props: {
@@ -3404,14 +3419,18 @@ __webpack_require__.r(__webpack_exports__);
     this.getDocumentTypes();
   },
   methods: {
+    /** Close Document
+     * 
+     * @return Object| list of documents
+     * */
     close: function close() {
       this.$emit('close', false);
+      this.$emit('fetchDocument');
     },
 
     /** Get Document Type
      * 
-     * 
-     * 
+     * @return Object| list of documents
      * */
     getDocumentTypes: function getDocumentTypes() {
       var $this = this;
@@ -3421,6 +3440,48 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.data.status) {
           $this.types = response.data.types;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
+    },
+
+    /**
+     * On Submit Data
+     * @param  Object|undefined   newFile   Read only
+     * @return undefined
+     */
+    postDocument: function postDocument() {
+      if (!this.fields.name) {
+        return this.$toastr.e('Name is Required');
+      }
+
+      if (!this.fields.type) {
+        return this.$toastr.e('Type is Required');
+      }
+
+      if (!this.fields.renewal_date) {
+        return this.$toastr.e('Renewal Date is Required');
+      }
+
+      if (!this.fields.expiration_date) {
+        return this.$toastr.e('Expiration Date is Required');
+      }
+
+      if (!this.fields.filename) {
+        return this.$toastr.e('File is Required');
+      }
+
+      var $this = this;
+      axios({
+        method: 'post',
+        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+        data: $this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.$toastr.s('Successfully added your document');
+          $this.clearFields();
+          $this.close();
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -3440,7 +3501,11 @@ __webpack_require__.r(__webpack_exports__);
 
         if (newFile.xhr) {
           //  Get the response status code
-          console.log('status', newFile.xhr.status);
+          // console.log('status', newFile.xhr.status)
+          if (newFile.response.status) {
+            this.$toastr.s('Successfully Uploaded');
+            this.fields.filename = newFile.response.filename;
+          }
         }
       }
     },
@@ -3455,7 +3520,7 @@ __webpack_require__.r(__webpack_exports__);
     inputFilter: function inputFilter(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         // Filter non-image file
-        if (!/\.(jpeg|jpe|jpg|gif|png|webp)$/i.test(newFile.name)) {
+        if (!/\.(jpeg|jpe|jpg|gif|png|pdf|docx|webp)$/i.test(newFile.name)) {
           return prevent();
         }
       } // Create a blob field
@@ -3467,6 +3532,19 @@ __webpack_require__.r(__webpack_exports__);
       if (URL && URL.createObjectURL) {
         newFile.blob = URL.createObjectURL(newFile.file);
       }
+    },
+    uploadResponse: function uploadResponse(data) {
+      if (data.status) {
+        this.$toastr.s('Successfully Uploaded');
+        this.fields.filename = data.filename;
+      }
+    },
+    clearFields: function clearFields() {
+      this.fields.name = null;
+      this.fields.type = null;
+      this.fields.renewal_date = null;
+      this.fields.expiration_date = null;
+      this.fields.filename = null;
     }
   }
 });
@@ -3601,6 +3679,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3609,11 +3688,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.documents = this.getDocumentExpires();
+    this.getDocuments();
   },
   methods: {
-    getDocumentExpires: function getDocumentExpires() {
-      return null;
+    getDocuments: function getDocuments() {
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/documents?api_token=' + window.Laravel.api_token
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.documents = response.data.documents;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
     },
     close: function close() {
       this.$emit('close', false);
@@ -3952,7 +4041,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card[data-v-69748e98] {\n    min-height: 355px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-69748e98] {\n    min-height: 355px;\n}\n\n", ""]);
 
 // exports
 
@@ -28153,49 +28242,111 @@ var render = function () {
                   }),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("div", { staticClass: "example-drag" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
                     _c(
-                      "div",
-                      { staticClass: "upload" },
-                      [
-                        _c(
-                          "file-upload",
-                          {
-                            ref: "upload",
-                            attrs: {
-                              "post-action": "/post.method",
-                              "put-action": "/put.method",
-                            },
-                            on: {
-                              "input-file": _vm.inputFile,
-                              "input-filter": _vm.inputFilter,
-                            },
-                            model: {
-                              value: _vm.files,
-                              callback: function ($$v) {
-                                _vm.files = $$v
-                              },
-                              expression: "files",
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Upload file\n                            "
-                            ),
-                          ]
-                        ),
-                      ],
-                      1
+                      "ul",
+                      _vm._l(_vm.files, function (file) {
+                        return _c("li", [
+                          _vm._v(
+                            _vm._s(file.name) +
+                              " - Error: " +
+                              _vm._s(file.error) +
+                              ", Success: " +
+                              _vm._s(file.success)
+                          ),
+                        ])
+                      }),
+                      0
                     ),
-                  ]),
-                ]),
+                    _vm._v(" "),
+                    _c(
+                      "file-upload",
+                      {
+                        ref: "upload",
+                        attrs: {
+                          data: { api_token: _vm.api_token },
+                          "post-action": "/api/v1/documents/upload/docs",
+                        },
+                        on: {
+                          "input-file": _vm.inputFile,
+                          "input-filter": _vm.inputFilter,
+                          response: _vm.uploadResponse,
+                        },
+                        model: {
+                          value: _vm.files,
+                          callback: function ($$v) {
+                            _vm.files = $$v
+                          },
+                          expression: "files",
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                    Upload file\n                    "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value:
+                              !_vm.$refs.upload || !_vm.$refs.upload.active,
+                            expression: "!$refs.upload || !$refs.upload.active",
+                          },
+                        ],
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            _vm.$refs.upload.active = true
+                          },
+                        },
+                      },
+                      [_vm._v("Start upload")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.$refs.upload && _vm.$refs.upload.active,
+                            expression: "$refs.upload && $refs.upload.active",
+                          },
+                        ],
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            _vm.$refs.upload.active = false
+                          },
+                        },
+                      },
+                      [_vm._v("Stop upload")]
+                    ),
+                  ],
+                  1
+                ),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
                   "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.postDocument },
+                  },
                   [_vm._v("Save changes")]
                 ),
                 _vm._v(" "),
@@ -28363,11 +28514,51 @@ var render = function () {
             _c(
               "table",
               { staticClass: "table align-items-center table-flush" },
-              [_vm._m(1), _vm._v(" "), _vm.documents ? [_vm._m(2)] : _vm._e()],
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm.documents
+                  ? [
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.documents, function (document, index) {
+                          return _c("tr", { key: index }, [
+                            _c("th", { attrs: { scope: "row" } }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(document.name) +
+                                  "\n                            "
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(document.expiration_date) +
+                                  "\n                            "
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(document.renewal_date) +
+                                  "\n                            "
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td"),
+                          ])
+                        }),
+                        0
+                      ),
+                    ]
+                  : _vm._e(),
+              ],
               2
             ),
             _vm._v(" "),
-            !_vm.documents ? [_vm._m(3)] : _vm._e(),
+            !_vm.documents ? [_vm._m(2)] : _vm._e(),
           ],
           2
         ),
@@ -28376,6 +28567,7 @@ var render = function () {
       _c("upload-document-popup", {
         attrs: { showPopup: _vm.showPopup },
         on: {
+          fetchDocument: _vm.getDocuments,
           close: function ($event) {
             _vm.showPopup = false
           },
@@ -28407,37 +28599,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Renewal")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tbody", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "row" } }, [
-          _vm._v(
-            "\n                                /argon/\n                            "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _vm._v(
-            "\n                                4,569\n                            "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _vm._v(
-            "\n                                340\n                            "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c("i", { staticClass: "fas fa-arrow-up text-success mr-3" }),
-          _vm._v(" 46,53%\n                            "),
-        ]),
       ]),
     ])
   },
@@ -45417,7 +45578,7 @@ Vue.component('staff-document', _components_staff_DocumentComponent_vue__WEBPACK
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/larryparba/web/crm/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp2020\htdocs\crm\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

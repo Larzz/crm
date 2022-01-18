@@ -24,18 +24,18 @@
                     </thead>
                     <template v-if="documents">
                         <tbody>
-                            <tr>
+                            <tr v-for="(document, index) in documents" :key="index">
                                 <th scope="row">
-                                    /argon/
+                                    {{ document.name }}
                                 </th>
                                 <td>
-                                    4,569
+                                    {{ document.expiration_date }}
                                 </td>
                                 <td>
-                                    340
+                                    {{ document.renewal_date }}
                                 </td>
                                 <td>
-                                    <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
+
                                 </td>
                             </tr>
                         </tbody>
@@ -54,7 +54,8 @@
             </div>
         </div>
 
-    <upload-document-popup :showPopup="showPopup"  @close="showPopup = false"></upload-document-popup>
+        <upload-document-popup :showPopup="showPopup" @fetchDocument="getDocuments" @close="showPopup = false">
+        </upload-document-popup>
 
     </div>
 </template>
@@ -68,11 +69,23 @@
             }
         },
         mounted() {
-            this.documents = this.getDocumentExpires()
+            this.getDocuments()
         },
         methods: {
-            getDocumentExpires() {
-                return null
+            getDocuments() {
+                let $this = this
+                axios({
+                        method: 'get',
+                        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.documents = response.data.documents
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {});
             },
             close() {
                 this.$emit('close', false)
@@ -86,4 +99,5 @@
     .card {
         min-height: 355px;
     }
+
 </style>

@@ -60,6 +60,7 @@ Route::namespace('API')->group(function() {
 
         Route::prefix('documents')->group(function() {
             Route::post('/', 'DocumentController@addDocument');
+            Route::post('upload/docs', 'DocumentController@uploadDocument');
             Route::get('/', 'DocumentController@getDocuments');
             Route::get('type', 'DocumentController@getDocumentTypes');
             Route::get('{id}', 'DocumentController@getDocument');
