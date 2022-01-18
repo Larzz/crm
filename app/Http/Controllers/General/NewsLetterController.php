@@ -9,8 +9,8 @@ class NewsLetterController extends Controller
 {
     //
     public function index() {
-
+        $meta = ['title' => 'Newsletter'];
+        return view('general.newsletter', $meta);
     }
 
-    
 }

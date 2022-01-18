@@ -9,6 +9,7 @@ class TutorialController extends Controller
 {
     //
     public function index() {
-
+        $meta = ['title' => 'Tutorial'];
+        return view('general.tutorial', $meta);
     }
 }
