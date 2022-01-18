@@ -93,7 +93,6 @@ Route::prefix('my')->namespace('Client')->group(function() {
 
 });
 
-
 Route::prefix('staff')->namespace('Staff')->group(function() {
 
    Route::get('/', 'HomeController@index')->name('staff.home');
@@ -110,4 +109,16 @@ Route::prefix('staff')->namespace('Staff')->group(function() {
       Route::get('/', 'HomeController@index')->name('staff.bulletin');
    });
 
+});
+
+Route::prefix('tutorials')->namespace('General')->group(function() {
+   Route::get('/', 'TutorialController@index')->name('tutorial.index');
+});
+
+Route::prefix('newsletter')->namespace('General')->group(function() {
+   Route::get('/', 'NewsletterController@index')->name('newsletter.index');
+});
+
+Route::prefix('websites')->namespace('General')->group(function() {
+   Route::get('/', 'WebsiteController@index')->name('website.index');
 });
