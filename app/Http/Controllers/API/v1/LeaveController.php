@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 use App\Mail\LeaveMail;
+use Illuminate\Support\Facades\Mail;
 
 class LeaveController extends Controller
 {
