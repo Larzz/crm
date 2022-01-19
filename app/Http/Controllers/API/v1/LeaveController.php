@@ -47,6 +47,7 @@ class LeaveController extends Controller
         $leave_details->number_of_day = $this->request->used_days;
         $leave_details->balance = $this->request->remaining_days;
         $leave_details->status = false;
+        $leave_details->user_id = auth()->user()->id;
 
         if($leave_details->save()) {
 
