@@ -63,7 +63,14 @@ class DocumentController extends Controller
 
     }
 
-    public function deleteDocument() {
+    public function deleteDocument($id) {
+        
+        $document = Documents::where('id', $id)->first();
+        if($document) {
+            $document->delete();
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
 
     }
 

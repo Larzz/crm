@@ -66,6 +66,6 @@
 
 <style scoped>
     .card {
-        min-height: 200px;
+        height: 386px;
     }
 </style>

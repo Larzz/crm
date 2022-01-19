@@ -38,23 +38,22 @@
                     </div>
 
                     <div class="form-group">
-                        <!-- <label for="">File</label> -->
-                        <ul>
-                            <li v-for="file in files">{{file.name}} - Error: {{file.error}}, Success: {{file.success}}</li>
-                        </ul>
-                        <file-upload
-                            ref="upload"
-                            v-model="files"
-                            :data="{api_token: api_token }"
-                            post-action="/api/v1/documents/upload/docs"
-                            @input-file="inputFile"
-                            @input-filter="inputFilter"
-                            @response="uploadResponse"
-                        >
-                        Upload file
-                        </file-upload>
-                         <button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
-                        <button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <file-upload ref="upload" v-model="files" :data="{api_token: api_token }"
+                                    post-action="/api/v1/documents/upload/docs" @input-file="inputFile"
+                                    @input-filter="inputFilter" @response="uploadResponse">
+                                    Upload file
+                                </file-upload>
+                            </div>
+                            <div class="col-md-6">
+                                <button v-show="!$refs.upload || !$refs.upload.active"
+                                    @click.prevent="$refs.upload.active = true" class="btn btn-sm btn-primary"
+                                    type="button">Start upload</button>
+
+                            </div>
+                        </div>
+
                         <!-- <small>We only Accept Image and PDF files</small> -->
                     </div>
                 </div>
@@ -191,10 +190,10 @@
                         //  Get the response status code
                         // console.log('status', newFile.xhr.status)
                         if (newFile.response.status) {
-                             this.$toastr.s('Successfully Uploaded');
-                             this.fields.filename = newFile.response.filename
+                            this.$toastr.s('Successfully Uploaded');
+                            this.fields.filename = newFile.response.filename
                         }
-                           
+
                     }
                 }
             },
@@ -221,18 +220,18 @@
                 }
 
             },
-            uploadResponse: function(data) {
-                if(data.status) {
+            uploadResponse: function (data) {
+                if (data.status) {
                     this.$toastr.s('Successfully Uploaded');
                     this.fields.filename = data.filename
                 }
             },
-            clearFields: function() {
-                   this.fields.name = null
-                   this.fields.type = null
-                   this.fields.renewal_date = null
-                   this.fields.expiration_date = null
-                   this.fields.filename = null
+            clearFields: function () {
+                this.fields.name = null
+                this.fields.type = null
+                this.fields.renewal_date = null
+                this.fields.expiration_date = null
+                this.fields.filename = null
             }
         }
     }

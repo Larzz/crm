@@ -75,7 +75,6 @@
                     used_days: 0,
                     leave_id: null
                 },
-            
             }
         },
         props: ['leave'],
@@ -83,10 +82,38 @@
             this.field.remaining_days = this.leave.available_days
             this.field.used_days = this.leave.used_days
             this.field.leave_id = this.leave.id
+     
+        },
+        watch: {
+
+        },
+        computed: {
+            leave_from: function () {
+                const currentDate = new Date(this.field.leave_from);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                this.field.leave_from = currentDate.toLocaleDateString('en-us', options)
+            },
+            leave_to: function () {
+                const currentDate = new Date(this.field.leave_to);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                this.field.leave_to = currentDate.toLocaleDateString('en-us', options)
+            }
         },
         methods: {
 
             validate() {
+
+
 
                 this.field.remaining_days = this.leave.available_days
                 this.field.used_days = this.leave.used_days
@@ -98,9 +125,12 @@
 
                 const diffInTime = date2.getTime() - date1.getTime();
                 const diffInDays = diffInTime / oneDay;
-                
+
                 this.field.used_days = diffInDays
                 this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(diffInDays)
+
+                this.formatDate(this.field.leave_from)
+                this.formatDate(this.field.leave_to)
 
             },
 
@@ -122,7 +152,7 @@
 
                 axios({
                         method: 'post',
-                        url: '/api/v1/leave?api_token='+window.Laravel.api_token,
+                        url: '/api/v1/leave?api_token=' + window.Laravel.api_token,
                         data: this.field
                     }).then(function (response) {
                         JsLoadingOverlay.hide()
@@ -134,10 +164,20 @@
                         JsLoadingOverlay.hide()
                         $this.$toastr.e(error);
                     })
-                    .then(function () {
-                    });
+                    .then(function () {});
 
             },
+
+            formatDate(date) {
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
+            }
 
         }
     }

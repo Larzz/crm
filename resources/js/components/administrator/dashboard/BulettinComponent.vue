@@ -75,6 +75,8 @@
 
 </script>
 
-<style>
-
+<style scoped>
+  .card {
+        height: 476px;
+    }
 </style>
