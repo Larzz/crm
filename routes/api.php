@@ -66,8 +66,15 @@ Route::namespace('API')->group(function() {
             Route::get('{id}', 'DocumentController@getDocument');
             Route::patch('{id}', 'DocumentController@editDocument');
             Route::delete('{id}', 'DocumentController@deleteDocument');
-
         });
+
+        Route::prefix('tutorials')->group(function() {
+            Route::post('/', 'TutorialController@addTutorial');
+            Route::get('/', 'TutorialController@getTutorials');
+            Route::get('{id}', 'TutorialController@getTutorial');
+            Route::patch('{id}', 'TutorialController@editDocument');
+            Route::delete('{id}', 'TutorialController@deleteDocument');
+        }); 
     
     });
 

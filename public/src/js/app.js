@@ -3116,18 +3116,98 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: {
         title: null,
         content: null
-      }
+      },
+      tutorials: []
     };
+  },
+  mounted: function mounted() {
+    this.getTutorials();
   },
   methods: {
     submit: function submit() {
-      console.log(this.fields);
+      var $this = this;
+
+      if (!this.fields.title) {
+        $this.$toastr.e('Title is Required');
+        return;
+      }
+
+      if (!this.fields.content) {
+        $this.$toastr.e('Content is Required');
+        return;
+      }
+
+      axios({
+        method: 'post',
+        url: '/api/v1/tutorials?api_token=' + window.Laravel.api_token,
+        data: this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.$toastr.s('Succesfully Added new Tutorial');
+          $this.fields.title = null;
+          $this.fields.content = null;
+          $this.getTutorials();
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
+    },
+    getTutorials: function getTutorials() {
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/tutorials?api_token=' + window.Laravel.api_token
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.tutorials = response.data.tutorials;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
+    },
+    viewTutorial: function viewTutorial(id) {
+      console.log(id);
+    },
+    editTutorial: function editTutorial(id) {
+      console.log(id);
+    },
+    deleteTutorial: function deleteTutorial(id) {
+      console.log(id);
+    },
+    formatDate: function formatDate(date) {
+      var currentDate = new Date(date);
+      var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      return currentDate.toLocaleDateString('en-us', options);
     }
   }
 });
@@ -4254,7 +4334,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card[data-v-5b497c06] {\n    height: 590px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-5b497c06] {\n    height: 590px;\n}\n\n", ""]);
 
 // exports
 
@@ -27996,19 +28076,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.fields.message,
-                    expression: "fields.message",
+                    value: _vm.fields.content,
+                    expression: "fields.content",
                   },
                 ],
                 staticClass: "form-control",
                 attrs: { name: "", id: "", cols: "30", rows: "15" },
-                domProps: { value: _vm.fields.message },
+                domProps: { value: _vm.fields.content },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.fields, "message", $event.target.value)
+                    _vm.$set(_vm.fields, "content", $event.target.value)
                   },
                 },
               }),
@@ -28031,7 +28111,113 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _vm.tutorials
+                      ? _vm._l(_vm.tutorials, function (tutorial, index) {
+                          return _c("tr", { key: index }, [
+                            _c("td", [_vm._v(_vm._s(tutorial.title))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm.formatDate(tutorial.created_at))
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "div",
+                                { staticClass: "d-flex align-items-center" },
+                                [
+                                  _c("ul", [
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "View Employee",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.viewTutorial(
+                                                tutorial.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "Update Employee",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.editTutorial(
+                                                tutorial.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fas fa-pen" })]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "Update Employee",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.deleteTutorial(
+                                                tutorial.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash",
+                                          }),
+                                        ]
+                                      ),
+                                    ]),
+                                  ]),
+                                ]
+                              ),
+                            ]),
+                          ])
+                        })
+                      : _vm._e(),
+                  ],
+                  2
+                ),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
     ]),
   ])
 }
@@ -28040,23 +28226,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("table", { staticClass: "table align-items-center table-flush" }, [
-            _c("thead", { staticClass: "thead-light" }, [
-              _c("tr", [
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Date Added")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("tbody"),
-          ]),
-        ]),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Date Added")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),
     ])
   },
