@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Mail\LeaveMail;
+use Illuminate\Support\Facades\Mail;
+
 class LeaveController extends Controller
 {
     //
@@ -32,7 +35,6 @@ class LeaveController extends Controller
             'leave_id' => 'required'
         ]);
 
-
         if ($validator->fails()) {    
             return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
         }
@@ -45,6 +47,7 @@ class LeaveController extends Controller
         $leave_details->number_of_day = $this->request->used_days;
         $leave_details->balance = $this->request->remaining_days;
         $leave_details->status = false;
+        $leave_details->user_id = auth()->user()->id;
 
         if($leave_details->save()) {
 
@@ -54,6 +57,10 @@ class LeaveController extends Controller
             $leave->used_days = $this->request->total_day_used;
 
             if($leave->save()) {
+
+                Mail::to('larry@creativouae.com')->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Notification'));
+                Mail::to(auth()->user()->email)->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Confirmation'));
+
                 return response()->json(['status' => true]);
             }
 

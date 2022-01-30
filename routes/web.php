@@ -18,6 +18,10 @@ Route::get('/login', function() {
    return redirect(route('home.login'));
 });
 
+Route::get('email', function() {
+   return view('emails.leavemail');
+});
+
 Route::get('register','HomeController@register')->name('home.register');
 Route::get('/','HomeController@login')->name('home.login');
 Route::get('logout', 'HomeController@logout')->name('home.logout');
@@ -93,7 +97,6 @@ Route::prefix('my')->namespace('Client')->group(function() {
 
 });
 
-
 Route::prefix('staff')->namespace('Staff')->group(function() {
 
    Route::get('/', 'HomeController@index')->name('staff.home');
@@ -110,4 +113,16 @@ Route::prefix('staff')->namespace('Staff')->group(function() {
       Route::get('/', 'HomeController@index')->name('staff.bulletin');
    });
 
+});
+
+Route::prefix('tutorials')->namespace('General')->group(function() {
+   Route::get('/', 'TutorialController@index')->name('tutorial.index');
+});
+
+Route::prefix('newsletter')->namespace('General')->group(function() {
+   Route::get('/', 'NewsletterController@index')->name('newsletter.index');
+});
+
+Route::prefix('websites')->namespace('General')->group(function() {
+   Route::get('/', 'WebsiteController@index')->name('website.index');
 });

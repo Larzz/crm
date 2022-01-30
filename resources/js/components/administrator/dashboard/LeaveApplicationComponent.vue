@@ -30,10 +30,10 @@
                                     {{ leave.name}}
                                 </th>
                                 <td>
-                                    {{ leave.leave_from }}
+                                    {{ formatDate(leave.leave_from) }}
                                 </td>
                                 <td>
-                                    {{ leave.leave_to}}
+                                    {{ formatDate(leave.leave_to) }}
                                 </td>
                                 <td>
                                     {{ leave.number_of_day }}
@@ -125,9 +125,6 @@
                         Swal.fire('Changes are not saved', '', 'info')
                     }
                 })
-
-
-
             },
             declined(leave_id) {
 
@@ -176,8 +173,12 @@
                         return '<i class="bg-error"></i> Declined'
                         break;
 
-
                 }
+            },
+            formatDate(date) {
+              const currentDate = new Date(date);
+              const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };       
+              return currentDate.toLocaleDateString('en-us', options)
             }
 
         }

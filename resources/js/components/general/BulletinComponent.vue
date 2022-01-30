@@ -43,21 +43,20 @@
         },
         methods: {
             getBulettin() {
-                 let $this = this
-                 axios({
-                  method: 'get',
-                  url: '/api/v1/bulletin?api_token='+window.Laravel.api_token,
-                  data: this.fields
-                }).then(function (response) {
-                    if (response.data.status) {
-                      $this.bulletin = response.data.bulletins
-                    }
-                })
-                 .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                });
+                let $this = this
+                axios({
+                        method: 'get',
+                        url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.bulletin = response.data.bulletins
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {});
             }
         }
     }
@@ -66,6 +65,7 @@
 
 <style scoped>
     .card {
-        min-height: 200px;
+        height: 386px;
     }
+
 </style>
