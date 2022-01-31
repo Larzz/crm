@@ -39,10 +39,11 @@ Route::prefix('administrator')->namespace('Administrator')->group(function() {
 
    Route::prefix('clients')->group(function() {
       Route::get('/', 'HomeController@client_page')->name('admin.client');
+      Route::get('{id?}', 'HomeController@client_index_page')->name('admin.client.index');
    });
 
-   Route::prefix('employees')->group(function() {
-      Route::get('/', 'HomeController@employee_page')->name('admin.employee');
+   Route::prefix('employee')->group(function() {
+      Route::get('{id?}', 'HomeController@employee_page')->name('admin.employee');
    });
 
    Route::prefix('leave_request')->group(function() {

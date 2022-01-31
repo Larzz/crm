@@ -87,18 +87,19 @@
 
                 let $this = this
                 JsLoadingOverlay.show(this.$configs);
-                axios({
-                        method: 'get',
-                        url: '/api/v1/employee/' + employee_id + '?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            JsLoadingOverlay.hide();
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
+                window.location.href = '/administrator/employee/'+employee_id
+                // axios({
+                //         method: 'get',
+                //         url: '/api/v1/employee/' + employee_id + '?api_token=' + window.Laravel.api_token,
+                //     }).then(function (response) {
+                //         if (response.data.status) {
+                //             JsLoadingOverlay.hide();
+                //         }
+                //     })
+                //     .catch(function (error) {
+                //         $this.$toastr.e(error);
+                //     })
+                //     .then(function () {});
             },
             editEmployee(employee_id) {
                 let $this = this

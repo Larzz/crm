@@ -93,21 +93,7 @@
             viewClient(client_id) {
                 let $this = this
                 JsLoadingOverlay.show(this.$configs);
-                axios({
-                        method: 'get',
-                        url: '/api/v1/client/' + client_id + '?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            JsLoadingOverlay.hide();
-                            $this.showPopup = true
-                            $this.isEdit = true
-                            $this.editClientdata = response.data.client
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
+                window.location.href = '/administrator/clients/'+client_id
             },
 
             editClient(client_id) {

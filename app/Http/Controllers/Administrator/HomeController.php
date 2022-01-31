@@ -31,8 +31,13 @@ class HomeController extends Controller
         return view('administrator.pages.client', $meta);
     }
 
-    public function employee_page() {
-        $meta = array('active' => 'employee', 'title' => 'Employee');
+    public function client_index_page($id) {
+        $meta = array('active' => 'client', 'title' => 'Client', 'user' => User::where('role', 3)->get());
+        return view('administrator.pages.client', $meta);
+    }
+
+    public function employee_page($id) {
+        $meta = array('active' => 'employee', 'user' => User::where('id', $id)->first(), 'title' => 'Employee');
         return view('administrator.pages.employee', $meta);
     }
 
