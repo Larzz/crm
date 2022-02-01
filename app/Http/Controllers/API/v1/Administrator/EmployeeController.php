@@ -47,6 +47,7 @@ class EmployeeController extends Controller
         $user->role = 2; //emplloyee
         $user->position = $this->request->position;
         $user->date_joined = $this->request->date_joined;
+        $user->birth_date - $this->request->birth_date;
         $user->mobile_number = $this->request->mobile_number;
         $user->api_token = hash('sha256', $token);
 
@@ -57,7 +58,7 @@ class EmployeeController extends Controller
             // assign leave
             $leave = new Leave;
             $leave->year = date('Y');
-            $leave->available_days = 23;
+            $leave->available_days = $this->request->number_of_days;
             $leave->used_days = 0;
             $leave->is_forfeited = false;
             $leave->user_id = $user->id;

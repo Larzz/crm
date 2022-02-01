@@ -22,22 +22,22 @@ class HomeController extends Controller
     }
 
     public function index() {
-        $meta = array('active' => 'dashboard', 'title' => 'Dashboard');
+        $meta = array('active' => 'dashboard', 'title' => 'Dashboard', 'active' => 'dashboard');
         return view('administrator.pages.dashboard', $meta);
     }
 
     public function client_page() {
-        $meta = array('active' => 'client', 'title' => 'Client', 'users' => User::where('role', 3)->get());
+        $meta = array('active' => 'client', 'title' => 'Client', 'active' => 'client', 'users' => User::where('role', 3)->get());
         return view('administrator.pages.client', $meta);
     }
 
     public function client_index_page($id) {
-        $meta = array('active' => 'client', 'title' => 'Client', 'user' => User::where('role', 3)->get());
+        $meta = array('active' => 'client', 'title' => 'Client', 'active' => 'client',  'user' => User::where('role', 3)->get());
         return view('administrator.pages.client', $meta);
     }
 
     public function employee_page($id) {
-        $meta = array('active' => 'employee', 'user' => User::where('id', $id)->first(), 'title' => 'Employee');
+        $meta = array('active' => 'employee', 'user' => User::where('id', $id)->first(), 'active' => 'employee_page','title' => 'Employee');
         return view('administrator.pages.employee', $meta);
     }
 
@@ -50,8 +50,6 @@ class HomeController extends Controller
         $meta = array('active' => 'project', 'title' => 'Project');
         return view('administrator.pages.projects', $meta);
     }
-
-
 
     public function meeting_minutes_page() {
         $meta = array(

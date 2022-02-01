@@ -46,6 +46,16 @@
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Number of Vacation Days</label>
+                                <input type="text" v-model="fields.number_of_days" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +81,8 @@
                     position: null,
                     date_joined: null,
                     birth_date: null,
-                    mobile_number: null
+                    mobile_number: null,
+                    number_of_days: null,
                 }
             }
         },
@@ -119,6 +130,11 @@
                     return false
                 }
 
+                if (!this.fields.number_of_days) {
+                    $this.$toastr.e('Number of vacation days is Required!')
+                    return false
+                }
+
                 axios({
                         method: 'post',
                         url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
@@ -147,6 +163,7 @@
                 this.fields.date_joined = null
                 this.fields.birth_date = null
                 this.fields.mobile_number = null
+                this.fields.number_of_days = null
             }
         }
     }

@@ -3512,6 +3512,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3523,7 +3533,8 @@ __webpack_require__.r(__webpack_exports__);
         position: null,
         date_joined: null,
         birth_date: null,
-        mobile_number: null
+        mobile_number: null,
+        number_of_days: null
       }
     };
   },
@@ -3570,6 +3581,11 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
+      if (!this.fields.number_of_days) {
+        $this.$toastr.e('Number of vacation days is Required!');
+        return false;
+      }
+
       axios({
         method: 'post',
         url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
@@ -3595,6 +3611,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.date_joined = null;
       this.fields.birth_date = null;
       this.fields.mobile_number = null;
+      this.fields.number_of_days = null;
     }
   }
 });
@@ -29010,6 +29027,42 @@ var render = function () {
                             _vm.$set(
                               _vm.fields,
                               "mobile_number",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Number of Vacation Days"),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.number_of_days,
+                            expression: "fields.number_of_days",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.fields.number_of_days },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "number_of_days",
                               $event.target.value
                             )
                           },
