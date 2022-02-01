@@ -9,10 +9,7 @@
     @include('administrator.includes.navigation')
     <!-- Page content -->
     <div class="container-fluid mt--6">
-        <br />
-        <br />
-        <br />
-        <br />
+     
         <div class="row">
             <div class="table-responsive">
                 <!-- Projects table -->
@@ -117,10 +114,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    const UPLOAD = '{{ route('
-    admin.upload_presentation ') }}'
-    const CREATE = '{{ route('
-    admin.save_presentation ') }}'
+    const UPLOAD = '{{ route('admin.upload_presentation') }}'
+    const CREATE = '{{ route('admin.save_presentation') }}'
 
     $(function () {
 
@@ -129,10 +124,6 @@
         });
 
         $('#save').click(function () {
-
-
-
-
 
             var client_name = $('#exampleFormControlSelect2').find('option:selected').text();
             var form = $('#form').serialize();

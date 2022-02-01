@@ -25,10 +25,11 @@
 </div>
 
 <style>
-    .nav-sub-sx li a.active {
+    .nav-sub-sx>.active {
         background: #fff;
         padding: 6px;
         border-radius: 8px;
         color: #f26f24;
     }
+
 </style>

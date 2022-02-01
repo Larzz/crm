@@ -100,7 +100,7 @@ a:hover {
     color: #333;
 }
 
-.nav-sub-sx :active {
+.nav-sub-sx li a.active {
     background: #fff;
     padding: 6px;
     border-radius: 8px;

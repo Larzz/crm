@@ -100,13 +100,12 @@ a:hover {
     color: #333;
 }
 
-.nav-sub-sx :active {
+.nav-sub-sx li a.active {
     background: #fff;
     padding: 6px;
     border-radius: 8px;
     color: #f26f24;
 }
-
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
