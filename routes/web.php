@@ -118,6 +118,7 @@ Route::prefix('staff')->namespace('Staff')->group(function() {
 
 Route::prefix('tutorials')->namespace('General')->group(function() {
    Route::get('/', 'TutorialController@index')->name('tutorial.index');
+   Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
 });
 
 Route::prefix('newsletter')->namespace('General')->group(function() {

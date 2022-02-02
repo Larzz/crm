@@ -40,11 +40,17 @@
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
                         </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="button" @click="addClient" class="btn btn-primary">Save changes</button>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" @click="addClient" class="btn btn-primary">Save changes</button>
                     <button type="button" @click.prevent="close" class="btn btn-link  ml-auto"
                         data-dismiss="modal">Close</button>
                 </div>
@@ -84,14 +90,14 @@
         mounted() {
 
             console.log(this.editClient)
-          if(this.isEdit) {
-            
-             this.fields.name = this.editClient.name 
-             this.fields.email = this.editClient.email
-             this.fields.password = null
-             this.fields.date_joined = this.editClient.date_joined
-             this.fields.mobile_number = this.editClient.mobile_number
-          }
+            if (this.isEdit) {
+
+                this.fields.name = this.editClient.name
+                this.fields.email = this.editClient.email
+                this.fields.password = null
+                this.fields.date_joined = this.editClient.date_joined
+                this.fields.mobile_number = this.editClient.mobile_number
+            }
         },
         methods: {
             close() {

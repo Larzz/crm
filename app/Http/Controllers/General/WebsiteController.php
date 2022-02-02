@@ -10,7 +10,7 @@ class WebsiteController extends Controller
     //
 
     public function index() {
-        $meta = ['title' => 'Website'];
+        $meta = ['title' => 'Website', 'active' => 'website'];
         return view('general.website', $meta);
     }
 }

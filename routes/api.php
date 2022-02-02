@@ -36,10 +36,8 @@ Route::namespace('API')->group(function() {
             Route::get('{id}', 'LeaveController@getLeave');
             Route::patch('{id}', 'LeaveController@editLeave');
             Route::delete('{id}', 'LeaveController@deleteLeave');
-
             Route::post('approved', 'LeaveController@approved');
             Route::post('declined', 'LeaveController@declined');
-
         });
 
         Route::prefix('employee')->namespace('Administrator')->group(function() {
@@ -72,10 +70,14 @@ Route::namespace('API')->group(function() {
             Route::post('/', 'TutorialController@addTutorial');
             Route::get('/', 'TutorialController@getTutorials');
             Route::get('{id}', 'TutorialController@getTutorial');
-            Route::patch('{id}', 'TutorialController@editDocument');
-            Route::delete('{id}', 'TutorialController@deleteDocument');
+            Route::delete('{id}', 'TutorialController@deleteTutorial');
         }); 
-    
+
+        Route::prefix('presentations')->group(function() {
+            Route::post('/', "PresentationController@addPresentation");
+            Route::get('/', 'PresentationController@getOrPresentations');
+        });
+
     });
 
 });

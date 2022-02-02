@@ -11,8 +11,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Message</label>
-                            <textarea name="" id="" v-model="fields.content" cols="30" rows="15"
-                                class="form-control"></textarea>
+                            <vue-editor v-model="fields.content"> </vue-editor>
                         </div>
                         <button href="#!" @click="submit()" class="btn btn-primary">Add</button>
                     </div>
@@ -37,7 +36,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <ul>
-                                                    <li><a href="#!" @click="viewTutorial(tutorial.id)"
+                                                    <li><a href="#!" @click="viewTutorial(tutorial.slug)"
                                                             title="View Employee"><i class="fas fa-eye"></i></a> </li>
                                                     <li> <a href="#!" @click="editTutorial(tutorial.id)"
                                                             title="Update Employee"><i class="fas fa-pen"></i></a> </li>
@@ -61,7 +60,14 @@
 </template>
 
 <script>
+
+    import { VueEditor } from "vue2-editor";
+        import Swal from 'sweetalert2'
+
     export default {
+        components: {
+            VueEditor
+        },
         data() {
             return {
                 fields: {
@@ -121,14 +127,41 @@
                     })
                     .then(function () {});
             },
-            viewTutorial: function (id) {
-                console.log(id)
+            viewTutorial: function (slug) {
+                JsLoadingOverlay.show(this.$configs);
+                window.location.href = `/tutorials/${slug}`
             },
             editTutorial: function (id) {
                 console.log(id)
             },
             deleteTutorial: function (id) {
-                console.log(id)
+                let $this = this
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Are you sure you want to delete this tutorial?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Delete',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        // JsLoadingOverlay.show(this.$configs);
+                        axios({
+                                method: 'delete',
+                                url: `/api/v1/tutorials/${id}?api_token=${window.Laravel.api_token}`,
+                            }).then(function (response) {
+                                if (response.data.status) {
+                                    $this.$toastr.s('Successfully Deleted');
+                                    $this.getTutorials()
+                                }
+                            })
+                            .catch(function (error) {
+                                $this.$toastr.e(error);
+                            })
+                            .then(function () {
+                            });
+                    } 
+                })
+
             },
             formatDate(date) {
                 const currentDate = new Date(date);

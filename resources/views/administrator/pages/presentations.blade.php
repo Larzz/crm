@@ -9,50 +9,10 @@
     @include('administrator.includes.navigation')
     <!-- Page content -->
     <div class="container-fluid mt--6">
-     
-        <div class="row">
-            <div class="table-responsive">
-                <!-- Projects table -->
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($presentations as $item)
-                        <tr>
-                            <th scope="row"> {{ $item->filename }} </th>
-                            <td> {{ $item->filename_desc }}</td>
-                            <td> {{ $item->client_name }} </td>
-
-
-                            <td class="">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Delete</a>
-                                        <a class="dropdown-item" href="#">Update</a>
-                                        <a class="dropdown-item" href="#">Download</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
+        <presentation> </presentation>
         <!-- Footer -->
         @include('administrator.includes.footer')
+
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -100,6 +60,7 @@
             </div> --}}
             </div>
         </div>
+
     </div>
 </div>
 
@@ -170,7 +131,7 @@
                         },
                         beforeSend: function () {
                             $this.attr('disabled', 'disabled').html(
-                            'Please Wait..');
+                                'Please Wait..');
                         }
                     });
 

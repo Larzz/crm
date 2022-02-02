@@ -12,20 +12,8 @@
  <!-- Page content -->
  <div class="container-fluid mt--6">
 
-  <div class="row">
-
-    <div class="col-xl-4">
-      <staff-profile :employee="{{ $user }}"></staff-profile>
-    </div>
-
-    <div class="col-xl-4">
-      <staff-document></staff-document>
-    </div>
-
-    <div class="col-xl-4">
-      <general-employee-notes :user="{{ $user }}"></general-employee-notes>
-    </div>
-
+  <div class="col-md-12">
+        <client></client>
   </div>
 
   <div class="col-lx-12">

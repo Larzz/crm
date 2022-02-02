@@ -106,3 +106,10 @@ a:hover {
     border-radius: 8px;
     color: #f26f24;
 }
+
+.nav-sub-sx li > .active {
+    background: #fff !important;
+    padding: 6px !important;
+    border-radius: 8px !important;
+    color: #f26f24 !important;
+}

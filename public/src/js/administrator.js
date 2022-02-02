@@ -1364,7 +1364,7 @@ module.exports = function (css) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v11.3.5
+* sweetalert2 v11.3.10
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -1934,7 +1934,11 @@ module.exports = function (css) {
     timerProgressBar.style.width = "".concat(timerProgressBarPercent, "%");
   };
 
-  // Detect Node env
+  /**
+   * Detect Node env
+   *
+   * @returns {boolean}
+   */
   const isNodeEnv = () => typeof window === 'undefined' || typeof document === 'undefined';
 
   const RESTORE_FOCUS_TIMEOUT = 100;
@@ -2059,22 +2063,34 @@ module.exports = function (css) {
     addInputChangeListeners();
   };
 
+  /**
+   * @param {HTMLElement | object | string} param
+   * @param {HTMLElement} target
+   */
+
   const parseHtmlToContainer = (param, target) => {
     // DOM element
     if (param instanceof HTMLElement) {
-      target.appendChild(param); // Object
-    } else if (typeof param === 'object') {
-      handleObject(param, target); // Plain string
-    } else if (param) {
+      target.appendChild(param);
+    } // Object
+    else if (typeof param === 'object') {
+      handleObject(param, target);
+    } // Plain string
+    else if (param) {
       setInnerHtml(target, param);
     }
   };
+  /**
+   * @param {object} param
+   * @param {HTMLElement} target
+   */
 
   const handleObject = (param, target) => {
     // JQuery element(s)
     if (param.jquery) {
-      handleJqueryElem(target, param); // For other objects use their string representation
-    } else {
+      handleJqueryElem(target, param);
+    } // For other objects use their string representation
+    else {
       setInnerHtml(target, param.toString());
     }
   };
@@ -2426,12 +2442,12 @@ module.exports = function (css) {
     setInputPlaceholder(textarea, params);
     setInputLabel(textarea, textarea, params);
 
-    const getMargin = el => parseInt(window.getComputedStyle(el).marginLeft) + parseInt(window.getComputedStyle(el).marginRight);
+    const getMargin = el => parseInt(window.getComputedStyle(el).marginLeft) + parseInt(window.getComputedStyle(el).marginRight); // https://github.com/sweetalert2/sweetalert2/issues/2291
+
 
     setTimeout(() => {
-      // #2291
+      // https://github.com/sweetalert2/sweetalert2/issues/1699
       if ('MutationObserver' in window) {
-        // #1699
         const initialPopupWidth = parseInt(window.getComputedStyle(getPopup()).width);
 
         const textareaResizeHandler = () => {
@@ -2459,11 +2475,13 @@ module.exports = function (css) {
 
     if (params.html) {
       parseHtmlToContainer(params.html, htmlContainer);
-      show(htmlContainer, 'block'); // Content as plain text
-    } else if (params.text) {
+      show(htmlContainer, 'block');
+    } // Content as plain text
+    else if (params.text) {
       htmlContainer.textContent = params.text;
-      show(htmlContainer, 'block'); // No content
-    } else {
+      show(htmlContainer, 'block');
+    } // No content
+    else {
       hide(htmlContainer);
     }
 
@@ -2546,15 +2564,18 @@ module.exports = function (css) {
     }
   };
 
+  const successIconHtml = "\n  <div class=\"swal2-success-circular-line-left\"></div>\n  <span class=\"swal2-success-line-tip\"></span> <span class=\"swal2-success-line-long\"></span>\n  <div class=\"swal2-success-ring\"></div> <div class=\"swal2-success-fix\"></div>\n  <div class=\"swal2-success-circular-line-right\"></div>\n";
+  const errorIconHtml = "\n  <span class=\"swal2-x-mark\">\n    <span class=\"swal2-x-mark-line-left\"></span>\n    <span class=\"swal2-x-mark-line-right\"></span>\n  </span>\n";
+
   const setContent = (icon, params) => {
     icon.textContent = '';
 
     if (params.iconHtml) {
       setInnerHtml(icon, iconContent(params.iconHtml));
     } else if (params.icon === 'success') {
-      setInnerHtml(icon, "\n      <div class=\"swal2-success-circular-line-left\"></div>\n      <span class=\"swal2-success-line-tip\"></span> <span class=\"swal2-success-line-long\"></span>\n      <div class=\"swal2-success-ring\"></div> <div class=\"swal2-success-fix\"></div>\n      <div class=\"swal2-success-circular-line-right\"></div>\n    ");
+      setInnerHtml(icon, successIconHtml);
     } else if (params.icon === 'error') {
-      setInnerHtml(icon, "\n      <span class=\"swal2-x-mark\">\n        <span class=\"swal2-x-mark-line-left\"></span>\n        <span class=\"swal2-x-mark-line-right\"></span>\n      </span>\n    ");
+      setInnerHtml(icon, errorIconHtml);
     } else {
       const defaultIconHtml = {
         question: '?',
@@ -2667,9 +2688,9 @@ module.exports = function (css) {
   const renderPopup = (instance, params) => {
     const container = getContainer();
     const popup = getPopup(); // Width
+    // https://github.com/sweetalert2/sweetalert2/issues/2170
 
     if (params.toast) {
-      // #2170
       applyNumericalStyle(container, 'width', params.width);
       popup.style.width = '100%';
       popup.insertBefore(getLoader(), getIcon());
@@ -2780,12 +2801,17 @@ module.exports = function (css) {
     if (!template) {
       return {};
     }
+    /** @type {DocumentFragment} */
+
 
     const templateContent = template.content;
     showWarningsForElements(templateContent);
     const result = Object.assign(getSwalParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
 
   const getSwalParams = templateContent => {
     const result = {};
@@ -2804,6 +2830,10 @@ module.exports = function (css) {
     });
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalButtons = templateContent => {
     const result = {};
@@ -2823,9 +2853,15 @@ module.exports = function (css) {
     });
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalImage = templateContent => {
     const result = {};
+    /** @type {HTMLElement} */
+
     const image = templateContent.querySelector('swal-image');
 
     if (image) {
@@ -2850,9 +2886,15 @@ module.exports = function (css) {
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalIcon = templateContent => {
     const result = {};
+    /** @type {HTMLElement} */
+
     const icon = templateContent.querySelector('swal-icon');
 
     if (icon) {
@@ -2871,9 +2913,15 @@ module.exports = function (css) {
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalInput = templateContent => {
     const result = {};
+    /** @type {HTMLElement} */
+
     const input = templateContent.querySelector('swal-input');
 
     if (input) {
@@ -2907,12 +2955,19 @@ module.exports = function (css) {
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   * @param {string[]} paramNames
+   */
+
 
   const getSwalStringParams = (templateContent, paramNames) => {
     const result = {};
 
     for (const i in paramNames) {
       const paramName = paramNames[i];
+      /** @type {HTMLElement} */
+
       const tag = templateContent.querySelector(paramName);
 
       if (tag) {
@@ -2923,10 +2978,14 @@ module.exports = function (css) {
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
 
-  const showWarningsForElements = template => {
+
+  const showWarningsForElements = templateContent => {
     const allowedElements = swalStringParams.concat(['swal-param', 'swal-button', 'swal-image', 'swal-icon', 'swal-input', 'swal-input-option']);
-    toArray(template.children).forEach(el => {
+    toArray(templateContent.children).forEach(el => {
       const tagName = el.tagName.toLowerCase();
 
       if (allowedElements.indexOf(tagName) === -1) {
@@ -3081,8 +3140,8 @@ module.exports = function (css) {
   /* istanbul ignore file */
 
   const iOSfix = () => {
-    // @ts-ignore
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+    const iOS = // @ts-ignore
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
 
     if (iOS && !hasClass(document.body, swalClasses.iosfix)) {
       const offset = document.body.scrollTop;
@@ -3110,9 +3169,12 @@ module.exports = function (css) {
       }
     }
   };
+  /**
+   * https://github.com/sweetalert2/sweetalert2/issues/1246
+   */
+
 
   const lockBodyScroll = () => {
-    // #1246
     const container = getContainer();
     let preventTouchMove;
 
@@ -3160,9 +3222,15 @@ module.exports = function (css) {
   const isStylus = event => {
     return event.touches && event.touches.length && event.touches[0].touchType === 'stylus';
   };
+  /**
+   * https://github.com/sweetalert2/sweetalert2/issues/1891
+   *
+   * @param {TouchEvent} event
+   * @returns {boolean}
+   */
+
 
   const isZoom = event => {
-    // #1891
     return event.touches && event.touches.length > 1;
   };
 
@@ -3774,19 +3842,22 @@ module.exports = function (css) {
 
 
     if (e.key === 'Enter') {
-      handleEnter(instance, e, innerParams); // TAB
-    } else if (e.key === 'Tab') {
-      handleTab(e, innerParams); // ARROWS - switch focus between buttons
-    } else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(e.key)) {
-      handleArrows(e.key); // ESC
-    } else if (e.key === 'Escape') {
+      handleEnter(instance, e, innerParams);
+    } // TAB
+    else if (e.key === 'Tab') {
+      handleTab(e, innerParams);
+    } // ARROWS - switch focus between buttons
+    else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(e.key)) {
+      handleArrows(e.key);
+    } // ESC
+    else if (e.key === 'Escape') {
       handleEsc(e, innerParams, dismissWith);
     }
   };
 
   const handleEnter = (instance, e, innerParams) => {
-    // #720 #721
-    if (e.isComposing) {
+    // #2386 #720 #721
+    if (!callIfFunction(innerParams.allowEnterKey) || e.isComposing) {
       return;
     }
 
@@ -3810,13 +3881,13 @@ module.exports = function (css) {
         btnIndex = i;
         break;
       }
-    }
+    } // Cycle to the next button
+
 
     if (!e.shiftKey) {
-      // Cycle to the next button
       setFocus(innerParams, btnIndex, 1);
-    } else {
-      // Cycle to the prev button
+    } // Cycle to the prev button
+    else {
       setFocus(innerParams, btnIndex, -1);
     }
 
@@ -3873,7 +3944,7 @@ module.exports = function (css) {
   };
 
   function fire() {
-    const Swal = this;
+    const Swal = this; // eslint-disable-line @typescript-eslint/no-this-alias
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -4359,15 +4430,7 @@ module.exports = function (css) {
       return warn("You're trying to update the closed or closing popup, that won't work. Use the update() method in preConfirm parameter or show a new popup.");
     }
 
-    const validUpdatableParams = {}; // assign valid params from `params` to `defaults`
-
-    Object.keys(params).forEach(param => {
-      if (isUpdatableParameter(param)) {
-        validUpdatableParams[param] = params[param];
-      } else {
-        warn("Invalid parameter to update: \"".concat(param, "\". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js\n\nIf you think this parameter should be updatable, request it here: https://github.com/sweetalert2/sweetalert2/issues/new?template=02_feature_request.md"));
-      }
-    });
+    const validUpdatableParams = filterValidParams(params);
     const updatedParams = Object.assign({}, innerParams, validUpdatableParams);
     render(this, updatedParams);
     privateProps.innerParams.set(this, updatedParams);
@@ -4379,6 +4442,18 @@ module.exports = function (css) {
       }
     });
   }
+
+  const filterValidParams = params => {
+    const validUpdatableParams = {};
+    Object.keys(params).forEach(param => {
+      if (isUpdatableParameter(param)) {
+        validUpdatableParams[param] = params[param];
+      } else {
+        warn("Invalid parameter to update: \"".concat(param, "\". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js\n\nIf you think this parameter should be updatable, request it here: https://github.com/sweetalert2/sweetalert2/issues/new?template=02_feature_request.md"));
+      }
+    });
+    return validUpdatableParams;
+  };
 
   function _destroy() {
     const domCache = privateProps.domCache.get(this);
@@ -4667,7 +4742,7 @@ module.exports = function (css) {
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '11.3.5';
+  SweetAlert.version = '11.3.10';
 
   const Swal = SweetAlert; // @ts-ignore
 

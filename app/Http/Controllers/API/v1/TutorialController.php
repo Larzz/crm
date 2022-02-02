@@ -34,6 +34,7 @@ class TutorialController extends Controller
         }
 
         $tutorial = new Tutorials;
+        $tutorial->slug = Str::slug($this->request->title, '-');
         $tutorial->title = $this->request->title;
         $tutorial->content = $this->request->content;
         $tutorial->added_by = auth()->user()->id;
@@ -54,12 +55,19 @@ class TutorialController extends Controller
 
     }
 
-    public function editDocument() {
+    public function deleteTutorial($tutorial_id) {
+        
+        $tutorial = Tutorials::where('id', $tutorial_id)->first();
 
+        if($tutorial) {
+            $tutorial->delete();
+            return response()->json(['status' => true]);
+        }
+
+        return response()->json(['status' => false]);
+
+        
     }
 
-    public function deleteDocument() {
-
-    }
 
 }
