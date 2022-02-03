@@ -78,6 +78,11 @@ Route::namespace('API')->group(function() {
             Route::get('/', 'PresentationController@getOrPresentations');
         });
 
+        Route::prefix('website')->group(function() {
+            Route::post('/', "PresentationController@addPresentation");
+            Route::get('/', 'PresentationController@getOrPresentations');
+        });
+
     });
 
 });

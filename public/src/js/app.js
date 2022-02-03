@@ -3611,12 +3611,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: {
         title: null,
-        filename: null
+        content: null,
+        active: null
       }
     };
   },
@@ -3625,6 +3634,34 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     JsLoadingOverlay.hide();
+  },
+  methods: {
+    saveDomain: function saveDomain() {
+      if (!this.fields.title) {
+        $this.$toastr.e('Title is Required');
+        return false;
+      }
+
+      if (!this.fields.content) {
+        $this.$toastr.e('Content is Required');
+        return false;
+      }
+
+      axios({
+        method: 'post',
+        url: '/api/v1/websites?api_token=' + window.Laravel.api_token,
+        data: this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.$toastr.s('Successfully Added Employee');
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        $this.$toastr.e(error);
+      });
+      console.log(this.fields);
+    }
   }
 });
 
@@ -43279,7 +43316,75 @@ var render = function () {
                 }),
               ]),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Active")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.active,
+                        expression: "fields.active",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "", id: "" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.fields,
+                          "active",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "0" } }, [_vm._v("No")]),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.content,
+                      expression: "fields.content",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "", id: "", cols: "30", rows: "10" },
+                  domProps: { value: _vm.fields.content },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "content", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
               _vm._v(" "),
               _c(
                 "button",
@@ -43288,7 +43393,7 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
-                      return _vm.submit()
+                      return _vm.saveDomain()
                     },
                   },
                 },
@@ -43298,25 +43403,12 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(0),
       ]),
     ]),
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "", id: "", cols: "30", rows: "10" },
-      }),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

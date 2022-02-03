@@ -11,10 +11,18 @@
                                 <input type="text" v-model="fields.title" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="">Notes</label>
-                                <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                                <label for="">Active</label>
+                                <select name="" v-model="fields.active" class="form-control" id="">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
                             </div>
-                            <button href="#!" @click="submit()" class="btn btn-primary">Add</button>
+                            <div class="form-group">
+                                <label for="">Notes</label>
+                                <textarea name="" v-model="fields.content" class="form-control" id="" cols="30"
+                                    rows="10"></textarea>
+                            </div>
+                            <button href="#!" @click="saveDomain()" class="btn btn-primary">Add</button>
                         </div>
                     </div>
                 </div>
@@ -47,15 +55,48 @@
             return {
                 fields: {
                     title: null,
-                    filename: null
+                    content: null,
+                    active: null
                 }
             }
         },
         beforeCreate() {
-           JsLoadingOverlay.show(this.$configs);
+            JsLoadingOverlay.show(this.$configs);
         },
         created() {
-           JsLoadingOverlay.hide();
+            JsLoadingOverlay.hide();
+        },
+        methods: {
+            saveDomain() {
+
+                if (!this.fields.title) {
+                    $this.$toastr.e('Title is Required');
+                    return false
+                }
+
+                if (!this.fields.content) {
+                    $this.$toastr.e('Content is Required');
+                    return false
+                }
+
+                axios({
+                        method: 'post',
+                        url: '/api/v1/websites?api_token=' + window.Laravel.api_token,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.$toastr.s('Successfully Added Employee');
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                        $this.$toastr.e(error);
+                    });
+
+                console.log(this.fields)
+            }
         }
     }
 
