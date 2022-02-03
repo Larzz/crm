@@ -3626,7 +3626,8 @@ __webpack_require__.r(__webpack_exports__);
         title: null,
         content: null,
         active: null
-      }
+      },
+      domains: {}
     };
   },
   beforeCreate: function beforeCreate() {
@@ -3635,8 +3636,13 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     JsLoadingOverlay.hide();
   },
+  mounted: function mounted() {
+    this.getDomains();
+  },
   methods: {
     saveDomain: function saveDomain() {
+      var $this = this;
+
       if (!this.fields.title) {
         $this.$toastr.e('Title is Required');
         return false;
@@ -3649,7 +3655,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios({
         method: 'post',
-        url: '/api/v1/websites?api_token=' + window.Laravel.api_token,
+        url: '/api/v1/website?api_token=' + window.Laravel.api_token,
         data: this.fields
       }).then(function (response) {
         if (response.data.status) {
@@ -3660,7 +3666,23 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         $this.$toastr.e(error);
       });
-      console.log(this.fields);
+    },
+    getDomains: function getDomains() {
+      JsLoadingOverlay.show(this.$configs);
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/website?api_token=' + window.Laravel.api_token,
+        data: this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.domains = response.data.domains;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     }
   }
 });
@@ -43287,7 +43309,7 @@ var render = function () {
   return _c("div", [
     _c("div", [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "col-md-5" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "form-group" }, [
@@ -43413,7 +43435,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
+    return _c("div", { staticClass: "col-md-7" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body" }, [
           _c("table", { staticClass: "table align-items-center table-flush" }, [

@@ -79,8 +79,8 @@ Route::namespace('API')->group(function() {
         });
 
         Route::prefix('website')->group(function() {
-            Route::post('/', "PresentationController@addPresentation");
-            Route::get('/', 'PresentationController@getOrPresentations');
+            Route::post('/', "WebsiteController@saveDomain");
+            Route::get('/', 'WebsiteController@getDomain');
         });
 
     });

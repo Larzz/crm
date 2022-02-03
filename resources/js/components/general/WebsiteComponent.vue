@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-body">
                             <!-- Chart -->
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-body">
                             <table class="table align-items-center table-flush">
@@ -57,7 +57,8 @@
                     title: null,
                     content: null,
                     active: null
-                }
+                },
+                domains: {}
             }
         },
         beforeCreate() {
@@ -66,8 +67,13 @@
         created() {
             JsLoadingOverlay.hide();
         },
+        mounted() {
+            this.getDomains()
+        },
         methods: {
             saveDomain() {
+
+                let $this = this
 
                 if (!this.fields.title) {
                     $this.$toastr.e('Title is Required');
@@ -81,7 +87,7 @@
 
                 axios({
                         method: 'post',
-                        url: '/api/v1/websites?api_token=' + window.Laravel.api_token,
+                        url: '/api/v1/website?api_token=' + window.Laravel.api_token,
                         data: this.fields
                     }).then(function (response) {
                         if (response.data.status) {
@@ -95,7 +101,28 @@
                         $this.$toastr.e(error);
                     });
 
-                console.log(this.fields)
+            },
+            getDomains() {
+                
+                JsLoadingOverlay.show(this.$configs);
+                let $this = this
+
+                axios({
+                        method: 'get',
+                        url: '/api/v1/website?api_token=' + window.Laravel.api_token,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.domains = response.data.domains
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                       JsLoadingOverlay.hide();
+                    });
+
             }
         }
     }

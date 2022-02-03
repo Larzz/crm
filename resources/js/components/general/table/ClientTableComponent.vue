@@ -68,7 +68,6 @@
                 JsLoadingOverlay.show(this.$configs);
                 window.location.href = '/administrator/clients/' + client_id
             },
-
             editClient(client_id) {
                 let $this = this
                 JsLoadingOverlay.show(this.$configs);
