@@ -52,6 +52,12 @@
                 }
             }
         },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
+        },
         methods: {
             addClient() {
 

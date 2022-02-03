@@ -53,8 +53,14 @@
     export default {
         data() {
             return {
-                
+
             }
+        },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
         },
         mounted() {
             this.getPresentations()

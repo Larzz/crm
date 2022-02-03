@@ -93,6 +93,12 @@
             }
         },
         methods: {
+            beforeCreate() {
+                JsLoadingOverlay.show(this.$configs);
+            },
+            created() {
+                JsLoadingOverlay.hide();
+            },
             close() {
                 this.$emit('close', false)
             },

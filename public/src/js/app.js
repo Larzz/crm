@@ -2758,6 +2758,12 @@ __webpack_require__.r(__webpack_exports__);
       bulletin: {}
     };
   },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
+  },
   mounted: function mounted() {
     this.getBulettin();
   },
@@ -2844,6 +2850,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   mounted: function mounted() {
     this.getPresentations();
@@ -2936,6 +2948,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getClients();
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   methods: {
     close: function close() {
@@ -3077,6 +3095,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       notes: []
     };
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   }
 });
 
@@ -3146,6 +3170,12 @@ __webpack_require__.r(__webpack_exports__);
         filename: null
       }
     };
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   }
 });
 
@@ -3322,9 +3352,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {},
+  data: function data() {
+    return {};
+  },
   mounted: function mounted() {
     this.getPresentations();
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   methods: {
     getPresentations: function getPresentations() {
@@ -3425,6 +3463,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getTutorials();
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   methods: {
     submit: function submit() {
@@ -3567,10 +3611,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3579,6 +3619,12 @@ __webpack_require__.r(__webpack_exports__);
         filename: null
       }
     };
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   }
 });
 
@@ -3645,6 +3691,12 @@ __webpack_require__.r(__webpack_exports__);
         mobile_number: null
       }
     };
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   methods: {
     addClient: function addClient() {
@@ -3798,6 +3850,12 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       type: Object
     }
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   mounted: function mounted() {
     console.log(this.editClient);
@@ -3972,6 +4030,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    beforeCreate: function beforeCreate() {
+      JsLoadingOverlay.show(this.$configs);
+    },
+    created: function created() {
+      JsLoadingOverlay.hide();
+    },
     close: function close() {
       this.$emit('close', false);
     },
@@ -4340,6 +4404,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       clients: {}
     };
+  },
+  beforeCreate: function beforeCreate() {
+    JsLoadingOverlay.show(this.$configs);
+  },
+  created: function created() {
+    JsLoadingOverlay.hide();
   },
   mounted: function mounted() {
     this.getClients();
@@ -6885,7 +6955,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card[data-v-967939fc] {\n    height: 590px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-967939fc] {\n    height: 590px;\n}\n\n", ""]);
 
 // exports
 
@@ -43211,8 +43281,6 @@ var render = function () {
               _vm._v(" "),
               _vm._m(0),
               _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
               _c(
                 "button",
                 {
@@ -43230,7 +43298,7 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _vm._m(2),
+        _vm._m(1),
       ]),
     ]),
   ])
@@ -43247,16 +43315,6 @@ var staticRenderFns = [
         staticClass: "form-control",
         attrs: { name: "", id: "", cols: "30", rows: "10" },
       }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Upload Document")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "file" } }),
     ])
   },
   function () {

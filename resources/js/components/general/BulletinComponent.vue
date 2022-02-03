@@ -38,6 +38,12 @@
                 bulletin: {}
             }
         },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
+        },
         mounted() {
             this.getBulettin()
         },

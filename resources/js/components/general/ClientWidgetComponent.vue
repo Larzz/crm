@@ -69,6 +69,12 @@
         mounted() {
             this.getClients()
         },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
+        },
         methods: {
             close() {
                 this.showPopup = false
@@ -93,7 +99,7 @@
             viewClient(client_id) {
                 let $this = this
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/administrator/clients/'+client_id
+                window.location.href = '/administrator/clients/' + client_id
             },
 
             editClient(client_id) {

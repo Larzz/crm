@@ -14,10 +14,10 @@
                                 <label for="">Notes</label>
                                 <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
                             </div>
-                           <div class="form-group">
-                               <label for="">Upload Document</label>
-                               <input type="file" class="form-control">
-                           </div>
+                            <div class="form-group">
+                                <label for="">Upload Document</label>
+                                <input type="file" class="form-control">
+                            </div>
                             <button href="#!" @click="submit()" class="btn btn-primary">Add</button>
                         </div>
                     </div>
@@ -50,11 +50,17 @@
         data() {
             return {
                 fields: {
-                    title:null,
+                    title: null,
                     filename: null
                 }
             }
-        }
+        },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
+        },
     }
 
 </script>
@@ -63,5 +69,5 @@
     .card {
         height: 590px;
     }
+
 </style>
-    

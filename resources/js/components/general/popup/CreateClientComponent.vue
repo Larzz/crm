@@ -87,6 +87,12 @@
                 type: Object
             }
         },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
+        },
         mounted() {
 
             console.log(this.editClient)

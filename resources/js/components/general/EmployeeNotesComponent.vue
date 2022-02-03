@@ -62,7 +62,13 @@
             return {
                 notes: []
             }
-        }
+        },
+        beforeCreate() {
+            JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+            JsLoadingOverlay.hide();
+        },
     }
 
 </script>

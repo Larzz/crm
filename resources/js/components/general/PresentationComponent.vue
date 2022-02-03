@@ -106,10 +106,17 @@
 <script>
     export default {
         data() {
-
+            return {
+            }
         },
         mounted() {
             this.getPresentations()
+        },
+        beforeCreate() {
+           JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+           JsLoadingOverlay.hide();
         },
         methods: {
             getPresentations: function () {

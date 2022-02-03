@@ -80,6 +80,12 @@
         mounted() {
             this.getTutorials()
         },
+        beforeCreate() {
+           JsLoadingOverlay.show(this.$configs);
+        },
+        created() {
+           JsLoadingOverlay.hide();
+        },
         methods: {
             submit: function () {
 
