@@ -11,16 +11,16 @@
                                 <input type="text" v-model="fields.website" class="form-control">
                             </div>
                             <div class="form-group">
+                                <label for="">Notes</label>
+                                <textarea name="" v-model="fields.content" class="form-control" id="" cols="30"
+                                    rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="">Active</label>
                                 <select name="" v-model="fields.active" class="form-control" id="">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Notes</label>
-                                <textarea name="" v-model="fields.content" class="form-control" id="" cols="30"
-                                    rows="10"></textarea>
                             </div>
                             <button href="#!" @click="saveDomain()" class="btn btn-primary">Add</button>
                         </div>

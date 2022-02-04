@@ -19,6 +19,15 @@ class NewsletterController extends Controller
 
     public function saveNewsletter() {
 
+        $validator = Validator::make($this->request->all(), [
+            'title' => 'required',
+            'notes' => 'required',
+        ]); 
+
+        if ($validator->fails()) {    
+            return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
+        }
+
     }
 
     public function getNewsletter() {

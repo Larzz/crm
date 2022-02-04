@@ -57,6 +57,12 @@
                                 <input type="text" v-model="fields.number_of_days" class="form-control">
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                    <label for="">Notes</label>
+                                   <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30" rows="2"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -83,6 +89,7 @@
                     birth_date: null,
                     mobile_number: null,
                     number_of_days: null,
+                    notes: null
                 }
             }
         },

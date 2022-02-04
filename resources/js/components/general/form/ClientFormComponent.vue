@@ -103,7 +103,9 @@
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
-                    .then(function () {});
+                    .then(function () {
+                        
+                    });
 
             },
             resetForm() {

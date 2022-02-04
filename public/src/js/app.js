@@ -3183,6 +3183,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3206,7 +3207,29 @@ __webpack_require__.r(__webpack_exports__);
      * @param date date
      * @return formatted datetime
      */
-    saveNewsletter: function saveNewsletter() {},
+    saveNewsletter: function saveNewsletter() {
+      if (!fields.title) {
+        $this.$toastr.e('Title is Required');
+        return;
+      }
+
+      if (!fields.notes) {
+        $this.$toastr.e('Notes is Required');
+        return;
+      }
+
+      axios({
+        method: 'post',
+        url: "/api/v1/newsletter?api_token=".concat(window.Laravel.api_token),
+        data: this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.$toastr.s('Succesfully Added');
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {});
+    },
 
     /**
      * Format Date 
@@ -4308,6 +4331,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4320,7 +4349,8 @@ __webpack_require__.r(__webpack_exports__);
         date_joined: null,
         birth_date: null,
         mobile_number: null,
-        number_of_days: null
+        number_of_days: null,
+        notes: null
       }
     };
   },
@@ -42842,9 +42872,33 @@ var render = function () {
                 }),
               ]),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.notes,
+                      expression: "fields.notes",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "", id: "", cols: "30", rows: "10" },
+                  domProps: { value: _vm.fields.notes },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "notes", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "button",
@@ -42870,7 +42924,7 @@ var render = function () {
                 "table",
                 { staticClass: "table align-items-center table-flush" },
                 [
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -42983,19 +43037,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "", id: "", cols: "30", rows: "10" },
-      }),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -43763,6 +43804,32 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.content,
+                      expression: "fields.content",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "", id: "", cols: "30", rows: "10" },
+                  domProps: { value: _vm.fields.content },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "content", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "" } }, [_vm._v("Active")]),
                 _vm._v(" "),
                 _c(
@@ -43804,32 +43871,6 @@ var render = function () {
                     _c("option", { attrs: { value: "0" } }, [_vm._v("No")]),
                   ]
                 ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.fields.content,
-                      expression: "fields.content",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  attrs: { name: "", id: "", cols: "30", rows: "10" },
-                  domProps: { value: _vm.fields.content },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.fields, "content", $event.target.value)
-                    },
-                  },
-                }),
               ]),
               _vm._v(" "),
               _c(
@@ -44722,6 +44763,34 @@ var render = function () {
                               "number_of_days",
                               $event.target.value
                             )
+                          },
+                        },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.notes,
+                            expression: "fields.notes",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "", id: "", cols: "30", rows: "2" },
+                        domProps: { value: _vm.fields.notes },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.fields, "notes", $event.target.value)
                           },
                         },
                       }),

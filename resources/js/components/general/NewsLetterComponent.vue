@@ -12,7 +12,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Notes</label>
-                                <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                                <textarea name="" class="form-control" v-model="fields.notes" id="" cols="30"
+                                    rows="10"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Upload Document</label>
@@ -92,6 +93,31 @@
              */
             saveNewsletter: function () {
 
+                if (!fields.title) {
+                    $this.$toastr.e('Title is Required')
+                    return;
+                }
+
+                if (!fields.notes) {
+                    $this.$toastr.e('Notes is Required')
+                    return;
+                }
+
+                axios({
+                        method: 'post',
+                        url: `/api/v1/newsletter?api_token=${window.Laravel.api_token}`,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.$toastr.s('Succesfully Added')
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+
+                    });
             },
             /**
              * Format Date 
