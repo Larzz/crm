@@ -34,6 +34,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <template v-if="newsletters">
+                                        <tr v-for="(newsletter, index) in newsletters" :key="index">
+                                            <td>{{ newsletter.title }}</td>
+                                            <td>{{ formatDate(newsletter.content) }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <ul>
+                                                        <li><a href="#!" @click="viewTutorial(tutorial.slug)"
+                                                                title="View Employee"><i class="fas fa-eye"></i></a>
+                                                        </li>
+                                                        <li> <a href="#!" @click="editTutorial(tutorial.id)"
+                                                                title="Update Employee"><i class="fas fa-pen"></i></a>
+                                                        </li>
+                                                        <li> <a href="#!" @click="deleteTutorial(tutorial.id)"
+                                                                title="Update Employee"><i class="fas fa-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
                                 </tbody>
                             </table>
                         </div>
@@ -51,8 +72,10 @@
             return {
                 fields: {
                     title: null,
+                    notes: null,
                     filename: null
-                }
+                },
+                newsletters: {}
             }
         },
         beforeCreate() {
@@ -61,6 +84,40 @@
         created() {
             JsLoadingOverlay.hide();
         },
+        methods: {
+            /**
+             * Format Date 
+             * @param date date
+             * @return formatted datetime
+             */
+            saveNewsletter: function () {
+
+            },
+            /**
+             * Format Date 
+             * @param date date
+             * @return formatted datetime
+             */
+            getAllNewsletter: function () {
+
+            },
+            /**
+             * Format Date 
+             * @param date date
+             * @return formatted datetime
+             */
+            getNewsletter: function () {
+
+            },
+            /**
+             * Format Date 
+             * @param date date
+             * @return formatted datetime
+             */
+            deleteNewsletter: function () {
+
+            }
+        }
     }
 
 </script>

@@ -48,7 +48,9 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Client</label>
                                 <select class="form-control" name="client_id" id="exampleFormControlSelect2">
-
+                                    <template v-if="clients" >
+                                        <option v-for="(client, index) in clients" :key="index">{{ client.name }}</option>
+                                    </template>
                                 </select> </div>
                             <div class="form-group">
                                 <div id="fine-uploader-gallery"></div>
@@ -75,24 +77,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row"> </th>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">Delete</a>
-                                                    <a class="dropdown-item" href="#">Update</a>
-                                                    <a class="dropdown-item" href="#">Download</a>
+                                    <template v-if="presentations">
+                                        <tr v-for="(presentation, index) in presentations" :key="index">
+                                            <th scope="row"> {{ presentation.filename }}</th>
+                                            <td> {{ presentation.description }} </td>
+                                            <td> {{ presentation.client_id }} </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <ul>
+                                                        <li><a href="#!" @click="viewPresentation(presentation.id)"
+                                                                title="View Presentation"><i class="fas fa-eye"></i></a>
+                                                        </li>
+                                                        <li> <a href="#!" @click="editPresentation(presentation.id)"
+                                                                title="Update Presentation"><i class="fas fa-pen"></i></a>
+                                                        </li>
+                                                        <li> <a href="#!" @click="deletePresentation(presentation.id)"
+                                                                title="Update Presentation"><i class="fas fa-trash"></i></a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    </template>
+
                                 </tbody>
                             </table>
                         </div>
@@ -107,21 +114,62 @@
     export default {
         data() {
             return {
+                presentations: {},
+                clients: {}
             }
         },
         mounted() {
             this.getPresentations()
+            this.getClients()
         },
         beforeCreate() {
-           JsLoadingOverlay.show(this.$configs);
+            JsLoadingOverlay.show(this.$configs);
         },
         created() {
-           JsLoadingOverlay.hide();
+            JsLoadingOverlay.hide();
         },
         methods: {
+            getClients() {
+                let $this = this
+                axios({
+                        method: 'get',
+                        url: '/api/v1/client?api_token=' + window.Laravel.api_token,
+                    }).then(function (response) {
+                        $this.clients = response.data.clients
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                        JsLoadingOverlay.hide();
+                    });
+            },
             getPresentations: function () {
+                JsLoadingOverlay.show(this.$configs);
+                let $this = this
+                axios({
+                        method: 'get',
+                        url: '/api/v1/presentations?api_token=' + window.Laravel.api_token,
+                    }).then(function (response) {
+                        $this.presentations = response.data.presentations
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+                        JsLoadingOverlay.hide();
+                    });
+            },
+            addPresentation: function () {
+                return;
+            },
+            deletePresentation: function () {
+                return;
+            },
+            viewPresentation: function () {
                 return;
             }
+
         }
     }
 

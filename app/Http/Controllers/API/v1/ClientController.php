@@ -17,7 +17,6 @@ use App\Models\User;
 class ClientController extends Controller
 {
     //
-
     protected $request;
 
     public function __construct(Request $request) {

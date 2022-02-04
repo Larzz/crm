@@ -95,9 +95,8 @@
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.$emit('new_client', true)
-                            $this.close()
+                            // $this.close()
                             $this.resetForm()
-
                             $this.$toastr.s('Succesfully Added new Client')
                         }
                     })

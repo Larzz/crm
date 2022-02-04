@@ -3162,13 +3162,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: {
         title: null,
+        notes: null,
         filename: null
-      }
+      },
+      newsletters: {}
     };
   },
   beforeCreate: function beforeCreate() {
@@ -3176,6 +3199,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     JsLoadingOverlay.hide();
+  },
+  methods: {
+    /**
+     * Format Date 
+     * @param date date
+     * @return formatted datetime
+     */
+    saveNewsletter: function saveNewsletter() {},
+
+    /**
+     * Format Date 
+     * @param date date
+     * @return formatted datetime
+     */
+    getAllNewsletter: function getAllNewsletter() {},
+
+    /**
+     * Format Date 
+     * @param date date
+     * @return formatted datetime
+     */
+    getNewsletter: function getNewsletter() {},
+
+    /**
+     * Format Date 
+     * @param date date
+     * @return formatted datetime
+     */
+    deleteNewsletter: function deleteNewsletter() {}
   }
 });
 
@@ -3351,12 +3403,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      presentations: {},
+      clients: {}
+    };
   },
   mounted: function mounted() {
     this.getPresentations();
+    this.getClients();
   },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
@@ -3365,7 +3428,40 @@ __webpack_require__.r(__webpack_exports__);
     JsLoadingOverlay.hide();
   },
   methods: {
+    getClients: function getClients() {
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/client?api_token=' + window.Laravel.api_token
+      }).then(function (response) {
+        $this.clients = response.data.clients;
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
+    },
     getPresentations: function getPresentations() {
+      JsLoadingOverlay.show(this.$configs);
+      var $this = this;
+      axios({
+        method: 'get',
+        url: '/api/v1/presentations?api_token=' + window.Laravel.api_token
+      }).then(function (response) {
+        $this.presentations = response.data.presentations;
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
+    },
+    addPresentation: function addPresentation() {
+      return;
+    },
+    deletePresentation: function deletePresentation() {
+      return;
+    },
+    viewPresentation: function viewPresentation() {
       return;
     }
   }
@@ -3385,7 +3481,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-//
 //
 //
 //
@@ -3471,6 +3566,11 @@ __webpack_require__.r(__webpack_exports__);
     JsLoadingOverlay.hide();
   },
   methods: {
+    /**
+     * Save Tutorial 
+     * @param fields array
+     * @return status boolean
+     */
     submit: function submit() {
       var $this = this;
 
@@ -3499,6 +3599,12 @@ __webpack_require__.r(__webpack_exports__);
         $this.$toastr.e(error);
       }).then(function () {});
     },
+
+    /**
+     * Get Tutorial 
+     * @param 
+     * @return data object
+     */
     getTutorials: function getTutorials() {
       var $this = this;
       axios({
@@ -3512,13 +3618,31 @@ __webpack_require__.r(__webpack_exports__);
         $this.$toastr.e(error);
       }).then(function () {});
     },
+
+    /**
+     * View Tutorial 
+     * @param 
+     * @return void
+     */
     viewTutorial: function viewTutorial(slug) {
       JsLoadingOverlay.show(this.$configs);
       window.location.href = "/tutorials/".concat(slug);
     },
+
+    /**
+     * Edit Tutorial 
+     * @param id string
+     * @return void
+     */
     editTutorial: function editTutorial(id) {
       console.log(id);
     },
+
+    /**
+     * Delete Tutorial 
+     * @param id string
+     * @return status bollean
+     */
     deleteTutorial: function deleteTutorial(id) {
       var $this = this;
       sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
@@ -3544,6 +3668,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+
+    /**
+     * Format Date 
+     * @param date date
+     * @return formatted datetime
+     */
     formatDate: function formatDate(date) {
       var currentDate = new Date(date);
       var options = {
@@ -3568,6 +3698,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3619,15 +3751,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: {
-        title: null,
+        id: null,
+        website: null,
         content: null,
         active: null
       },
-      domains: {}
+      websites: {}
     };
   },
   beforeCreate: function beforeCreate() {
@@ -3640,11 +3792,16 @@ __webpack_require__.r(__webpack_exports__);
     this.getDomains();
   },
   methods: {
+    /**
+     * Save Domain 
+     * @param object
+     * @return status
+     */
     saveDomain: function saveDomain() {
       var $this = this;
 
-      if (!this.fields.title) {
-        $this.$toastr.e('Title is Required');
+      if (!this.fields.website) {
+        $this.$toastr.e('Website URL is Required');
         return false;
       }
 
@@ -3659,14 +3816,23 @@ __webpack_require__.r(__webpack_exports__);
         data: this.fields
       }).then(function (response) {
         if (response.data.status) {
-          $this.$toastr.s('Successfully Added Employee');
+          $this.getDomains();
+          $this.fields.id = null;
+          $this.fields.website = null;
+          $this.fields.content = null;
+          $this.fields.active = null;
+          $this.$toastr.s('Successfully Added Website');
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
-      }).then(function () {
-        $this.$toastr.e(error);
-      });
+      }).then(function () {});
     },
+
+    /**
+     * Get Domain 
+     * @param 
+     * @return status
+     */
     getDomains: function getDomains() {
       JsLoadingOverlay.show(this.$configs);
       var $this = this;
@@ -3676,13 +3842,89 @@ __webpack_require__.r(__webpack_exports__);
         data: this.fields
       }).then(function (response) {
         if (response.data.status) {
-          $this.domains = response.data.domains;
+          $this.websites = response.data.websites;
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {
         JsLoadingOverlay.hide();
       });
+    },
+
+    /**
+     * Delete Domain
+     * @param id integer
+     * @return status boolean
+     */
+    deleteDomain: function deleteDomain(id) {
+      var _this = this;
+
+      var $this = this;
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+        icon: 'question',
+        title: 'Are you sure you want to delete this domain?',
+        showCancelButton: true,
+        confirmButtonText: 'Delete'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this.$configs);
+          axios({
+            method: 'delete',
+            url: "/api/v1/website/".concat(id, "?api_token=").concat(window.Laravel.api_token)
+          }).then(function (response) {
+            if (response.data.status) {
+              $this.$toastr.s('Successfully Deleted');
+              $this.getDomains();
+            }
+          })["catch"](function (error) {
+            $this.$toastr.e(error);
+          }).then(function () {
+            JsLoadingOverlay.hide();
+          });
+        }
+      });
+    },
+
+    /**
+     * View Domain
+     * @param id integer
+     * @return status boolean, data object
+     */
+    viewDomain: function viewDomain(id) {
+      JsLoadingOverlay.show(this.$configs);
+      var $this = this;
+      axios({
+        method: 'get',
+        url: "/api/v1/website/".concat(id, "?api_token=").concat(window.Laravel.api_token),
+        data: this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.fields.id = response.data.website.id;
+          $this.fields.website = response.data.website.domain_name;
+          $this.fields.content = response.data.website.notes;
+          $this.fields.is_active = response.data.website.active;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
+    },
+
+    /**
+     * Format Date
+     * @param date datetime
+     * @return formatted date string
+     */
+    formatDate: function formatDate(date) {
+      var currentDate = new Date(date);
+      var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      return currentDate.toLocaleDateString('en-us', options);
     }
   }
 });
@@ -3792,8 +4034,8 @@ __webpack_require__.r(__webpack_exports__);
         data: this.fields
       }).then(function (response) {
         if (response.data.status) {
-          $this.$emit('new_client', true);
-          $this.close();
+          $this.$emit('new_client', true); // $this.close()
+
           $this.resetForm();
           $this.$toastr.s('Succesfully Added new Client');
         }
@@ -42621,7 +42863,121 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _vm._m(2),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "table",
+                { staticClass: "table align-items-center table-flush" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    [
+                      _vm.newsletters
+                        ? _vm._l(_vm.newsletters, function (newsletter, index) {
+                            return _c("tr", { key: index }, [
+                              _c("td", [_vm._v(_vm._s(newsletter.title))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(_vm.formatDate(newsletter.content))
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "div",
+                                  { staticClass: "d-flex align-items-center" },
+                                  [
+                                    _c("ul", [
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              title: "View Employee",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.viewTutorial(
+                                                  _vm.tutorial.slug
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-eye",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              title: "Update Employee",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.editTutorial(
+                                                  _vm.tutorial.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-pen",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              title: "Update Employee",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.deleteTutorial(
+                                                  _vm.tutorial.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-trash",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                    ]),
+                                  ]
+                                ),
+                              ]),
+                            ])
+                          })
+                        : _vm._e(),
+                    ],
+                    2
+                  ),
+                ]
+              ),
+            ]),
+          ]),
+        ]),
       ]),
     ]),
   ])
@@ -42654,23 +43010,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("table", { staticClass: "table align-items-center table-flush" }, [
-            _c("thead", { staticClass: "thead-light" }, [
-              _c("tr", [
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Date Added")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("tbody"),
-          ]),
-        ]),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Date Added")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),
     ])
   },
@@ -42815,258 +43161,336 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card card-stats" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title text-uppercase text-muted mb-0",
-                    },
-                    [_vm._v("Total Presentations")]
-                  ),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
-                    _vm._v("2,356"),
-                  ]),
-                ]),
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              { attrs: { id: "form", action: "javascript:;", method: "post" } },
+              [
+                _vm._m(1),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-auto" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "icon icon-shape bg-orange text-white rounded-circle shadow",
-                    },
-                    [_c("i", { staticClass: "ni ni-chart-pie-35" })]
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mt-3 mb-0 text-sm" }, [
-                _c("span", { staticClass: "text-success mr-2" }, [
-                  _c("i", { staticClass: "fa fa-arrow-up" }),
-                  _vm._v(" 3.48%"),
-                ]),
+                _vm._m(2),
                 _vm._v(" "),
-                _c("span", { staticClass: "text-nowrap" }, [
-                  _vm._v("Since last month"),
-                ]),
-              ]),
-            ]),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "form",
-                {
-                  attrs: { id: "form", action: "javascript:;", method: "post" },
-                },
-                [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                      _vm._v("Title"),
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "name",
-                        id: "exampleInputEmail1",
-                        "aria-describedby": "emailHelp",
-                        placeholder: "Enter Title",
-                      },
-                    }),
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                    _vm._v("Client"),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-                      _vm._v("Description"),
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "description",
-                        id: "exampleInputPassword1",
-                        placeholder: "Enter Description",
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-                      _vm._v("Meeting Date"),
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "date",
-                        name: "meeting_date",
-                        id: "exampleInputPassword1",
-                        placeholder: "Enter Description",
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-                      _vm._v("Client"),
-                    ]),
-                    _vm._v(" "),
-                    _c("select", {
+                  _c(
+                    "select",
+                    {
                       staticClass: "form-control",
                       attrs: {
                         name: "client_id",
                         id: "exampleFormControlSelect2",
                       },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("div", { attrs: { id: "fine-uploader-gallery" } }),
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    attrs: {
-                      type: "hidden",
-                      name: "attachment",
-                      id: "attachment",
                     },
-                  }),
+                    [
+                      _vm.clients
+                        ? _vm._l(_vm.clients, function (client, index) {
+                            return _c("option", { key: index }, [
+                              _vm._v(_vm._s(client.name)),
+                            ])
+                          })
+                        : _vm._e(),
+                    ],
+                    2
+                  ),
+                ]),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: {
+                    type: "hidden",
+                    name: "attachment",
+                    id: "attachment",
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit", id: "save" },
+                  },
+                  [_vm._v("Submit")]
+                ),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "table",
+                { staticClass: "table align-items-center table-flush" },
+                [
+                  _vm._m(5),
                   _vm._v(" "),
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit", id: "save" },
-                    },
-                    [_vm._v("Submit")]
+                    "tbody",
+                    [
+                      _vm.presentations
+                        ? _vm._l(
+                            _vm.presentations,
+                            function (presentation, index) {
+                              return _c("tr", { key: index }, [
+                                _c("th", { attrs: { scope: "row" } }, [
+                                  _vm._v(" " + _vm._s(presentation.filename)),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    " " + _vm._s(presentation.description) + " "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    " " + _vm._s(presentation.client_id) + " "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "d-flex align-items-center",
+                                    },
+                                    [
+                                      _c("ul", [
+                                        _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: "#!",
+                                                title: "View Presentation",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.viewPresentation(
+                                                    presentation.id
+                                                  )
+                                                },
+                                              },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-eye",
+                                              }),
+                                            ]
+                                          ),
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: "#!",
+                                                title: "Update Presentation",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.editPresentation(
+                                                    presentation.id
+                                                  )
+                                                },
+                                              },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-pen",
+                                              }),
+                                            ]
+                                          ),
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: "#!",
+                                                title: "Update Presentation",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.deletePresentation(
+                                                    presentation.id
+                                                  )
+                                                },
+                                              },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash",
+                                              }),
+                                            ]
+                                          ),
+                                        ]),
+                                      ]),
+                                    ]
+                                  ),
+                                ]),
+                              ])
+                            }
+                          )
+                        : _vm._e(),
+                    ],
+                    2
                   ),
                 ]
               ),
             ]),
           ]),
         ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "table-responsive" }, [
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card card-stats" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col" }, [
                 _c(
-                  "table",
-                  { staticClass: "table align-items-center table-flush" },
-                  [
-                    _c("thead", { staticClass: "thead-light" }, [
-                      _c("tr", [
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Title"),
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Description"),
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Client Name"),
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col text-right" } }, [
-                          _vm._v("Action"),
-                        ]),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("tbody", [
-                      _c("tr", [
-                        _c("th", { attrs: { scope: "row" } }),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td", {}, [
-                          _c("div", { staticClass: "dropdown" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "btn btn-sm btn-icon-only text-light",
-                                attrs: {
-                                  href: "#",
-                                  role: "button",
-                                  "data-toggle": "dropdown",
-                                  "aria-haspopup": "true",
-                                  "aria-expanded": "false",
-                                },
-                              },
-                              [_c("i", { staticClass: "fas fa-ellipsis-v" })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "dropdown-menu dropdown-menu-right dropdown-menu-arrow",
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "dropdown-item",
-                                    attrs: { href: "#" },
-                                  },
-                                  [_vm._v("Delete")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "dropdown-item",
-                                    attrs: { href: "#" },
-                                  },
-                                  [_vm._v("Update")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "dropdown-item",
-                                    attrs: { href: "#" },
-                                  },
-                                  [_vm._v("Download")]
-                                ),
-                              ]
-                            ),
-                          ]),
-                        ]),
-                      ]),
-                    ]),
-                  ]
+                  "h5",
+                  { staticClass: "card-title text-uppercase text-muted mb-0" },
+                  [_vm._v("Total Presentations")]
                 ),
+                _vm._v(" "),
+                _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
+                  _vm._v("2,356"),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "icon icon-shape bg-orange text-white rounded-circle shadow",
+                  },
+                  [_c("i", { staticClass: "ni ni-chart-pie-35" })]
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mt-3 mb-0 text-sm" }, [
+              _c("span", { staticClass: "text-success mr-2" }, [
+                _c("i", { staticClass: "fa fa-arrow-up" }),
+                _vm._v(" 3.48%"),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "text-nowrap" }, [
+                _vm._v("Since last month"),
               ]),
             ]),
           ]),
         ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "name",
+          id: "exampleInputEmail1",
+          "aria-describedby": "emailHelp",
+          placeholder: "Enter Title",
+        },
+      }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Description"),
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "description",
+          id: "exampleInputPassword1",
+          placeholder: "Enter Description",
+        },
+      }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Meeting Date"),
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "date",
+          name: "meeting_date",
+          id: "exampleInputPassword1",
+          placeholder: "Enter Description",
+        },
+      }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("div", { attrs: { id: "fine-uploader-gallery" } }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Client Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col text-right" } }, [_vm._v("Action")]),
       ]),
     ])
   },
@@ -43320,19 +43744,19 @@ var render = function () {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.fields.title,
-                      expression: "fields.title",
+                      value: _vm.fields.website,
+                      expression: "fields.website",
                     },
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text" },
-                  domProps: { value: _vm.fields.title },
+                  domProps: { value: _vm.fields.website },
                   on: {
                     input: function ($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.fields, "title", $event.target.value)
+                      _vm.$set(_vm.fields, "website", $event.target.value)
                     },
                   },
                 }),
@@ -43425,7 +43849,97 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "col-md-7" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "table",
+                { staticClass: "table align-items-center table-flush" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    [
+                      _vm.websites
+                        ? _vm._l(_vm.websites, function (website, index) {
+                            return _c("tr", { key: index }, [
+                              _c("td", [_vm._v(_vm._s(website.domain_name))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(_vm.formatDate(website.created_at))
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "div",
+                                  { staticClass: "d-flex align-items-center" },
+                                  [
+                                    _c("ul", [
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              title: "Update Employee",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.viewDomain(
+                                                  website.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-pen",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              title: "Update Employee",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.deleteDomain(
+                                                  website.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-trash",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                    ]),
+                                  ]
+                                ),
+                              ]),
+                            ])
+                          })
+                        : _vm._e(),
+                    ],
+                    2
+                  ),
+                ]
+              ),
+            ]),
+          ]),
+        ]),
       ]),
     ]),
   ])
@@ -43435,23 +43949,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-7" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("table", { staticClass: "table align-items-center table-flush" }, [
-            _c("thead", { staticClass: "thead-light" }, [
-              _c("tr", [
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Date Added")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("tbody"),
-          ]),
-        ]),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Website")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Date Added")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),
     ])
   },

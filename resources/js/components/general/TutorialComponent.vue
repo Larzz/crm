@@ -47,7 +47,6 @@
                                             </div>
                                         </td>
                                     </tr>
-
                                 </template>
                             </tbody>
                         </table>
@@ -60,9 +59,10 @@
 </template>
 
 <script>
-
-    import { VueEditor } from "vue2-editor";
-        import Swal from 'sweetalert2'
+    import {
+        VueEditor
+    } from "vue2-editor";
+    import Swal from 'sweetalert2'
 
     export default {
         components: {
@@ -81,12 +81,17 @@
             this.getTutorials()
         },
         beforeCreate() {
-           JsLoadingOverlay.show(this.$configs);
+            JsLoadingOverlay.show(this.$configs);
         },
         created() {
-           JsLoadingOverlay.hide();
+            JsLoadingOverlay.hide();
         },
         methods: {
+            /**
+             * Save Tutorial 
+             * @param fields array
+             * @return status boolean
+             */
             submit: function () {
 
                 let $this = this
@@ -118,6 +123,11 @@
                     })
                     .then(function () {});
             },
+            /**
+             * Get Tutorial 
+             * @param 
+             * @return data object
+             */
             getTutorials() {
                 let $this = this
                 axios({
@@ -133,13 +143,28 @@
                     })
                     .then(function () {});
             },
+            /**
+             * View Tutorial 
+             * @param 
+             * @return void
+             */
             viewTutorial: function (slug) {
                 JsLoadingOverlay.show(this.$configs);
                 window.location.href = `/tutorials/${slug}`
             },
+            /**
+             * Edit Tutorial 
+             * @param id string
+             * @return void
+             */
             editTutorial: function (id) {
                 console.log(id)
             },
+            /**
+             * Delete Tutorial 
+             * @param id string
+             * @return status bollean
+             */
             deleteTutorial: function (id) {
                 let $this = this
                 Swal.fire({
@@ -163,12 +188,16 @@
                             .catch(function (error) {
                                 $this.$toastr.e(error);
                             })
-                            .then(function () {
-                            });
-                    } 
+                            .then(function () {});
+                    }
                 })
 
             },
+            /**
+             * Format Date 
+             * @param date date
+             * @return formatted datetime
+             */
             formatDate(date) {
                 const currentDate = new Date(date);
                 const options = {

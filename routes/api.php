@@ -75,12 +75,21 @@ Route::namespace('API')->group(function() {
 
         Route::prefix('presentations')->group(function() {
             Route::post('/', "PresentationController@addPresentation");
-            Route::get('/', 'PresentationController@getOrPresentations');
+            Route::get('/', 'PresentationController@getAllPresentation');
         });
 
         Route::prefix('website')->group(function() {
             Route::post('/', "WebsiteController@saveDomain");
-            Route::get('/', 'WebsiteController@getDomain');
+            Route::get('/', 'WebsiteController@getAllDomain');
+            Route::get('{id}', 'WebsiteController@getDomain');
+            Route::delete('{id}', 'WebsiteController@deleteDomain');
+        });
+
+        Route::prefix('newsletter')->group(function() {
+            Route::post('/', 'NewsletterController@saveNewsletter');
+            Route::get('/', 'NewsletterController@getAllNewsletter');
+            Route::get('{id}', 'NewsletterController@getNewsletter');
+            Route::delete('{id}', 'NewsletterController@deleteNewsletter');
         });
 
     });

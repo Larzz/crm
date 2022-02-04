@@ -50,8 +50,6 @@
 
 
 <script>
-
-
     export default {
         data() {
             return {
@@ -64,10 +62,7 @@
         },
         methods: {
             getClients() {
-
-
                 let $this = this
-
                 axios({
                         method: 'get',
                         url: '/api/v1/client?api_token=' + window.Laravel.api_token,
