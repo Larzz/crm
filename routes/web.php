@@ -72,6 +72,9 @@ Route::prefix('administrator')->namespace('Administrator')->group(function() {
       Route::post('upload', 'HomeController@upload_presentation')->name('admin.upload_presentation');
    });
 
+   Route::prefix('notes')->group(function() {
+      Route::get('{note_id}', 'HomeController@view_note')->name('admin.note.view');
+   });
 
 });
 

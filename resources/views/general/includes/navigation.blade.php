@@ -7,12 +7,12 @@
                         <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}"
                                 href="{{ route('admin.home') }}">Dashboard</a> </li>
                         <li> <a href="https://creativouae.com/articles-and-newsletters/">Blog</a> </li>
-                        <li> <a class="{{ $active === 'presentation' ? 'active' : '' }}"
-                                href="{{ route('admin.presentations') }}">Presentations</a> </li>
+                        {{-- <li> <a class="{{ $active === 'presentation' ? 'active' : '' }}"
+                                href="{{ route('admin.presentations') }}">Presentations</a> </li> --}}
                         <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
-                                href="{{ route('admin.client') }}">Client Backend</a> </li>
+                                href="{{ route('admin.client') }}">Client</a> </li>
                         <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
-                                href="{{ route('website.index') }}">Website & Domains</a> </li>
+                                href="{{ route('website.index') }}">Website</a> </li>
                         <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"
                                 href="{{ route('newsletter.index') }}">Newsletter</a> </li>
                         <li> <a class="{{ $active === 'tutorials' ? 'active' : '' }}"
@@ -23,4 +23,3 @@
         </div>
     </div>
 </div>
-

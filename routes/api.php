@@ -30,6 +30,13 @@ Route::namespace('API')->group(function() {
             Route::delete('{id}', 'BulletinController@deleteBulletin')->name('api.bulletin.delete');
         });
 
+        Route::prefix('notes')->namespace('Administrator')->group(function() {
+            Route::post('{user_id}', 'NotesController@addNotes');
+            Route::get('{user_id}', 'NotesController@getNotesByUserId');
+            Route::delete('{note_id}', 'NotesController@deleteNotes');
+            Route::patch('{note_id}', 'NotesController@updateNotes');
+        });
+
         Route::prefix('leave')->group(function() {
             Route::post('/', 'LeaveController@addLeave');
             Route::get('/', 'LeaveController@getLeaves');

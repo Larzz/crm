@@ -37,11 +37,11 @@
                                             <div class="d-flex align-items-center">
                                                 <ul>
                                                     <li><a href="#!" @click="viewTutorial(tutorial.slug)"
-                                                            title="View Employee"><i class="fas fa-eye"></i></a> </li>
+                                                            title="View Tutorial"><i class="fas fa-eye"></i></a> </li>
                                                     <li> <a href="#!" @click="editTutorial(tutorial.id)"
-                                                            title="Update Employee"><i class="fas fa-pen"></i></a> </li>
+                                                            title="Update Tutorial"><i class="fas fa-pen"></i></a> </li>
                                                     <li> <a href="#!" @click="deleteTutorial(tutorial.id)"
-                                                            title="Update Employee"><i class="fas fa-trash"></i></a>
+                                                            title="Delete Tutorial"><i class="fas fa-trash"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>

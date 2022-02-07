@@ -11,6 +11,7 @@ use App\Models\MeetingMinutes;
 use App\Models\Presentations;
 use App\Models\Documents;
 use App\Models\User;
+use App\Models\Notes;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,10 @@ class HomeController extends Controller
         $this->request = $request;
     }
 
+     /**
+     * Dashboard index page.
+     * @return void
+     */
     public function index() {
         $meta = array('active' => 'dashboard', 'title' => 'Dashboard', 'active' => 'dashboard');
         return view('administrator.pages.dashboard', $meta);
@@ -33,7 +38,7 @@ class HomeController extends Controller
 
     public function client_index_page($id) {
         $meta = array('active' => 'client', 'title' => 'Client', 'active' => 'client',  'user' => User::where('role', 3)->get());
-        return view('administrator.pages.client', $meta);
+        return view('administrator.pages.client.view_client', $meta);
     }
 
     public function employee_page($id) {
@@ -160,6 +165,21 @@ class HomeController extends Controller
         return view('administrator.pages.documents', $meta);
     }     
 
+
+
+    public function view_note($note_id) {
+        
+        $note = Notes::where('id', $note_id)->first();
+        $meta = array(
+            'active' => 'notes', 
+            'title' => 'Note', 
+            'note' => $note
+        );
+
+        return view('administrator.pages.notes', $meta);
+    }
+
+
     public function save_document() {
         
         $documents = New Documents;
@@ -194,5 +214,8 @@ class HomeController extends Controller
 
         return response()->json(['success' => false]);
     }
+
+
+ 
 
 }

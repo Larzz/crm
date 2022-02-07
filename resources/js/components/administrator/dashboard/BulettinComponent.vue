@@ -45,29 +45,7 @@
 
             getBulettin() {
 
-                let $this = this
-                
-                axios({
-                  method: 'get',
-                  url: '/api/v1/bulletin?api_token='+window.Laravel.api_token,
-                  data: {
-                        config: {
-                            headers: {
-                                Authorization: 'Bearer ' + window.Laravel.api_token,
-                                Accept: 'application/json'
-                            }
-                        },
-                  }
-                }).then(function (response) {
-                    if (response.data.status) {
-                        $this.bulletin = response.data.bulletins
-                    }
-                })
-                .catch(function (error) {
-                    $this.$toastr.e(error);
-                })
-                .then(function () {
-                });
+       w
 
             }
         }
