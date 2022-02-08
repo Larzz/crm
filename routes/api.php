@@ -83,6 +83,17 @@ Route::namespace('API')->group(function() {
         Route::prefix('presentations')->group(function() {
             Route::post('/', "PresentationController@addPresentation");
             Route::get('/', 'PresentationController@getAllPresentation');
+            Route::post('upload', 'PresentationController@uploadPresentation');
+            Route::delete('{presentation_id}', 'PresentationController@deletePresentation');
+            Route::patch('{presentation_id}', 'PresentationController@updatePresentation');
+        });
+
+        Route::prefix('meetings')->group(function() {
+            Route::post('{client_id}', 'MeetingController@addMeeting');
+            Route::post('upload/{client_id}', 'MeetingController@uploadMeeting');
+            Route::get('{client_id}', 'MeetingController@getMeeting');
+            Route::delete('{client_id}/{meeting_id}', 'MeetingController@deleteMeeting');
+            Route::patch('{client_id}/{meeting_id}', 'MeetingController@updateMeeting');
         });
 
         Route::prefix('website')->group(function() {

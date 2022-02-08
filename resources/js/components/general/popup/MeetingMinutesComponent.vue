@@ -18,23 +18,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Document Type</label>
-                        <select v-model="fields.type" name="" id="" class="form-control">
-                            <option value="" selected>Select Document Type</option>
-                            <template v-if="types">
-                                <option v-for="(type, index) in types" :key="index">{{ type.name }}</option>
-                            </template>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Expiration Date</label>
+                        <label for="">Meeting Date</label>
                         <input type="date" class="form-control" v-model="fields.expiration_date">
                     </div>
 
                     <div class="form-group">
-                        <label for="">Renewal Date</label>
-                        <input type="date" class="form-control" v-model="fields.renewal_date">
+                        <label for="">Description</label>
+                        <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -56,6 +46,7 @@
 
                         <!-- <small>We only Accept Image and PDF files</small> -->
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" @click="postDocument" class="btn btn-primary">Save changes</button>
@@ -68,12 +59,9 @@
 </template>
 
 <script>
-    import {
-        ref
-    } from 'vue'
+    import { ref } from 'vue'
     import FileUpload from 'vue-upload-component'
     export default {
-
         components: {
             FileUpload,
         },
