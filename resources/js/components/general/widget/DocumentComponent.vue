@@ -40,9 +40,7 @@
                             </tr>
                         </tbody>
                     </template>
-
                 </table>
-
                 <template v-if="!documents">
                     <div class="container mt-3">
                         <div class="alert alert-warning" role="alert">
@@ -50,23 +48,27 @@
                         </div>
                     </div>
                 </template>
-
             </div>
         </div>
-
-        <upload-document-popup :showPopup="showPopup" @fetchDocument="getDocuments" @close="showPopup = false">
-        </upload-document-popup>
-
+        <upload-document-popup :showPopup="showPopup" :user="user" @fetchDocument="getDocuments" @close="showPopup = false"></upload-document-popup>
     </div>
 </template>
 
 <script>
+
     import Swal from 'sweetalert2'
+    
     export default {
         data() {
             return {
                 documents: [],
                 showPopup: false
+            }
+        },
+        props: {
+            user: {
+                required: true,
+                type: Object
             }
         },
         mounted() {
@@ -122,9 +124,14 @@
 
             },
             formatDate(date) {
-              const currentDate = new Date(date);
-              const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };       
-              return currentDate.toLocaleDateString('en-us', options)
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
             }
         }
     }

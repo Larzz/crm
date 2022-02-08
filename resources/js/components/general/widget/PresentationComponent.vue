@@ -44,7 +44,7 @@
                 </table>
             </div>
         </div>
-        <presentation-popup :showPopup="showPopup" @close="reload()"> </presentation-popup>
+        <presentation-popup :user="user" :showPopup="showPopup" @close="reload()"> </presentation-popup>
     </div>
 </template>
 
@@ -55,6 +55,12 @@
             return {
                 presentations: {},
                 showPopup: false
+            }
+        },
+        props: {
+            user: {
+                required: true,
+                type: Object
             }
         },
         beforeCreate() {

@@ -56,9 +56,7 @@
 
             </div>
         </div>
-
         <create-note-popup :showPopup="showPopup" :user="user" @close="showPopup = close()"></create-note-popup>
-
     </div>
 
 </template>
@@ -70,11 +68,16 @@
     export default {
         data() {
             return {
-                showPopup: false,
+                showPopup:false,
                 notes: []
             }
         },
-        props: ['user'],
+        props: {
+            user: {
+                required: true,
+                type: Object
+            },
+        },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
         },

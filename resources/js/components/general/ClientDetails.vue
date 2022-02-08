@@ -28,7 +28,6 @@
         },
         props: ['user'],
         mounted() {
-          // console.log(this.user)
         }
     }
 

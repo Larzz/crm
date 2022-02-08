@@ -2887,8 +2887,7 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   props: ['user'],
-  mounted: function mounted() {// console.log(this.user)
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3272,8 +3271,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3282,7 +3279,12 @@ __webpack_require__.r(__webpack_exports__);
       notes: []
     };
   },
-  props: ['user'],
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
+  },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
   },
@@ -4778,6 +4780,10 @@ __webpack_require__.r(__webpack_exports__);
     showPopup: {
       required: true,
       type: Boolean
+    },
+    user: {
+      required: true,
+      type: Object
     }
   },
   mounted: function mounted() {
@@ -5005,6 +5011,10 @@ __webpack_require__.r(__webpack_exports__);
     showPopup: {
       required: true,
       type: Boolean
+    },
+    user: {
+      required: true,
+      type: Object
     }
   },
   mounted: function mounted() {
@@ -5619,12 +5629,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5632,6 +5636,12 @@ __webpack_require__.r(__webpack_exports__);
       documents: [],
       showPopup: false
     };
+  },
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
   },
   mounted: function mounted() {
     this.getDocuments();
@@ -5761,7 +5771,12 @@ __webpack_require__.r(__webpack_exports__);
       showPopup: false
     };
   },
-  props: ['user'],
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
+  },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
   },
@@ -5931,6 +5946,12 @@ __webpack_require__.r(__webpack_exports__);
       presentations: {},
       showPopup: false
     };
+  },
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
   },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
@@ -46613,7 +46634,7 @@ var render = function () {
                     staticClass: "modal-title",
                     attrs: { id: "modal-title-default" },
                   },
-                  [_vm._v("Upload document")]
+                  [_vm._v("Upload Meeting Minutes")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -46855,7 +46876,7 @@ var render = function () {
                     staticClass: "modal-title",
                     attrs: { id: "modal-title-default" },
                   },
-                  [_vm._v("Upload document")]
+                  [_vm._v("Upload Presentation")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -47715,7 +47736,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("upload-document-popup", {
-        attrs: { showPopup: _vm.showPopup },
+        attrs: { showPopup: _vm.showPopup, user: _vm.user },
         on: {
           fetchDocument: _vm.getDocuments,
           close: function ($event) {
@@ -47917,7 +47938,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("meeting-minutes-popup", {
-        attrs: { showPopup: _vm.showPopup },
+        attrs: { showPopup: _vm.showPopup, user: _vm.user },
         on: {
           close: function ($event) {
             return _vm.reload()
@@ -48104,7 +48125,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("presentation-popup", {
-        attrs: { showPopup: _vm.showPopup },
+        attrs: { user: _vm.user, showPopup: _vm.showPopup },
         on: {
           close: function ($event) {
             return _vm.reload()

@@ -6,7 +6,7 @@
         <transition name="slide" appear>
             <div class="modal" v-if="showPopup">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Upload document</h6>
+                    <h6 class="modal-title" id="modal-title-default">Upload Presentation</h6>
                     <button type="button" @click.prevent="close" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -78,6 +78,10 @@
             showPopup: {
                 required: true,
                 type: Boolean
+            },
+            user: {
+                required: true,
+                type: Object
             }
         },
         mounted() {

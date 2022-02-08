@@ -43,7 +43,7 @@
                     </template> </table>
             </div>
         </div>
-        <meeting-minutes-popup :showPopup="showPopup" @close="reload()"></meeting-minutes-popup>
+        <meeting-minutes-popup :showPopup="showPopup" :user="user" @close="reload()"></meeting-minutes-popup>
     </div>
 </template>
 
@@ -56,7 +56,13 @@
                 showPopup: false
             }
         },
-        props:['user'],
+        props: {
+            user: {
+                required: true,
+                type: Object
+            },
+            
+        },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
         },
