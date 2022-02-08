@@ -18,11 +18,11 @@
                     </div>
                     <div class="form-group">
                         <label for="">Meeting Date</label>
-                        <input type="date" class="form-control" v-model="fields.expiration_date">
+                        <input type="date" class="form-control" v-model="fields.meeting_date">
                     </div>
                     <div class="form-group">
                         <label for="">Description</label>
-                        <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30" rows="10"></textarea>
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" @click="postDocument" class="btn btn-primary">Save changes</button>
+                    <button type="button" @click="postPresentation" class="btn btn-primary">Save changes</button>
                     <button type="button" @click.prevent="close" class="btn btn-link  ml-auto"
                         data-dismiss="modal">Close</button>
                 </div>
@@ -61,15 +61,13 @@
         },
         data() {
             return {
-                showClientPopup: false,
                 files: [],
                 types: [],
                 fields: {
                     name: null,
-                    type: null,
-                    renewal_date: null,
-                    expiration_date: null,
-                    filename: null
+                    meeting_date: null,
+                    description: null,
+                    filename: null,
                 },
                 api_token: window.Laravel.api_token
             }
@@ -85,59 +83,25 @@
             }
         },
         mounted() {
-            this.getDocumentTypes()
         },
         methods: {
-            /** Close Document
-             * 
-             * @return Object| list of documents
-             * */
-            close() {
-                this.$emit('close', false)
-                this.$emit('fetchDocument')
-            },
-            /** Get Document Type
-             * 
-             * @return Object| list of documents
-             * */
-            getDocumentTypes: function () {
-
-                let $this = this
-                axios({
-                        method: 'get',
-                        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            $this.types = response.data.types
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
-
-            },
             /**
              * On Submit Data
              * @param  Object|undefined   newFile   Read only
              * @return undefined
              */
-            postDocument: function () {
+            postPresentation: function () {
 
                 if (!this.fields.name) {
                     return this.$toastr.e('Name is Required');
                 }
 
-                if (!this.fields.type) {
-                    return this.$toastr.e('Type is Required');
+                if (!this.fields.description) {
+                    return this.$toastr.e('Description is Required');
                 }
 
-                if (!this.fields.renewal_date) {
-                    return this.$toastr.e('Renewal Date is Required');
-                }
-
-                if (!this.fields.expiration_date) {
-                    return this.$toastr.e('Expiration Date is Required');
+                if (!this.fields.meeting_date) {
+                    return this.$toastr.e('Meeting Date is Required');
                 }
 
                 if (!this.fields.filename) {
@@ -145,15 +109,14 @@
                 }
 
                 let $this = this
-
+                
                 axios({
                         method: 'post',
-                        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+                        url: `/api/v1/presentations/${user.id}?api_token=${window.Laravel.api_token}`,
                         data: $this.fields
                     }).then(function (response) {
                         if (response.data.status) {
-                            $this.$toastr.s('Successfully added your document');
-                            $this.clearFields()
+                            $this.$toastr.s('Successfully added your Presentaion');
                             $this.close()
                         }
                     })
@@ -206,19 +169,17 @@
                 }
 
             },
+            /**
+             * uploadResponse
+             * @param  data
+             * @return void
+             */
             uploadResponse: function (data) {
                 if (data.status) {
                     this.$toastr.s('Successfully Uploaded');
                     this.fields.filename = data.filename
                 }
             },
-            clearFields: function () {
-                this.fields.name = null
-                this.fields.type = null
-                this.fields.renewal_date = null
-                this.fields.expiration_date = null
-                this.fields.filename = null
-            }
         }
     }
 

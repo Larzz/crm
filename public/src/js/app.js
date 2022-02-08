@@ -4994,14 +4994,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showClientPopup: false,
       files: [],
       types: [],
       fields: {
         name: null,
-        type: null,
-        renewal_date: null,
-        expiration_date: null,
+        meeting_date: null,
+        description: null,
         filename: null
       },
       api_token: window.Laravel.api_token
@@ -5017,57 +5015,24 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     }
   },
-  mounted: function mounted() {
-    this.getDocumentTypes();
-  },
+  mounted: function mounted() {},
   methods: {
-    /** Close Document
-     * 
-     * @return Object| list of documents
-     * */
-    close: function close() {
-      this.$emit('close', false);
-      this.$emit('fetchDocument');
-    },
-
-    /** Get Document Type
-     * 
-     * @return Object| list of documents
-     * */
-    getDocumentTypes: function getDocumentTypes() {
-      var $this = this;
-      axios({
-        method: 'get',
-        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token
-      }).then(function (response) {
-        if (response.data.status) {
-          $this.types = response.data.types;
-        }
-      })["catch"](function (error) {
-        $this.$toastr.e(error);
-      }).then(function () {});
-    },
-
     /**
      * On Submit Data
      * @param  Object|undefined   newFile   Read only
      * @return undefined
      */
-    postDocument: function postDocument() {
+    postPresentation: function postPresentation() {
       if (!this.fields.name) {
         return this.$toastr.e('Name is Required');
       }
 
-      if (!this.fields.type) {
-        return this.$toastr.e('Type is Required');
+      if (!this.fields.description) {
+        return this.$toastr.e('Description is Required');
       }
 
-      if (!this.fields.renewal_date) {
-        return this.$toastr.e('Renewal Date is Required');
-      }
-
-      if (!this.fields.expiration_date) {
-        return this.$toastr.e('Expiration Date is Required');
+      if (!this.fields.meeting_date) {
+        return this.$toastr.e('Meeting Date is Required');
       }
 
       if (!this.fields.filename) {
@@ -5077,12 +5042,11 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'post',
-        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+        url: "/api/v1/presentations/".concat(user.id, "?api_token=").concat(window.Laravel.api_token),
         data: $this.fields
       }).then(function (response) {
         if (response.data.status) {
-          $this.$toastr.s('Successfully added your document');
-          $this.clearFields();
+          $this.$toastr.s('Successfully added your Presentaion');
           $this.close();
         }
       })["catch"](function (error) {
@@ -5135,18 +5099,17 @@ __webpack_require__.r(__webpack_exports__);
         newFile.blob = URL.createObjectURL(newFile.file);
       }
     },
+
+    /**
+     * uploadResponse
+     * @param  data
+     * @return void
+     */
     uploadResponse: function uploadResponse(data) {
       if (data.status) {
         this.$toastr.s('Successfully Uploaded');
         this.fields.filename = data.filename;
       }
-    },
-    clearFields: function clearFields() {
-      this.fields.name = null;
-      this.fields.type = null;
-      this.fields.renewal_date = null;
-      this.fields.expiration_date = null;
-      this.fields.filename = null;
     }
   }
 });
@@ -46938,13 +46901,13 @@ var render = function () {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.fields.expiration_date,
-                        expression: "fields.expiration_date",
+                        value: _vm.fields.meeting_date,
+                        expression: "fields.meeting_date",
                       },
                     ],
                     staticClass: "form-control",
                     attrs: { type: "date" },
-                    domProps: { value: _vm.fields.expiration_date },
+                    domProps: { value: _vm.fields.meeting_date },
                     on: {
                       input: function ($event) {
                         if ($event.target.composing) {
@@ -46952,7 +46915,7 @@ var render = function () {
                         }
                         _vm.$set(
                           _vm.fields,
-                          "expiration_date",
+                          "meeting_date",
                           $event.target.value
                         )
                       },
@@ -46964,8 +46927,25 @@ var render = function () {
                   _c("label", { attrs: { for: "" } }, [_vm._v("Description")]),
                   _vm._v(" "),
                   _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.description,
+                        expression: "fields.description",
+                      },
+                    ],
                     staticClass: "form-control",
                     attrs: { name: "", id: "", cols: "30", rows: "10" },
+                    domProps: { value: _vm.fields.description },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.fields, "description", $event.target.value)
+                      },
+                    },
                   }),
                 ]),
                 _vm._v(" "),
@@ -47042,7 +47022,7 @@ var render = function () {
                   {
                     staticClass: "btn btn-primary",
                     attrs: { type: "button" },
-                    on: { click: _vm.postDocument },
+                    on: { click: _vm.postPresentation },
                   },
                   [_vm._v("Save changes")]
                 ),
