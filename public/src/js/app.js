@@ -5478,17 +5478,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
+  },
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
+  },
+  methods: {
+    formatDate: function formatDate(date) {
+      var currentDate = new Date(date);
+      var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      return currentDate.toLocaleDateString('en-us', options);
+    }
   }
 });
 
@@ -47462,73 +47472,50 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card profile-card-2" }, [
-        _c("div", { staticClass: "card-body pt-5" }, [
-          _c("img", {
-            staticClass: "profile",
-            attrs: {
-              src: "https://randomuser.me/api/portraits/men/64.jpg",
-              alt: "profile-image",
-            },
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "information" }, [
-            _c("div", { staticClass: "name-info" }, [
-              _c("h5", { staticClass: "personal-name" }),
-              _vm._v(" "),
-              _c("h6", { staticClass: "position" }),
-              _vm._v(" "),
-              _c("h4", { staticClass: "date-joined" }, [
-                _vm._v("Date Joined: "),
-                _c("span"),
-              ]),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "personal-info" }, [
-            _c("h2", [_vm._v("Personal Information: ")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Birth date "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }),
+  return _c("div", [
+    _c("div", { staticClass: "card profile-card-2" }, [
+      _c("div", { staticClass: "card-body pt-5" }, [
+        _c("div", { staticClass: "information" }, [
+          _c("div", { staticClass: "name-info" }, [
+            _c("h5", { staticClass: "personal-name" }, [
+              _vm._v(_vm._s(_vm.user.name)),
             ]),
             _vm._v(" "),
-            _c("p", [
-              _vm._v("Gender "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }, [_vm._v("Female")]),
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Email Address "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }),
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("Mobile Number "),
-              _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-              _vm._v(" "),
-              _c("span", { staticClass: "answer" }),
+            _c("h4", { staticClass: "date-joined" }, [
+              _vm._v(
+                "Date Added: " +
+                  _vm._s(_vm.formatDate(_vm.user.created_at)) +
+                  " "
+              ),
+              _c("span"),
             ]),
           ]),
         ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "personal-info" }, [
+          _c("p", [
+            _vm._v("Email Address "),
+            _c("span", { staticClass: "colon" }, [
+              _vm._v(": " + _vm._s(_vm.user.email)),
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "answer" }),
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Mobile Number "),
+            _c("span", { staticClass: "colon" }, [
+              _vm._v(": " + _vm._s(_vm.user.mobile_number)),
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "answer" }),
+          ]),
+        ]),
       ]),
-    ])
-  },
-]
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
