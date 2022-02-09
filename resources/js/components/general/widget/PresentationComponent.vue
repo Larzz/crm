@@ -22,12 +22,10 @@
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="presentation.id" @click="viewPresentation(presentation.id)"
-                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="presentation.id" @click="editPresentation(presentation.id)"
-                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
+                                            <li><a href="#!" :data-id="presentation.id" @click="viewPresentation(presentation.attachment)"
+                                                    title="View Presentation"><i class="fas fa-eye"></i></a> </li>
                                             <li> <a href="#!" :data-id="presentation.id" @click="deletePresentation(presentation.id)"
-                                                    title="Update Employee"><i class="fas fa-trash"></i></a> </li>
+                                                    title="Delete Presentation"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -44,7 +42,7 @@
                 </table>
             </div>
         </div>
-        <presentation-popup :user="user" :showPopup="showPopup" @close="reload()"> </presentation-popup>
+        <presentation-popup :user="user" :showPopup="showPopup" @close="close()"> </presentation-popup>
     </div>
 </template>
 
@@ -53,7 +51,7 @@
     export default {
         data() {
             return {
-                presentations: {},
+                presentations: null,
                 showPopup: false
             }
         },
@@ -63,12 +61,7 @@
                 type: Object
             }
         },
-        beforeCreate() {
-            JsLoadingOverlay.show(this.$configs);
-        },
-        created() {
-            JsLoadingOverlay.hide();
-        },
+     
         mounted() {
             this.getPresentation()
         },
@@ -78,48 +71,29 @@
              * @return presentation object
              */
             getPresentation() {
+                JsLoadingOverlay.show(this.$configs);
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/presentations?api_token=' + window.Laravel.api_token,
-                        data: this.fields
+                        url: `/api/v1/presentations/${this.user.id}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
-                        $this.presentations = response.data.presentation
+                        $this.presentations = response.data.presentations
+                        console.log($this.presentations)
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
-                    .then(function () {});
+                    .then(function () {
+                        JsLoadingOverlay.hide();
+                    });
             },
             /**
              * View Presentation
              * @return redirect to other page
              */
-            viewPresentation(presentation_id) {
+            viewPresentation(filename) {
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/administrator/presentations/' + presentation_id
-            },
-            /**
-             * Edit Presentation
-             * @param presentation_id
-             * @return presentation object
-             */
-            editPresentation(presentation_id) {
-                let $this = this
-                JsLoadingOverlay.show(this.$configs);
-                axios({
-                        method: 'get',
-                        url: '/api/v1/presentations/' + presentation_id + '?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            JsLoadingOverlay.hide();
-                            $this.editClientdata = response.data.client
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
+                window.location.href = '/documents/' + filename
             },
             /**
              * Delete Presentation
@@ -130,14 +104,14 @@
                 let $this = this
                 Swal.fire({
                     icon: 'question',
-                    title: 'Are you sure you want to delete this client?',
+                    title: 'Are you sure you want to delete this presentation?',
                     showCancelButton: true,
                     confirmButtonText: 'Delete',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         axios({
                                 method: 'delete',
-                                url: '/api/v1/presentations/'+presentation_id+'?api_token='+window.Laravel.api_token,
+                                url: `/api/v1/presentations/${presentation_id}/client/${this.user.id}?api_token=${window.Laravel.api_token}`,
                             }).then(function (response) {
                                 if (response.data.status) {
                                     $this.$toastr.s('Successfully Deleted');
@@ -157,7 +131,7 @@
              * @param presentation_id string
              * @return void
              */
-            reload() {
+            close() {
                 this.showPopup = false
                 this.getPresentation()
             }

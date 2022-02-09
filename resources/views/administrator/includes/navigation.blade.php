@@ -6,9 +6,8 @@
                     <ul class="nav-sub-sx">
                         <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}"
                                 href="{{ route('admin.home') }}">Dashboard</a> </li>
-                        <li> <a href="https://creativouae.com/articles-and-newsletters/">Blog</a> </li>
                         {{-- <li> <a class="{{ $active === 'presentation' ? 'active' : '' }}"
-                                href="{{ route('admin.presentations') }}">Presentations</a> </li> --}}
+                        href="{{ route('admin.presentations') }}">Presentations</a> </li> --}}
                         <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
                                 href="{{ route('admin.client') }}">Client</a> </li>
                         <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
@@ -17,6 +16,8 @@
                                 href="{{ route('newsletter.index') }}">Newsletter</a> </li>
                         <li> <a class="{{ $active === 'tutorials' ? 'active' : '' }}"
                                 href="{{ route('tutorial.index') }}">Tutorials</a> </li>
+                        <li> <a href="https://creativouae.com/articles-and-newsletters/">Blog</a> </li>
+
                     </ul>
                 </div>
             </div>

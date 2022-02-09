@@ -4768,9 +4768,8 @@ __webpack_require__.r(__webpack_exports__);
       types: [],
       fields: {
         name: null,
-        type: null,
-        renewal_date: null,
-        expiration_date: null,
+        description: null,
+        meeting_date: null,
         filename: null
       },
       api_token: window.Laravel.api_token
@@ -4786,9 +4785,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     }
   },
-  mounted: function mounted() {
-    this.getDocumentTypes();
-  },
+  mounted: function mounted() {},
   methods: {
     /** Close Document
      * 
@@ -4799,44 +4796,18 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('fetchDocument');
     },
 
-    /** Get Document Type
-     * 
-     * @return Object| list of documents
-     * */
-    getDocumentTypes: function getDocumentTypes() {
-      var $this = this;
-      axios({
-        method: 'get',
-        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token
-      }).then(function (response) {
-        if (response.data.status) {
-          $this.types = response.data.types;
-        }
-      })["catch"](function (error) {
-        $this.$toastr.e(error);
-      }).then(function () {});
-    },
-
     /**
      * On Submit Data
      * @param  Object|undefined   newFile   Read only
      * @return undefined
      */
-    postDocument: function postDocument() {
+    postMeeting: function postMeeting() {
       if (!this.fields.name) {
         return this.$toastr.e('Name is Required');
       }
 
-      if (!this.fields.type) {
-        return this.$toastr.e('Type is Required');
-      }
-
-      if (!this.fields.renewal_date) {
-        return this.$toastr.e('Renewal Date is Required');
-      }
-
-      if (!this.fields.expiration_date) {
-        return this.$toastr.e('Expiration Date is Required');
+      if (!this.fields.meeting_date) {
+        return this.$toastr.e('Meeting Date is Required');
       }
 
       if (!this.fields.filename) {
@@ -4846,12 +4817,11 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'post',
-        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+        url: "/api/v1/meetings/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
         data: $this.fields
       }).then(function (response) {
         if (response.data.status) {
           $this.$toastr.s('Successfully added your document');
-          $this.clearFields();
           $this.close();
         }
       })["catch"](function (error) {
@@ -4909,13 +4879,6 @@ __webpack_require__.r(__webpack_exports__);
         this.$toastr.s('Successfully Uploaded');
         this.fields.filename = data.filename;
       }
-    },
-    clearFields: function clearFields() {
-      this.fields.name = null;
-      this.fields.type = null;
-      this.fields.renewal_date = null;
-      this.fields.expiration_date = null;
-      this.fields.filename = null;
     }
   }
 });
@@ -5015,8 +4978,14 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    console.log(this.user);
+  },
   methods: {
+    close: function close() {
+      this.$emit('close', false);
+    },
+
     /**
      * On Submit Data
      * @param  Object|undefined   newFile   Read only
@@ -5042,7 +5011,7 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'post',
-        url: "/api/v1/presentations/".concat(user.id, "?api_token=").concat(window.Laravel.api_token),
+        url: "/api/v1/presentations/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
         data: $this.fields
       }).then(function (response) {
         if (response.data.status) {
@@ -5724,8 +5693,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5761,7 +5728,7 @@ __webpack_require__.r(__webpack_exports__);
         url: "/api/v1/meetings/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
         data: this.fields
       }).then(function (response) {
-        $this.meetings = response.data.clients;
+        $this.meetings = response.data.meetings;
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -5772,30 +5739,9 @@ __webpack_require__.r(__webpack_exports__);
      * @param meeting string
      * @return void
      */
-    viewMeeting: function viewMeeting(meeting_id) {
+    viewMeeting: function viewMeeting(filename) {
       JsLoadingOverlay.show(this.$configs);
-      window.location.href = '/administrator/meetings/' + meeting_id;
-    },
-
-    /**
-     * Edit Meeting
-     * @param meeting_id string
-     * @return void
-     */
-    editMeeting: function editMeeting(client_id) {
-      var $this = this;
-      JsLoadingOverlay.show(this.$configs);
-      axios({
-        method: 'get',
-        url: '/api/v1/meetings/' + client_id + '?api_token=' + window.Laravel.api_token
-      }).then(function (response) {
-        if (response.data.status) {
-          JsLoadingOverlay.hide();
-          $this.editClientdata = response.data.client;
-        }
-      })["catch"](function (error) {
-        $this.$toastr.e(error);
-      }).then(function () {});
+      window.location.href = '/documents/' + filename;
     },
 
     /**
@@ -5803,7 +5749,9 @@ __webpack_require__.r(__webpack_exports__);
      * @param date date
      * @return formatted datetime
      */
-    deleteMeeting: function deleteMeeting(client_id) {
+    deleteMeeting: function deleteMeeting(meetind_id) {
+      var _this = this;
+
       var $this = this;
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
         icon: 'question',
@@ -5812,17 +5760,20 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Delete'
       }).then(function (result) {
         if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this.$configs);
           axios({
             method: 'delete',
-            url: '/api/v1/meetings/' + client_id + '?api_token=' + window.Laravel.api_token
+            url: "/api/v1/meetings/".concat(meetind_id, "/client/").concat($this.user.id, "?api_token=").concat(window.Laravel.api_token)
           }).then(function (response) {
             if (response.data.status) {
               $this.$toastr.s('Successfully Deleted');
-              $this.getClients();
+              $this.getMeetings();
             }
           })["catch"](function (error) {
             $this.$toastr.e(error);
-          }).then(function () {});
+          }).then(function () {
+            JsLoadingOverlay.hide();
+          });
         }
       });
     },
@@ -5900,13 +5851,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      presentations: {},
+      presentations: null,
       showPopup: false
     };
   },
@@ -5915,12 +5864,6 @@ __webpack_require__.r(__webpack_exports__);
       required: true,
       type: Object
     }
-  },
-  beforeCreate: function beforeCreate() {
-    JsLoadingOverlay.show(this.$configs);
-  },
-  created: function created() {
-    JsLoadingOverlay.hide();
   },
   mounted: function mounted() {
     this.getPresentation();
@@ -5931,46 +5874,28 @@ __webpack_require__.r(__webpack_exports__);
      * @return presentation object
      */
     getPresentation: function getPresentation() {
+      JsLoadingOverlay.show(this.$configs);
       var $this = this;
       axios({
         method: 'get',
-        url: '/api/v1/presentations?api_token=' + window.Laravel.api_token,
-        data: this.fields
+        url: "/api/v1/presentations/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token)
       }).then(function (response) {
-        $this.presentations = response.data.presentation;
+        $this.presentations = response.data.presentations;
+        console.log($this.presentations);
       })["catch"](function (error) {
         $this.$toastr.e(error);
-      }).then(function () {});
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     },
 
     /**
      * View Presentation
      * @return redirect to other page
      */
-    viewPresentation: function viewPresentation(presentation_id) {
+    viewPresentation: function viewPresentation(filename) {
       JsLoadingOverlay.show(this.$configs);
-      window.location.href = '/administrator/presentations/' + presentation_id;
-    },
-
-    /**
-     * Edit Presentation
-     * @param presentation_id
-     * @return presentation object
-     */
-    editPresentation: function editPresentation(presentation_id) {
-      var $this = this;
-      JsLoadingOverlay.show(this.$configs);
-      axios({
-        method: 'get',
-        url: '/api/v1/presentations/' + presentation_id + '?api_token=' + window.Laravel.api_token
-      }).then(function (response) {
-        if (response.data.status) {
-          JsLoadingOverlay.hide();
-          $this.editClientdata = response.data.client;
-        }
-      })["catch"](function (error) {
-        $this.$toastr.e(error);
-      }).then(function () {});
+      window.location.href = '/documents/' + filename;
     },
 
     /**
@@ -5979,17 +5904,19 @@ __webpack_require__.r(__webpack_exports__);
      * @return void
      */
     deletePresentation: function deletePresentation(presentation_id) {
+      var _this = this;
+
       var $this = this;
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
         icon: 'question',
-        title: 'Are you sure you want to delete this client?',
+        title: 'Are you sure you want to delete this presentation?',
         showCancelButton: true,
         confirmButtonText: 'Delete'
       }).then(function (result) {
         if (result.isConfirmed) {
           axios({
             method: 'delete',
-            url: '/api/v1/presentations/' + presentation_id + '?api_token=' + window.Laravel.api_token
+            url: "/api/v1/presentations/".concat(presentation_id, "/client/").concat(_this.user.id, "?api_token=").concat(window.Laravel.api_token)
           }).then(function (response) {
             if (response.data.status) {
               $this.$toastr.s('Successfully Deleted');
@@ -6007,7 +5934,7 @@ __webpack_require__.r(__webpack_exports__);
      * @param presentation_id string
      * @return void
      */
-    reload: function reload() {
+    close: function close() {
       this.showPopup = false;
       this.getPresentation();
     }
@@ -8630,7 +8557,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-3dfa642c] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-3dfa642c],\n.fade-leave-active[data-v-3dfa642c] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-3dfa642c],\n.fade-leave-to[data-v-3dfa642c] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-3dfa642c],\n.slide-leave-active[data-v-3dfa642c] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-3dfa642c],\n.slide-leave-to[data-v-3dfa642c] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-3dfa642c] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-3dfa642c] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 50%;\n    min-height: 54%;\n}\nh1[data-v-3dfa642c] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-3dfa642c] {\n    float: right;\n}\n.btn[data-v-3dfa642c] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-3dfa642c] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-3dfa642c] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-3dfa642c],\n.fade-leave-active[data-v-3dfa642c] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-3dfa642c],\n.fade-leave-to[data-v-3dfa642c] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-3dfa642c],\n.slide-leave-active[data-v-3dfa642c] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-3dfa642c],\n.slide-leave-to[data-v-3dfa642c] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-3dfa642c] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-3dfa642c] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n max-height: 68%;\n}\nh1[data-v-3dfa642c] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-3dfa642c] {\n    float: right;\n}\n.btn[data-v-3dfa642c] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-3dfa642c] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -46659,13 +46586,13 @@ var render = function () {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.fields.expiration_date,
-                        expression: "fields.expiration_date",
+                        value: _vm.fields.meeting_date,
+                        expression: "fields.meeting_date",
                       },
                     ],
                     staticClass: "form-control",
                     attrs: { type: "date" },
-                    domProps: { value: _vm.fields.expiration_date },
+                    domProps: { value: _vm.fields.meeting_date },
                     on: {
                       input: function ($event) {
                         if ($event.target.composing) {
@@ -46673,7 +46600,7 @@ var render = function () {
                         }
                         _vm.$set(
                           _vm.fields,
-                          "expiration_date",
+                          "meeting_date",
                           $event.target.value
                         )
                       },
@@ -46685,8 +46612,25 @@ var render = function () {
                   _c("label", { attrs: { for: "" } }, [_vm._v("Description")]),
                   _vm._v(" "),
                   _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.description,
+                        expression: "fields.description",
+                      },
+                    ],
                     staticClass: "form-control",
                     attrs: { name: "", id: "", cols: "30", rows: "10" },
+                    domProps: { value: _vm.fields.description },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.fields, "description", $event.target.value)
+                      },
+                    },
                   }),
                 ]),
                 _vm._v(" "),
@@ -46763,7 +46707,7 @@ var render = function () {
                   {
                     staticClass: "btn btn-primary",
                     attrs: { type: "button" },
-                    on: { click: _vm.postDocument },
+                    on: { click: _vm.postMeeting },
                   },
                   [_vm._v("Save changes")]
                 ),
@@ -47851,7 +47795,7 @@ var render = function () {
                                         on: {
                                           click: function ($event) {
                                             return _vm.viewMeeting(
-                                              _vm.client.id
+                                              meeting.attachment
                                             )
                                           },
                                         },
@@ -47871,30 +47815,7 @@ var render = function () {
                                         },
                                         on: {
                                           click: function ($event) {
-                                            return _vm.editMeeting(
-                                              _vm.client.id
-                                            )
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-pen" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": meeting.id,
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.deleteMeeting(
-                                              _vm.client.id
-                                            )
+                                            return _vm.deleteMeeting(meeting.id)
                                           },
                                         },
                                       },
@@ -48033,12 +47954,12 @@ var render = function () {
                                         attrs: {
                                           href: "#!",
                                           "data-id": presentation.id,
-                                          title: "View Employee",
+                                          title: "View Presentation",
                                         },
                                         on: {
                                           click: function ($event) {
                                             return _vm.viewPresentation(
-                                              presentation.id
+                                              presentation.attachment
                                             )
                                           },
                                         },
@@ -48054,28 +47975,7 @@ var render = function () {
                                         attrs: {
                                           href: "#!",
                                           "data-id": presentation.id,
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.editPresentation(
-                                              presentation.id
-                                            )
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-pen" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": presentation.id,
-                                          title: "Update Employee",
+                                          title: "Delete Presentation",
                                         },
                                         on: {
                                           click: function ($event) {
@@ -48108,7 +48008,7 @@ var render = function () {
         attrs: { user: _vm.user, showPopup: _vm.showPopup },
         on: {
           close: function ($event) {
-            return _vm.reload()
+            return _vm.close()
           },
         },
       }),

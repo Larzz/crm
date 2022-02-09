@@ -22,11 +22,9 @@
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(client.id)"
+                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting.attachment)"
                                                     title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="meeting.id" @click="editMeeting(client.id)"
-                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
-                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(client.id)"
+                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)"
                                                     title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
@@ -84,7 +82,7 @@
                         url: `/api/v1/meetings/${this.user.id}?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
-                        $this.meetings = response.data.clients
+                        $this.meetings = response.data.meetings
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
@@ -96,38 +94,16 @@
              * @param meeting string
              * @return void
              */
-            viewMeeting(meeting_id) {
+            viewMeeting(filename) {
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/administrator/meetings/' + meeting_id
-            },
-            /**
-             * Edit Meeting
-             * @param meeting_id string
-             * @return void
-             */
-            editMeeting(client_id) {
-                let $this = this
-                JsLoadingOverlay.show(this.$configs);
-                axios({
-                        method: 'get',
-                        url: '/api/v1/meetings/' + client_id + '?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            JsLoadingOverlay.hide();
-                            $this.editClientdata = response.data.client
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
+                window.location.href = '/documents/' + filename
             },
             /**
              * Format Date 
              * @param date date
              * @return formatted datetime
              */
-            deleteMeeting(client_id) {
+            deleteMeeting(meetind_id) {
                 let $this = this
                 Swal.fire({
                     icon: 'question',
@@ -136,19 +112,22 @@
                     confirmButtonText: 'Delete',
                 }).then((result) => {
                     if (result.isConfirmed) {
+                                         JsLoadingOverlay.show(this.$configs);
                         axios({
                                 method: 'delete',
-                                url: '/api/v1/meetings/' + client_id + '?api_token=' + window.Laravel.api_token,
+                                url: `/api/v1/meetings/${meetind_id}/client/${$this.user.id}?api_token=${window.Laravel.api_token}`,
                             }).then(function (response) {
                                 if (response.data.status) {
                                     $this.$toastr.s('Successfully Deleted');
-                                    $this.getClients()
+                                    $this.getMeetings()
                                 }
                             })
                             .catch(function (error) {
                                 $this.$toastr.e(error);
                             })
-                            .then(function () {});
+                            .then(function () {
+                               JsLoadingOverlay.hide();
+                            });
                     }
                 })
 

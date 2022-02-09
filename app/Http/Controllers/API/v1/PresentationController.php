@@ -19,33 +19,41 @@ class PresentationController extends Controller
     }
 
 
-    public function addPresentation() {
+    public function addPresentation($client_id) {
 
         $validator = Validator::make($this->request->all(), [
-            'website' => 'required',
-            'content' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'meeting_date' => 'required',
+            'filename' => 'required',
         ]);
 
         if ($validator->fails()) {    
             return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
         }
         
-        $website = new Website;
-        $website->domain_name = $this->request->website;
-        $website->notes = $this->request->content;
-        $website->is_active = $this->request->is_active;
+        $presentation = new Presentations;
+        $presentation->name = $this->request->name;
+        $presentation->description = $this->request->description;
+        $presentation->attachment = $this->request->filename;
+        $presentation->date_added = now();
+        $presentation->client_id = $client_id;
+        $presentation->user_id = auth()->user()->id;
 
-        if($website->save()) {
+        if($presentation->save()) {
             return response()->json(['status' => true, 'message' => 'Successfully Added']);
         }
+
+        return response()->json(['status' => true, 'message' => 'Successfully Added']);
+
     }
 
-    public function getPresentation($id) {
-        $presentations = Presentations::where('id', $id)->first();
+    public function getPresentation($client_id) {
+        $presentations = Presentations::where('client_id', $client_id)->get();
         if($presentations) {
-
+            return response()->json(['status' => true, 'presentations' => $presentations]);
         }
-        return response()->json(['status' => true, 'presentations' => $presentations]);
+        return response()->json(['status' => false, 'presentations' => $presentations]);
     }
 
     public function getAllPresentation() {
@@ -55,6 +63,14 @@ class PresentationController extends Controller
         return response()->json(['status' => true, 'presentations' => $presentations]);
     }
 
-    public function deletePresentation() {
+    public function deletePresentation($presentation_id, $client_id) {
+        $presentation = Presentations::where('id', $presentation_id)->where('client_id', $client_id)->first();
+
+        if($presentation) {
+            $presentation->delete();
+            return response()->json(['status' => true]);
+        }
+
+        return response()->json(['status' => false]);
     }
 }

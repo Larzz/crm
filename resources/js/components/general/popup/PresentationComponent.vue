@@ -83,8 +83,12 @@
             }
         },
         mounted() {
+            console.log(this.user)
         },
         methods: {
+            close: function() {
+                this.$emit('close', false)
+            },
             /**
              * On Submit Data
              * @param  Object|undefined   newFile   Read only
@@ -112,7 +116,7 @@
                 
                 axios({
                         method: 'post',
-                        url: `/api/v1/presentations/${user.id}?api_token=${window.Laravel.api_token}`,
+                        url: `/api/v1/presentations/${this.user.id}?api_token=${window.Laravel.api_token}`,
                         data: $this.fields
                     }).then(function (response) {
                         if (response.data.status) {
