@@ -235,8 +235,7 @@
         border-radius: 16px;
         padding: 0px;
         display: block;
-        height: 50%;
-        min-height: 75%;
+          height: max-content;
     }
 
     h1 {

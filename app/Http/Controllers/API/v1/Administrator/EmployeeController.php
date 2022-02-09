@@ -50,6 +50,7 @@ class EmployeeController extends Controller
         $user->birth_date - $this->request->birth_date;
         $user->mobile_number = $this->request->mobile_number;
         $user->api_token = hash('sha256', $token);
+        $user->notes = $this->request->notes;
 
         if($user->save()) {
 

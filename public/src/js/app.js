@@ -2430,15 +2430,15 @@ __webpack_require__.r(__webpack_exports__);
     getStatus: function getStatus(status_id) {
       switch (status_id) {
         case 0:
-          return '<i class="bg-warning"></i> Pending';
+          return '<span style="color:gray;"> <i class="bg-warning"></i> Pending </span>';
           break;
 
         case 1:
-          return '<i class="bg-success"></i> Approved';
+          return '<span style="color:green"> <i class="bg-success"></i> Approved </span>';
           break;
 
         case 2:
-          return '<i class="bg-error"></i> Declined';
+          return '<span style="color:red"> <i class="bg-error"></i> Declined </span>';
           break;
       }
     },
@@ -8610,7 +8610,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-452404f1],\n.fade-leave-active[data-v-452404f1] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-452404f1],\n.fade-leave-to[data-v-452404f1] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-452404f1],\n.slide-leave-active[data-v-452404f1] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-452404f1],\n.slide-leave-to[data-v-452404f1] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-452404f1] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-452404f1] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 70%;\n    min-height: 70%;\n}\nh1[data-v-452404f1] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-452404f1] {\n    float: right;\n}\n.btn[data-v-452404f1] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-452404f1] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n.modal-footer[data-v-452404f1] {\n    padding: 10px;\n}\n.modal-body[data-v-452404f1] {\n    padding: 10px;\n}\n\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-452404f1],\n.fade-leave-active[data-v-452404f1] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-452404f1],\n.fade-leave-to[data-v-452404f1] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-452404f1],\n.slide-leave-active[data-v-452404f1] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-452404f1],\n.slide-leave-to[data-v-452404f1] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-452404f1] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-452404f1] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-452404f1] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-452404f1] {\n    float: right;\n}\n.btn[data-v-452404f1] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-452404f1] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n.modal-footer[data-v-452404f1] {\n    padding: 10px;\n}\n.modal-body[data-v-452404f1] {\n    padding: 10px;\n}\n\n", ""]);
 
 // exports
 
@@ -8629,7 +8629,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-156f3d2e] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-156f3d2e],\n.fade-leave-active[data-v-156f3d2e] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-156f3d2e],\n.fade-leave-to[data-v-156f3d2e] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-156f3d2e],\n.slide-leave-active[data-v-156f3d2e] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-156f3d2e],\n.slide-leave-to[data-v-156f3d2e] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-156f3d2e] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-156f3d2e] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 50%;\n    min-height: 75%;\n}\nh1[data-v-156f3d2e] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-156f3d2e] {\n    float: right;\n}\n.btn[data-v-156f3d2e] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-156f3d2e] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-156f3d2e] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-156f3d2e],\n.fade-leave-active[data-v-156f3d2e] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-156f3d2e],\n.fade-leave-to[data-v-156f3d2e] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-156f3d2e],\n.slide-leave-active[data-v-156f3d2e] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-156f3d2e],\n.slide-leave-to[data-v-156f3d2e] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-156f3d2e] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-156f3d2e] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-156f3d2e] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-156f3d2e] {\n    float: right;\n}\n.btn[data-v-156f3d2e] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-156f3d2e] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -8648,7 +8648,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-3dfa642c] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-3dfa642c],\n.fade-leave-active[data-v-3dfa642c] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-3dfa642c],\n.fade-leave-to[data-v-3dfa642c] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-3dfa642c],\n.slide-leave-active[data-v-3dfa642c] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-3dfa642c],\n.slide-leave-to[data-v-3dfa642c] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-3dfa642c] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-3dfa642c] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n max-height: 68%;\n}\nh1[data-v-3dfa642c] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-3dfa642c] {\n    float: right;\n}\n.btn[data-v-3dfa642c] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-3dfa642c] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-3dfa642c] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-3dfa642c],\n.fade-leave-active[data-v-3dfa642c] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-3dfa642c],\n.fade-leave-to[data-v-3dfa642c] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-3dfa642c],\n.slide-leave-active[data-v-3dfa642c] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-3dfa642c],\n.slide-leave-to[data-v-3dfa642c] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-3dfa642c] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-3dfa642c] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n   height: max-content;\n}\nh1[data-v-3dfa642c] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-3dfa642c] {\n    float: right;\n}\n.btn[data-v-3dfa642c] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-3dfa642c] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -8667,7 +8667,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-1dd7e5d8] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-1dd7e5d8],\n.fade-leave-active[data-v-1dd7e5d8] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-1dd7e5d8],\n.fade-leave-to[data-v-1dd7e5d8] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-1dd7e5d8],\n.slide-leave-active[data-v-1dd7e5d8] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-1dd7e5d8],\n.slide-leave-to[data-v-1dd7e5d8] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-1dd7e5d8] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-1dd7e5d8] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 50%;\n    min-height: 75%;\n}\nh1[data-v-1dd7e5d8] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-1dd7e5d8] {\n    float: right;\n}\n.btn[data-v-1dd7e5d8] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-1dd7e5d8] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-1dd7e5d8] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-1dd7e5d8],\n.fade-leave-active[data-v-1dd7e5d8] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-1dd7e5d8],\n.fade-leave-to[data-v-1dd7e5d8] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-1dd7e5d8],\n.slide-leave-active[data-v-1dd7e5d8] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-1dd7e5d8],\n.slide-leave-to[data-v-1dd7e5d8] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-1dd7e5d8] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-1dd7e5d8] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-1dd7e5d8] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-1dd7e5d8] {\n    float: right;\n}\n.btn[data-v-1dd7e5d8] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-1dd7e5d8] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -8686,7 +8686,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-5f6436c4] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-5f6436c4],\n.fade-leave-active[data-v-5f6436c4] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-5f6436c4],\n.fade-leave-to[data-v-5f6436c4] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-5f6436c4],\n.slide-leave-active[data-v-5f6436c4] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-5f6436c4],\n.slide-leave-to[data-v-5f6436c4] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-5f6436c4] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-5f6436c4] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 50%;\n    min-height: 75%;\n}\nh1[data-v-5f6436c4] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-5f6436c4] {\n    float: right;\n}\n.btn[data-v-5f6436c4] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-5f6436c4] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-5f6436c4] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-5f6436c4],\n.fade-leave-active[data-v-5f6436c4] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-5f6436c4],\n.fade-leave-to[data-v-5f6436c4] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-5f6436c4],\n.slide-leave-active[data-v-5f6436c4] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-5f6436c4],\n.slide-leave-to[data-v-5f6436c4] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-5f6436c4] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-5f6436c4] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n      height: max-content;\n}\nh1[data-v-5f6436c4] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-5f6436c4] {\n    float: right;\n}\n.btn[data-v-5f6436c4] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-5f6436c4] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -8705,7 +8705,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-56767808] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-56767808],\n.fade-leave-active[data-v-56767808] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-56767808],\n.fade-leave-to[data-v-56767808] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-56767808],\n.slide-leave-active[data-v-56767808] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-56767808],\n.slide-leave-to[data-v-56767808] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-56767808] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-56767808] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: 50%;\n    min-height: 75%;\n}\nh1[data-v-56767808] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-56767808] {\n    float: right;\n}\n.btn[data-v-56767808] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-56767808] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-56767808] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-56767808],\n.fade-leave-active[data-v-56767808] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-56767808],\n.fade-leave-to[data-v-56767808] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-56767808],\n.slide-leave-active[data-v-56767808] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-56767808],\n.slide-leave-to[data-v-56767808] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-56767808] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-56767808] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-56767808] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-56767808] {\n    float: right;\n}\n.btn[data-v-56767808] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-56767808] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -43916,47 +43916,53 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card card-stats" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col" }, [
-                _c(
-                  "h5",
-                  { staticClass: "card-title text-uppercase text-muted mb-0" },
-                  [_vm._v("Total Clients")]
-                ),
+      _c(
+        "div",
+        { staticClass: "col-md-12", staticStyle: { display: "none" } },
+        [
+          _c("div", { staticClass: "card card-stats" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "card-title text-uppercase text-muted mb-0",
+                    },
+                    [_vm._v("Total Clients")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
+                    _vm._v("2,356"),
+                  ]),
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
-                  _vm._v("2,356"),
+                _c("div", { staticClass: "col-auto" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "icon icon-shape bg-orange text-white rounded-circle shadow",
+                    },
+                    [_c("i", { staticClass: "ni ni-chart-pie-35" })]
+                  ),
                 ]),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-auto" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "icon icon-shape bg-orange text-white rounded-circle shadow",
-                  },
-                  [_c("i", { staticClass: "ni ni-chart-pie-35" })]
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "mt-3 mb-0 text-sm" }, [
-              _c("span", { staticClass: "text-success mr-2" }, [
-                _c("i", { staticClass: "fa fa-arrow-up" }),
-                _vm._v(" 3.48%"),
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "text-nowrap" }, [
-                _vm._v("Since last month"),
+              _c("p", { staticClass: "mt-3 mb-0 text-sm" }, [
+                _c("span", { staticClass: "text-success mr-2" }, [
+                  _c("i", { staticClass: "fa fa-arrow-up" }),
+                  _vm._v(" 3.48%"),
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-nowrap" }, [
+                  _vm._v("Since last month"),
+                ]),
               ]),
             ]),
           ]),
-        ]),
-      ]),
+        ]
+      ),
     ])
   },
 ]
@@ -47475,25 +47481,6 @@ var render = function () {
                               },
                             },
                             [_c("i", { staticClass: "fas fa-eye" })]
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: "#!",
-                                "data-id": client.id,
-                                title: "Update Employee",
-                              },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.editClient(client.id)
-                                },
-                              },
-                            },
-                            [_c("i", { staticClass: "fas fa-pen" })]
                           ),
                         ]),
                         _vm._v(" "),

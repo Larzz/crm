@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="display:none">
                 <div class="card card-stats">
                     <!-- Card body -->
                     <div class="card-body">

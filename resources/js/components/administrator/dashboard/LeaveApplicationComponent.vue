@@ -41,7 +41,7 @@
                                 <td>
                                     {{ leave.balance }}
                                 </td>
-                                <td v-html="getStatus(leave.status)">
+                                  <td v-html="getStatus(leave.status)">
                                 </td>
                                 <td>
                                     <a href="#!" @click="approved(leave.id)" class="btn btn-sm btn-primary">Approved</a>
@@ -164,13 +164,13 @@
             getStatus(status_id) {
                 switch (status_id) {
                     case 0:
-                        return '<i class="bg-warning"></i> Pending'
+                        return '<span style="color:gray;"> <i class="bg-warning"></i> Pending </span>'
                         break;
                     case 1:
-                        return '<i class="bg-success"></i> Approved'
+                        return '<span style="color:green"> <i class="bg-success"></i> Approved </span>'
                         break;
                     case 2:
-                        return '<i class="bg-error"></i> Declined'
+                        return '<span style="color:red"> <i class="bg-error"></i> Declined </span>'
                         break;
 
                 }
