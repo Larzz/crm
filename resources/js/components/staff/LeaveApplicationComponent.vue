@@ -17,35 +17,19 @@
                                 <!-- <input v-model="field.leave_from" type="date" class="form-control"> -->
                                 <!-- <h5 v-html="field.leave_from"></h5> -->
                                 <!-- <v-date-picker v-model="field.date" is-range /> -->
-                                <v-date-picker 
-                                    :available-dates='{ start: new Date(), end: null }'
-                                    v-model="field.date" is-range>
+                                <v-date-picker :available-dates='{ start: new Date(), end: null }' v-model="field.date"
+                                    is-range>
                                     <template v-slot="{ inputValue, inputEvents }">
                                         <div class="flex justify-center items-center">
-                                        <input
-                                            :value="inputValue.start"
-                                            v-on="inputEvents.start"
-                                            class="border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
-                                        />
-                                        <svg
-                                            width="25px"
-                                            class="w-4 h-4 mx-2"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                            />
-                                        </svg>
-                                        <input
-                                            :value="inputValue.end"
-                                            v-on="inputEvents.end"
-                                            class="border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
-                                        />
+                                            <input :value="inputValue.start" v-on="inputEvents.start"
+                                                class="border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300" />
+                                            <svg width="25px" class="w-4 h-4 mx-2" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                            <input :value="inputValue.end" v-on="inputEvents.end"
+                                                class="border px-2 py-1 w-32 rounded focus:outline-none focus:border-indigo-300" />
                                         </div>
                                     </template>
                                 </v-date-picker>
@@ -124,7 +108,7 @@
             this.field.remaining_days = this.leave.available_days
             this.field.used_days = this.leave.used_days
             this.field.leave_id = this.leave.id
-     
+
         },
         watch: {
 
@@ -152,42 +136,51 @@
             }
         },
         methods: {
-
             // Expects start date to be before end date
             // start and end are Date objects
             dateDifference(start, end) {
 
-            // Copy date objects so don't modify originals
-            var s = new Date(+start);
-            var e = new Date(+end);
-            
-            // Set time to midday to avoid dalight saving and browser quirks
-            s.setHours(12,0,0,0);
-            e.setHours(12,0,0,0);
-            
-            // Get the difference in whole days
-            var totalDays = Math.round((e - s) / 8.64e7);
-            
-            // Get the difference in whole weeks
-            var wholeWeeks = totalDays / 7 | 0;
-            
-            // Estimate business days as number of whole weeks * 5
-            var days = wholeWeeks * 5;
+                // Copy date objects so don't modify originals
+                var s = new Date(+start);
+                var e = new Date(+end);
 
-            // If not even number of weeks, calc remaining weekend days
-            if (totalDays % 7) {
-                s.setDate(s.getDate() + wholeWeeks * 7);
-                
-                while (s < e) {
-                s.setDate(s.getDate() + 1);
+                // Set time to midday to avoid dalight saving and browser quirks
+                s.setHours(12, 0, 0, 0);
+                e.setHours(12, 0, 0, 0);
 
-                // If day isn't a Sunday or Saturday, add to business days
-                if (s.getDay() != 0 && s.getDay() != 6) {
-                    ++days;
+                // Get the difference in whole days
+                var totalDays = Math.round((e - s) / 8.64e7);
+
+                // Get the difference in whole weeks
+                var wholeWeeks = totalDays / 7 | 0;
+
+                // Estimate business days as number of whole weeks * 5
+                var days = wholeWeeks * 5;
+
+                // If not even number of weeks, calc remaining weekend days
+                if (totalDays % 7) {
+                    s.setDate(s.getDate() + wholeWeeks * 7);
+
+                    while (s < e) {
+                        s.setDate(s.getDate() + 1);
+
+                        // If day isn't a Sunday or Saturday, add to business days
+                        if (s.getDay() != 0 && s.getDay() != 6) {
+                            ++days;
+                        }
+                    }
                 }
-                }
-            }
-            return days + 1;
+
+                this.field.leave_from = start
+                this.field.leave_to = end
+
+                this.field.used_days = days + 1
+                this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(days + 1)
+
+                this.formatDate(this.field.leave_from)
+                this.formatDate(this.field.leave_to)
+
+            return;
             },
 
             validate() {
@@ -216,13 +209,13 @@
 
             submitVacation() {
 
-                // this.validate()
+                if (!this.field.date) {
+                    this.$toastr.e('Please enter your desired date')
+                    return;
+                }
 
-                console.log(this.dateDifference(this.field.date.start, this.field.date.end))
-                console.log(this.field.date)
-                
-                return;
                 let $this = this
+                 this.dateDifference(this.field.date.start, this.field.date.end)
 
                 if (!this.field.leave_from) {
                     $this.$toastr.e('Leave From is Required')
@@ -234,8 +227,8 @@
                     return;
                 }
 
+
                 console.log(this.field)
-                return;
 
                 JsLoadingOverlay.show(this.$configs);
 

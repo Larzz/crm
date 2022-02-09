@@ -103,6 +103,11 @@ Route::prefix('staff')->namespace('Staff')->group(function() {
 
    Route::get('/', 'HomeController@index')->name('staff.home');
 
+   Route::prefix('clients')->group(function() {
+      Route::get('/', 'HomeController@client_page')->name('staff.client');
+      Route::get('{id?}', 'HomeController@client_index_page')->name('staff.client.index');
+   });
+
    Route::prefix('leave')->group(function() {
       Route::get('/', 'HomeController@index')->name('staff.leave');
    });

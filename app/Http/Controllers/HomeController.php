@@ -16,10 +16,10 @@ class HomeController extends Controller
 
     protected $request;
 
-    public function __construct(Request $request)
-    {
+    public function __construct(Request $request) {
+        // $this->middleware('role:staff');
         $this->request = $request;
-    } 
+    }
    
     public function login() {
         return view('public.pages.login');

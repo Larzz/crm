@@ -6244,22 +6244,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -6340,7 +6324,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      return days + 1;
+      this.field.leave_from = start;
+      this.field.leave_to = end;
+      this.field.used_days = days + 1;
+      this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(days + 1);
+      this.formatDate(this.field.leave_from);
+      this.formatDate(this.field.leave_to);
+      return;
     },
     validate: function validate() {
       this.field.remaining_days = this.leave.available_days;
@@ -6358,11 +6348,13 @@ __webpack_require__.r(__webpack_exports__);
       this.formatDate(this.field.leave_to);
     },
     submitVacation: function submitVacation() {
-      // this.validate()
-      console.log(this.dateDifference(this.field.date.start, this.field.date.end));
-      console.log(this.field.date);
-      return;
+      if (!this.field.date) {
+        this.$toastr.e('Please enter your desired date');
+        return;
+      }
+
       var $this = this;
+      this.dateDifference(this.field.date.start, this.field.date.end);
 
       if (!this.field.leave_from) {
         $this.$toastr.e('Leave From is Required');
@@ -6375,7 +6367,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       console.log(this.field);
-      return;
       JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',

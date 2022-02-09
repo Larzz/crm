@@ -16,7 +16,7 @@
                             <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}"
                                     href="{{ route('staff.home') }}">Dashboard</a> </li>
                             <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
-                                    href="{{ route('admin.client') }}">Client</a> </li>
+                                    href="{{ route('staff.client') }}">Client</a> </li>
                             <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
                                     href="{{ route('website.index') }}">Website</a> </li>
                             <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"
@@ -65,6 +65,6 @@
         <!-- Footer -->
         @include('staff.includes.footer')
     </div>
-    
+
 </div>
 @endsection

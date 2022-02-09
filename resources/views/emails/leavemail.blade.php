@@ -159,7 +159,7 @@
                             <td class="column"
                                 style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
                                 width="25%">
-                                <table border="0" cellpadding="0" cellspacing="0" class="image_block"
+                                {{-- <table border="0" cellpadding="0" cellspacing="0" class="image_block"
                                     role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
                                     width="100%">
                                     <tr>
@@ -171,7 +171,7 @@
                                                     title="Topic Icon" width="64" /></div>
                                         </td>
                                     </tr>
-                                </table>
+                                </table> --}}
                             </td>
                             <td class="column"
                                 style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
@@ -193,22 +193,18 @@
                                                      </p>
                                                     <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                             style="font-size:18px;"><strong><span style="">
-                                                                    Leave From:
-                                                                    {{ isset($date_from) ? $date_from : 'August 4, 2022'  }}</span></strong></span>
+                                                                Leave From: {{ $date_from ?? 'August 4, 2022'  }}</span></strong></span>
                                                     </p>
                                                     <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                             style="font-size:18px;"><strong><span style="">
-                                                                    Leave to:
-                                                                    {{ isset($date_to) ? $date_to : "August 4, 2021" }}</span></strong></span>
+                                                                Leave to: {{ $date_to ??  "August 4, 2021" }}</span></strong></span>
                                                         <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                                 style="font-size:18px;"><strong><span style="">
-                                                                        Total Days:
-                                                                        {{ isset($total_days) ? $total_days : "2" }}</span></strong></span>
+                                                                Total Days: {{  $total_days ?? "2" }}</span></strong></span>
                                                         </p>
                                                         <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                                 style="font-size:18px;"><strong><span style="">
-                                                                        Remaining Days:
-                                                                        {{ isset($remaining_days) ? $remaining_days : "3" }}</span></strong></span>
+                                                                Remaining Days: {{ $remaining_days ?? $remaining_days  }}</span></strong></span>
                                                         </p>
                                                 </div>
                                             </div>
