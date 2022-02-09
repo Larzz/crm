@@ -44,7 +44,7 @@
                 </table>
             </div>
         </div>
-        <presentation-popup> </presentation-popup>
+        <presentation-popup :showPopup="showPopup"> </presentation-popup>
     </div>
 </template>
 
@@ -53,7 +53,8 @@
     export default {
         data() {
             return {
-                clients: {}
+                clients: {},
+                showPopup:false
             }
         },
         beforeCreate() {

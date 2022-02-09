@@ -5767,7 +5767,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      clients: {}
+      clients: {},
+      showPopup: false
     };
   },
   beforeCreate: function beforeCreate() {
@@ -47800,7 +47801,7 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("presentation-popup"),
+      _c("presentation-popup", { attrs: { showPopup: _vm.showPopup } }),
     ],
     1
   )
