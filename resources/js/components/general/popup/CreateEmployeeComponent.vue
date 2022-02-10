@@ -46,7 +46,6 @@
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
-
                         </div>
 
                         <hr>
