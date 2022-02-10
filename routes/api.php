@@ -105,8 +105,8 @@ Route::namespace('API')->group(function() {
         Route::prefix('newsletter')->group(function() {
             Route::post('/', 'NewsletterController@saveNewsletter');
             Route::get('/', 'NewsletterController@getAllNewsletter');
-            Route::get('{id}', 'NewsletterController@getNewsletter');
-            Route::delete('{id}', 'NewsletterController@deleteNewsletter');
+            Route::get('{newsletter_id}', 'NewsletterController@getNewsletter');
+            Route::delete('{newsletter_id}', 'NewsletterController@deleteNewsletter');
         });
 
     });

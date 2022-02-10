@@ -3,13 +3,19 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-12 col-7">
+
                     <ul class="nav-sub-sx">
-                        <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}"
-                                href="{{ route('admin.home') }}">Dashboard</a> </li>
-                        {{-- <li> <a class="{{ $active === 'presentation' ? 'active' : '' }}"
-                        href="{{ route('admin.presentations') }}">Presentations</a> </li> --}}
+
+                        @if (auth()->user()->role==1)
+                            <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}" href="{{ route('admin.home') }}">Dashboard</a> </li>
+                        @endif
+
+                        @if (auth()->user()->role==2)
+                            <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}" href="{{ route('staff.home') }}">Dashboard</a> </li>
+                        @endif
+            
                         <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
-                                href="{{ route('admin.client') }}">Client</a> </li>
+                                href="{{ route('general.admin.client') }}">Client</a> </li>
                         <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
                                 href="{{ route('website.index') }}">Website</a> </li>
                         <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"

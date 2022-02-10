@@ -88,6 +88,8 @@
                     return;
                 }
 
+                JsLoadingOverlay.show(this.$configs);
+
                 axios({
                         method: 'post',
                         url: '/api/v1/client?api_token=' + window.Laravel.api_token,
@@ -104,7 +106,7 @@
                         $this.$toastr.e(error);
                     })
                     .then(function () {
-                        
+                        JsLoadingOverlay.hide();
                     });
 
             },

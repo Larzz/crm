@@ -15,6 +15,12 @@
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
                     <template v-if="clients">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr v-for="(client, index) in clients" :key="index">
                                 <th scope="row">
@@ -25,8 +31,6 @@
                                         <ul>
                                             <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
                                                     title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="client.id" @click="editClient(client.id)"
-                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
                                             <li> <a href="#!" :data-id="client.id" @click="deleteClient(client.id)"
                                                     title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>

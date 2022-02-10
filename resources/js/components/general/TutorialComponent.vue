@@ -129,6 +129,7 @@
              * @return data object
              */
             getTutorials() {
+                            JsLoadingOverlay.show(this.$configs);
                 let $this = this
                 axios({
                         method: 'get',
@@ -141,7 +142,9 @@
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
-                    .then(function () {});
+                    .then(function () {
+                       JsLoadingOverlay.hide();
+                    });
             },
             /**
              * View Tutorial 

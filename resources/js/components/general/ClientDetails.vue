@@ -11,11 +11,14 @@
                 <meeting-widget :user="user"></meeting-widget>
             </div>
             <div class="col-md-6">
-                <notes :user="user"> </notes>
-            </div>
-            <div class="col-md-6">
                 <document-widget :user="user"></document-widget>
             </div>
+            <div class="col-md-6">
+                <template v-if="auth.role===1">
+                   <notes :user="user"> </notes>
+                </template>
+            </div>
+
         </div>
     </div>
 </template>
@@ -26,8 +29,9 @@
             return {
             }
         },
-        props: ['user'],
+        props: ['user', 'auth'],
         mounted() {
+            console.log(this.auth)
         }
     }
 

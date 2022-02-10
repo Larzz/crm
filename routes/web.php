@@ -36,11 +36,6 @@ Route::prefix('administrator')->namespace('Administrator')->group(function() {
 
    Route::get('/', 'HomeController@index')->name('admin.home');
 
-   Route::prefix('clients')->group(function() {
-      Route::get('/', 'HomeController@client_page')->name('admin.client');
-      Route::get('{id?}', 'HomeController@client_index_page')->name('admin.client.index');
-   });
-
    Route::prefix('employee')->group(function() {
       Route::get('{id?}', 'HomeController@employee_page')->name('admin.employee');
    });
@@ -133,4 +128,11 @@ Route::prefix('newsletter')->namespace('General')->group(function() {
 
 Route::prefix('websites')->namespace('General')->group(function() {
    Route::get('/', 'WebsiteController@index')->name('website.index');
+});
+
+Route::prefix('general')->namespace('General')->group(function() {
+   Route::prefix('clients')->group(function() {
+      Route::get('/', 'HomeController@client_page')->name('general.admin.client');
+      Route::get('{id?}', 'HomeController@client_index_page')->name('general.admin.client.index');
+   });
 });

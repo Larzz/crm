@@ -19,9 +19,9 @@ class LeaveMail extends Mailable
      */
     public function __construct($data, $employee, $subject)
     {
-        $this->date_from = $data->date_from;
-        $this->date_to = $data->date_to;
-        $this->total_days = $data->total_days;
+        $this->leave_from = $data->leave_from;
+        $this->leave_to = $data->leave_to;
+        $this->total_days = $data->number_of_day;
         $this->remaining_days  = $data->remaining_days;
         $this->subject = $subject;
         $this->employee = $employee;
@@ -36,12 +36,14 @@ class LeaveMail extends Mailable
     public function build()
     {
         return $this->view('emails.leavemail')->subject($this->subject)
+            ->from('sender@creativouae.com', 'Creativo Backend')
             ->with([
-            'date_from' => $this->date_from,
-            'date_to' => $this->date_to,
-            'total_days'=> $this->total_days,
-            'remaining_days' => $this->remaining_days,
-            'employee' => $this->employee
+                'subject' => $this->subject,
+                'date_from' => $this->leave_from,
+                'date_to' => $this->leave_to,
+                'total_days'=> $this->total_days,
+                'remaining_days' => $this->remaining_days,
+                'employee' => $this->employee
         ]);
      }
 }

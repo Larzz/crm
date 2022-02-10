@@ -46,7 +46,6 @@
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
-
                         </div>
 
                         <hr>
@@ -148,6 +147,8 @@
                     return false
                 }
 
+                 JsLoadingOverlay.show(this.$configs);
+
                 axios({
                         method: 'post',
                         url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
@@ -164,7 +165,7 @@
                         $this.$toastr.e(error);
                     })
                     .then(function () {
-                        $this.$toastr.e(error);
+                       JsLoadingOverlay.hide();
                     });
 
             },

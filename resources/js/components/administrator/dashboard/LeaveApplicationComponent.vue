@@ -94,17 +94,15 @@
 
             },
             approved(leave_id) {
-
                 let $this = this
-
                 Swal.fire({
                     icon: 'question',
-                    title: 'Are you sure you want to approved this leave?',
+                    title: 'Are you sure you want to approve this leave?',
                     showCancelButton: true,
                     confirmButtonText: 'Approved',
                 }).then((result) => {
                     if (result.isConfirmed) {
-
+                        JsLoadingOverlay.show(this.$configs);
                         axios({
                                 method: 'post',
                                 url: '/api/v1/leave/approved?api_token=' + window.Laravel.api_token,
@@ -120,25 +118,25 @@
                             .catch(function (error) {
                                 $this.$toastr.e(error);
                             })
-                            .then(function () {});
+                            .then(function () {
+                                JsLoadingOverlay.hide();
+                            });
                     } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                     }
                 })
             },
             declined(leave_id) {
-
                 let $this = this
-
                 Swal.fire({
                     icon: 'question',
-                    title: 'Are you sure you want to declined this leave?',
+                    title: 'Are you sure you want to decline this leave?',
                     showCancelButton: true,
                     confirmButtonText: 'Declined',
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-
+                        JsLoadingOverlay.show(this.$configs);
                         axios({
                                 method: 'post',
                                 url: '/api/v1/leave/declined?api_token=' + window.Laravel.api_token,
@@ -154,7 +152,9 @@
                             .catch(function (error) {
                                 $this.$toastr.e(error);
                             })
-                            .then(function () {});
+                            .then(function () {
+                                JsLoadingOverlay.hide();
+                            });
                     } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                     }

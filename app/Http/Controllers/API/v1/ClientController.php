@@ -8,12 +8,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
-
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
-
+use App\Mail\ClientNotification;
+use Illuminate\Support\Facades\Mail;
 class ClientController extends Controller
 {
     //
@@ -37,10 +36,9 @@ class ClientController extends Controller
             return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
         }
 
-        $client = new User;
-
         $token = Str::random(60);
 
+        $client = new User;
         $client->name = $this->request->name;
         $client->email= $this->request->email;
         $client->password = Hash::make($this->request->password);
@@ -51,6 +49,7 @@ class ClientController extends Controller
 
         if($client->save()) {
             $client->attachRole('client');
+            Mail::to('larry@creativouae.com')->send(New ClientNotification($client, $this->request->password, 'Client Creation Notification'));
             return response()->json(['status' => true]);
         }
 

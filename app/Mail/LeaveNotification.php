@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmployeeMail extends Mailable
+class LeaveNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,13 +16,13 @@ class EmployeeMail extends Mailable
      *
      * @return void
      */
-    public $user, $leave, $subject, $password;
+    public $leave, $user, $message, $subject;
 
-    public function __construct($user, $leave, $password, $subject)
+    public function __construct($leave, $user, $message, $subject)
     {
-        $this->user = $user;
         $this->leave = $leave;
-        $this->password = $password;
+        $this->user = $user;
+        $this->message = $message;
         $this->subject = $subject;
     }
 
@@ -33,13 +33,13 @@ class EmployeeMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.employee')
+        return $this->view('emails.leave-notification')
                 ->subject($this->subject)
                 ->from('sender@creativouae.com', 'Creativo Backend')
                 ->with([
-                    'user' => $this->user,
-                    'leave' => $this->leave,
-                    'password' => $this->password,
+                    'leave' => $this->leave, 
+                    'user' => $this->user, 
+                    'message' => $this->message, 
                     'subject' => $this->subject
                 ]);
     }

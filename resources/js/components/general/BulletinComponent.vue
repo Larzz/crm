@@ -45,6 +45,7 @@
             JsLoadingOverlay.hide();
         },
         mounted() {
+            console.log('hello')
             this.getBulettin()
         },
         methods: {

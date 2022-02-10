@@ -23,7 +23,7 @@
                                                     style="font-size: 14px; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
                                                     <p style="margin: 0; font-size: 30px; text-align: center;">
                                                         <strong><span style="font-size:38px;">Hello,
-                                                                {{ isset($employee->name) ? $employee->name : 'Mark' }}!</span></strong>
+                                                                {{ isset($user->name) ? $user->name : 'Mark' }}!</span></strong>
                                                     </p>
                                                 </div>
                                             </div>
@@ -170,21 +170,25 @@
                                             <div style="font-family: Arial, sans-serif">
                                                 <div
                                                     style="font-size: 14px; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #175df1; line-height: 1.2;">
-                                                    
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style=""> 
-                                                            Employee Name: {{ isset($employee) ? $employee->name : 'Mark Approveal'  }}</span></strong></span>
-                                                        </p>
-                                                         <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Leave From: {{ date_format($date_from, "M d, Y")  ?? 'August 4, 2022'  }}</span></strong></span>
-                                                        </p>
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Leave to: {{  date_format($date_to, "M d, Y")  ??  "August 4, 2021" }}</span></strong></span>
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Total Days: {{  $total_days ?? "2" }}</span></strong></span>
-                                                        </p>
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Remaining Days: {{ $remaining_days ?? $remaining_days  }}</span></strong></span>
-                                                        </p>
+
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span
+                                                            style="font-size:18px;"><strong><span style="">
+                                                                    Name:
+                                                                    {{ isset($user) ? $user->name : 'Mark Approveal'  }}</span></strong></span>
+                                                    </p>
+
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span
+                                                            style="font-size:18px;"><strong><span style="">
+                                                                    Email:
+                                                                    {{ isset($user) ? $user->email : 'Mark Approveal'  }}</span></strong></span>
+                                                    </p>
+
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span
+                                                            style="font-size:18px;"><strong><span style="">
+                                                                    Password:
+                                                                    {{ $password ?? 'Mark Approveal' }}</span></strong></span>
+                                                    </p>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -199,6 +203,5 @@
         </tr>
     </tbody>
 </table>
-
 
 @include('emails.partials.footer')

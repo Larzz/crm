@@ -7,13 +7,13 @@
     <!-- Topnav -->
     @include('administrator.includes.top_nav')
     <!-- Header -->
-    @include('administrator.includes.navigation')
+    @include('general.includes.navigation')
     <!-- Page content -->
  <!-- Page content -->
  <div class="container-fluid mt--6">
 
   <div class="col-md-12">
-        <client-detail :user="{{ $user }}"></client-detail>
+        <client-detail :user="{{ $user }}" :auth="{{ Auth()->User() }}"></client-detail>
   </div>
 
   <div class="col-lx-12">

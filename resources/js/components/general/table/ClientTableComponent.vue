@@ -2,6 +2,12 @@
     <div>
         <template v-if="clients">
             <tbody>
+                 <thead class="thead-light">
+                        <tr>
+                            <th width="100%" scope="col">Name</th>
+                            <th width="100%" scope="col">Action</th>
+                        </tr>
+                    </thead>
                 <tr v-for="(client, index) in clients" :key="index">
                     <td scope="row" width="100%">
                         {{ client.name }}
@@ -66,7 +72,7 @@
 
             viewClient(client_id) {
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/administrator/clients/' + client_id
+                window.location.href = '/general/clients/' + client_id
             },
             editClient(client_id) {
                 let $this = this
