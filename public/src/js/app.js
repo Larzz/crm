@@ -3019,6 +3019,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-upload-component */ "./node_modules/vue-upload-component/dist/vue-upload-component.js");
+/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_upload_component__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3088,7 +3090,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    FileUpload: vue_upload_component__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   data: function data() {
     return {
       fields: {
@@ -3096,6 +3115,7 @@ __webpack_require__.r(__webpack_exports__);
         notes: null,
         filename: null
       },
+      files: null,
       newsletters: {}
     };
   },
@@ -44137,7 +44157,70 @@ var render = function () {
                 }),
               ]),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-md-6" },
+                    [
+                      _c(
+                        "file-upload",
+                        {
+                          ref: "upload",
+                          attrs: {
+                            data: { api_token: _vm.api_token },
+                            "post-action": "/api/v1/documents/upload/docs",
+                          },
+                          on: {
+                            "input-file": _vm.inputFile,
+                            "input-filter": _vm.inputFilter,
+                            response: _vm.uploadResponse,
+                          },
+                          model: {
+                            value: _vm.files,
+                            callback: function ($$v) {
+                              _vm.files = $$v
+                            },
+                            expression: "files",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                        Upload file\n                                    "
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value:
+                              !_vm.$refs.upload || !_vm.$refs.upload.active,
+                            expression: "!$refs.upload || !$refs.upload.active",
+                          },
+                        ],
+                        staticClass: "btn btn-sm btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            _vm.$refs.upload.active = true
+                          },
+                        },
+                      },
+                      [_vm._v("Start upload")]
+                    ),
+                  ]),
+                ]),
+              ]),
               _vm._v(" "),
               _c(
                 "button",
@@ -44163,7 +44246,7 @@ var render = function () {
                 "table",
                 { staticClass: "table align-items-center table-flush" },
                 [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -44276,16 +44359,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Upload Document")]),
-      _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "file" } }),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

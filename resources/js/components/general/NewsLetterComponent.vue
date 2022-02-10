@@ -15,9 +15,22 @@
                                 <textarea name="" class="form-control" v-model="fields.notes" id="" cols="30"
                                     rows="10"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="">Upload Document</label>
-                                <input type="file" class="form-control">
+                             <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <file-upload ref="upload" v-model="files" :data="{api_token: api_token }"
+                                            post-action="/api/v1/documents/upload/docs" @input-file="inputFile"
+                                            @input-filter="inputFilter" @response="uploadResponse">
+                                            Upload file
+                                        </file-upload>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button v-show="!$refs.upload || !$refs.upload.active"
+                                            @click.prevent="$refs.upload.active = true" class="btn btn-sm btn-primary"
+                                            type="button">Start upload</button>
+                                    </div>
+                                </div>
+                                <!-- <small>We only Accept Image and PDF files</small> -->
                             </div>
                             <button href="#!" @click="submit()" class="btn btn-primary">Add</button>
                         </div>
@@ -68,7 +81,11 @@
 </template>
 
 <script>
+    import FileUpload from 'vue-upload-component'
     export default {
+          components: {
+            FileUpload,
+        },
         data() {
             return {
                 fields: {
@@ -76,6 +93,7 @@
                     notes: null,
                     filename: null
                 },
+                files: null,
                 newsletters: {}
             }
         },
