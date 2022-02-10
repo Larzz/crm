@@ -23,7 +23,7 @@
                                                     style="font-size: 14px; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
                                                     <p style="margin: 0; font-size: 30px; text-align: center;">
                                                         <strong><span style="font-size:38px;">Hello,
-                                                                {{ isset($employee->name) ? $employee->name : 'Mark' }}!</span></strong>
+                                                                {{ isset($user->name) ? $user->name : 'Mark' }}!</span></strong>
                                                     </p>
                                                 </div>
                                             </div>
@@ -38,11 +38,6 @@
                                             <div style="font-family: sans-serif">
                                                 <div
                                                     style="font-size: 14px; mso-line-height-alt: 21px; color: #ffffff; line-height: 1.5; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif;">
-                                                    {{-- <p
-                                                        style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 33px;">
-                                                        <span style="font-size:22px;color:#f9c253;">
-                                                            We've saved your
-                                                            seat at:</span></p> --}}
                                                     <p
                                                         style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 51px;">
                                                         <span
@@ -136,61 +131,45 @@
         <tr>
             <td>
                 <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
-                    role="presentation"
-                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f8ff; color: #000000; width: 550px;"
-                    width="550">
+                    role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f8ff; color: #000000; width: 550px;" width="550">
                     <tbody>
                         <tr>
-                            <td class="column"
-                                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                width="25%">
-                                {{-- <table border="0" cellpadding="0" cellspacing="0" class="image_block"
-                                    role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
-                                    width="100%">
-                                    <tr>
-                                        <td
-                                            style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:15px;width:100%;">
-                                            <div align="center" style="line-height:10px"><img alt="Topic Icon"
-                                                    src="images/mobile-app__1_.png"
-                                                    style="display: block; height: auto; border: 0; width: 64px; max-width: 100%;"
-                                                    title="Topic Icon" width="64" /></div>
-                                        </td>
-                                    </tr>
-                                </table> --}}
+                            <td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
                             </td>
-                            <td class="column"
-                                style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                width="75%">
-                                <table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                    width="100%">
+                            <td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="75%">
+                                <table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"  width="100%">
                                     <tr>
                                         <td
                                             style="padding-bottom:10px;padding-left:20px;padding-right:20px;padding-top:10px;">
                                             <div style="font-family: Arial, sans-serif">
                                                 <div
                                                     style="font-size: 14px; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #175df1; line-height: 1.2;">
-                                                    
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style=""> 
-                                                            Employee Name: {{ isset($employee) ? $employee->name : 'Mark Approveal'  }}</span></strong></span>
-                                                        </p>
-                                                         <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Leave From: {{ date_format($date_from, "M d, Y")  ?? 'August 4, 2022'  }}</span></strong></span>
-                                                        </p>
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Leave to: {{  date_format($date_to, "M d, Y")  ??  "August 4, 2021" }}</span></strong></span>
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Total Days: {{  $total_days ?? "2" }}</span></strong></span>
-                                                        </p>
-                                                        <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
-                                                            Remaining Days: {{ $remaining_days ?? $remaining_days  }}</span></strong></span>
-                                                        </p>
+
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style=""> 
+                                                         Name: {{ isset($user) ? $user->name : 'Mark Approveal'  }}</span></strong></span>
+                                                    </p>
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style=""> 
+                                                        @php
+                                                             $leave_from = strtotime($leave->leave_from);
+                                                            // $leave_from = date_create_from_format("M d, Y", $leave->leave_from);
+                                                        @endphp
+                                                         Leave From: {{ isset($leave_from) ? date("M d, Y", $leave_from)  : 'Mark Approval'  }}</span></strong></span>
+                                                    </p>
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style="">
+                                                        @php
+                                                            $leave_to = strtotime($leave->leave_to);
+                                                           //$leave_to = date_create_from_format("M d, Y", $leave->leave_to);
+                                                        @endphp 
+                                                         Leave To: {{ isset($leave_to) ? date("M d, Y", $leave_to) : 'Mark Approveal'  }}</span></strong></span>
+                                                    </p>
+                                                    <p style="margin: 0; font-size: 14px; text-align: left;"><span style="font-size:18px;"><strong><span style=""> 
+                                                        Total Days: {{ isset($leave) ? $leave->number_of_day : 'Mark Approveal'  }}</span></strong></span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                 </table>
-
                             </td>
                         </tr>
                     </tbody>
@@ -199,6 +178,5 @@
         </tr>
     </tbody>
 </table>
-
 
 @include('emails.partials.footer')

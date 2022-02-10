@@ -14,7 +14,10 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\User;
+
 use App\Mail\LeaveMail;
+use App\Mail\LeaveNotification;
 use Illuminate\Support\Facades\Mail;
 
 class LeaveController extends Controller
@@ -26,7 +29,6 @@ class LeaveController extends Controller
         $this->request = $request;
     }
     
-
     public function addLeave() {
 
         $validator = Validator::make($this->request->all(), [
@@ -71,7 +73,6 @@ class LeaveController extends Controller
         return response()->json(['status' => true, 'leaves' => $leaves]);
     }
 
-
     public function getLeave() {
     }
 
@@ -82,19 +83,24 @@ class LeaveController extends Controller
     }
 
     public function approved() {
-        
-        $leave = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 1]);
-        if ($leave) {
+        $leave = LeaveDetails::where('id', $this->request->leave_id)->first();
+        if($leave) {
+            $user = User::where('id', $leave->user_id)->first();
+            $leave_update = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 1]);
+            Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
+            Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
             return response()->json(['status' => true]);
         }
         return response()->json(['status' => false]);
-
     }
 
     public function declined() {
-        
-        $leave = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 2]);
-        if ($leave) {
+        $leave = LeaveDetails::where('id', $this->request->leave_id)->first();
+        if($leave) {
+            $user = User::where('id', $leave->user_id)->first();
+            $leave_update = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 2]);
+            Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
+            Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
             return response()->json(['status' => true]);
         }
         return response()->json(['status' => false]);

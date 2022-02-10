@@ -2371,14 +2371,17 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {});
     },
     approved: function approved(leave_id) {
+      var _this = this;
+
       var $this = this;
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
         icon: 'question',
-        title: 'Are you sure you want to approved this leave?',
+        title: 'Are you sure you want to approve this leave?',
         showCancelButton: true,
         confirmButtonText: 'Approved'
       }).then(function (result) {
         if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this.$configs);
           axios({
             method: 'post',
             url: '/api/v1/leave/approved?api_token=' + window.Laravel.api_token,
@@ -2392,22 +2395,27 @@ __webpack_require__.r(__webpack_exports__);
             }
           })["catch"](function (error) {
             $this.$toastr.e(error);
-          }).then(function () {});
+          }).then(function () {
+            JsLoadingOverlay.hide();
+          });
         } else if (result.isDenied) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Changes are not saved', '', 'info');
         }
       });
     },
     declined: function declined(leave_id) {
+      var _this2 = this;
+
       var $this = this;
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
         icon: 'question',
-        title: 'Are you sure you want to declined this leave?',
+        title: 'Are you sure you want to decline this leave?',
         showCancelButton: true,
         confirmButtonText: 'Declined'
       }).then(function (result) {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this2.$configs);
           axios({
             method: 'post',
             url: '/api/v1/leave/declined?api_token=' + window.Laravel.api_token,
@@ -2421,7 +2429,9 @@ __webpack_require__.r(__webpack_exports__);
             }
           })["catch"](function (error) {
             $this.$toastr.e(error);
-          }).then(function () {});
+          }).then(function () {
+            JsLoadingOverlay.hide();
+          });
         } else if (result.isDenied) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Changes are not saved', '', 'info');
         }
@@ -4180,6 +4190,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',
         url: '/api/v1/client?api_token=' + window.Laravel.api_token,
@@ -4193,7 +4204,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
-      }).then(function () {});
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     },
     resetForm: function resetForm() {
       this.fields.name = null;
@@ -4353,6 +4366,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',
         url: '/api/v1/client?api_token=' + window.Laravel.api_token,
@@ -4366,7 +4380,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
-      }).then(function () {});
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     },
     resetForm: function resetForm() {
       this.fields.name = null;
