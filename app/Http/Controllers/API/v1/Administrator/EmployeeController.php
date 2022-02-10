@@ -10,9 +10,10 @@ use App\Models\Leave;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Support\Facades\Validator;
 
+use App\Mail\EmployeeMail;
+use Illuminate\Support\Facades\Mail;
 class EmployeeController extends Controller
 {
     //
@@ -44,10 +45,10 @@ class EmployeeController extends Controller
         $user->name = $this->request->name;
         $user->email = $this->request->email;
         $user->password = Hash::make($this->request->password);
-        $user->role = 2; //emplloyee
+        $user->role = 2; //employee
         $user->position = $this->request->position;
         $user->date_joined = $this->request->date_joined;
-        $user->birth_date - $this->request->birth_date;
+        $user->birth_date = $this->request->birth_date;
         $user->mobile_number = $this->request->mobile_number;
         $user->api_token = hash('sha256', $token);
         $user->notes = $this->request->notes;
@@ -55,7 +56,6 @@ class EmployeeController extends Controller
         if($user->save()) {
 
             $user->attachRole('employee');
-
             // assign leave
             $leave = new Leave;
             $leave->year = date('Y');
@@ -65,11 +65,13 @@ class EmployeeController extends Controller
             $leave->user_id = $user->id;
 
             if($leave->save()) {
+                Mail::to('larry@creativouae.com')->send(New EmployeeMail($user, $leave, $this->request->password, 'Employee Creation Notification'));
+                Mail::to('larry@creativouae.com')->send(New EmployeeMail($user, $leave, $this->request->password, 'Employee Creation Confirmation'));
                 return response()->json(['status' => true], 201);
             }
         }
 
-        return response()->json(['status' => false], 404);
+        return response()->json(['status' => false], 502);
     }
 
 

@@ -4536,6 +4536,7 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
+      JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',
         url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
@@ -4550,7 +4551,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {
-        $this.$toastr.e(error);
+        JsLoadingOverlay.hide();
       });
     },
     resetForms: function resetForms() {

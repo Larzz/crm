@@ -16,9 +16,14 @@ class EmployeeMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $user, $leave, $subject, $password;
+
+    public function __construct($user, $leave, $password, $subject)
     {
-        //
+        $this->user = $user;
+        $this->leave = $leave;
+        $this->password = $password;
+        $this->subject = $subject;
     }
 
     /**
@@ -28,6 +33,14 @@ class EmployeeMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('emails.employee')
+                ->subject($this->subject)
+                ->from('sender@creativouae.com', 'Creativo Backend')
+                ->with([
+                    'user' => $this->user,
+                    'leave' => $this->leave,
+                    'password' => $this->password,
+                    'subject' => $this->subject
+                ]);
     }
 }

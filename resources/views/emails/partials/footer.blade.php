@@ -1,4 +1,3 @@
-
 <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-13" role="presentation"
     style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
     <tbody>
@@ -29,15 +28,6 @@
                                                             style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block; margin-right: -4px; padding-left: 0px; padding-right: 0px;">
                                                             <!--<![endif]-->
                                                             <tr>
-                                                                <td
-                                                                    style="text-align:center;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:6px;">
-                                                                    <a href="https://www.creativouae.com/"><img
-                                                                            align="center"
-                                                                            alt="Designed by: Creativo DMCC"
-                                                                            class="icon" height="32"
-                                                                            src="images/bee.png"
-                                                                            style="display: block; height: auto; border: 0;"
-                                                                            width="34" /></a></td>
                                                                 <td
                                                                     style="font-family:Cabin, Arial, Helvetica Neue, Helvetica, sans-serif;font-size:15px;color:#9d9d9d;vertical-align:middle;letter-spacing:undefined;text-align:center;">
                                                                     <a href="https://www.creativouae.com.com/"

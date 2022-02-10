@@ -147,6 +147,8 @@
                     return false
                 }
 
+                 JsLoadingOverlay.show(this.$configs);
+
                 axios({
                         method: 'post',
                         url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
@@ -163,7 +165,7 @@
                         $this.$toastr.e(error);
                     })
                     .then(function () {
-                        $this.$toastr.e(error);
+                       JsLoadingOverlay.hide();
                     });
 
             },
