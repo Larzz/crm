@@ -9,7 +9,7 @@
                         {{-- <li> <a class="{{ $active === 'presentation' ? 'active' : '' }}"
                         href="{{ route('admin.presentations') }}">Presentations</a> </li> --}}
                         <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
-                                href="{{ route('admin.client') }}">Client</a> </li>
+                                href="{{ route('general.admin.client') }}">Client</a> </li>
                         <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
                                 href="{{ route('website.index') }}">Website</a> </li>
                         <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"

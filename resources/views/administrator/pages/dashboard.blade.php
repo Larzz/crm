@@ -12,7 +12,7 @@
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-6">
-                <bulletin-list> </bulletin-list>
+                <general-bulletin-card> </general-bulletin-card>
             </div>
             <div class="col-xl-6">
                 <bulletin-form></bulletin-form>
