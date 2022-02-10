@@ -3019,10 +3019,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-upload-component */ "./node_modules/vue-upload-component/dist/vue-upload-component.js");
-/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_upload_component__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-upload-component */ "./node_modules/vue-upload-component/dist/vue-upload-component.js");
+/* harmony import */ var vue_upload_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_upload_component__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3104,9 +3104,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    FileUpload: vue_upload_component__WEBPACK_IMPORTED_MODULE_0___default.a
+    FileUpload: vue_upload_component__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
@@ -3115,15 +3116,14 @@ __webpack_require__.r(__webpack_exports__);
         notes: null,
         filename: null
       },
-      files: null,
-      newsletters: {}
+      files: [],
+      types: [],
+      newsletters: {},
+      api_token: window.Laravel.api_token
     };
   },
-  beforeCreate: function beforeCreate() {
-    JsLoadingOverlay.show(this.$configs);
-  },
-  created: function created() {
-    JsLoadingOverlay.hide();
+  mounted: function mounted() {
+    this.getAllNewsletter();
   },
   methods: {
     /**
@@ -3132,27 +3132,41 @@ __webpack_require__.r(__webpack_exports__);
      * @return formatted datetime
      */
     saveNewsletter: function saveNewsletter() {
-      if (!fields.title) {
+      var $this = this;
+
+      if (!this.fields.title) {
         $this.$toastr.e('Title is Required');
         return;
       }
 
-      if (!fields.notes) {
+      if (!this.fields.notes) {
         $this.$toastr.e('Notes is Required');
         return;
       }
 
+      if (!this.fields.filename) {
+        $this.$toastr.e('Filename is Required');
+        return;
+      }
+
+      JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',
-        url: "/api/v1/newsletter?api_token=".concat(window.Laravel.api_token),
-        data: this.fields
+        url: "/api/v1/newsletter?api_token=".concat(this.api_token),
+        data: $this.fields
       }).then(function (response) {
         if (response.data.status) {
           $this.$toastr.s('Succesfully Added');
+          $this.getAllNewsletter();
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
-      }).then(function () {});
+      }).then(function () {
+        $this.fields.filename = null;
+        $this.fields.title = null;
+        $this.fields.notes = null;
+        JsLoadingOverlay.hide();
+      });
     },
 
     /**
@@ -3160,21 +3174,129 @@ __webpack_require__.r(__webpack_exports__);
      * @param date date
      * @return formatted datetime
      */
-    getAllNewsletter: function getAllNewsletter() {},
+    getAllNewsletter: function getAllNewsletter() {
+      var $this = this;
+      JsLoadingOverlay.show(this.$configs);
+      axios({
+        method: 'get',
+        url: "/api/v1/newsletter?api_token=".concat(this.api_token),
+        data: this.fields
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.newsletters = response.data.newsletters;
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
+    },
+    viewNewsletter: function viewNewsletter(newsletter) {
+      JsLoadingOverlay.show(this.$configs);
+      window.location.href = '/documents/' + newsletter.file_url;
+    },
 
     /**
      * Format Date 
      * @param date date
      * @return formatted datetime
      */
-    getNewsletter: function getNewsletter() {},
+    deleteNewsletter: function deleteNewsletter(newsletter_id) {
+      var _this = this;
+
+      var $this = this;
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+        icon: 'question',
+        title: 'Are you sure you want to delete this newsletter?',
+        showCancelButton: true,
+        confirmButtonText: 'Delete'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this.$configs);
+          axios({
+            method: 'delete',
+            url: "/api/v1/newsletter/".concat(newsletter_id, "?api_token=").concat(window.Laravel.api_token)
+          }).then(function (response) {
+            if (response.data.status) {
+              $this.$toastr.s('Successfully Deleted');
+              $this.getAllNewsletter();
+            }
+          })["catch"](function (error) {
+            $this.$toastr.e(error);
+          }).then(function () {
+            JsLoadingOverlay.hide();
+          });
+        }
+      });
+    },
+    formatDate: function formatDate(date) {
+      var currentDate = new Date(date);
+      var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      return currentDate.toLocaleDateString('en-us', options);
+    },
 
     /**
-     * Format Date 
-     * @param date date
-     * @return formatted datetime
+    * Has changed
+    * @param  Object|undefined   newFile   Read only
+    * @param  Object|undefined   oldFile   Read only
+    * @return undefined
+    */
+    inputFile: function inputFile(newFile, oldFile) {
+      if (newFile && oldFile && !newFile.active && oldFile.active) {
+        // Get response data
+        console.log('response', newFile.response);
+
+        if (newFile.xhr) {
+          //  Get the response status code
+          // console.log('status', newFile.xhr.status)
+          if (newFile.response.status) {
+            this.$toastr.s('Successfully Uploaded');
+            this.fields.filename = newFile.response.filename;
+          }
+        }
+      }
+    },
+
+    /**
+     * Pretreatment
+     * @param  Object|undefined   newFile   Read and write
+     * @param  Object|undefined   oldFile   Read only
+     * @param  Function           prevent   Prevent changing
+     * @return undefined
      */
-    deleteNewsletter: function deleteNewsletter() {}
+    inputFilter: function inputFilter(newFile, oldFile, prevent) {
+      if (newFile && !oldFile) {
+        // Filter non-image file
+        if (!/\.(jpeg|jpe|jpg|gif|png|pdf|docx|webp)$/i.test(newFile.name)) {
+          return prevent();
+        }
+      } // Create a blob field
+
+
+      newFile.blob = '';
+      var URL = window.URL || window.webkitURL;
+
+      if (URL && URL.createObjectURL) {
+        newFile.blob = URL.createObjectURL(newFile.file);
+      }
+    },
+
+    /**
+     * uploadResponse
+     * @param  data
+     * @return void
+     */
+    uploadResponse: function uploadResponse(data) {
+      if (data.status) {
+        this.$toastr.s('Successfully Uploaded');
+        this.fields.filename = data.filename;
+      }
+    }
   }
 });
 
@@ -3742,6 +3864,7 @@ __webpack_require__.r(__webpack_exports__);
      * @return data object
      */
     getTutorials: function getTutorials() {
+      JsLoadingOverlay.show(this.$configs);
       var $this = this;
       axios({
         method: 'get',
@@ -3752,7 +3875,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
-      }).then(function () {});
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     },
 
     /**
@@ -44229,7 +44354,7 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
-                      return _vm.submit()
+                      return _vm.saveNewsletter()
                     },
                   },
                 },
@@ -44258,7 +44383,7 @@ var render = function () {
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  _vm._s(_vm.formatDate(newsletter.content))
+                                  _vm._s(_vm.formatDate(newsletter.created_at))
                                 ),
                               ]),
                               _vm._v(" "),
@@ -44278,8 +44403,8 @@ var render = function () {
                                             },
                                             on: {
                                               click: function ($event) {
-                                                return _vm.viewTutorial(
-                                                  _vm.tutorial.slug
+                                                return _vm.viewNewsletter(
+                                                  newsletter
                                                 )
                                               },
                                             },
@@ -44302,32 +44427,8 @@ var render = function () {
                                             },
                                             on: {
                                               click: function ($event) {
-                                                return _vm.editTutorial(
-                                                  _vm.tutorial.id
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fas fa-pen",
-                                            }),
-                                          ]
-                                        ),
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("li", [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              href: "#!",
-                                              title: "Update Employee",
-                                            },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.deleteTutorial(
-                                                  _vm.tutorial.id
+                                                return _vm.deleteNewsletter(
+                                                  newsletter.id
                                                 )
                                               },
                                             },

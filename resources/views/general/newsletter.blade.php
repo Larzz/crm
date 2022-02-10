@@ -15,10 +15,8 @@
             <newsletter> </newsletter>
         </div>
       </div>
-
       <!-- Footer -->
       @include('general.includes.footer')
-   
   </div>
 </div>
 
