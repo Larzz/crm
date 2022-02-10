@@ -2129,6 +2129,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2859,6 +2863,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
 //
 //
 //
@@ -5336,6 +5344,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5665,6 +5679,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5775,6 +5795,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42975,6 +43001,8 @@ var render = function () {
             [
               _vm.employees
                 ? [
+                    _vm._m(1),
+                    _vm._v(" "),
                     _c(
                       "tbody",
                       _vm._l(_vm.employees, function (employee, index) {
@@ -43019,25 +43047,6 @@ var render = function () {
                                         attrs: {
                                           href: "#!",
                                           "data-id": employee.id,
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.editEmployee(employee.id)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-pen" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": employee.id,
                                           title: "Delete Employee",
                                         },
                                         on: {
@@ -43060,7 +43069,7 @@ var render = function () {
                       0
                     ),
                   ]
-                : [_vm._m(1)],
+                : [_vm._m(2)],
             ],
             2
           ),
@@ -43087,6 +43096,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Employees")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
   function () {
@@ -43910,6 +43931,8 @@ var render = function () {
             [
               _vm.clients
                 ? [
+                    _vm._m(1),
+                    _vm._v(" "),
                     _c(
                       "tbody",
                       _vm._l(_vm.clients, function (client, index) {
@@ -43958,25 +43981,6 @@ var render = function () {
                                         },
                                         on: {
                                           click: function ($event) {
-                                            return _vm.editClient(client.id)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-pen" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": client.id,
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
                                             return _vm.deleteClient(client.id)
                                           },
                                         },
@@ -43993,7 +43997,7 @@ var render = function () {
                       0
                     ),
                   ]
-                : [_vm._m(1)],
+                : [_vm._m(2)],
             ],
             2
           ),
@@ -44024,6 +44028,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Clients")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
   function () {
@@ -47281,70 +47297,88 @@ var render = function () {
         ? [
             _c(
               "tbody",
-              _vm._l(_vm.clients, function (client, index) {
-                return _c("tr", { key: index }, [
-                  _c("td", { attrs: { scope: "row", width: "100%" } }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(client.name) +
-                        "\n                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { attrs: { width: "100%" } }, [
-                    _c("div", { staticClass: "d-flex align-items-center" }, [
-                      _c("ul", [
-                        _c("li", [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: "#!",
-                                "data-id": client.id,
-                                title: "View Employee",
-                              },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.viewClient(client.id)
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._l(_vm.clients, function (client, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", { attrs: { scope: "row", width: "100%" } }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(client.name) +
+                          "\n                "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "100%" } }, [
+                      _c("div", { staticClass: "d-flex align-items-center" }, [
+                        _c("ul", [
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#!",
+                                  "data-id": client.id,
+                                  title: "View Employee",
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.viewClient(client.id)
+                                  },
                                 },
                               },
-                            },
-                            [_c("i", { staticClass: "fas fa-eye" })]
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: "#!",
-                                "data-id": client.id,
-                                title: "Update Employee",
-                              },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.deleteClient(client.id)
+                              [_c("i", { staticClass: "fas fa-eye" })]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#!",
+                                  "data-id": client.id,
+                                  title: "Update Employee",
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.deleteClient(client.id)
+                                  },
                                 },
                               },
-                            },
-                            [_c("i", { staticClass: "fas fa-trash" })]
-                          ),
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            ),
+                          ]),
                         ]),
                       ]),
                     ]),
-                  ]),
-                ])
-              }),
-              0
+                  ])
+                }),
+              ],
+              2
             ),
           ]
-        : [_vm._m(0)],
+        : [_vm._m(1)],
     ],
     2
   )
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { width: "100%", scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "100%", scope: "col" } }, [
+          _vm._v("Action"),
+        ]),
+      ]),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -47660,6 +47694,8 @@ var render = function () {
             "table",
             { staticClass: "table align-items-center table-flush" },
             [
+              _vm._m(1),
+              _vm._v(" "),
               _vm.meetings
                 ? [
                     _c(
@@ -47728,7 +47764,7 @@ var render = function () {
                       0
                     ),
                   ]
-                : [_vm._m(1)],
+                : [_vm._m(2)],
             ],
             2
           ),
@@ -47754,6 +47790,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Meeting Minutes")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
   function () {
@@ -47824,6 +47872,8 @@ var render = function () {
             "table",
             { staticClass: "table align-items-center table-flush" },
             [
+              _vm._m(1),
+              _vm._v(" "),
               _vm.presentations
                 ? [
                     _c(
@@ -47894,7 +47944,7 @@ var render = function () {
                       0
                     ),
                   ]
-                : [_vm._m(1)],
+                : [_vm._m(2)],
             ],
             2
           ),
@@ -47920,6 +47970,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Presentation")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
   function () {

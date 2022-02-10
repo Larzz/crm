@@ -15,6 +15,12 @@
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <template v-if="employees">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr v-for="(employee, index) in employees" :key="index">
                                 <th scope="row">
@@ -25,8 +31,6 @@
                                         <ul>
                                             <li><a href="#!" :data-id="employee.id" @click="viewEmployee(employee.id)"
                                                     title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="employee.id" @click="editEmployee(employee.id)"
-                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
                                             <li> <a href="#!" :data-id="employee.id"
                                                     @click="deleteEmployee(employee.id)" title="Delete Employee"><i
                                                         class="fas fa-trash"></i></a> </li>

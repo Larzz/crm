@@ -13,6 +13,12 @@
             </div>
             <div class="card-body">
                 <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
                     <template v-if="meetings">
                         <tbody>
                             <tr v-for="(meeting, index) in meetings" :key="index">

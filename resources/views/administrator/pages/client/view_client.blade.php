@@ -7,7 +7,7 @@
     <!-- Topnav -->
     @include('administrator.includes.top_nav')
     <!-- Header -->
-    @include('administrator.includes.navigation')
+    @include('general.includes.navigation')
     <!-- Page content -->
  <!-- Page content -->
  <div class="container-fluid mt--6">

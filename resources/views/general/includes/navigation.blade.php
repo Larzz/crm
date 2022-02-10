@@ -5,19 +5,15 @@
                 <div class="col-lg-12 col-7">
 
                     <ul class="nav-sub-sx">
-                        
-                        @role('admin')
-                         <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}"
-                            href="{{ route('admin.home') }}">Dashboard</a> </li>
-                        @endrole
 
-                        @role('employee')
-                        <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}"
-                           href="{{ route('staff.home') }}">Dashboard</a> </li>
-                       @endrole
-              
-                        {{-- <li> <a class="{{ $active === 'presentation' ? 'active' : '' }}"
-                        href="{{ route('admin.presentations') }}">Presentations</a> </li> --}}
+                        @if (auth()->user()->role==1)
+                            <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}" href="{{ route('admin.home') }}">Dashboard</a> </li>
+                        @endif
+
+                        @if (auth()->user()->role==2)
+                            <li> <a class="{{ $active === 'dashboard' ? 'active' : '' }}" href="{{ route('staff.home') }}">Dashboard</a> </li>
+                        @endif
+            
                         <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
                                 href="{{ route('general.admin.client') }}">Client</a> </li>
                         <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"

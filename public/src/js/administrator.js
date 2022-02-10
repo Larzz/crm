@@ -316,6 +316,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4971,6 +4975,8 @@ var render = function () {
             [
               _vm.employees
                 ? [
+                    _vm._m(1),
+                    _vm._v(" "),
                     _c(
                       "tbody",
                       _vm._l(_vm.employees, function (employee, index) {
@@ -5015,25 +5021,6 @@ var render = function () {
                                         attrs: {
                                           href: "#!",
                                           "data-id": employee.id,
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.editEmployee(employee.id)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-pen" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": employee.id,
                                           title: "Delete Employee",
                                         },
                                         on: {
@@ -5056,7 +5043,7 @@ var render = function () {
                       0
                     ),
                   ]
-                : [_vm._m(1)],
+                : [_vm._m(2)],
             ],
             2
           ),
@@ -5083,6 +5070,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Employees")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
   function () {
