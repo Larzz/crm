@@ -11,8 +11,8 @@
                             <ul>
                                 <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
                                         title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                <li> <a href="#!" :data-id="client.id" @click="editClient(client.id)"
-                                        title="Update Employee"><i class="fas fa-pen"></i></a> </li>
+                                <!-- <li> <a href="#!" :data-id="client.id" @click="editClient(client.id)"
+                                        title="Update Employee"><i class="fas fa-pen"></i></a> </li> -->
                                 <li> <a href="#!" :data-id="client.id" @click="deleteClient(client.id)"
                                         title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                             </ul>

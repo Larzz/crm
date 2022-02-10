@@ -13,21 +13,19 @@
             </div>
             <div class="card-body">
                 <table class="table align-items-center table-flush">
-                    <template v-if="clients">
+                    <template v-if="presentations">
                         <tbody>
-                            <tr v-for="(client, index) in clients" :key="index">
+                            <tr v-for="(presentation, index) in presentations" :key="index">
                                 <td scope="row" width="100%">
-                                    {{ client.name }}
+                                    {{ presentation.name }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
-                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="client.id" @click="editClient(client.id)"
-                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
-                                            <li> <a href="#!" :data-id="client.id" @click="deleteClient(client.id)"
-                                                    title="Update Employee"><i class="fas fa-trash"></i></a> </li>
+                                            <li><a href="#!" :data-id="presentation.id" @click="viewPresentation(presentation.attachment)"
+                                                    title="View Presentation"><i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" :data-id="presentation.id" @click="deletePresentation(presentation.id)"
+                                                    title="Delete Presentation"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -44,7 +42,7 @@
                 </table>
             </div>
         </div>
-        <presentation-popup :showPopup="showPopup"> </presentation-popup>
+        <presentation-popup :user="user" :showPopup="showPopup" @close="close()"> </presentation-popup>
     </div>
 </template>
 
@@ -53,74 +51,71 @@
     export default {
         data() {
             return {
-                clients: {},
-                showPopup:false
+                presentations: null,
+                showPopup: false
             }
         },
-        beforeCreate() {
-            JsLoadingOverlay.show(this.$configs);
+        props: {
+            user: {
+                required: true,
+                type: Object
+            }
         },
-        created() {
-            JsLoadingOverlay.hide();
-        },
+     
         mounted() {
-            this.getClients()
+            this.getPresentation()
         },
         methods: {
-            getClients() {
+            /**
+             * Get Presentation
+             * @return presentation object
+             */
+            getPresentation() {
+                JsLoadingOverlay.show(this.$configs);
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/client?api_token=' + window.Laravel.api_token,
-                        data: this.fields
+                        url: `/api/v1/presentations/${this.user.id}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
-                        $this.clients = response.data.clients
+                        $this.presentations = response.data.presentations
+                        console.log($this.presentations)
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
-                    .then(function () {});
+                    .then(function () {
+                        JsLoadingOverlay.hide();
+                    });
             },
-
-            viewClient(client_id) {
+            /**
+             * View Presentation
+             * @return redirect to other page
+             */
+            viewPresentation(filename) {
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/administrator/clients/' + client_id
+                window.location.href = '/documents/' + filename
             },
-            editClient(client_id) {
-                let $this = this
-                JsLoadingOverlay.show(this.$configs);
-                axios({
-                        method: 'get',
-                        url: '/api/v1/client/' + client_id + '?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            JsLoadingOverlay.hide();
-                            $this.editClientdata = response.data.client
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
-            },
-
-            deleteClient(client_id) {
+            /**
+             * Delete Presentation
+             * @param presentation_id string
+             * @return void
+             */
+            deletePresentation(presentation_id) {
                 let $this = this
                 Swal.fire({
                     icon: 'question',
-                    title: 'Are you sure you want to delete this client?',
+                    title: 'Are you sure you want to delete this presentation?',
                     showCancelButton: true,
                     confirmButtonText: 'Delete',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         axios({
                                 method: 'delete',
-                                url: '/api/v1/client/' + client_id + '?api_token=' + window.Laravel
-                                    .api_token,
+                                url: `/api/v1/presentations/${presentation_id}/client/${this.user.id}?api_token=${window.Laravel.api_token}`,
                             }).then(function (response) {
                                 if (response.data.status) {
                                     $this.$toastr.s('Successfully Deleted');
-                                    $this.getClients()
+                                    $this.getPresentation()
                                 }
                             })
                             .catch(function (error) {
@@ -130,6 +125,15 @@
                     }
                 })
 
+            },
+            /**
+             * Reload Presentation
+             * @param presentation_id string
+             * @return void
+             */
+            close() {
+                this.showPopup = false
+                this.getPresentation()
             }
         }
 

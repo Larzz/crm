@@ -6,7 +6,7 @@
         <transition name="slide" appear>
             <div class="modal" v-if="showPopup">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Upload document</h6>
+                    <h6 class="modal-title" id="modal-title-default">Upload Meeting Minutes</h6>
                     <button type="button" @click.prevent="close" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -18,23 +18,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Document Type</label>
-                        <select v-model="fields.type" name="" id="" class="form-control">
-                            <option value="" selected>Select Document Type</option>
-                            <template v-if="types">
-                                <option v-for="(type, index) in types" :key="index">{{ type.name }}</option>
-                            </template>
-                        </select>
+                        <label for="">Meeting Date</label>
+                        <input type="date" class="form-control" v-model="fields.meeting_date">
                     </div>
 
                     <div class="form-group">
-                        <label for="">Expiration Date</label>
-                        <input type="date" class="form-control" v-model="fields.expiration_date">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Renewal Date</label>
-                        <input type="date" class="form-control" v-model="fields.renewal_date">
+                        <label for="">Description</label>
+                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30" rows="10"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -45,20 +35,21 @@
                                     @input-filter="inputFilter" @response="uploadResponse">
                                     Upload file
                                 </file-upload>
+                                <!-- <span v-show="$refs.upload && $refs.upload.uploaded">All files have been uploaded</span> -->
                             </div>
                             <div class="col-md-6">
                                 <button v-show="!$refs.upload || !$refs.upload.active"
                                     @click.prevent="$refs.upload.active = true" class="btn btn-sm btn-primary"
                                     type="button">Start upload</button>
-
                             </div>
                         </div>
 
                         <!-- <small>We only Accept Image and PDF files</small> -->
                     </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" @click="postDocument" class="btn btn-primary">Save changes</button>
+                    <button type="button" @click="postMeeting" class="btn btn-primary">Save changes</button>
                     <button type="button" @click.prevent="close" class="btn btn-link  ml-auto"
                         data-dismiss="modal">Close</button>
                 </div>
@@ -68,12 +59,9 @@
 </template>
 
 <script>
-    import {
-        ref
-    } from 'vue'
+    import { ref } from 'vue'
     import FileUpload from 'vue-upload-component'
     export default {
-
         components: {
             FileUpload,
         },
@@ -84,9 +72,8 @@
                 types: [],
                 fields: {
                     name: null,
-                    type: null,
-                    renewal_date: null,
-                    expiration_date: null,
+                    description: null,
+                    meeting_date: null,
                     filename: null
                 },
                 api_token: window.Laravel.api_token
@@ -96,10 +83,13 @@
             showPopup: {
                 required: true,
                 type: Boolean
+            },
+            user: {
+                required: true,
+                type: Object
             }
         },
         mounted() {
-            this.getDocumentTypes()
         },
         methods: {
             /** Close Document
@@ -110,48 +100,19 @@
                 this.$emit('close', false)
                 this.$emit('fetchDocument')
             },
-            /** Get Document Type
-             * 
-             * @return Object| list of documents
-             * */
-            getDocumentTypes: function () {
-
-                let $this = this
-                axios({
-                        method: 'get',
-                        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            $this.types = response.data.types
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
-
-            },
             /**
              * On Submit Data
              * @param  Object|undefined   newFile   Read only
              * @return undefined
              */
-            postDocument: function () {
+            postMeeting: function () {
 
                 if (!this.fields.name) {
                     return this.$toastr.e('Name is Required');
                 }
-
-                if (!this.fields.type) {
-                    return this.$toastr.e('Type is Required');
-                }
-
-                if (!this.fields.renewal_date) {
-                    return this.$toastr.e('Renewal Date is Required');
-                }
-
-                if (!this.fields.expiration_date) {
-                    return this.$toastr.e('Expiration Date is Required');
+        
+                if (!this.fields.meeting_date) {
+                    return this.$toastr.e('Meeting Date is Required');
                 }
 
                 if (!this.fields.filename) {
@@ -162,12 +123,11 @@
 
                 axios({
                         method: 'post',
-                        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+                        url: `/api/v1/meetings/${this.user.id}?api_token=${window.Laravel.api_token}`,
                         data: $this.fields
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.$toastr.s('Successfully added your document');
-                            $this.clearFields()
                             $this.close()
                         }
                     })
@@ -226,13 +186,6 @@
                     this.fields.filename = data.filename
                 }
             },
-            clearFields: function () {
-                this.fields.name = null
-                this.fields.type = null
-                this.fields.renewal_date = null
-                this.fields.expiration_date = null
-                this.fields.filename = null
-            }
         }
     }
 
@@ -284,8 +237,7 @@
         border-radius: 16px;
         padding: 0px;
         display: block;
-        height: 50%;
-        min-height: 75%;
+        height: max-content;
     }
 
     h1 {

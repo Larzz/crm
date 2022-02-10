@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
 use App\Models\Leave;
 use App\Models\LeaveDetails;
 
@@ -40,30 +42,23 @@ class LeaveController extends Controller
         }
     
         $leave_details = new LeaveDetails;
-
         $leave_details->leave_id = $this->request->leave_id;
-        $leave_details->leave_from = $this->request->leave_from;
-        $leave_details->leave_to = $this->request->leave_to;
+        $leave_details->leave_from = Carbon::parse($this->request->leave_from);
+        $leave_details->leave_to = Carbon::parse($this->request->leave_to);
         $leave_details->number_of_day = $this->request->used_days;
         $leave_details->balance = $this->request->remaining_days;
         $leave_details->status = false;
         $leave_details->user_id = auth()->user()->id;
 
         if($leave_details->save()) {
-
             $leave = Leave::where('id', $this->request->leave_id)->first();
-
             $leave->available_days = $this->request->remaining_days;
-            $leave->used_days = $this->request->total_day_used;
-
+            $leave->used_days = $this->request->used_days;
             if($leave->save()) {
-
                 Mail::to('larry@creativouae.com')->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Notification'));
                 Mail::to(auth()->user()->email)->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Confirmation'));
-
                 return response()->json(['status' => true]);
             }
-
         }
 
         return response()->json(['status' => false]);

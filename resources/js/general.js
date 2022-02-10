@@ -7,6 +7,8 @@ import Notes from './components/general/NotesComponent'
 import PresentationWidget from './components/general/widget/PresentationComponent.vue'
 import MeetingWidget from './components/general/widget/MeetingComponent.vue'
 import ClientWidget2 from './components/general/widget/ClientComponent.vue'
+import DocumentWidget from './components/general/widget/DocumentComponent.vue'
+
 
 // this was a mistake it should be under the table
 import ClientWidget from './components/general/ClientWidgetComponent.vue'
@@ -37,12 +39,13 @@ import Vue from 'vue'
 Vue.component('presentation-widget', PresentationWidget)
 Vue.component('meeting-widget', MeetingWidget)
 Vue.component('client-widget', ClientWidget2)
+Vue.component('document-widget', DocumentWidget)
 
 Vue.component('general-bulletin-card', Bulletin)
 Vue.component('general-client-card', ClientWidget)
 
 Vue.component('popup', Popup)
-Vue.component('notes', Notes)
+Vue.component('notes', Notes) // widget
 // pages
 Vue.component('tutorial', Tutorial)
 Vue.component('newsletter', Newsletter)

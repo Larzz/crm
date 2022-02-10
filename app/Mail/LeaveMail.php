@@ -36,7 +36,6 @@ class LeaveMail extends Mailable
     public function build()
     {
         return $this->view('emails.leavemail')->subject($this->subject)
-            ->from('systems@creativoue.com')
             ->with([
             'date_from' => $this->date_from,
             'date_to' => $this->date_to,

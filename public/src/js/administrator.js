@@ -617,15 +617,15 @@ __webpack_require__.r(__webpack_exports__);
     getStatus: function getStatus(status_id) {
       switch (status_id) {
         case 0:
-          return '<i class="bg-warning"></i> Pending';
+          return '<span style="color:gray;"> <i class="bg-warning"></i> Pending </span>';
           break;
 
         case 1:
-          return '<i class="bg-success"></i> Approved';
+          return '<span style="color:green"> <i class="bg-success"></i> Approved </span>';
           break;
 
         case 2:
-          return '<i class="bg-error"></i> Declined';
+          return '<span style="color:red"> <i class="bg-error"></i> Declined </span>';
           break;
       }
     },

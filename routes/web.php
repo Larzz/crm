@@ -27,7 +27,6 @@ Route::get('/','HomeController@login')->name('home.login');
 Route::get('logout', 'HomeController@logout')->name('home.logout');
 Route::post('registers', 'HomeController@submit_register')->name('register.submit');
 
-
 Route::prefix('auth')->group(function() {
    Route::post('login', 'HomeController@submit_login')->name('login.submit');
    Route::post('password', 'HomeController@submit_password')->name('home.password.submit');
@@ -78,7 +77,6 @@ Route::prefix('administrator')->namespace('Administrator')->group(function() {
 
 });
 
-
 Route::prefix('guidelines')->group(function() {
    // Route::get
 });
@@ -104,6 +102,11 @@ Route::prefix('my')->namespace('Client')->group(function() {
 Route::prefix('staff')->namespace('Staff')->group(function() {
 
    Route::get('/', 'HomeController@index')->name('staff.home');
+
+   Route::prefix('clients')->group(function() {
+      Route::get('/', 'HomeController@client_page')->name('staff.client');
+      Route::get('{id?}', 'HomeController@client_index_page')->name('staff.client.index');
+   });
 
    Route::prefix('leave')->group(function() {
       Route::get('/', 'HomeController@index')->name('staff.leave');

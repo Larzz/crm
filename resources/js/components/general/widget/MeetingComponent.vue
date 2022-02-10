@@ -13,20 +13,18 @@
             </div>
             <div class="card-body">
                 <table class="table align-items-center table-flush">
-                    <template v-if="clients">
+                    <template v-if="meetings">
                         <tbody>
-                            <tr v-for="(client, index) in clients" :key="index">
+                            <tr v-for="(meeting, index) in meetings" :key="index">
                                 <td scope="row" width="100%">
-                                    {{ client.name }}
+                                    {{ meeting.name }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
+                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting.attachment)"
                                                     title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="client.id" @click="editClient(client.id)"
-                                                    title="Update Employee"><i class="fas fa-pen"></i></a> </li>
-                                            <li> <a href="#!" :data-id="client.id" @click="deleteClient(client.id)"
+                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)"
                                                     title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
@@ -43,7 +41,7 @@
                     </template> </table>
             </div>
         </div>
-        <meeting-minutes-popup></meeting-minutes-popup>
+        <meeting-minutes-popup :showPopup="showPopup" :user="user" @close="reload()"></meeting-minutes-popup>
     </div>
 </template>
 
@@ -52,8 +50,16 @@
     export default {
         data() {
             return {
-                clients: {}
+                meetings: {},
+                showPopup: false
             }
+        },
+        props: {
+            user: {
+                required: true,
+                type: Object
+            },
+            
         },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
@@ -62,72 +68,78 @@
             JsLoadingOverlay.hide();
         },
         mounted() {
-            this.getClients()
+            this.getMeetings()
         },
         methods: {
-            getClients() {
+            /**
+             * Get Meetings
+             * @return meeting object
+             */
+            getMeetings() {
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/client?api_token=' + window.Laravel.api_token,
+                        url: `/api/v1/meetings/${this.user.id}?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
-                        $this.clients = response.data.clients
+                        $this.meetings = response.data.meetings
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
                     .then(function () {});
             },
-
-            viewClient(client_id) {
+            /**
+             * View Meeting  
+             * @param meeting string
+             * @return void
+             */
+            viewMeeting(filename) {
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/administrator/clients/' + client_id
+                window.location.href = '/documents/' + filename
             },
-            editClient(client_id) {
-                let $this = this
-                JsLoadingOverlay.show(this.$configs);
-                axios({
-                        method: 'get',
-                        url: '/api/v1/client/' + client_id + '?api_token=' + window.Laravel.api_token,
-                    }).then(function (response) {
-                        if (response.data.status) {
-                            JsLoadingOverlay.hide();
-                            $this.editClientdata = response.data.client
-                        }
-                    })
-                    .catch(function (error) {
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
-            },
-
-            deleteClient(client_id) {
+            /**
+             * Format Date 
+             * @param date date
+             * @return formatted datetime
+             */
+            deleteMeeting(meetind_id) {
                 let $this = this
                 Swal.fire({
                     icon: 'question',
-                    title: 'Are you sure you want to delete this client?',
+                    title: 'Are you sure you want to delete this meeting?',
                     showCancelButton: true,
                     confirmButtonText: 'Delete',
                 }).then((result) => {
                     if (result.isConfirmed) {
+                                         JsLoadingOverlay.show(this.$configs);
                         axios({
                                 method: 'delete',
-                                url: '/api/v1/client/' + client_id + '?api_token=' + window.Laravel
-                                    .api_token,
+                                url: `/api/v1/meetings/${meetind_id}/client/${$this.user.id}?api_token=${window.Laravel.api_token}`,
                             }).then(function (response) {
                                 if (response.data.status) {
                                     $this.$toastr.s('Successfully Deleted');
-                                    $this.getClients()
+                                    $this.getMeetings()
                                 }
                             })
                             .catch(function (error) {
                                 $this.$toastr.e(error);
                             })
-                            .then(function () {});
+                            .then(function () {
+                               JsLoadingOverlay.hide();
+                            });
                     }
                 })
 
+            },
+            /**
+             * Reload data from the popup
+             * @param date date
+             * @return formatted datetime
+             */
+            reload() {
+                this.showPopup=false
+                this.getMeetings()
             }
         }
 
