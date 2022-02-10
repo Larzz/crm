@@ -31,7 +31,7 @@
                                                             <tr>
                                                                 <td
                                                                     style="text-align:center;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:6px;">
-                                                                    <a href="https://www.creativouae.com.com/"><img
+                                                                    <a href="https://www.creativouae.com/"><img
                                                                             align="center"
                                                                             alt="Designed by: Creativo DMCC"
                                                                             class="icon" height="32"

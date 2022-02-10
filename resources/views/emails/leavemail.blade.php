@@ -46,7 +46,7 @@
                                                     <p
                                                         style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 51px;">
                                                         <span
-                                                            style="font-size:34px;">{{ isset($subject) ? $subject : 'Something great will happened' }}</span>
+                                                            style="font-size:34px;">{{ $subject ?? 'Something great will happened' }}</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -122,21 +122,6 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                    width="100%">
-                                    <tr>
-                                        <td style="padding-bottom:20px;padding-left:10px;padding-right:10px;">
-                                            <div style="font-family: Arial, sans-serif">
-                                                <div
-                                                    style="font-size: 14px; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #175df1; line-height: 1.2;">
-                                                    <p style="margin: 0; font-size: 14px; text-align: center;"><span
-                                                            style="font-size:38px;"><strong>AGENDA</strong></span></p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
                             </td>
                         </tr>
                     </tbody>
@@ -188,16 +173,16 @@
                                                     
                                                     <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                         style="font-size:18px;"><strong><span style="">
-                                                                Leave From:
+                                                                Employee Name:
                                                                 {{ isset($employee) ? $employee->name : 'Mark Approveal'  }}</span></strong></span>
                                                      </p>
                                                     <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                             style="font-size:18px;"><strong><span style="">
-                                                                Leave From: {{ $date_from ?? 'August 4, 2022'  }}</span></strong></span>
+                                                                Leave From: {{ date_format($date_from, "M d, Y")  ?? 'August 4, 2022'  }}</span></strong></span>
                                                     </p>
                                                     <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                             style="font-size:18px;"><strong><span style="">
-                                                                Leave to: {{ $date_to ??  "August 4, 2021" }}</span></strong></span>
+                                                                Leave to: {{  date_format($date_to, "M d, Y")  ??  "August 4, 2021" }}</span></strong></span>
                                                         <p style="margin: 0; font-size: 14px; text-align: left;"><span
                                                                 style="font-size:18px;"><strong><span style="">
                                                                 Total Days: {{  $total_days ?? "2" }}</span></strong></span>
