@@ -2478,6 +2478,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2485,7 +2486,7 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         password: ''
       },
-      password: {
+      reset: {
         email: ''
       },
       is_success: true,
@@ -2504,40 +2505,53 @@ __webpack_require__.r(__webpack_exports__);
 
       if (data.email == '') {
         this.$toastr.e("Please Enter your Email");
-      } else if (data.password == '') {
-        this.$toastr.e("Please enter your password");
-      } else {
-        axios.post(this.login_route, data).then(function (response) {
-          console.log(response);
-
-          if (response.data.status) {
-            window.location.href = response.data.redirect_url;
-          } else {
-            this.$toastr.e("Email and Password is not Match");
-          }
-        })["catch"](function (error) {
-          _this2.message(error.response);
-        });
+        return;
       }
+
+      if (data.password == '') {
+        this.$toastr.e("Please enter your password");
+        return;
+      }
+
+      JsLoadingOverlay.show(this.$configs);
+      axios.post(this.login_route, data).then(function (response) {
+        JsLoadingOverlay.hide();
+
+        if (response.data.status) {
+          window.location.href = response.data.redirect_url;
+        } else {
+          this.$toastr.e("Email and Password is not Match");
+        }
+      })["catch"](function (error) {
+        _this2.message(error.response);
+      });
     },
     message: function message(response) {
       console.log(response);
       this.$toastr.e("User not found or your password is mismatch. Please try again.");
     },
     forgot_password: function forgot_password() {
-      var data = this.password;
+      var $this = this;
 
-      if (data.email == '') {
-        console.log('required');
-      } else {
-        axios.post('auth/submit', data).then(function (response) {
-          if (response.status) {
-            console.log(data);
-          }
-        })["catch"](function (error) {
-          console.log("Insert: " + error);
-        });
+      if (!this.reset.email) {
+        this.$toastr.e('Please enter your email address.');
+        return;
       }
+
+      JsLoadingOverlay.show(this.$configs);
+      axios({
+        method: 'post',
+        url: "/auth/reset-password/",
+        data: $this.reset.email
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.$toastr.s('Succesfully Added');
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     }
   },
   created: function created() {
@@ -6294,8 +6308,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! v-calendar */ "./node_modules/v-calendar/lib/v-calendar.umd.min.js");
-/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(v_calendar__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-calendar */ "./node_modules/v-calendar/lib/v-calendar.umd.min.js");
+/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_calendar__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -43583,7 +43597,29 @@ var render = function () {
               _c("h1", [_vm._v("Forgot Password")]),
               _vm._v(" "),
               _c("div", { attrs: { id: "form" } }, [
-                _vm._m(0),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.reset.email,
+                        expression: "reset.email",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Email Address" },
+                    domProps: { value: _vm.reset.email },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.reset, "email", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("div", { staticClass: "row" }, [
@@ -43593,7 +43629,11 @@ var render = function () {
                       _c("input", {
                         staticClass: "form-control",
                         attrs: { type: "submit", value: "Submit →" },
-                        on: { click: _vm.forgot_password },
+                        on: {
+                          click: function ($event) {
+                            return _vm.forgot_password()
+                          },
+                        },
                       }),
                     ]),
                   ]),
@@ -43627,19 +43667,7 @@ var render = function () {
     _c("div", { staticClass: "col-lg-3" }),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Email Address" },
-      }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -67114,15 +67142,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************!*\
   !*** ./resources/js/components/general/widget/PresentationComponent.vue ***!
   \**************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PresentationComponent_vue_vue_type_template_id_76a4106a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PresentationComponent.vue?vue&type=template&id=76a4106a& */ "./resources/js/components/general/widget/PresentationComponent.vue?vue&type=template&id=76a4106a&");
 /* harmony import */ var _PresentationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PresentationComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/general/widget/PresentationComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _PresentationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _PresentationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -67152,7 +67179,7 @@ component.options.__file = "resources/js/components/general/widget/PresentationC
 /*!***************************************************************************************************!*\
   !*** ./resources/js/components/general/widget/PresentationComponent.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67634,7 +67661,7 @@ Vue.component('staff-document', _components_staff_DocumentComponent_vue__WEBPACK
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/larryparba/web/crm/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp2020\htdocs\crm\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

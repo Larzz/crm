@@ -29,7 +29,7 @@ Route::post('registers', 'HomeController@submit_register')->name('register.submi
 
 Route::prefix('auth')->group(function() {
    Route::post('login', 'HomeController@submit_login')->name('login.submit');
-   Route::post('password', 'HomeController@submit_password')->name('home.password.submit');
+   Route::post('reset-password', 'HomeController@reset_password')->name('home.password.submit');
 });
 
 Route::prefix('administrator')->namespace('Administrator')->group(function() {
