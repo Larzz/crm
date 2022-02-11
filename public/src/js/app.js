@@ -46771,7 +46771,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", id: "", cols: "30", rows: "10" },
+                    attrs: { name: "", id: "", cols: "30", rows: "2" },
                     domProps: { value: _vm.fields.description },
                     on: {
                       input: function ($event) {
@@ -47030,7 +47030,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", id: "", cols: "30", rows: "10" },
+                    attrs: { name: "", id: "", cols: "30", rows: "2" },
                     domProps: { value: _vm.fields.description },
                     on: {
                       input: function ($event) {
@@ -48171,7 +48171,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
+    return _c("thead", { staticClass: "thead-light align-items-cente" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),

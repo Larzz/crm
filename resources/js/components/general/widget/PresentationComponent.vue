@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
                 <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
+                    <thead class="thead-light align-items-cente">
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Action</th>
