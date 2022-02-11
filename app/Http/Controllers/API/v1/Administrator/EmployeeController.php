@@ -65,8 +65,8 @@ class EmployeeController extends Controller
             $leave->user_id = $user->id;
 
             if($leave->save()) {
-                Mail::to('larry@creativouae.com')->send(New EmployeeMail($user, $leave, $this->request->password, 'Employee Creation Notification'));
-                Mail::to('larry@creativouae.com')->send(New EmployeeMail($user, $leave, $this->request->password, 'Employee Creation Confirmation'));
+                Mail::to($user->email)->send(New EmployeeMail($user, $leave, $this->request->password, 'Employee Creation Notification'));
+                // Mail::to('larry@creativouae.com')->send(New EmployeeMail($user, $leave, $this->request->password, 'Employee Creation Confirmation'));
                 return response()->json(['status' => true], 201);
             }
         }
