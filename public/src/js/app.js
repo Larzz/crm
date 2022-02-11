@@ -3901,7 +3901,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     viewTutorial: function viewTutorial(slug) {
       JsLoadingOverlay.show(this.$configs);
-      window.location.href = "/tutorials/".concat(slug);
+      window.location.href = "/general/tutorials/".concat(slug);
     },
 
     /**
