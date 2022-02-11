@@ -5,7 +5,7 @@ namespace App\Http\Controllers\General;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class NewsLetterController extends Controller
+class NewsLettersController extends Controller
 {
     //
     public function index() {
