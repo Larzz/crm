@@ -44673,7 +44673,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Date")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -47817,7 +47817,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Expiration")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -47995,7 +47995,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -48175,7 +48175,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
