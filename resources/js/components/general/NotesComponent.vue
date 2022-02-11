@@ -17,7 +17,7 @@
                         <tr>
                             <th scope="col">Title</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Action</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <template v-if="notes">

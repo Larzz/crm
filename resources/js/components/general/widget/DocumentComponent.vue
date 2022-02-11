@@ -17,7 +17,7 @@
                         <tr>
                             <th scope="col">Document</th>
                             <th scope="col">Expiration</th>
-                            <th scope="col">Action</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <template v-if="documents">

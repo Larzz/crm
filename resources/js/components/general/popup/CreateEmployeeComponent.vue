@@ -46,20 +46,17 @@
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
+                                <div class="form-group">
+                                    <label for="">Number of Vacation Days</label>
+                                    <input type="number" v-model="fields.number_of_days" class="form-control">
+                                </div>
                         </div>
-
-                        <hr>
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="">Number of Vacation Days</label>
-                                <input type="text" v-model="fields.number_of_days" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                    <label for="">Notes</label>
-                                   <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30" rows="2"></textarea>
+                                <label for="">Notes</label>
+                                <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30"
+                                    rows="1"></textarea>
                             </div>
                         </div>
                     </div>
@@ -147,7 +144,7 @@
                     return false
                 }
 
-                 JsLoadingOverlay.show(this.$configs);
+                JsLoadingOverlay.show(this.$configs);
 
                 axios({
                         method: 'post',
@@ -165,7 +162,7 @@
                         $this.$toastr.e(error);
                     })
                     .then(function () {
-                       JsLoadingOverlay.hide();
+                        JsLoadingOverlay.hide();
                     });
 
             },
@@ -219,9 +216,24 @@
         background-color: rgba(0, 0, 0, 0.3);
     }
 
+    .modal-body {
+        padding: 9px;
+    }
+
+    .modal-footer {
+        display: flex;
+        padding: 10px;
+        border-top: 0 solid #e9ecef;
+        border-bottom-right-radius: 0.4375rem;
+        border-bottom-left-radius: 0.4375rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
     .modal {
         position: fixed;
-        top: 10%;
+        top: 2%;
         left: 27%;
         z-index: 1000;
         width: 100%;

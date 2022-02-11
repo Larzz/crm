@@ -111,6 +111,10 @@ class HomeController extends Controller
 
     }
 
+    public function reset_password() {
+        dd($this->request);
+    }
+
     public function logout() {
         Auth::logout();
         return redirect(route('home.login'));

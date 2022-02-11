@@ -153,7 +153,7 @@
              */
             viewTutorial: function (slug) {
                 JsLoadingOverlay.show(this.$configs);
-                window.location.href = `/tutorials/${slug}`
+                window.location.href = `/general/tutorials/${slug}`
             },
             /**
              * Edit Tutorial 

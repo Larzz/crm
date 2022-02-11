@@ -20,7 +20,7 @@
                             echo $tutorial->content
                             @endphp
                         </div>
-                        <a href="/tutorials" class="btn btn-primary">Back</a>
+                        <a href="{{ route('tutorial.index') }}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
             </div>

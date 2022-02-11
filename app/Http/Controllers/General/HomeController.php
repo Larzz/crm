@@ -20,4 +20,11 @@ class HomeController extends Controller
         return view('administrator.pages.client.view_client', $meta);
     }
 
+        //
+        public function newsletter() {
+            $meta = ['title' => 'Newsletter', 'active' => 'newsletter'];
+            return view('general.newsletter', $meta);
+        }
+    
+
 }

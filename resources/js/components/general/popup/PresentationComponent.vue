@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Description</label>
-                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30" rows="10"></textarea>
+                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30" rows="2"></textarea>
                     </div>
                     <div class="form-group">
                         <div class="row">

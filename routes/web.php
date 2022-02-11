@@ -29,7 +29,7 @@ Route::post('registers', 'HomeController@submit_register')->name('register.submi
 
 Route::prefix('auth')->group(function() {
    Route::post('login', 'HomeController@submit_login')->name('login.submit');
-   Route::post('password', 'HomeController@submit_password')->name('home.password.submit');
+   Route::post('reset-password', 'HomeController@reset_password')->name('home.password.submit');
 });
 
 Route::prefix('administrator')->namespace('Administrator')->group(function() {
@@ -117,22 +117,27 @@ Route::prefix('staff')->namespace('Staff')->group(function() {
 
 });
 
-Route::prefix('tutorials')->namespace('General')->group(function() {
-   Route::get('/', 'TutorialController@index')->name('tutorial.index');
-   Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
-});
 
-Route::prefix('newsletter')->namespace('General')->group(function() {
-   Route::get('/', 'NewsletterController@index')->name('newsletter.index');
-});
 
-Route::prefix('websites')->namespace('General')->group(function() {
-   Route::get('/', 'WebsiteController@index')->name('website.index');
-});
 
 Route::prefix('general')->namespace('General')->group(function() {
+
+   Route::prefix('websites')->group(function() {
+      Route::get('/', 'WebsiteController@index')->name('website.index');
+   });
+
+   Route::prefix('newsletters')->group(function() {
+      Route::get('/', 'HomeController@newsletter')->name('newsletter.index');
+   });
+
+   Route::prefix('tutorials')->group(function() {
+      Route::get('/', 'TutorialController@index')->name('tutorial.index');
+      Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
+   });
+
    Route::prefix('clients')->group(function() {
       Route::get('/', 'HomeController@client_page')->name('general.admin.client');
       Route::get('{id?}', 'HomeController@client_index_page')->name('general.admin.client.index');
    });
+   
 });

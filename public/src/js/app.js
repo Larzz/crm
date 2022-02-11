@@ -2478,6 +2478,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2485,7 +2486,7 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         password: ''
       },
-      password: {
+      reset: {
         email: ''
       },
       is_success: true,
@@ -2504,40 +2505,53 @@ __webpack_require__.r(__webpack_exports__);
 
       if (data.email == '') {
         this.$toastr.e("Please Enter your Email");
-      } else if (data.password == '') {
-        this.$toastr.e("Please enter your password");
-      } else {
-        axios.post(this.login_route, data).then(function (response) {
-          console.log(response);
-
-          if (response.data.status) {
-            window.location.href = response.data.redirect_url;
-          } else {
-            this.$toastr.e("Email and Password is not Match");
-          }
-        })["catch"](function (error) {
-          _this2.message(error.response);
-        });
+        return;
       }
+
+      if (data.password == '') {
+        this.$toastr.e("Please enter your password");
+        return;
+      }
+
+      JsLoadingOverlay.show(this.$configs);
+      axios.post(this.login_route, data).then(function (response) {
+        JsLoadingOverlay.hide();
+
+        if (response.data.status) {
+          window.location.href = response.data.redirect_url;
+        } else {
+          this.$toastr.e("Email and Password is not Match");
+        }
+      })["catch"](function (error) {
+        _this2.message(error.response);
+      });
     },
     message: function message(response) {
       console.log(response);
       this.$toastr.e("User not found or your password is mismatch. Please try again.");
     },
     forgot_password: function forgot_password() {
-      var data = this.password;
+      var $this = this;
 
-      if (data.email == '') {
-        console.log('required');
-      } else {
-        axios.post('auth/submit', data).then(function (response) {
-          if (response.status) {
-            console.log(data);
-          }
-        })["catch"](function (error) {
-          console.log("Insert: " + error);
-        });
+      if (!this.reset.email) {
+        this.$toastr.e('Please enter your email address.');
+        return;
       }
+
+      JsLoadingOverlay.show(this.$configs);
+      axios({
+        method: 'post',
+        url: "/auth/reset-password/",
+        data: $this.reset.email
+      }).then(function (response) {
+        if (response.data.status) {
+          $this.$toastr.s('Succesfully Added');
+        }
+      })["catch"](function (error) {
+        $this.$toastr.e(error);
+      }).then(function () {
+        JsLoadingOverlay.hide();
+      });
     }
   },
   created: function created() {
@@ -2963,7 +2977,7 @@ __webpack_require__.r(__webpack_exports__);
     viewClient: function viewClient(client_id) {
       var $this = this;
       JsLoadingOverlay.show(this.$configs);
-      window.location.href = '/administrator/clients/' + client_id;
+      window.location.href = '/general/clients/' + client_id;
     },
     editClient: function editClient(client_id) {
       var $this = this;
@@ -3887,7 +3901,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     viewTutorial: function viewTutorial(slug) {
       JsLoadingOverlay.show(this.$configs);
-      window.location.href = "/tutorials/".concat(slug);
+      window.location.href = "/general/tutorials/".concat(slug);
     },
 
     /**
@@ -4504,9 +4518,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -5599,6 +5610,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -6080,6 +6092,15 @@ __webpack_require__.r(__webpack_exports__);
     close: function close() {
       this.showPopup = false;
       this.getPresentation();
+    },
+
+    /**
+     * Cut String
+     * @param str string
+     * @return str
+     */
+    limitName: function limitName(str) {
+      return str.substr(0, 40);
     }
   }
 });
@@ -8734,7 +8755,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-156f3d2e] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-156f3d2e],\n.fade-leave-active[data-v-156f3d2e] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-156f3d2e],\n.fade-leave-to[data-v-156f3d2e] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-156f3d2e],\n.slide-leave-active[data-v-156f3d2e] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-156f3d2e],\n.slide-leave-to[data-v-156f3d2e] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-156f3d2e] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-156f3d2e] {\n    position: fixed;\n    top: 10%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-156f3d2e] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-156f3d2e] {\n    float: right;\n}\n.btn[data-v-156f3d2e] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-156f3d2e] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-156f3d2e] {\n    margin-bottom: 13px;\n}\n.fade-enter-active[data-v-156f3d2e],\n.fade-leave-active[data-v-156f3d2e] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-156f3d2e],\n.fade-leave-to[data-v-156f3d2e] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-156f3d2e],\n.slide-leave-active[data-v-156f3d2e] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-156f3d2e],\n.slide-leave-to[data-v-156f3d2e] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-156f3d2e] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal-body[data-v-156f3d2e] {\n    padding: 9px;\n}\n.modal-footer[data-v-156f3d2e] {\n    display: flex;\n    padding: 10px;\n    border-top: 0 solid #e9ecef;\n    border-bottom-right-radius: 0.4375rem;\n    border-bottom-left-radius: 0.4375rem;\n    flex-wrap: wrap;\n    align-items: center;\n    justify-content: flex-end;\n}\n.modal[data-v-156f3d2e] {\n    position: fixed;\n    top: 2%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-156f3d2e] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-156f3d2e] {\n    float: right;\n}\n.btn[data-v-156f3d2e] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-156f3d2e] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -42873,7 +42894,7 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
-            attrs: { name: "", id: "", cols: "30", rows: "5" },
+            attrs: { name: "", id: "", cols: "30", rows: "1" },
             domProps: { value: _vm.forms.message },
             on: {
               input: function ($event) {
@@ -43583,7 +43604,29 @@ var render = function () {
               _c("h1", [_vm._v("Forgot Password")]),
               _vm._v(" "),
               _c("div", { attrs: { id: "form" } }, [
-                _vm._m(0),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.reset.email,
+                        expression: "reset.email",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Email Address" },
+                    domProps: { value: _vm.reset.email },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.reset, "email", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("div", { staticClass: "row" }, [
@@ -43593,7 +43636,11 @@ var render = function () {
                       _c("input", {
                         staticClass: "form-control",
                         attrs: { type: "submit", value: "Submit →" },
-                        on: { click: _vm.forgot_password },
+                        on: {
+                          click: function ($event) {
+                            return _vm.forgot_password()
+                          },
+                        },
                       }),
                     ]),
                   ]),
@@ -43627,19 +43674,7 @@ var render = function () {
     _c("div", { staticClass: "col-lg-3" }),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Email Address" },
-      }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -44648,7 +44683,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Date")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -46337,11 +46372,7 @@ var render = function () {
                         },
                       }),
                     ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
                         _vm._v("Number of Vacation Days"),
@@ -46357,7 +46388,7 @@ var render = function () {
                           },
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "number" },
                         domProps: { value: _vm.fields.number_of_days },
                         on: {
                           input: function ($event) {
@@ -46389,7 +46420,7 @@ var render = function () {
                           },
                         ],
                         staticClass: "form-control",
-                        attrs: { name: "", id: "", cols: "30", rows: "2" },
+                        attrs: { name: "", id: "", cols: "30", rows: "1" },
                         domProps: { value: _vm.fields.notes },
                         on: {
                           input: function ($event) {
@@ -46750,7 +46781,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", id: "", cols: "30", rows: "10" },
+                    attrs: { name: "", id: "", cols: "30", rows: "2" },
                     domProps: { value: _vm.fields.description },
                     on: {
                       input: function ($event) {
@@ -47009,7 +47040,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { name: "", id: "", cols: "30", rows: "10" },
+                    attrs: { name: "", id: "", cols: "30", rows: "2" },
                     domProps: { value: _vm.fields.description },
                     on: {
                       input: function ($event) {
@@ -47595,9 +47626,7 @@ var render = function () {
       _c("div", { staticClass: "card-body pt-5" }, [
         _c("div", { staticClass: "information" }, [
           _c("div", { staticClass: "name-info" }, [
-            _c("h5", { staticClass: "personal-name" }, [
-              _vm._v(_vm._s(_vm.user.name)),
-            ]),
+            _c("h3", [_vm._v("Name: " + _vm._s(_vm.user.name))]),
             _vm._v(" "),
             _c("h4", { staticClass: "date-joined" }, [
               _vm._v(
@@ -47607,28 +47636,28 @@ var render = function () {
               ),
               _c("span"),
             ]),
+            _vm._v(" "),
+            _c("h4", [
+              _vm._v("Email Address "),
+              _c("span", { staticClass: "colon" }, [
+                _vm._v(": " + _vm._s(_vm.user.email)),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "answer" }),
+            ]),
+            _vm._v(" "),
+            _c("h4", [
+              _vm._v("Mobile Number "),
+              _c("span", { staticClass: "colon" }, [
+                _vm._v(": " + _vm._s(_vm.user.mobile_number)),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "answer" }),
+            ]),
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "personal-info" }, [
-          _c("p", [
-            _vm._v("Email Address "),
-            _c("span", { staticClass: "colon" }, [
-              _vm._v(": " + _vm._s(_vm.user.email)),
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "answer" }),
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Mobile Number "),
-            _c("span", { staticClass: "colon" }, [
-              _vm._v(": " + _vm._s(_vm.user.mobile_number)),
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "answer" }),
-          ]),
-        ]),
+        _c("div", { staticClass: "personal-info" }),
       ]),
     ]),
   ])
@@ -47796,7 +47825,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Expiration")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -47974,7 +48003,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -48057,7 +48086,7 @@ var render = function () {
                           _c("td", { attrs: { scope: "row", width: "100%" } }, [
                             _vm._v(
                               "\n                                " +
-                                _vm._s(presentation.name) +
+                                _vm._s(_vm.limitName(presentation.name)) +
                                 "\n                            "
                             ),
                           ]),
@@ -48154,7 +48183,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+        _c("th", { attrs: { scope: "col" } }),
       ]),
     ])
   },
@@ -67633,7 +67662,7 @@ Vue.component('staff-document', _components_staff_DocumentComponent_vue__WEBPACK
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/larryparba/web/crm/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp2020\htdocs\crm\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

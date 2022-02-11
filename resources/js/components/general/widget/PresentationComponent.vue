@@ -13,17 +13,17 @@
             </div>
             <div class="card-body">
                 <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
+                        <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Action</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <template v-if="presentations">
                         <tbody>
                             <tr v-for="(presentation, index) in presentations" :key="index">
                                 <td scope="row" width="100%">
-                                    {{ presentation.name }}
+                                    {{ limitName(presentation.name) }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
@@ -140,6 +140,14 @@
             close() {
                 this.showPopup = false
                 this.getPresentation()
+            },
+            /**
+             * Cut String
+             * @param str string
+             * @return str
+             */
+            limitName(str) {
+                return str.substr(0,40)
             }
         }
 
