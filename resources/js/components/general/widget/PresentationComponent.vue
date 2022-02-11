@@ -23,7 +23,7 @@
                         <tbody>
                             <tr v-for="(presentation, index) in presentations" :key="index">
                                 <td scope="row" width="100%">
-                                    {{ presentation.name }}
+                                    {{ limitName(presentation.name) }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
@@ -140,6 +140,14 @@
             close() {
                 this.showPopup = false
                 this.getPresentation()
+            },
+            /**
+             * Cut String
+             * @param str string
+             * @return str
+             */
+            limitName(str) {
+                return str.substr(0,20)
             }
         }
 

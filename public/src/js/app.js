@@ -6092,6 +6092,15 @@ __webpack_require__.r(__webpack_exports__);
     close: function close() {
       this.showPopup = false;
       this.getPresentation();
+    },
+
+    /**
+     * Cut String
+     * @param str string
+     * @return str
+     */
+    limitName: function limitName(str) {
+      return str.substr(0, 20);
     }
   }
 });
@@ -47617,7 +47626,7 @@ var render = function () {
       _c("div", { staticClass: "card-body pt-5" }, [
         _c("div", { staticClass: "information" }, [
           _c("div", { staticClass: "name-info" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.user.name))]),
+            _c("h3", [_vm._v("Name: " + _vm._s(_vm.user.name))]),
             _vm._v(" "),
             _c("h4", { staticClass: "date-joined" }, [
               _vm._v(
@@ -48077,7 +48086,7 @@ var render = function () {
                           _c("td", { attrs: { scope: "row", width: "100%" } }, [
                             _vm._v(
                               "\n                                " +
-                                _vm._s(presentation.name) +
+                                _vm._s(_vm.limitName(presentation.name)) +
                                 "\n                            "
                             ),
                           ]),

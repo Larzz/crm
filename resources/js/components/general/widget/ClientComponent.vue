@@ -4,7 +4,7 @@
             <div class="card-body pt-5">
                 <div class="information">
                     <div class="name-info">
-                        <h3 >{{ user.name }}</h3>
+                        <h3 >Name: {{ user.name }}</h3>
                         <h4 class="date-joined">Date Added: {{ formatDate(user.created_at) }} <span></span></h4>
                         <h4>Email Address <span class="colon">: {{ user.email  }}</span> <span class="answer"> </span></h4>
                         <h4>Mobile Number <span class="colon">: {{ user.mobile_number }}</span> <span class="answer"></span> </h4>
