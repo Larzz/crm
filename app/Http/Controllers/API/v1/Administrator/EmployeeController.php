@@ -117,9 +117,7 @@ class EmployeeController extends Controller
         }
 
         return response()->json(['status' => false], 200);
-        
     }
-
 
     public function deleteEmployee($employee_id) {
 

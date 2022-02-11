@@ -46,20 +46,17 @@
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
+                                <div class="form-group">
+                                    <label for="">Number of Vacation Days</label>
+                                    <input type="number" v-model="fields.number_of_days" class="form-control">
+                                </div>
                         </div>
-
-                        <hr>
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="">Number of Vacation Days</label>
-                                <input type="text" v-model="fields.number_of_days" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                    <label for="">Notes</label>
-                                   <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30" rows="2"></textarea>
+                                <label for="">Notes</label>
+                                <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30"
+                                    rows="1"></textarea>
                             </div>
                         </div>
                     </div>
@@ -147,7 +144,7 @@
                     return false
                 }
 
-                 JsLoadingOverlay.show(this.$configs);
+                JsLoadingOverlay.show(this.$configs);
 
                 axios({
                         method: 'post',
@@ -165,7 +162,7 @@
                         $this.$toastr.e(error);
                     })
                     .then(function () {
-                       JsLoadingOverlay.hide();
+                        JsLoadingOverlay.hide();
                     });
 
             },

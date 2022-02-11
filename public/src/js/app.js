@@ -4591,9 +4591,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -46365,11 +46362,7 @@ var render = function () {
                         },
                       }),
                     ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
                         _vm._v("Number of Vacation Days"),
@@ -46385,7 +46378,7 @@ var render = function () {
                           },
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "number" },
                         domProps: { value: _vm.fields.number_of_days },
                         on: {
                           input: function ($event) {
@@ -46417,7 +46410,7 @@ var render = function () {
                           },
                         ],
                         staticClass: "form-control",
-                        attrs: { name: "", id: "", cols: "30", rows: "2" },
+                        attrs: { name: "", id: "", cols: "30", rows: "1" },
                         domProps: { value: _vm.fields.notes },
                         on: {
                           input: function ($event) {
