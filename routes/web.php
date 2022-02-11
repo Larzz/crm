@@ -117,22 +117,27 @@ Route::prefix('staff')->namespace('Staff')->group(function() {
 
 });
 
-Route::prefix('tutorials')->namespace('General')->group(function() {
-   Route::get('/', 'TutorialController@index')->name('tutorial.index');
-   Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
-});
 
-Route::prefix('newsletters')->namespace('General')->group(function() {
-   Route::get('/', 'NewsLettersController@index')->name('newsletter.index');
-});
 
-Route::prefix('websites')->namespace('General')->group(function() {
-   Route::get('/', 'WebsiteController@index')->name('website.index');
-});
 
 Route::prefix('general')->namespace('General')->group(function() {
+
+   Route::prefix('websites')->group(function() {
+      Route::get('/', 'WebsiteController@index')->name('website.index');
+   });
+
+   Route::prefix('newsletters')->group(function() {
+      Route::get('/', 'NewsLettersController@index')->name('newsletter.index');
+   });
+
+   Route::prefix('tutorials')->group(function() {
+      Route::get('/', 'TutorialController@index')->name('tutorial.index');
+      Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
+   });
+
    Route::prefix('clients')->group(function() {
       Route::get('/', 'HomeController@client_page')->name('general.admin.client');
       Route::get('{id?}', 'HomeController@client_index_page')->name('general.admin.client.index');
    });
+   
 });
