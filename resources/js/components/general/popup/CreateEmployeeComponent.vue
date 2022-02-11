@@ -216,9 +216,24 @@
         background-color: rgba(0, 0, 0, 0.3);
     }
 
+    .modal-body {
+        padding: 9px;
+    }
+
+    .modal-footer {
+        display: flex;
+        padding: 10px;
+        border-top: 0 solid #e9ecef;
+        border-bottom-right-radius: 0.4375rem;
+        border-bottom-left-radius: 0.4375rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
     .modal {
         position: fixed;
-        top: 10%;
+        top: 2%;
         left: 27%;
         z-index: 1000;
         width: 100%;

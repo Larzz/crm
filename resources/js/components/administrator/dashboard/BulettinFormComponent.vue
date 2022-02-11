@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Message</label>
-                    <textarea name="" id="" v-model="forms.message" cols="30" rows="5" class="form-control"></textarea>
+                    <textarea name="" id="" v-model="forms.message" cols="30" rows="1" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Active</label>

@@ -4702,7 +4702,7 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
-            attrs: { name: "", id: "", cols: "30", rows: "5" },
+            attrs: { name: "", id: "", cols: "30", rows: "1" },
             domProps: { value: _vm.forms.message },
             on: {
               input: function ($event) {
