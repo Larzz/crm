@@ -13,4 +13,5 @@ class NewsLetterController extends Controller
         return view('general.newsletter', $meta);
     }
 
+    
 }
