@@ -2977,7 +2977,7 @@ __webpack_require__.r(__webpack_exports__);
     viewClient: function viewClient(client_id) {
       var $this = this;
       JsLoadingOverlay.show(this.$configs);
-      window.location.href = '/administrator/clients/' + client_id;
+      window.location.href = '/general/clients/' + client_id;
     },
     editClient: function editClient(client_id) {
       var $this = this;
