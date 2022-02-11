@@ -6100,7 +6100,7 @@ __webpack_require__.r(__webpack_exports__);
      * @return str
      */
     limitName: function limitName(str) {
-      return str.substr(0, 30);
+      return str.substr(0, 40);
     }
   }
 });

@@ -147,7 +147,7 @@
              * @return str
              */
             limitName(str) {
-                return str.substr(0,30)
+                return str.substr(0,40)
             }
         }
 
