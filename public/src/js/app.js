@@ -5610,6 +5610,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -47616,9 +47617,7 @@ var render = function () {
       _c("div", { staticClass: "card-body pt-5" }, [
         _c("div", { staticClass: "information" }, [
           _c("div", { staticClass: "name-info" }, [
-            _c("h5", { staticClass: "personal-name" }, [
-              _vm._v(_vm._s(_vm.user.name)),
-            ]),
+            _c("h3", [_vm._v(_vm._s(_vm.user.name))]),
             _vm._v(" "),
             _c("h4", { staticClass: "date-joined" }, [
               _vm._v(
@@ -47628,28 +47627,28 @@ var render = function () {
               ),
               _c("span"),
             ]),
+            _vm._v(" "),
+            _c("h4", [
+              _vm._v("Email Address "),
+              _c("span", { staticClass: "colon" }, [
+                _vm._v(": " + _vm._s(_vm.user.email)),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "answer" }),
+            ]),
+            _vm._v(" "),
+            _c("h4", [
+              _vm._v("Mobile Number "),
+              _c("span", { staticClass: "colon" }, [
+                _vm._v(": " + _vm._s(_vm.user.mobile_number)),
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "answer" }),
+            ]),
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "personal-info" }, [
-          _c("p", [
-            _vm._v("Email Address "),
-            _c("span", { staticClass: "colon" }, [
-              _vm._v(": " + _vm._s(_vm.user.email)),
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "answer" }),
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Mobile Number "),
-            _c("span", { staticClass: "colon" }, [
-              _vm._v(": " + _vm._s(_vm.user.mobile_number)),
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "answer" }),
-          ]),
-        ]),
+        _c("div", { staticClass: "personal-info" }),
       ]),
     ]),
   ])

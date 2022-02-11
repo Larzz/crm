@@ -4,13 +4,14 @@
             <div class="card-body pt-5">
                 <div class="information">
                     <div class="name-info">
-                        <h5 class="personal-name">{{ user.name }}</h5>
+                        <h3 >{{ user.name }}</h3>
                         <h4 class="date-joined">Date Added: {{ formatDate(user.created_at) }} <span></span></h4>
+                        <h4>Email Address <span class="colon">: {{ user.email  }}</span> <span class="answer"> </span></h4>
+                        <h4>Mobile Number <span class="colon">: {{ user.mobile_number }}</span> <span class="answer"></span> </h4>
                     </div>
                 </div>
                 <div class="personal-info">
-                    <p>Email Address <span class="colon">: {{ user.email }}</span> <span class="answer"> </span></p>
-                    <p>Mobile Number <span class="colon">: {{ user.mobile_number }}</span> <span class="answer"></span> </p>
+                 
                 </div>
             </div>
         </div>
