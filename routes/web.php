@@ -127,7 +127,7 @@ Route::prefix('general')->namespace('General')->group(function() {
    });
 
    Route::prefix('newsletters')->group(function() {
-      Route::get('/', 'NewsLettersController@index')->name('newsletter.index');
+      Route::get('/', 'HomeController@newsletter')->name('newsletter.index');
    });
 
    Route::prefix('tutorials')->group(function() {
