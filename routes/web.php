@@ -122,7 +122,7 @@ Route::prefix('tutorials')->namespace('General')->group(function() {
    Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
 });
 
-Route::prefix('newsletter')->namespace('General')->group(function() {
+Route::prefix('newsletters')->namespace('General')->group(function() {
    Route::get('/', 'NewsletterController@index')->name('newsletter.index');
 });
 
