@@ -109,6 +109,10 @@ Route::namespace('API')->group(function() {
             Route::delete('{newsletter_id}', 'NewsletterController@deleteNewsletter');
         });
 
+        Route::prefix('employee-staff')->group(function() {
+            Route::patch('{employee_id}', 'EmployeeController@UpdateEmployee');
+        });
+
     });
 
 });

@@ -20,11 +20,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <input type="email" v-model="fields.email" class="form-control">
+                                <input type="email" disabled v-model="fields.email" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Password</label>
-                                <input type="text" v-model="fields.password" class="form-control">
+                                <input type="text" disabled v-model="fields.password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Position</label>
@@ -45,18 +45,7 @@
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label for="">Number of Vacation Days</label>
-                                <input type="number" v-model="fields.number_of_days" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Notes</label>
-                                <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30"
-                                    rows="1"></textarea>
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -98,6 +87,15 @@
                 type: Object
             }
         },
+        mounted() {
+            this.fields.name = this.employee.name
+            this.fields.email = this.employee.email
+            this.fields.position = this.employee.position
+            this.fields.date_joined = this.employee.date_joined
+            this.fields.birth_date = this.employee.birth_date
+            this.fields.mobile_number = this.employee.mobile_number
+            this.fields.password = this.employee.password
+        },  
         methods: {
             beforeCreate() {
                 JsLoadingOverlay.show(this.$configs);
@@ -105,8 +103,8 @@
             created() {
                 JsLoadingOverlay.hide();
             },
-            close() {
-                this.$emit('close', false)
+            close(employee) {
+                this.$emit('close', employee)
             },
             addEmployee() {
 
@@ -116,17 +114,7 @@
                     $this.$toastr.e('Name is Required');
                     return false
                 }
-
-                if (!this.fields.email) {
-                    $this.$toastr.e('Email is Required');
-                    return false
-                }
-
-                if (!this.fields.password) {
-                    $this.$toastr.e('Password is Required');
-                    return false
-                }
-
+          
                 if (!this.fields.position) {
                     $this.$toastr.e('Position is Required')
                     return false
@@ -142,23 +130,16 @@
                     return false
                 }
 
-                if (!this.fields.number_of_days) {
-                    $this.$toastr.e('Number of vacation days is Required!')
-                    return false
-                }
-
                 JsLoadingOverlay.show(this.$configs);
 
                 axios({
-                        method: 'post',
-                        url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
+                        method: 'patch',
+                        url: `/api/v1/employee-staff/${this.employee.id}?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
                         if (response.data.status) {
-                            $this.$emit('new_employee', true)
-                            $this.resetForms()
-                            $this.close()
-                            $this.$toastr.s('Successfully Added Employee!', 'Success');
+                            $this.$toastr.s('Successfully Update!', 'Success');
+                            $this.close(response.data.employee)
                         }
                     })
                     .catch(function (error) {
@@ -169,6 +150,20 @@
                     });
 
             },
+            /**
+             * On clear fields
+             * @return void
+             */
+            resetForms() {
+                this.fields.name = null
+                this.fields.email = null
+                this.fields.password = null
+                this.fields.position = null
+                this.fields.date_joined = null
+                this.fields.birth_date = null
+                this.fields.mobile_number = null
+                this.fields.number_of_days = null
+            }
         }
     }
 

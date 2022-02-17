@@ -1,6 +1,16 @@
 <template>
     <div>
         <div class="card profile-card-2">
+            <div class="card-header border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="mb-0">Employee Details</h3>
+                    </div>
+                    <div class="col text-right">
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Edit</a>
+                    </div>
+                </div>
+            </div>
             <div class="card-body pt-5">
                 <img src="/images/profile.png" width="127px" alt="profile-image" class="profile" />
                 <div class="information">
@@ -12,21 +22,27 @@
                 </div>
                 <div class="personal-info">
                     <h2>Personal Information: </h2>
-                    <p>Birth date <span class="colon">:</span> <span class="answer">{{ formatDate(employee.birth_date) }}</span></p>
+                    <p>Birth date <span class="colon">:</span> <span
+                            class="answer">{{ formatDate(employee.birth_date) }}</span></p>
                     <!-- <p>Gender <span class="colon">:</span> <span class="answer">Female</span></p> -->
                     <p>Email Address <span class="colon">:</span> <span class="answer"> {{ employee.email }}</span></p>
-                    <p>Mobile Number <span class="colon">:</span> <span class="answer">{{ employee.mobile_number }}</span> </p>
+                    <p>Mobile Number <span class="colon">:</span> <span
+                            class="answer">{{ employee.mobile_number }}</span> </p>
                 </div>
-
             </div>
         </div>
+        <EditEmployeePopup :showPopup="showPopup" :employee="employee" @close="ResetData($event)"></EditEmployeePopup>
     </div>
 </template>
 <script>
+    import EditEmployee from '../general/popup/EmployeeEditComponent.vue'
     export default {
+        components: {
+            EditEmployeePopup: EditEmployee
+        },
         data() {
             return {
-
+                showPopup: false
             }
         },
         props: ['employee'],
@@ -43,6 +59,14 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            ResetData(event) {
+                this.showPopup = false
+                this.employee.name = event.name
+                this.employee.position = event.position
+                this.employee.date_joined = event.date_joined
+                this.employee.birth_date = event.birth_date
+                this.employee.mobile_number = event.mobile_number
             }
         }
     }

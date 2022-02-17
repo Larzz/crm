@@ -24,27 +24,22 @@
 
                     <div class="form-group">
                         <label for="">Description</label>
-                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30" rows="2"></textarea>
+                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30"
+                            rows="2"></textarea>
                     </div>
 
                     <div class="form-group">
+                        <label for="">File</label>
                         <div class="row">
-                            <div class="col-md-6">
-                                <file-upload ref="upload" v-model="files" :data="{api_token: api_token }"
-                                    post-action="/api/v1/documents/upload/docs" @input-file="inputFile"
-                                    @input-filter="inputFilter" @response="uploadResponse">
-                                    Upload file
-                                </file-upload>
-                                <!-- <span v-show="$refs.upload && $refs.upload.uploaded">All files have been uploaded</span> -->
-                            </div>
-                            <div class="col-md-6">
-                                <button v-show="!$refs.upload || !$refs.upload.active"
-                                    @click.prevent="$refs.upload.active = true" class="btn btn-sm btn-primary"
-                                    type="button">Start upload</button>
-                            </div>
+                            <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
+                                id="customdropzone">
+                                <div class="dropzone-custom-content">
+                                    <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+                                    <div class="subtitle">...or click to select a file from your computer</div>
+                                </div>
+                            </vue-dropzone>
                         </div>
-
-                        <!-- <small>We only Accept Image and PDF files</small> -->
+                        <small>We only Accept Image and PDF files</small>
                     </div>
 
                 </div>
@@ -59,11 +54,15 @@
 </template>
 
 <script>
-    import { ref } from 'vue'
-    import FileUpload from 'vue-upload-component'
+    import {
+        ref
+    } from 'vue'
+    import vue2Dropzone from 'vue2-dropzone'
+    import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+    //    import FileUpload from 'vue-upload-component'
     export default {
         components: {
-            FileUpload,
+            vueDropzone: vue2Dropzone
         },
         data() {
             return {
@@ -76,7 +75,17 @@
                     meeting_date: null,
                     filename: null
                 },
-                api_token: window.Laravel.api_token
+                api_token: window.Laravel.api_token,
+                dropzoneOptions: {
+                    url: `/api/v1/documents/upload/docs?api_token=${window.Laravel.api_token}`,
+                    thumbnailWidth: 400,
+                    maxFilesize: 100,
+                    addRemoveLinks: true,
+                    headers: {
+                        "api_token": window.Laravel.api_token
+                    }
+                }
+
             }
         },
         props: {
@@ -89,8 +98,7 @@
                 type: Object
             }
         },
-        mounted() {
-        },
+        mounted() {},
         methods: {
             /** Close Document
              * 
@@ -110,7 +118,7 @@
                 if (!this.fields.name) {
                     return this.$toastr.e('Name is Required');
                 }
-        
+
                 if (!this.fields.meeting_date) {
                     return this.$toastr.e('Meeting Date is Required');
                 }
@@ -180,10 +188,16 @@
                 }
 
             },
-            uploadResponse: function (data) {
-                if (data.status) {
+             /**
+             * On Response Upload
+             * @param  Object|undefined   data   Read only
+             * @param  Object|undefined   response   Read only
+             * @return void
+             */
+            uploadResponse: function (data, response) {
+                if (response.status) {
                     this.$toastr.s('Successfully Uploaded');
-                    this.fields.filename = data.filename
+                    this.fields.filename = response.filename
                 }
             },
         }
@@ -192,6 +206,12 @@
 </script>
 
 <style scoped>
+
+    .customdropzone {
+            width: 700px;    
+        }
+
+
     .form-group {
         margin-bottom: 10px;
     }
@@ -228,7 +248,7 @@
 
     .modal {
         position: fixed;
-        top: 10%;
+        top: 4%;
         left: 27%;
         z-index: 1000;
         width: 100%;

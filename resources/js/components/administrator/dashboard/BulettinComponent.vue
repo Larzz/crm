@@ -4,7 +4,7 @@
             <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h4 class="h3 mb-0">Bulettin</h4>
+                        <h4 class="h3 mb-0">Bulletin</h4>
                     </div>
                 </div>
             </div>
