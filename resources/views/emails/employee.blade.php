@@ -23,7 +23,7 @@
                                                     style="font-size: 14px; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
                                                     <p style="margin: 0; font-size: 30px; text-align: center;">
                                                         <strong><span style="font-size:38px;">Hello,
-                                                                {{ isset($employee->name) ? $employee->name : 'Mark' }}!</span></strong>
+                                                                {{ isset($user->name) ? $user->name : 'Mark' }}!</span></strong>
                                                     </p>
                                                 </div>
                                             </div>

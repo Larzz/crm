@@ -2524,6 +2524,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         _this2.message(error.response);
+      }).then(function () {
+        JsLoadingOverlay.hide();
       });
     },
     message: function message(response) {
@@ -4590,7 +4592,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6561,7 +6562,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -48698,7 +48698,8 @@ var render = function () {
         _c("img", {
           staticClass: "profile",
           attrs: {
-            src: "https://randomuser.me/api/portraits/men/64.jpg",
+            src: "/images/profile.png",
+            width: "127px",
             alt: "profile-image",
           },
         }),
@@ -48734,8 +48735,6 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
           _c("p", [
             _vm._v("Email Address "),
             _c("span", { staticClass: "colon" }, [_vm._v(":")]),
@@ -48758,19 +48757,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("Gender "),
-      _c("span", { staticClass: "colon" }, [_vm._v(":")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "answer" }, [_vm._v("Female")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

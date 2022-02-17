@@ -112,7 +112,10 @@
                         }
                     }).catch(error => {
                         this.message(error.response)
-                    });
+                    })
+                       .then(function () {
+                        JsLoadingOverlay.hide();
+                });
              
 
             },
