@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class LeaveMail extends Mailable
+class LeaveMail2 extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -35,7 +35,7 @@ class LeaveMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.leavemail')->subject($this->subject)
+        return $this->view('emails.leavemail2')->subject($this->subject)
             ->from('sender@creativouae.com', 'Creativo Backend')
             ->with([
                 'subject' => $this->subject,

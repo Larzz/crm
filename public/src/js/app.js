@@ -4647,6 +4647,17 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         JsLoadingOverlay.hide();
       });
+    },
+    resetForms: function resetForms() {
+      this.fields.name = null;
+      this.fields.email = null;
+      this.fields.password = null;
+      this.fields.position = null;
+      this.fields.date_joined = null;
+      this.fields.birth_date = null;
+      this.fields.mobile_number = null;
+      this.fields.number_of_days = null;
+      this.fields.notes = null;
     }
   }
 });
