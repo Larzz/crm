@@ -140,4 +140,8 @@ Route::prefix('general')->namespace('General')->group(function() {
       Route::get('{id?}', 'HomeController@client_index_page')->name('general.admin.client.index');
    });
    
+   Route::prefix('tools')->group(function() {
+      Route::get('/'. 'HomeController@tools')->name('general.tools');
+   });
+
 });

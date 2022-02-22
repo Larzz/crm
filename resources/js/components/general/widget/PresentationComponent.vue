@@ -16,6 +16,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
+                            <th scope="col">Meeting Date</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -24,6 +25,9 @@
                             <tr v-for="(presentation, index) in presentations" :key="index">
                                 <td scope="row" width="100%">
                                     {{ limitName(presentation.name) }}
+                                </td>
+                                <td scope="row" width="100%">
+                                    {{ formatDate(presentation.date_added) }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
@@ -150,6 +154,16 @@
              */
             limitName(str) {
                 return str.substr(0, 40)
+            },
+             formatDate(date) {
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
             }
         }
 
@@ -160,4 +174,10 @@
     .card {
         height: 355px;
     }
+
+    .card-body {
+       overflow-y: scroll;
+    }
+
+
 </style>

@@ -4,9 +4,11 @@
             <div class="col-md-4">
                 <client-widget :user="user"> </client-widget>
             </div>
+
             <div class="col-md-4">
                 <document-widget :user="user"></document-widget>
             </div>
+
             <div class="col-md-4">
                 <notes :user="user" :role="auth.role"> </notes>
             </div>
@@ -25,8 +27,7 @@
 <script>
     export default {
         data() {
-            return {
-            }
+            return {}
         },
         props: ['user', 'auth'],
         mounted() {
@@ -37,5 +38,12 @@
 </script>
 
 <style>
+   .card {
+        height: 421px;
+    }
+
+    .card-body {
+        overflow-y: scroll;
+    }
 
 </style>

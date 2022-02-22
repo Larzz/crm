@@ -16,6 +16,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
+                            <th scope="col">Meeting Date</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -25,13 +26,15 @@
                                 <td scope="row" width="100%">
                                     {{ meeting.name }}
                                 </td>
+                                  <td scope="row" width="100%">
+                                    {{ formatDate(meeting.meeting_date) }}
+                                </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting.attachment)"
-                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)"
-                                                    title="Update Employee"><i class="fas fa-trash"></i></a> </li>
+                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting.attachment)" title="View Employee">
+                                                <i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)" title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -44,7 +47,8 @@
                                 <strong>Sorry!</strong> No Record Found
                             </div>
                         </div>
-                    </template> </table>
+                    </template>
+                </table>
             </div>
         </div>
         <meeting-minutes-popup :showPopup="showPopup" :user="user" @close="reload()"></meeting-minutes-popup>
@@ -65,7 +69,7 @@
                 required: true,
                 type: Object
             },
-            
+
         },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
@@ -118,7 +122,7 @@
                     confirmButtonText: 'Delete',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                                         JsLoadingOverlay.show(this.$configs);
+                        JsLoadingOverlay.show(this.$configs);
                         axios({
                                 method: 'delete',
                                 url: `/api/v1/meetings/${meetind_id}/client/${$this.user.id}?api_token=${window.Laravel.api_token}`,
@@ -132,7 +136,7 @@
                                 $this.$toastr.e(error);
                             })
                             .then(function () {
-                               JsLoadingOverlay.hide();
+                                JsLoadingOverlay.hide();
                             });
                     }
                 })
@@ -144,8 +148,18 @@
              * @return formatted datetime
              */
             reload() {
-                this.showPopup=false
+                this.showPopup = false
                 this.getMeetings()
+            },
+            formatDate(date) {
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
             }
         }
 
@@ -157,4 +171,5 @@
     .card {
         height: 355px;
     }
+
 </style>

@@ -2,23 +2,25 @@
     <div>
         <template v-if="clients">
             <tbody>
-                 <thead class="thead-light">
-                        <tr>
-                            <th width="100%" scope="col">Name</th>
-                            <th width="100%" scope="col">Action</th>
-                        </tr>
-                    </thead>
+                <thead class="thead-light">
+                    <tr>
+                        <th width="100%" scope="col">Name</th>
+                        <th width="100%" scope="col">Date Joined</th>
+                        <th width="100%" scope="col">Action</th>
+                    </tr>
+                </thead>
                 <tr v-for="(client, index) in clients" :key="index">
                     <td scope="row" width="100%">
                         {{ client.name }}
+                    </td>
+                     <td scope="row" width="100%">
+                        {{ client.date_joined }}
                     </td>
                     <td width="100%">
                         <div class="d-flex align-items-center">
                             <ul>
                                 <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
                                         title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                <!-- <li> <a href="#!" :data-id="client.id" @click="editClient(client.id)"
-                                        title="Update Employee"><i class="fas fa-pen"></i></a> </li> -->
                                 <li> <a href="#!" :data-id="client.id" @click="deleteClient(client.id)"
                                         title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                             </ul>
@@ -125,6 +127,3 @@
 
 </script>
 
-<style>
-
-</style>

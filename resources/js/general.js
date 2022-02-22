@@ -19,6 +19,8 @@ import Website from './components/general/WebsiteComponent.vue'
 import Presentation from './components/general/PresentationComponent.vue'
 import Client from './components/general/ClientComponent.vue'
 import ClientDetails from './components/general/ClientDetails.vue'
+import Tools from './components/general/ToolsComponent.vue'
+
 // popup
 import CreateClientPopup from './components/general/popup/CreateClientComponent.vue'
 import UploadDocumentPopup from './components/general/popup/UploadDocumentComponent.vue'
@@ -53,6 +55,7 @@ Vue.component('website', Website)
 Vue.component('presentation', Presentation)
 Vue.component('client', Client)
 Vue.component('client-detail', ClientDetails)
+Vue.component('tools', Tools)
 // popup
 Vue.component('create-client-popup', CreateClientPopup)
 Vue.component('upload-document-popup', UploadDocumentPopup)
