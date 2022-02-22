@@ -7,13 +7,13 @@
                         <h3 class="mb-0">Presentation</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Create</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col"></th>
@@ -28,9 +28,11 @@
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="presentation.id" @click="viewPresentation(presentation.attachment)"
+                                            <li><a href="#!" :data-id="presentation.id"
+                                                    @click="viewPresentation(presentation.attachment)"
                                                     title="View Presentation"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="presentation.id" @click="deletePresentation(presentation.id)"
+                                            <li> <a href="#!" :data-id="presentation.id"
+                                                    @click="deletePresentation(presentation.id)"
                                                     title="Delete Presentation"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
@@ -67,7 +69,7 @@
                 type: Object
             }
         },
-     
+
         mounted() {
             this.getPresentation()
         },
@@ -147,14 +149,15 @@
              * @return str
              */
             limitName(str) {
-                return str.substr(0,40)
+                return str.substr(0, 40)
             }
         }
 
     }
-
 </script>
 
-<style>
-
+<style scoped>
+    .card {
+        min-height: 355px;
+    }
 </style>

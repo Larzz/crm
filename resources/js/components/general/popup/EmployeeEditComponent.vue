@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Name</label>
                                 <input type="text" v-model="fields.name" class="form-control">
@@ -22,17 +22,14 @@
                                 <label for="">Email</label>
                                 <input type="email" disabled v-model="fields.email" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group d-none">
                                 <label for="">Password</label>
                                 <input type="text" disabled v-model="fields.password" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label for="">Position</label>
-                                <input type="text" v-model="fields.position" class="form-control">
-                            </div>
+
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Date Joined</label>
                                 <input type="date" v-model="fields.date_joined" class="form-control">
@@ -41,11 +38,31 @@
                                 <label for="">Birth Date</label>
                                 <input type="date" v-model="fields.birth_date" class="form-control">
                             </div>
+                        </div>
+
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Mobile Number</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
-                          
+
+                            <div class="form-group">
+                                <label for="">Position</label>
+                                <input type="text" v-model="fields.position" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">File</label>
+                                <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
+                                    id="customdropzone">
+                                    <div class="dropzone-custom-content">
+                                        <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+                                        <div class="subtitle">...or click to select a file from your computer</div>
+                                    </div>
+                                </vue-dropzone>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,7 +77,13 @@
 </template>
 
 <script>
+    import vue2Dropzone from 'vue2-dropzone'
+    import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
     export default {
+        components: {
+            vueDropzone: vue2Dropzone
+        },
         data() {
             return {
                 showClientPopup: false,
@@ -73,7 +96,17 @@
                     birth_date: null,
                     mobile_number: null,
                     number_of_days: null,
-                    notes: null
+                    notes: null,
+                    filename: null
+                },
+                dropzoneOptions: {
+                    url: `/api/v1/documents/upload/docs?api_token=${window.Laravel.api_token}`,
+                    thumbnailWidth: 400,
+                    maxFilesize: 100,
+                    addRemoveLinks: true,
+                    headers: {
+                        "api_token": window.Laravel.api_token
+                    }
                 }
             }
         },
@@ -95,7 +128,8 @@
             this.fields.birth_date = this.employee.birth_date
             this.fields.mobile_number = this.employee.mobile_number
             this.fields.password = this.employee.password
-        },  
+            this.fields.filename = this.employee.filename
+        },
         methods: {
             beforeCreate() {
                 JsLoadingOverlay.show(this.$configs);
@@ -114,7 +148,7 @@
                     $this.$toastr.e('Name is Required');
                     return false
                 }
-          
+
                 if (!this.fields.position) {
                     $this.$toastr.e('Position is Required')
                     return false
@@ -149,6 +183,18 @@
                         JsLoadingOverlay.hide();
                     });
 
+            },
+            /**
+             * On Response Upload
+             * @param  Object|undefined   data   Read only
+             * @param  Object|undefined   response   Read only
+             * @return void
+             */
+            uploadResponse: function (data, response) {
+                if (response.status) {
+                    this.$toastr.s('Successfully Uploaded');
+                    this.fields.filename = response.filename
+                }
             },
             /**
              * On clear fields

@@ -44,7 +44,8 @@ class EmployeeController extends Controller
                 'position' => $this->request->position,
                 'date_joined' => $this->request->date_joined,
                 'birth_date' => $this->request->birth_date,
-                'mobile_number' => $this->request->mobile_number
+                'mobile_number' => $this->request->mobile_number,
+                'filename' => $this->request->filename
             ]);
             return response()->json(['status' => true, 'employee' => $user], 200);
         }

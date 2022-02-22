@@ -7,7 +7,7 @@
                         <h3 class="mb-0">Meeting Minutes</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Create</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
@@ -153,6 +153,8 @@
 
 </script>
 
-<style>
-
+<style scoped>
+    .card {
+        min-height: 355px;
+    }
 </style>

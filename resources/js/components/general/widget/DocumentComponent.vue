@@ -32,8 +32,8 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li> <a href="#!" @click="removeDocument(document.id)"
-                                                    title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                            <li> <a href="#!" @click="viewDocument(document)" title="View Document"><i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" @click="removeDocument(document.id)" title="Delete Document"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -122,6 +122,9 @@
                     }
                 })
 
+            },
+            viewDocument(document) {
+                console.log(document)
             },
             formatDate(date) {
                 const currentDate = new Date(date);

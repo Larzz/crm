@@ -5,18 +5,17 @@
                 <client-widget :user="user"> </client-widget>
             </div>
             <div class="col-md-4">
-                <presentation-widget :user="user"> </presentation-widget>
-            </div>
-            <div class="col-md-4">
-                <meeting-widget :user="user"></meeting-widget>
-            </div>
-            <div class="col-md-6">
                 <document-widget :user="user"></document-widget>
             </div>
+            <div class="col-md-4">
+                <notes :user="user" :role="auth.role"> </notes>
+            </div>
+
             <div class="col-md-6">
-                <template v-if="auth.role===1">
-                   <notes :user="user"> </notes>
-                </template>
+                <presentation-widget :user="user"> </presentation-widget>
+            </div>
+            <div class="col-md-6">
+                <meeting-widget :user="user"></meeting-widget>
             </div>
 
         </div>

@@ -11,26 +11,31 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Name</label>
-                        <input type="text" v-model="fields.name" class="form-control">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" v-model="fields.name" class="form-control">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Meeting Date</label>
-                        <input type="date" class="form-control" v-model="fields.meeting_date">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Meeting Date</label>
+                            <input type="date" class="form-control" v-model="fields.meeting_date">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Description</label>
-                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30"
-                            rows="2"></textarea>
-                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Description</label>
+                            <textarea name="" class="form-control" id="" v-model="fields.description" cols="30"
+                                rows="2"></textarea>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="">File</label>
-                        <div class="row">
+                        <div class="form-group">
+                            <label for="">File</label>
                             <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
                                 id="customdropzone">
                                 <div class="dropzone-custom-content">
@@ -39,9 +44,7 @@
                                 </div>
                             </vue-dropzone>
                         </div>
-                        <small>We only Accept Image and PDF files</small>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" @click="postMeeting" class="btn btn-primary">Save changes</button>
@@ -188,7 +191,7 @@
                 }
 
             },
-             /**
+            /**
              * On Response Upload
              * @param  Object|undefined   data   Read only
              * @param  Object|undefined   response   Read only
@@ -206,10 +209,9 @@
 </script>
 
 <style scoped>
-
     .customdropzone {
-            width: 700px;    
-        }
+        width: 100%;
+    }
 
 
     .form-group {

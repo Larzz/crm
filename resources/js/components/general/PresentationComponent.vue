@@ -48,8 +48,9 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Client</label>
                                 <select class="form-control" name="client_id" id="exampleFormControlSelect2">
-                                    <template v-if="clients" >
-                                        <option v-for="(client, index) in clients" :key="index">{{ client.name }}</option>
+                                    <template v-if="clients">
+                                        <option v-for="(client, index) in clients" :key="index">{{ client.name }}
+                                        </option>
                                     </template>
                                 </select> </div>
                             <div class="form-group">
@@ -89,10 +90,12 @@
                                                                 title="View Presentation"><i class="fas fa-eye"></i></a>
                                                         </li>
                                                         <li> <a href="#!" @click="editPresentation(presentation.id)"
-                                                                title="Update Presentation"><i class="fas fa-pen"></i></a>
+                                                                title="Update Presentation"><i
+                                                                    class="fas fa-pen"></i></a>
                                                         </li>
                                                         <li> <a href="#!" @click="deletePresentation(presentation.id)"
-                                                                title="Update Presentation"><i class="fas fa-trash"></i></a>
+                                                                title="Update Presentation"><i
+                                                                    class="fas fa-trash"></i></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -129,6 +132,10 @@
             JsLoadingOverlay.hide();
         },
         methods: {
+            /**
+             * Get Clients
+             * @return void
+             */
             getClients() {
                 let $this = this
                 axios({
@@ -144,6 +151,10 @@
                         JsLoadingOverlay.hide();
                     });
             },
+            /**
+             * Get Presentations
+             * @return void
+             */
             getPresentations: function () {
                 JsLoadingOverlay.show(this.$configs);
                 let $this = this
@@ -174,6 +185,3 @@
     }
 
 </script>
-
-<style>
-</style>

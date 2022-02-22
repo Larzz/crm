@@ -1,74 +1,80 @@
 <template>
     <div>
         <div class="card">
-            <div class="card-header border-0">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="mb-0">Notes</h3>
-                    </div>
-                    <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Create</a>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Date</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <template v-if="notes">
-                        <tbody>
-                            <tr v-for="(note, index) in notes" :key="index">
-                                <th scope="row">
-                                    <p v-html="note.notes"></p>
-                                </th>
-                                <td>
-                                    {{ formatDate(note.created_at)  }}
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <ul>
-                                            <li><a href="#!" @click="viewNote(note.id)"
-                                                    title="View Tutorial"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" @click="deleteNote(note.id)" title="Delete Note"><i
-                                                        class="fas fa-trash"></i></a> </li>
-
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template>
-
-                </table>
-
-                <template v-if="!notes">
-                    <div class="container mt-3">
-                        <div class="alert alert-warning" role="alert">
-                            <strong>Sorry!</strong> No Record Found
+            <template v-if="role==1">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Notes</h3>
+                        </div>
+                        <div class="col text-right">
+                            <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
                         </div>
                     </div>
-                </template>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <template v-if="notes">
+                            <tbody>
+                                <tr v-for="(note, index) in notes" :key="index">
+                                    <th scope="row">
+                                        <span v-html="note.notes"></span>
+                                    </th>
+                                    <td>
+                                        {{ formatDate(note.created_at)  }}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <ul>
+                                                <li><a href="#!" @click="viewNote(note.id)" title="View Tutorial"><i
+                                                            class="fas fa-eye"></i></a> </li>
+                                                <li> <a href="#!" @click="deleteNote(note.id)" title="Delete Note"><i
+                                                            class="fas fa-trash"></i></a> </li>
 
-            </div>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </template>
+
+                    </table>
+
+                    <template v-if="!notes">
+                        <div class="container mt-3">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Sorry!</strong> No Record Found
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+            </template>
+            <template v-else>
+                <div class="card-body text-center">
+                    <div class="alert alert-warning" role="alert">
+                        <span class="alert-text"><strong>Sorry!</strong> You dont have access to notes.</span>
+                    </div>
+                </div>
+            </template>
         </div>
         <create-note-popup :showPopup="showPopup" :user="user" @close="showPopup = close()"></create-note-popup>
     </div>
-
 </template>
-
 
 <script>
     import Swal from 'sweetalert2'
-
     export default {
         data() {
             return {
-                showPopup:false,
+                showPopup: false,
                 notes: []
             }
         },
@@ -77,6 +83,10 @@
                 required: true,
                 type: Object
             },
+            role: {
+                required: true,
+                type: Number
+            }
         },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
@@ -178,12 +188,9 @@
         }
 
     }
-
 </script>
-
 <style scoped>
     .card {
-        min-height: 400px;
+        min-height: 355px;
     }
-
 </style>

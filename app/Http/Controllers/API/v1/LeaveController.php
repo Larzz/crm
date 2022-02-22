@@ -69,7 +69,6 @@ class LeaveController extends Controller
 
     }
 
-
     public function getLeaves() {
         $leaves = LeaveDetails::leftjoin('users', 'users.id', '=', 'leave_details.user_id')->select('users.name', 'leave_details.*')->get();
         return response()->json(['status' => true, 'leaves' => $leaves]);

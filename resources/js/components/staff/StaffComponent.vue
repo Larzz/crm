@@ -12,7 +12,12 @@
                 </div>
             </div>
             <div class="card-body pt-5">
-                <img src="/images/profile.png" width="127px" alt="profile-image" class="profile" />
+                <template v-if="employee.filename">
+                    <img :src="'/documents/' + employee.filename " width="127px" alt="profile-image" class="profile" />
+                </template>
+                <template v-else>
+                    <img src="/images/profile.png" width="127px" alt="profile-image" class="profile" />
+                </template>
                 <div class="information">
                     <div class="name-info">
                         <h5 class="personal-name">{{ employee.name }}</h5>

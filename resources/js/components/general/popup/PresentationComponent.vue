@@ -12,30 +12,36 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Name</label>
-                        <input type="text" v-model="fields.name" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Meeting Date</label>
-                        <input type="date" class="form-control" v-model="fields.meeting_date">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Description</label>
-                        <textarea name="" class="form-control" id="" v-model="fields.description" cols="30"
-                            rows="2"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">File</label>
-                        <div class="row">
-                              <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"  id="customdropzone">
-                                <div class="dropzone-custom-content">
-                                    <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
-                                    <div class="subtitle">...or click to select a file from your computer</div>
-                                </div>
-                            </vue-dropzone>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <input type="text" v-model="fields.name" class="form-control">
+                            </div>
                         </div>
-                        <small>We only Accept Image and PDF files</small>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Meeting Date</label>
+                                <input type="date" class="form-control" v-model="fields.meeting_date">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Description</label>
+                                <textarea name="" class="form-control" id="" v-model="fields.description" cols="30"
+                                    rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">File</label>
+                                    <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
+                                        id="customdropzone">
+                                        <div class="dropzone-custom-content">
+                                            <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+                                            <div class="subtitle">...or click to select a file from your computer</div>
+                                        </div>
+                                    </vue-dropzone>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -155,10 +161,9 @@
 
 <style scoped>
 
- .customdropzone {
-        width: 700px;    
+    .customdropzone {
+        width: 100%;
     }
-
 
     .form-group {
         margin-bottom: 10px;
