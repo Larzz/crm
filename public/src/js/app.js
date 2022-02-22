@@ -9129,7 +9129,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-2805c789] {\n    min-height: 355px;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px;\n}\n\n", ""]);
 
 // exports
 
@@ -9148,7 +9148,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-fbe2162a] {\n    min-height: 355px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-fbe2162a] {\n    height: 355px;\n}\n", ""]);
 
 // exports
 
@@ -9167,7 +9167,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-76a4106a] {\n    min-height: 355px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-76a4106a] {\n    height: 355px;\n}\n", ""]);
 
 // exports
 

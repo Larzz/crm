@@ -155,6 +155,6 @@
 
 <style scoped>
     .card {
-        min-height: 355px;
+        height: 355px;
     }
 </style>
