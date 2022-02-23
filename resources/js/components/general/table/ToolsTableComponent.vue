@@ -51,6 +51,15 @@
                 tools: {}
             }
         },
+        props: {
+            newToolAdded: {
+                required: true,
+                type: Number 
+            }
+        },
+        watch: {
+            newToolAdded: 'getTools'
+        },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
         },

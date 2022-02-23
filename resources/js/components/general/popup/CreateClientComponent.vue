@@ -149,7 +149,6 @@
                             $this.$emit('new_client', true)
                             $this.close()
                             $this.resetForm()
-
                             $this.$toastr.s('Succesfully Added new Client')
                         }
                     })

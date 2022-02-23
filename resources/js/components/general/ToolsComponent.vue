@@ -31,7 +31,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <tool-form></tool-form>
+                        <tool-form  @newToolAdded="addedNewTool()"></tool-form>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <table class="table align-items-center table-flush">
-                            <tool-table></tool-table>
+                            <tool-table :newToolAdded="newToolAdded"></tool-table>
                         </table>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
     export default {
         data() {
             return {
-
+                newToolAdded: Date.now()
             }
         },
         beforeCreate() {
@@ -75,6 +75,9 @@
         methods: {
             getPresentations: function () {
                 return
+            },
+            addedNewTool() {
+                this.newToolAdded = Date.now()
             }
         }
     }

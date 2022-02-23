@@ -31,7 +31,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <client-form></client-form>
+                        <client-form @new_client="newClientNotification"></client-form>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <table class="table align-items-center table-flush">
-                            <client-table></client-table>
+                            <client-table :newClientAdded="newClientAdded"></client-table>
                         </table>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
     export default {
         data() {
             return {
-
+                newClientAdded: Date.now()
             }
         },
         beforeCreate() {
@@ -67,7 +67,10 @@
         },
         methods: {
             getPresentations: function () {
-                return
+                return;
+            },
+            newClientNotification: function() {
+                this.newClientAdded = Date.now()
             }
         }
     }

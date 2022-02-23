@@ -47,6 +47,15 @@
                 clients: {}
             }
         },
+        props: {
+            newClientAdded: {
+                required: true,
+                type: Number
+            }
+        },
+        watch: {
+            newClientAdded: 'getClients'
+        },
         beforeCreate() {
             JsLoadingOverlay.show(this.$configs);
         },

@@ -10,7 +10,6 @@
                     <label for="">Email</label>
                     <input type="email" v-model="fields.email" class="form-control">
                 </div>
-
             </div>
 
             <div class="col-md-6">
@@ -18,7 +17,6 @@
                     <label for="">URL</label>
                     <input type="text" v-model="fields.url" class="form-control">
                 </div>
-
                 <div class="form-group">
                     <label for="">Password</label>
                     <input type="text" v-model="fields.password" class="form-control">
@@ -79,12 +77,12 @@
                 }
 
                 if (!this.fields.url) {
-                    $this.$toastr.e('Date Joined is Required')
+                    $this.$toastr.e('URL is Required')
                     return;
                 }
 
                 if (!this.fields.purpose) {
-                    $this.$toastr.e('Moble Number is Required')
+                    $this.$toastr.e('Purpose is Required')
                     return;
                 }
 
@@ -97,6 +95,7 @@
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.resetForm()
+                             $this.$emit('newToolAdded', true)
                             $this.$toastr.s('Succesfully Added new Client')
                         }
                     })

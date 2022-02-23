@@ -2802,7 +2802,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      newClientAdded: Date.now()
+    };
   },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
@@ -2816,6 +2818,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getPresentations: function getPresentations() {
       return;
+    },
+    newClientNotification: function newClientNotification() {
+      this.newClientAdded = Date.now();
     }
   }
 });
@@ -3416,7 +3421,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.data.status) {
           $this.notes = response.data.notes;
-          $this.getNotes();
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -3800,7 +3804,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      newToolAdded: Date.now()
+    };
   },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
@@ -3814,6 +3820,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getPresentations: function getPresentations() {
       return;
+    },
+    addedNewTool: function addedNewTool() {
+      this.newToolAdded = Date.now();
     }
   }
 });
@@ -4460,8 +4469,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4500,12 +4507,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (!this.fields.url) {
-        $this.$toastr.e('Date Joined is Required');
+        $this.$toastr.e('URL is Required');
         return;
       }
 
       if (!this.fields.purpose) {
-        $this.$toastr.e('Moble Number is Required');
+        $this.$toastr.e('Purpose is Required');
         return;
       }
 
@@ -4517,6 +4524,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.data.status) {
           $this.resetForm();
+          $this.$emit('newToolAdded', true);
           $this.$toastr.s('Succesfully Added new Client');
         }
       })["catch"](function (error) {
@@ -5914,6 +5922,15 @@ __webpack_require__.r(__webpack_exports__);
       clients: {}
     };
   },
+  props: {
+    newClientAdded: {
+      required: true,
+      type: Number
+    }
+  },
+  watch: {
+    newClientAdded: 'getClients'
+  },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
   },
@@ -6045,6 +6062,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       tools: {}
     };
+  },
+  props: {
+    newToolAdded: {
+      required: true,
+      type: Number
+    }
+  },
+  watch: {
+    newToolAdded: 'getTools'
   },
   beforeCreate: function beforeCreate() {
     JsLoadingOverlay.show(this.$configs);
@@ -44784,7 +44810,16 @@ var render = function () {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [_c("client-form")], 1),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("client-form", {
+                on: { new_client: _vm.newClientNotification },
+              }),
+            ],
+            1
+          ),
         ]),
       ]),
       _vm._v(" "),
@@ -44794,7 +44829,11 @@ var render = function () {
             _c(
               "table",
               { staticClass: "table align-items-center table-flush" },
-              [_c("client-table")],
+              [
+                _c("client-table", {
+                  attrs: { newClientAdded: _vm.newClientAdded },
+                }),
+              ],
               1
             ),
           ]),
@@ -46083,7 +46122,20 @@ var render = function () {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [_c("tool-form")], 1),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("tool-form", {
+                on: {
+                  newToolAdded: function ($event) {
+                    return _vm.addedNewTool()
+                  },
+                },
+              }),
+            ],
+            1
+          ),
         ]),
       ]),
       _vm._v(" "),
@@ -46093,7 +46145,7 @@ var render = function () {
             _c(
               "table",
               { staticClass: "table align-items-center table-flush" },
-              [_c("tool-table")],
+              [_c("tool-table", { attrs: { newToolAdded: _vm.newToolAdded } })],
               1
             ),
           ]),

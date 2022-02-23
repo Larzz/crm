@@ -123,7 +123,6 @@
                 ).then(function (response) {
                     if (response.data.status) {
                         $this.notes = response.data.notes
-                         $this.getNotes()
                     }
                 }).catch(function (error) {
                     $this.$toastr.e(error);
