@@ -3416,6 +3416,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.data.status) {
           $this.notes = response.data.notes;
+          $this.getNotes();
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -3739,6 +3740,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
