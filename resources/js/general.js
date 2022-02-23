@@ -9,7 +9,6 @@ import MeetingWidget from './components/general/widget/MeetingComponent.vue'
 import ClientWidget2 from './components/general/widget/ClientComponent.vue'
 import DocumentWidget from './components/general/widget/DocumentComponent.vue'
 
-
 // this was a mistake it should be under the table
 import ClientWidget from './components/general/ClientWidgetComponent.vue'
 // pages
@@ -30,9 +29,10 @@ import PresentationPopup from './components/general/popup/PresentationComponent.
 import MeetingMinutesPopup from './components/general/popup/MeetingMinutesComponent.vue'
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
+import ToolForm from './components/general/form/ToolFormComponent.vue'
 // table 
 import ClientTable from './components/general/table/ClientTableComponent.vue'
-
+import ToolTable from './components/general/table/ToolsTableComponent.vue'
 import Vue from 'vue'
 
 ////////////////////////////////// DECLARATIONS //////////////////////////////////////////////////
@@ -66,5 +66,7 @@ Vue.component('presentation-popup', PresentationPopup)
 Vue.component('meeting-minutes-popup', MeetingMinutesPopup)
 // form
 Vue.component('client-form', ClientForm)
+Vue.component('tool-form', ToolForm)
 // table 
 Vue.component('client-table', ClientTable)
+Vue.component('tool-table', ToolTable)

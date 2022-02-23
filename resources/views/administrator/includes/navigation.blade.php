@@ -11,6 +11,8 @@
                         <li> <a class="{{ $active === 'backend' ? 'active' : '' }}"
                                 href="{{ route('general.admin.client') }}">Client</a> </li>
                         <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
+                                href="{{ route('general.tools') }}">Tools</a> </li>
+                        <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
                                 href="{{ route('website.index') }}">Website</a> </li>
                         <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"
                                 href="{{ route('newsletter.index') }}">Newsletter</a> </li>

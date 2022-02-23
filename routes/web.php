@@ -141,7 +141,7 @@ Route::prefix('general')->namespace('General')->group(function() {
    });
    
    Route::prefix('tools')->group(function() {
-      Route::get('/'. 'HomeController@tools')->name('general.tools');
+      Route::get('/', 'HomeController@tools')->name('general.tools');
    });
 
 });

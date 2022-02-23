@@ -113,6 +113,12 @@ Route::namespace('API')->group(function() {
             Route::patch('{employee_id}', 'EmployeeController@UpdateEmployee');
         });
 
+        Route::prefix('tools')->group(function() {
+            Route::post('/', "ToolController@addTool");
+            Route::get('/', 'ToolController@getTools');
+            Route::delete('{tool_id}', 'ToolController@deleteTool');
+        });
+
     });
 
 });

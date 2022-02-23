@@ -25,8 +25,8 @@ class HomeController extends Controller {
     }
 
     public function tools() {
-        $meta=['title'=>'Newsletter', 'active'=>'newsletter'];
-        return view('general.newsletter', $meta);
+        $meta=['title'=>'Tools', 'active'=>'tools'];
+        return view('general.tools', $meta);
     }
 
 }
