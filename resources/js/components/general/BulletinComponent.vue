@@ -6,6 +6,12 @@
                     <div class="col">
                         <h4 class="h3 mb-0">Bulletin</h4>
                     </div>
+                    <div class="col">
+                        <div class="align-items-right">
+                            <div class="col text-right"><a href="#!" @click="showPopup=true"
+                                    class="btn btn-sm btn-primary">Edit</a></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -28,6 +34,7 @@
 
             </div>
         </div>
+        <edit-bulletin-popup :bulletin="bulletin" :showPopup="showPopup" @close="close()"></edit-bulletin-popup>
     </div>
 </template>
 
@@ -35,7 +42,8 @@
     export default {
         data() {
             return {
-                bulletin: {}
+                bulletin: {},
+                showPopup: false
             }
         },
         beforeCreate() {
@@ -45,7 +53,6 @@
             JsLoadingOverlay.hide();
         },
         mounted() {
-            console.log('hello')
             this.getBulettin()
         },
         methods: {
@@ -64,6 +71,12 @@
                         $this.$toastr.e(error);
                     })
                     .then(function () {});
+            },
+            updateBulletin() {
+                this.showPopup = true
+            },
+            close() {
+                this.showPopoup = false
             }
         }
     }

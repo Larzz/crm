@@ -1,7 +1,6 @@
 <template>
     <div>
         <template v-if="tools">
-            <tbody>
                 <thead class="thead-light">
                     <tr>
                         <th width="100%" scope="col">Product</th>
@@ -10,6 +9,7 @@
                         <th width="100%" scope="col">Action</th>
                     </tr>
                 </thead>
+              <tbody>
                 <tr v-for="(tool, index) in tools" :key="index">
                     <td scope="row" width="100%">
                         {{ tool.product }}

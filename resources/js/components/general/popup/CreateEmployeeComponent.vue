@@ -94,7 +94,7 @@
                 type: Boolean
             },
             employee: {
-                required: true,
+                required: false,
                 type: Object
             }
         },

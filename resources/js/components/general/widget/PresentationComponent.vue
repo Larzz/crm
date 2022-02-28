@@ -155,7 +155,7 @@
             limitName(str) {
                 return str.substr(0, 40)
             },
-             formatDate(date) {
+            formatDate(date) {
                 const currentDate = new Date(date);
                 const options = {
                     weekday: 'long',
@@ -168,6 +168,7 @@
         }
 
     }
+
 </script>
 
 <style scoped>
@@ -176,8 +177,7 @@
     }
 
     .card-body {
-       overflow-y: scroll;
+        overflow-y: scroll;
     }
-
 
 </style>

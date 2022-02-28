@@ -1,23 +1,23 @@
 <template>
     <div>
         <template v-if="clients">
+            <thead class="thead-light">
+                <tr>
+                    <th width="100%" scope="col">Name</th>
+                    <th width="100%" scope="col">Date Joined</th>
+                    <th width="100%" scope="col">Action</th>
+                </tr>
+            </thead>
             <tbody>
-                <thead class="thead-light">
-                    <tr>
-                        <th width="100%" scope="col">Name</th>
-                        <th width="100%" scope="col">Date Joined</th>
-                        <th width="100%" scope="col">Action</th>
-                    </tr>
-                </thead>
                 <tr v-for="(client, index) in clients" :key="index">
                     <td scope="row" width="100%">
                         {{ client.name }}
                     </td>
-                     <td scope="row" width="100%">
-                        {{ client.date_joined }}
+                    <td scope="row" width="100%">
+                        {{  formatDate(client.date_joined) }}
                     </td>
-                    <td width="100%">
-                        <div class="d-flex align-items-center">
+                    <td scope="row" width="100%">
+                        <div class="d-flex ">
                             <ul>
                                 <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
                                         title="View Employee"><i class="fas fa-eye"></i></a> </li>
@@ -129,10 +129,19 @@
                     }
                 })
 
+            },
+            formatDate(date) {
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
             }
         }
 
     }
 
 </script>
-

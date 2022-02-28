@@ -6,6 +6,9 @@
                     <div class="col">
                         <h4 class="h3 mb-0">Bulletin</h4>
                     </div>
+                    <div class="align-items-right">
+                        <div class="col text-right"><a href="#!" @click="updateBulletin(bulletin)" class="btn btn-sm btn-primary">Edit</a></div>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -42,11 +45,10 @@
            this.getBulettin()
         },
         methods: {
-
             getBulettin() {
-
-       w
-
+            },
+            updateBulletin(bulletin) {
+                console.log(bulletin)
             }
         }
     }

@@ -27,6 +27,8 @@ import CreateEmployeePopup from './components/general/popup/CreateEmployeeCompon
 import CreateNotePopup from './components/general/popup/CreateNoteComponent.vue'
 import PresentationPopup from './components/general/popup/PresentationComponent.vue'
 import MeetingMinutesPopup from './components/general/popup/MeetingMinutesComponent.vue'
+import EditBulletinPopup from './components/general/popup/EditBulletinComponent.vue'
+
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
 import ToolForm from './components/general/form/ToolFormComponent.vue'
@@ -64,6 +66,7 @@ Vue.component('create-note-popup', CreateNotePopup)
 // new naming method, need to change the above when have time
 Vue.component('presentation-popup', PresentationPopup)
 Vue.component('meeting-minutes-popup', MeetingMinutesPopup)
+Vue.component('edit-bulletin-popup', EditBulletinPopup)
 // form
 Vue.component('client-form', ClientForm)
 Vue.component('tool-form', ToolForm)
