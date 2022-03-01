@@ -3,28 +3,30 @@
         <template v-if="tools">
                 <thead class="thead-light">
                     <tr>
-                        <th width="100%" scope="col">Product</th>
-                        <th width="100%" scope="col">URL</th>
+                        <!-- <th width="100%" scope="col">Product</th> -->
+                        <!-- <th width="100%" scope="col">URL</th> -->
                         <th width="100%" scope="col">Details</th>
                         <th width="100%" scope="col">Action</th>
                     </tr>
                 </thead>
-              <tbody>
+              <tbody id="table-body">
                 <tr v-for="(tool, index) in tools" :key="index">
                     <td scope="row" width="100%">
-                        {{ tool.product }}
-                    </td>
-                    <td scope="row" width="100%">
-                        {{ tool.url }}
-                    </td>
-                    <td scope="row" width="100%">
-                        {{ tool.email }} <br/>
-                        {{ tool.password }} <br>
-                        {{ tool.purpose }} <br>
+                       Product: {{ tool.product }} <br/>
+                       URL: {{ tool.url }} <br/>
+                       Email: {{ tool.email }} <br/>
+                       Password: {{ tool.password }} <br>
+                       Purpose {{ tool.purpose }} <br>
+                       Subscription Type {{ tool.subscription_type }} <br>
+                       Frequency {{ tool.frequency_type }} <br>
+                       Price {{ tool.price }} <br>
+                       Expiration {{ tool.expiration }} <br>
+                       Notes: {{ tool.notes }}
                     </td>
                     <td width="100%">
                         <div class="d-flex align-items-center">
                             <ul>
+                                <li><a href="#!" @click="editTool(tool)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
                                 <li><a href="javascript:;" @click="viewTool(tool.id)" title="View Employee"><i class="fas fa-eye"></i></a> </li>
                                 <li><a href="javascript:;" @click="deleteTool(tool.id)" title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                             </ul>
@@ -102,7 +104,6 @@
                     })
                     .then(function () {});
             },
-
             deleteTool(tool_id) {
                 let $this = this
                 Swal.fire({
@@ -134,3 +135,10 @@
     }
 
 </script>
+
+
+<style scoped>
+    #table-body {
+        overflow-y: scroll;
+    }
+</style>

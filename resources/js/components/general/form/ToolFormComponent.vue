@@ -28,10 +28,41 @@
                     <label for="Purpose">Purpose</label>
                     <textarea name="" id="" cols="30" v-model="fields.purpose" class="form-control" rows="3"></textarea>
                 </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Subscription Type</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Frequency</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Expiration</label>
+                    <input type="text" class="form-control" name="" id="">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <textarea name="" class="form-control" id="" cols="30" rows="4"></textarea>
+                </div>
+
                 <div class="form-group">
                     <button type="button" @click="addTool" class="btn btn-primary">Save changes</button>
                 </div>
+
             </div>
+
         </div>
 
     </div>
@@ -46,7 +77,12 @@
                     email: null,
                     url: null,
                     password: null,
-                    purpose: null
+                    purpose: null,
+                    subscription_type: null,
+                    frequency: null,
+                    price: null,
+                    expiration:null,
+                    note: null
                 }
             }
         },
@@ -95,8 +131,8 @@
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.resetForm()
-                             $this.$emit('newToolAdded', true)
-                            $this.$toastr.s('Succesfully Added new Client')
+                            $this.$emit('newToolAdded', true)
+                            $this.$toastr.s('Succesfully Added Tool')
                         }
                     })
                     .catch(function (error) {
@@ -120,5 +156,8 @@
 </script>
 
 <style>
+    .card {
+        height: 803px;
+    }
 
 </style>

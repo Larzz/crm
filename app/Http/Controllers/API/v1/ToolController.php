@@ -38,6 +38,11 @@ class ToolController extends Controller
         $tool->password = $this->request->password;
         $tool->purpose = $this->request->purpose;
         $tool->added_by = auth()->user()->id;
+        $tool->subscription_type = $this->request->subscription_type;
+        $tool->frequency_type = $this->request->frequency;
+        $tool->price = $this->request->price;
+        $tool->expiration = $this->request->expiration;
+        $tool->notes = $this->request->notes;
 
         if($tool->save()) {
             return response()->json(['status' => true]);
@@ -46,6 +51,40 @@ class ToolController extends Controller
         return response()->json(['status' => false]);
 
     }
+
+
+    /**
+     * Edit Tool
+     * @return array
+    */
+    public function editTool($id) {
+
+        $tool = Tools::where('id', $id)->first();
+
+        if ($tool) {
+            
+            $tool->product = $this->request->product;
+            $tool->url = $this->request->url;
+            $tool->email = $this->request->email;
+            $tool->password = $this->request->password;
+            $tool->purpose = $this->request->purpose;
+            $tool->added_by = auth()->user()->id;
+            $tool->subscription_type = $this->request->subscription_type;
+            $tool->frequency_type = $this->request->frequency;
+            $tool->price = $this->request->price;
+            $tool->expiration = $this->request->expiration;
+            $tool->notes = $this->request->notes;
+
+            if($tool->save()) {
+                return response()->json(['status' => true]);
+            }
+
+        }
+
+        return response()->json(['status' => false]);
+
+    }
+
      
     
     /**
