@@ -45462,7 +45462,7 @@ var render = function () {
                         },
                       },
                     },
-                    [_vm._v("Edit")]
+                    [_c("i", { staticClass: "fa fa-edit" })]
                   ),
                 ]),
               ]),

@@ -55,6 +55,7 @@ class ToolController extends Controller
 
     /**
      * Edit Tool
+     * @param int $id
      * @return array
     */
     public function editTool($id) {

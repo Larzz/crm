@@ -9,7 +9,7 @@
                     <div class="col">
                         <div class="align-items-right">
                             <div class="col text-right"><a href="#!" @click="showPopup()"
-                                    class="btn btn-sm btn-primary">Edit</a></div>
+                                    class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></div>
                         </div>
                     </div>
                 </div>
