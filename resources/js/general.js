@@ -29,7 +29,7 @@ import PresentationPopup from './components/general/popup/PresentationComponent.
 import MeetingMinutesPopup from './components/general/popup/MeetingMinutesComponent.vue'
 import EditBulletinPopup from './components/general/popup/EditBulletinComponent.vue'
 import EditClientPopup from './components/general/popup/EditClientComponent.vue'
-
+import EditToolPopup from './components/general/popup/EditToolComponent.vue'
 
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
@@ -70,6 +70,7 @@ Vue.component('presentation-popup', PresentationPopup)
 Vue.component('meeting-minutes-popup', MeetingMinutesPopup)
 Vue.component('edit-bulletin-popup', EditBulletinPopup)
 Vue.component('edit-client-popup', EditClientPopup)
+Vue.component('edit-tool-popup', EditToolPopup)
 // form
 Vue.component('client-form', ClientForm)
 Vue.component('tool-form', ToolForm)

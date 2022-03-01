@@ -116,6 +116,7 @@ Route::namespace('API')->group(function() {
         Route::prefix('tools')->group(function() {
             Route::post('/', "ToolController@addTool");
             Route::get('/', 'ToolController@getTools');
+            Route::post('{id}', 'ToolController@editTool');
             Route::delete('{tool_id}', 'ToolController@deleteTool');
         });
 

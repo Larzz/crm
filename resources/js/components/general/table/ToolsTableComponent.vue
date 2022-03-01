@@ -27,7 +27,7 @@
                         <div class="d-flex align-items-center">
                             <ul>
                                 <li><a href="#!" @click="editTool(tool)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
-                                <li><a href="javascript:;" @click="viewTool(tool.id)" title="View Employee"><i class="fas fa-eye"></i></a> </li>
+                                <li><a href="javascript:;" @click="viewTool(tool)" title="View Employee"><i class="fas fa-eye"></i></a> </li>
                                 <li><a href="javascript:;" @click="deleteTool(tool.id)" title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                             </ul>
                         </div>
@@ -42,6 +42,7 @@
                 </div>
             </div>
         </template>
+        <edit-tool-popup :showPopup="showPopup" :isEdit="isEdit" :tool="tool" @close="close()" />
     </div>
 </template>
 
@@ -50,7 +51,10 @@
     export default {
         data() {
             return {
-                tools: {}
+                tools: {},
+                showPopup: false,
+                tool: {},
+                isEdit: false
             }
         },
         props: {
@@ -87,7 +91,15 @@
                     })
                     .then(function () {});
             },
-            editTool(tool_id) {
+            viewTool(tool) {
+                this.showPopup = true
+                this.tool = tool
+                return
+            },
+            editTool(tool) {
+                this.showPopup = true
+                this.tool = tool
+                return
                 let $this = this
                 JsLoadingOverlay.show(this.$configs);
                 axios({
@@ -129,6 +141,10 @@
                     }
                 })
 
+            },
+            close() {
+                this.showPopup = false
+                this.getTools()
             }
         }
 
