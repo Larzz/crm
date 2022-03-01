@@ -32,6 +32,8 @@
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
+                                             <li><a href="#!" @click="editMeeting(meeting)" title="Edit Client"><i
+                                                        class="fa fa-edit"></i></a> </li>
                                             <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting.attachment)" title="View Employee">
                                                 <i class="fas fa-eye"></i></a> </li>
                                             <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)" title="Update Employee"><i class="fas fa-trash"></i></a> </li>

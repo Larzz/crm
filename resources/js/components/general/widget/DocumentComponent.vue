@@ -32,8 +32,12 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li> <a href="#!" @click="viewDocument(document)" title="View Document"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" @click="removeDocument(document.id)" title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                            <li><a href="#!" @click="editDocument(document)" title="Edit Client"><i
+                                                        class="fa fa-edit"></i></a> </li>
+                                            <li> <a href="#!" @click="viewDocument(document)" title="View Document"><i
+                                                        class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" @click="removeDocument(document.id)"
+                                                    title="Delete Document"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -50,14 +54,14 @@
                 </template>
             </div>
         </div>
-        <upload-document-popup :showPopup="showPopup" :user="user" @fetchDocument="getDocuments" @close="showPopup = false"></upload-document-popup>
+        <upload-document-popup :showPopup="showPopup" :user="user" @fetchDocument="getDocuments"
+            @close="showPopup = false"></upload-document-popup>
     </div>
 </template>
 
 <script>
-
     import Swal from 'sweetalert2'
-    
+
     export default {
         data() {
             return {
@@ -142,8 +146,8 @@
 </script>
 
 <style scoped>
-    .card {
+    /* .card {
         height: 355px;
-    }
+    } */
 
 </style>

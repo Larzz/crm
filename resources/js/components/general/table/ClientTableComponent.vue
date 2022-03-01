@@ -19,10 +19,9 @@
                     <td scope="row" width="100%">
                         <div class="d-flex ">
                             <ul>
-                                <li><a href="#!" :data-id="client.id" @click="viewClient(client.id)"
-                                        title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                <li> <a href="#!" :data-id="client.id" @click="deleteClient(client.id)"
-                                        title="Update Employee"><i class="fas fa-trash"></i></a> </li>
+                                <li><a href="#!" @click="editClient(client)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
+                                <li><a href="#!" @click="viewClient(client.id)" title="View Client"><i class="fas fa-eye"></i></a> </li>
+                                <li><a href="#!" @click="deleteClient(client.id)" title="Update Client"><i class="fas fa-trash"></i></a> </li>
                             </ul>
                         </div>
                     </td>
@@ -36,6 +35,7 @@
                 </div>
             </div>
         </template>
+        <edit-client-popup :client="client" :showPopup="showPopup" @close="close()" />
     </div>
 </template>
 
@@ -44,7 +44,9 @@
     export default {
         data() {
             return {
-                clients: {}
+                client:{},
+                clients: {},
+                showPopup: false
             }
         },
         props: {
@@ -85,7 +87,10 @@
                 JsLoadingOverlay.show(this.$configs);
                 window.location.href = '/general/clients/' + client_id
             },
-            editClient(client_id) {
+            editClient(client) {
+                this.showPopup = true
+                this.client = client
+                return
                 let $this = this
                 JsLoadingOverlay.show(this.$configs);
                 axios({
@@ -100,9 +105,10 @@
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
-                    .then(function () {});
+                    .then(function () {
+                        JsLoadingOverlay.hide();
+                    });
             },
-
             deleteClient(client_id) {
                 let $this = this
                 Swal.fire({
@@ -139,6 +145,10 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            close() {
+                this.showPopup = false
+                this.getClients()
             }
         }
 

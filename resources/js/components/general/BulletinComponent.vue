@@ -8,7 +8,7 @@
                     </div>
                     <div class="col">
                         <div class="align-items-right">
-                            <div class="col text-right"><a href="#!" @click="showPopup=true"
+                            <div class="col text-right"><a href="#!" @click="showPopup()"
                                     class="btn btn-sm btn-primary">Edit</a></div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
 
             </div>
         </div>
-        <edit-bulletin-popup :bulletin="bulletin" :showPopup="showPopup" @close="close()"></edit-bulletin-popup>
+        <edit-bulletin-popup :bulletin="bulletinProp" :showPopup="showPopups" @close="close($event)"></edit-bulletin-popup>
     </div>
 </template>
 
@@ -43,14 +43,9 @@
         data() {
             return {
                 bulletin: {},
-                showPopup: false
+                bulletinProp: {},
+                showPopups: false
             }
-        },
-        beforeCreate() {
-            JsLoadingOverlay.show(this.$configs);
-        },
-        created() {
-            JsLoadingOverlay.hide();
         },
         mounted() {
             this.getBulettin()
@@ -60,7 +55,7 @@
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
+                        url: `/api/v1/bulletin?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
                         if (response.data.status) {
@@ -70,13 +65,16 @@
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
-                    .then(function () {});
+                    .then(function () {
+
+                    });
             },
-            updateBulletin() {
-                this.showPopup = true
+            close(bulletin) {
+                this.showPopups = false
             },
-            close() {
-                this.showPopoup = false
+            showPopup() {
+                this.showPopups = true
+                this.bulletinProp = this.bulletin
             }
         }
     }
@@ -84,8 +82,6 @@
 </script>
 
 <style scoped>
-    .card {
-        height: 386px;
-    }
+  
 
 </style>

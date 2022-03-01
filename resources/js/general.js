@@ -28,6 +28,8 @@ import CreateNotePopup from './components/general/popup/CreateNoteComponent.vue'
 import PresentationPopup from './components/general/popup/PresentationComponent.vue'
 import MeetingMinutesPopup from './components/general/popup/MeetingMinutesComponent.vue'
 import EditBulletinPopup from './components/general/popup/EditBulletinComponent.vue'
+import EditClientPopup from './components/general/popup/EditClientComponent.vue'
+
 
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
@@ -67,6 +69,7 @@ Vue.component('create-note-popup', CreateNotePopup)
 Vue.component('presentation-popup', PresentationPopup)
 Vue.component('meeting-minutes-popup', MeetingMinutesPopup)
 Vue.component('edit-bulletin-popup', EditBulletinPopup)
+Vue.component('edit-client-popup', EditClientPopup)
 // form
 Vue.component('client-form', ClientForm)
 Vue.component('tool-form', ToolForm)

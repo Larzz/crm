@@ -19,12 +19,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
                 <leave-application> </leave-application>
             </div>
             <div class="col-xl-4">
                 <employee-widget> </employee-widget>
+        
+            </div>
+            <div class="col-xl-4">
                 <general-client-card></general-client-card>
+            </div>
+
+            <div class="col-xl-4">
                 <document-expiration-widget></document-expiration-widget>
             </div>
         </div>

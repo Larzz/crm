@@ -8,7 +8,7 @@
                             <h3 class="mb-0">Notes</h3>
                         </div>
                         <div class="col text-right">
-                            <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
+                            <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">New</a>
                         </div>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <ul>
+                                                <li><a href="#!" @click="editNote(note)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
                                                 <li><a href="#!" @click="viewNote(note.id)" title="View Tutorial"><i
                                                             class="fas fa-eye"></i></a> </li>
                                                 <li> <a href="#!" @click="deleteNote(note.id)" title="Delete Note"><i

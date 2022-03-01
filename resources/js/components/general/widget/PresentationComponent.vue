@@ -32,6 +32,8 @@
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
+                                                 <li><a href="#!" @click="editPresentation(presentation)" title="Edit Client"><i
+                                                        class="fa fa-edit"></i></a> </li>
                                             <li><a href="#!" :data-id="presentation.id"
                                                     @click="viewPresentation(presentation.attachment)"
                                                     title="View Presentation"><i class="fas fa-eye"></i></a> </li>

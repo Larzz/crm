@@ -59,7 +59,7 @@ Route::namespace('API')->group(function() {
             Route::post('/', 'ClientController@addClient');
             Route::get('/', 'ClientController@getClients');
             Route::get('{id}', 'ClientController@getClient');
-            Route::patch('{id}', 'ClientController@editClient');
+            Route::post('{id}', 'ClientController@editClient');
             Route::delete('{id}', 'ClientController@deleteClient');
         });
 

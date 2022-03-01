@@ -6,7 +6,7 @@
         <transition name="slide" appear>
             <div class="modal" v-if="showPopup">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Notes</h6><button type="button"
+                    <h6 class="modal-title" id="modal-title-default">Update Bulletin</h6><button type="button"
                         @click.prevent="close" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>
                 </div>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Message</label>
-                        <textarea name="" id="" v-model="fields.message" cols="30" rows="1"
+                        <textarea name="" id="" v-model="fields.message" cols="30" rows="3"
                             class="form-control"></textarea>
                     </div>
                     <div class="form-group">
@@ -51,26 +51,132 @@
         },
         props: {
             bulletin: {
-                required: false,
+                required: true,
                 type: Object
             },
             showPopup: {
-                required: false,
+                required: true,
                 type: Boolean
             },
+        },
+        mounted() {
+            this.fields.id = this.bulletin.id
+            this.fields.title = this.bulletin.title
+            this.fields.message = this.bulletin.message
+            this.fields.active = this.bulletin.active
+        },
+        watch: {
+            bulletin() {
+                this.fields.id = this.bulletin.id
+                this.fields.title = this.fields.title
+                this.fields.message = this.fields.message
+                this.fields.active = this.fields.active
+            }
         },
         methods: {
             UpdateBulletin() {
                 console.log(this.fields)
             },
             close() {
-                $.emit('close', false)
+                this.$emit('close', this.fields)
+                this.fields.id = null
+                this.fields.title = null
+                this.fields.message = null
+                this.fields.active = null
             }
         }
     }
 
 </script>
 
-<style>
+<style scoped>
+    .form-group {
+        margin-bottom: 13px;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity .5s;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+    }
+
+    .slide-enter-active,
+    .slide-leave-active {
+        transition: transform .5s;
+    }
+
+    .slide-enter,
+    .slide-leave-to {
+        transform: translateY(-50%) translateX(100vw);
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 900;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-body {
+        padding: 9px;
+    }
+
+    .modal-footer {
+        display: flex;
+        padding: 10px;
+        border-top: 0 solid #e9ecef;
+        border-bottom-right-radius: 0.4375rem;
+        border-bottom-left-radius: 0.4375rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .modal {
+        position: fixed;
+        top: 2%;
+        left: 27%;
+        z-index: 1000;
+        width: 100%;
+        max-width: 50%;
+        background-color: #FFF;
+        border-radius: 16px;
+        padding: 0px;
+        display: block;
+        height: max-content;
+    }
+
+    h1 {
+        font-size: 24px;
+        line-height: 1px;
+    }
+
+    .right {
+        float: right;
+    }
+
+
+    .btn {
+        font-size: .875rem;
+        position: relative;
+        transition: all .15s ease;
+        letter-spacing: .025em;
+        text-transform: none;
+        will-change: transform;
+    }
+
+    .btn-primary {
+        color: #fff;
+        border-color: #f26f24;
+        background-color: #f26f24;
+        box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+    }
 
 </style>

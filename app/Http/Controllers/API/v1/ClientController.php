@@ -76,26 +76,29 @@ class ClientController extends Controller
     }
 
 
-    public function editClient() {
+    public function editClient($id) {
 
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'password' => 'required|min:6|max:255',
-            'position' => 'required',
-            'date_joined' => 'required'
+        $validator = Validator::make($this->request->all(), [
+            'name' => 'required',
+            'date_joined' => 'required',
+            'mobile_number' => 'required'
         ]);
 
-        $employee = User::where('id', $employee_id)->first();
+        if ($validator->fails()) {    
+            return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
+        }
 
-        if ($employee) {
+        $client = User::where('id', $id)->first();
+
+        if ($client) {
             
-            $employee->name = $this->request->name;
-            $employee->password = $this->request->password;
-            $employee->position = $this->request->position;
-            $employee->date_joined = $this->request->date_joined;
+            $client->name = $this->request->name;
+            $client->position = $this->request->position;
+            $client->date_joined = $this->request->date_joined;
+            $client->mobile_number = $this->request->mobile_number;
 
-            if($employee->save()) {
-                return response()->json(['status' => true, 'employee' => $employee]);
+            if($client->save()) {
+                return response()->json(['status' => true, 'employee' => $client]);
             }
 
             return response()->json(['status' => false], 500);

@@ -7,7 +7,7 @@
                         <h3 class="mb-0">{{ user.name }}</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                     </div>
                 </div>
             </div>
