@@ -154,7 +154,7 @@
 
 </script>
 
-<style>
+<style scoped>
     .card {
         height: 803px;
     }
