@@ -120,14 +120,11 @@
         },
         watch: {
             time() {
-                console.log(this.presentation)
                 this.fields.name = this.presentation.name 
                 this.fields.description = this.presentation.description
                 this.fields.meeting_date = this.presentation.meeting_date
                 this.fields.filename = this.presentation.attachment
-
                 this.path = `${this.path}/${this.presentation.attachment}`
-           
            }
         },
         methods: {

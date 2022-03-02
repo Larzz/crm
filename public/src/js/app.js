@@ -6161,7 +6161,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     time: function time() {
-      console.log(this.presentation);
       this.fields.name = this.presentation.name;
       this.fields.description = this.presentation.description;
       this.fields.meeting_date = this.presentation.meeting_date;
