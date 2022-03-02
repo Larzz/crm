@@ -115,7 +115,7 @@
             viewMeeting(meeting) {
 
                   window.open(
-                    `/documents/${this.meeting.attachment}`,
+                    `/documents/${meeting.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
                     );
                     return

@@ -113,7 +113,7 @@
 
 
                     window.open(
-                    `/documents/${this.presentation.attachment}`,
+                    `/documents/${presentation.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
                     );
                     return
