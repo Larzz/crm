@@ -110,6 +110,14 @@
              * @return redirect to other page
              */
             viewPresentation(presentation) {
+
+
+                    window.open(
+                    `/documents/${this.presentation.attachment}`,
+                    '_blank' // <- This is what makes it open in a new window.
+                    );
+                    return
+
                 this.presentation = presentation
                 this.showPopup = true
                                 this.isEdit = false

@@ -130,6 +130,13 @@
 
             },
             viewDocument(document) {
+                
+                    window.open(
+                    `/documents/${this.presentation.attachment}`,
+                    '_blank' // <- This is what makes it open in a new window.
+                    );
+                    return
+
                 console.log(document)
                 this.isEdit = false
                 this.showPopup = true

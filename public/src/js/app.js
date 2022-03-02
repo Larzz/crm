@@ -7042,6 +7042,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     viewDocument: function viewDocument(document) {
+      window.open("/documents/".concat(this.presentation.attachment), '_blank' // <- This is what makes it open in a new window.
+      );
+      return;
       console.log(document);
       this.isEdit = false;
       this.showPopup = true;
@@ -7192,6 +7195,9 @@ __webpack_require__.r(__webpack_exports__);
      * @return void
      */
     viewMeeting: function viewMeeting(meeting) {
+      window.open("/documents/".concat(this.meeting.attachment), '_blank' // <- This is what makes it open in a new window.
+      );
+      return;
       this.showPopup = true;
       this.time = Date.now();
       this.meeting = meeting; // JsLoadingOverlay.show(this.$configs);
@@ -7390,6 +7396,9 @@ __webpack_require__.r(__webpack_exports__);
      * @return redirect to other page
      */
     viewPresentation: function viewPresentation(presentation) {
+      window.open("/documents/".concat(this.presentation.attachment), '_blank' // <- This is what makes it open in a new window.
+      );
+      return;
       this.presentation = presentation;
       this.showPopup = true;
       this.isEdit = false;

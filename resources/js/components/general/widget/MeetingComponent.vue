@@ -113,6 +113,13 @@
              * @return void
              */
             viewMeeting(meeting) {
+
+                  window.open(
+                    `/documents/${this.meeting.attachment}`,
+                    '_blank' // <- This is what makes it open in a new window.
+                    );
+                    return
+                
                 this.showPopup = true
                 this.time = Date.now()
                 this.meeting = meeting
