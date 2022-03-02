@@ -29,6 +29,8 @@ class ClientController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required',
             'date_joined' => 'required',
+            'service_type' => 'required',
+            'url' => 'required',            
             'mobile_number' => 'required'
         ]);
 
@@ -44,6 +46,8 @@ class ClientController extends Controller
         $client->password = Hash::make($this->request->password);
         $client->date_joined = $this->request->date_joined;
         $client->mobile_number = $this->request->mobile_number;
+        $client->service_type = $this->request->service_type;
+        $client->url = $this->request->url;
         $client->api_token = hash('sha256', $token);
         $client->role = 3; //client
 
@@ -96,6 +100,8 @@ class ClientController extends Controller
             $client->position = $this->request->position;
             $client->date_joined = $this->request->date_joined;
             $client->mobile_number = $this->request->mobile_number;
+            $client->service_type = $this->request->service_type;
+            $client->url = $this->request->url;
 
             if($client->save()) {
                 return response()->json(['status' => true, 'employee' => $client]);

@@ -1,6 +1,9 @@
 <template>
     <div>
         <template v-if="tools">
+             <div class="card">
+                    <div class="card-body">
+                        <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
                         <!-- <th width="100%" scope="col">Product</th> -->
@@ -34,6 +37,9 @@
                     </td>
                 </tr>
             </tbody>
+                   </table>
+                    </div>
+                </div>
         </template>
         <template v-else>
             <div class="container">
@@ -155,6 +161,11 @@
 
 <style scoped>
     #table-body {
+        overflow-y: scroll;
+         height: 794px;
+    }
+     .card {
+        height: 794px;
         overflow-y: scroll;
     }
 </style>

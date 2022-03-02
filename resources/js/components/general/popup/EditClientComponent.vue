@@ -27,6 +27,12 @@
                                 <label for="">Password</label>
                                 <input type="text" v-model="fields.password" class="form-control">
                             </div>
+
+                            <div class="form-group">
+                                <label for="">URL</label>
+                                <input type="text" v-model="fields.url" class="form-control">
+                            </div>
+
                         </div>
 
                         <div class="col-md-6">
@@ -39,10 +45,13 @@
                                 <label for="">Contact Numer</label>
                                 <input type="text" v-model="fields.mobile_number" class="form-control">
                             </div>
+
+                            <div class="form-group">
+                                <label for="">Service type</label>
+                                <input type="text" v-model="fields.service_type" class="form-control">
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" @click="editClient" class="btn btn-primary">Save changes</button>
@@ -63,7 +72,9 @@
                     email: null,
                     password: null,
                     date_joined: null,
-                    mobile_number: null
+                    mobile_number: null,
+                    service_type: null,
+                    url: null
                 }
             }
         },
@@ -78,11 +89,14 @@
             }
         },
         mounted() {
+
             this.fields.name = this.client.name
             this.fields.email = this.client.email
             this.fields.password = this.client.password
             this.fields.date_joined = this.client.date_joined
             this.fields.mobile_number = this.client.mobile_number
+            this.fields.service_type = this.client.service_type
+            this.fields.url = this.client.url
         },
         watch: {
             client() {
@@ -91,6 +105,8 @@
                 this.fields.password = this.client.password
                 this.fields.date_joined = this.client.date_joined
                 this.fields.mobile_number = this.client.mobile_number
+                this.fields.service_type = this.client.service_type
+                this.fields.url = this.client.url
             }
         },
         methods: {

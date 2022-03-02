@@ -37,13 +37,7 @@
             </div>
             <!-- listing -->
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <table class="table align-items-center table-flush">
-                            <tool-table :newToolAdded="newToolAdded"></tool-table>
-                        </table>
-                    </div>
-                </div>
+                   <tool-table :newToolAdded="newToolAdded"></tool-table>
             </div>
             <!-- linkedin -->
             <div class="col-md-12">

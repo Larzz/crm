@@ -102,6 +102,10 @@
             showPopup: {
                 required: true,
                 type: Boolean
+            },
+            user: {
+                required: true,
+                type: Object
             }
         },
         mounted() {
@@ -125,7 +129,7 @@
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/documents/type?api_token=' + window.Laravel.api_token,
+                        url: '/api/v1/documents/types/docs?api_token=' + window.Laravel.api_token,
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.types = response.data.types
@@ -168,7 +172,7 @@
 
                 axios({
                         method: 'post',
-                        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+                        url: `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`,
                         data: $this.fields
                     }).then(function (response) {
                         if (response.data.status) {

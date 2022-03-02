@@ -14,6 +14,11 @@
                     <label for="">Password</label>
                     <input type="text" v-model="fields.password" class="form-control">
                 </div>
+
+                <div class="form-group">
+                    <label for="">URL</label>
+                    <input type="text" v-model="fields.url" class="form-control">
+                </div>
             </div>
 
             <div class="col-md-6">
@@ -23,9 +28,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Contact Numer</label>
+                    <label for="">Contact Number</label>
                     <input type="text" v-model="fields.mobile_number" class="form-control">
                 </div>
+
+                <div class="form-group">
+                    <label for="">Service type</label>
+                    <input type="text" v-model="fields.service_type" class="form-control">
+                </div>
+
             </div>
 
             <div class="col-md-12">
@@ -48,7 +59,9 @@
                     email: null,
                     password: null,
                     date_joined: null,
-                    mobile_number: null
+                    mobile_number: null,
+                    service_type: null,
+                    url: null
                 }
             }
         },
@@ -88,6 +101,17 @@
                     return;
                 }
 
+
+                if (!this.fields.service_type) {
+                    $this.$toastr.e('Service Type is Required')
+                    return;
+                }
+
+                if (!this.fields.url) {
+                    $this.$toastr.e('URL is Required')
+                    return;
+                }
+
                 JsLoadingOverlay.show(this.$configs);
 
                 axios({
@@ -116,6 +140,8 @@
                 this.fields.password = null
                 this.fields.date_joined = null
                 this.fields.mobile_number = null
+                this.fields.service_type = null
+                this.fields.url = null
             }
         }
     }

@@ -158,5 +158,4 @@
     .card {
         height: 803px;
     }
-
 </style>
