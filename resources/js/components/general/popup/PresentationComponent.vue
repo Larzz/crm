@@ -31,15 +31,21 @@
                                 <textarea name="" class="form-control" id="" v-model="fields.description" cols="30"
                                     rows="2"></textarea>
                             </div>
-                            <div class="form-group">
+
+                            <div class="form-group" v-if="!isEdit">
                                 <label for="">File</label>
-                                    <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
-                                        id="customdropzone">
-                                        <div class="dropzone-custom-content">
-                                            <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
-                                            <div class="subtitle">...or click to select a file from your computer</div>
-                                        </div>
-                                    </vue-dropzone>
+                                <a href="" class="btn btn-primary" @click="downloadpdf()">View</a>
+                            </div>
+
+                            <div class="form-group" v-if="isEdit">
+                                <label for="">File</label>
+                                <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
+                                    id="customdropzone">
+                                    <div class="dropzone-custom-content">
+                                        <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+                                        <div class="subtitle">...or click to select a file from your computer</div>
+                                    </div>
+                                </vue-dropzone>
                             </div>
                         </div>
                     </div>
@@ -73,6 +79,7 @@
                     description: null,
                     filename: null,
                 },
+                path: '/documents/',
                 api_token: window.Laravel.api_token,
                 dropzoneOptions: {
                     url: `/api/v1/documents/upload/docs?api_token=${window.Laravel.api_token}`,
@@ -93,10 +100,35 @@
             user: {
                 required: true,
                 type: Object
+            },
+            time: {
+                required: true,
+                type: Number
+            },
+            presentation: {
+                required: true,
+                type: Object
+            },
+            isEdit: {
+                required: true,
+                type: Boolean
             }
+
         },
         mounted() {
-            console.log(this.user)
+            // console.log(this.user)
+        },
+        watch: {
+            time() {
+                console.log(this.presentation)
+                this.fields.name = this.presentation.name 
+                this.fields.description = this.presentation.description
+                this.fields.meeting_date = this.presentation.meeting_date
+                this.fields.filename = this.presentation.attachment
+
+                this.path = `${this.path}/${this.presentation.attachment}`
+           
+           }
         },
         methods: {
             close: function () {
@@ -154,13 +186,18 @@
                     this.fields.filename = response.filename
                 }
             },
+            downloadpdf() {
+                 window.open(
+                    `${this.path}`,
+                    '_blank' // <- This is what makes it open in a new window.
+                    );
+            }
         }
     }
 
 </script>
 
 <style scoped>
-
     .customdropzone {
         width: 100%;
     }

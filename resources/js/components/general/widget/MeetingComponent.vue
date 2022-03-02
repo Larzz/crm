@@ -26,17 +26,19 @@
                                 <td scope="row" width="100%">
                                     {{ meeting.name }}
                                 </td>
-                                  <td scope="row" width="100%">
+                                <td scope="row" width="100%">
                                     {{ formatDate(meeting.meeting_date) }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                             <li><a href="#!" @click="editMeeting(meeting)" title="Edit Client"><i
+                                            <li><a href="#!" @click="editMeeting(meeting)" title="Edit Client"><i
                                                         class="fa fa-edit"></i></a> </li>
-                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting.attachment)" title="View Employee">
-                                                <i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)" title="Update Employee"><i class="fas fa-trash"></i></a> </li>
+                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting)"
+                                                    title="View Employee">
+                                                    <i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)"
+                                                    title="Update Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -53,7 +55,8 @@
                 </table>
             </div>
         </div>
-        <meeting-minutes-popup :showPopup="showPopup" :user="user" @close="reload()"></meeting-minutes-popup>
+        <meeting-minutes-popup :showPopup="showPopup" :time="time" :meeting="meeting" :isEdit="isEdit" :user="user"
+            @close="reload()"></meeting-minutes-popup>
     </div>
 </template>
 
@@ -62,8 +65,11 @@
     export default {
         data() {
             return {
+                meeting: {},
                 meetings: {},
-                showPopup: false
+                showPopup: false,
+                isEdit: false,
+                time: Date.now()
             }
         },
         props: {
@@ -106,9 +112,25 @@
              * @param meeting string
              * @return void
              */
-            viewMeeting(filename) {
-                JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/documents/' + filename
+            viewMeeting(meeting) {
+                this.showPopup = true
+                this.time = Date.now()
+                this.meeting = meeting
+                // JsLoadingOverlay.show(this.$configs);
+                // window.location.href = '/documents/' + filename
+            },
+            /**
+             * Edit Meeting  
+             * @param meeting string
+             * @return void
+             */
+            editMeeting(meeting) {
+                this.showPopup = true
+                this.time = Date.now()
+                this.meeting = meeting
+                this.isEdit = true
+                // JsLoadingOverlay.show(this.$configs);
+                // window.location.href = '/documents/' + filename
             },
             /**
              * Format Date 
@@ -151,6 +173,7 @@
              */
             reload() {
                 this.showPopup = false
+                 this.isEdit = false
                 this.getMeetings()
             },
             formatDate(date) {

@@ -7,7 +7,7 @@
                         <h3 class="mb-0">Presentation</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
+                        <a href="#!" @click="showPopup=true, isEdit = true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
@@ -32,10 +32,10 @@
                                 <td width="100%">
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                                 <li><a href="#!" @click="editPresentation(presentation)" title="Edit Client"><i
-                                                        class="fa fa-edit"></i></a> </li>
+                                            <li><a href="#!" @click="editPresentation(presentation)"
+                                                    title="Edit Client"><i class="fa fa-edit"></i></a> </li>
                                             <li><a href="#!" :data-id="presentation.id"
-                                                    @click="viewPresentation(presentation.attachment)"
+                                                    @click="viewPresentation(presentation)"
                                                     title="View Presentation"><i class="fas fa-eye"></i></a> </li>
                                             <li> <a href="#!" :data-id="presentation.id"
                                                     @click="deletePresentation(presentation.id)"
@@ -56,7 +56,8 @@
                 </table>
             </div>
         </div>
-        <presentation-popup :user="user" :showPopup="showPopup" :isEdit="isEdit" :presentation="presentation" @close="close()"> </presentation-popup>
+        <presentation-popup :user="user" :showPopup="showPopup" :time="time" :isEdit="isEdit" :presentation="presentation"
+            @close="close()"> </presentation-popup>
     </div>
 </template>
 
@@ -109,13 +110,18 @@
              * @return redirect to other page
              */
             viewPresentation(presentation) {
-
                 this.presentation = presentation
                 this.showPopup = true
-                this.time=Date.now()
-                
+                                this.isEdit = false
+                this.time = Date.now()
                 // JsLoadingOverlay.show(this.$configs);
                 // window.location.href = '/documents/' + filename
+            },
+            editPresentation(presentation) {
+                this.presentation = presentation
+                this.showPopup = true
+                this.isEdit = true
+                this.time = Date.now()
             },
             /**
              * Delete Presentation
@@ -155,6 +161,8 @@
              */
             close() {
                 this.showPopup = false
+                this.showPopup = false
+                this.isEdit = true
                 this.getPresentation()
             },
             /**

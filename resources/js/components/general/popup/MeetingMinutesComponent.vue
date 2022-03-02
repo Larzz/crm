@@ -35,7 +35,14 @@
                                     rows="2"></textarea>
                             </div>
 
-                            <div class="form-group">
+                            <template  v-if="!isEdit">
+                                <div class="form-group">
+                                    <label for="">File</label>
+                                    <a href="" class="btn btn-primary">View File</a>
+                                </div>
+                            </template>
+
+                            <div class="form-group" v-if="isEdit">
                                 <label for="">File</label>
                                 <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
                                     id="customdropzone">
@@ -47,9 +54,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" @click="postMeeting" class="btn btn-primary">Save changes</button>
@@ -62,9 +66,6 @@
 </template>
 
 <script>
-    import {
-        ref
-    } from 'vue'
     import vue2Dropzone from 'vue2-dropzone'
     import 'vue2-dropzone/dist/vue2Dropzone.min.css'
     //    import FileUpload from 'vue-upload-component'
@@ -104,9 +105,32 @@
             user: {
                 required: true,
                 type: Object
+            },
+            isEdit: {
+                required: true,
+                type: Boolean
+            },
+            meeting: {
+                required: true,
+                type: Object
+            },
+            time: {
+                required: true,
+                type: Number
             }
         },
         mounted() {},
+        watch: {
+            time() {
+                console.log(this.time)
+                this.fields.name = this.meeting.name 
+                this.fields.description = this.meeting.description
+                this.fields.meeting_date = this.meeting.meeting_date
+                this.fields.filename = this.meeting.attachment
+
+                this.path = `${this.path}/${this.meeting.attachment}`
+            }
+        },
         methods: {
             /** Close Document
              * 
@@ -208,6 +232,12 @@
                     this.fields.filename = response.filename
                 }
             },
+            downloadpdf() {
+                window.open(
+                    `${this.path}`,
+                    '_blank'
+                )
+            }
         }
     }
 
@@ -217,7 +247,6 @@
     .customdropzone {
         width: 100%;
     }
-
 
     .form-group {
         margin-bottom: 10px;

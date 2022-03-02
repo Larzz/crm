@@ -5788,12 +5788,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -5857,13 +5855,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
 
  //    import FileUpload from 'vue-upload-component'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default.a
+    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
     return {
@@ -5896,9 +5897,31 @@ __webpack_require__.r(__webpack_exports__);
     user: {
       required: true,
       type: Object
+    },
+    isEdit: {
+      required: true,
+      type: Boolean
+    },
+    meeting: {
+      required: true,
+      type: Object
+    },
+    time: {
+      required: true,
+      type: Number
     }
   },
   mounted: function mounted() {},
+  watch: {
+    time: function time() {
+      console.log(this.time);
+      this.fields.name = this.meeting.name;
+      this.fields.description = this.meeting.description;
+      this.fields.meeting_date = this.meeting.meeting_date;
+      this.fields.filename = this.meeting.attachment;
+      this.path = "".concat(this.path, "/").concat(this.meeting.attachment);
+    }
+  },
   methods: {
     /** Close Document
      * 
@@ -5999,6 +6022,9 @@ __webpack_require__.r(__webpack_exports__);
         this.$toastr.s('Successfully Uploaded');
         this.fields.filename = response.filename;
       }
+    },
+    downloadpdf: function downloadpdf() {
+      window.open("".concat(this.path), '_blank');
     }
   }
 });
@@ -6074,6 +6100,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6090,6 +6122,7 @@ __webpack_require__.r(__webpack_exports__);
         description: null,
         filename: null
       },
+      path: '/documents/',
       api_token: window.Laravel.api_token,
       dropzoneOptions: {
         url: "/api/v1/documents/upload/docs?api_token=".concat(window.Laravel.api_token),
@@ -6110,10 +6143,31 @@ __webpack_require__.r(__webpack_exports__);
     user: {
       required: true,
       type: Object
+    },
+    time: {
+      required: true,
+      type: Number
+    },
+    presentation: {
+      required: true,
+      type: Object
+    },
+    isEdit: {
+      required: true,
+      type: Boolean
     }
   },
-  mounted: function mounted() {
-    console.log(this.user);
+  mounted: function mounted() {// console.log(this.user)
+  },
+  watch: {
+    time: function time() {
+      console.log(this.presentation);
+      this.fields.name = this.presentation.name;
+      this.fields.description = this.presentation.description;
+      this.fields.meeting_date = this.presentation.meeting_date;
+      this.fields.filename = this.presentation.attachment;
+      this.path = "".concat(this.path, "/").concat(this.presentation.attachment);
+    }
   },
   methods: {
     close: function close() {
@@ -6168,6 +6222,10 @@ __webpack_require__.r(__webpack_exports__);
         this.$toastr.s('Successfully Uploaded');
         this.fields.filename = response.filename;
       }
+    },
+    downloadpdf: function downloadpdf() {
+      window.open("".concat(this.path), '_blank' // <- This is what makes it open in a new window.
+      );
     }
   }
 });
@@ -7081,12 +7139,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      meeting: {},
       meetings: {},
-      showPopup: false
+      showPopup: false,
+      isEdit: false,
+      time: Date.now()
     };
   },
   props: {
@@ -7127,9 +7191,24 @@ __webpack_require__.r(__webpack_exports__);
      * @param meeting string
      * @return void
      */
-    viewMeeting: function viewMeeting(filename) {
-      JsLoadingOverlay.show(this.$configs);
-      window.location.href = '/documents/' + filename;
+    viewMeeting: function viewMeeting(meeting) {
+      this.showPopup = true;
+      this.time = Date.now();
+      this.meeting = meeting; // JsLoadingOverlay.show(this.$configs);
+      // window.location.href = '/documents/' + filename
+    },
+
+    /**
+     * Edit Meeting  
+     * @param meeting string
+     * @return void
+     */
+    editMeeting: function editMeeting(meeting) {
+      this.showPopup = true;
+      this.time = Date.now();
+      this.meeting = meeting;
+      this.isEdit = true; // JsLoadingOverlay.show(this.$configs);
+      // window.location.href = '/documents/' + filename
     },
 
     /**
@@ -7173,6 +7252,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     reload: function reload() {
       this.showPopup = false;
+      this.isEdit = false;
       this.getMeetings();
     },
     formatDate: function formatDate(date) {
@@ -7201,6 +7281,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -7311,8 +7392,15 @@ __webpack_require__.r(__webpack_exports__);
     viewPresentation: function viewPresentation(presentation) {
       this.presentation = presentation;
       this.showPopup = true;
+      this.isEdit = false;
       this.time = Date.now(); // JsLoadingOverlay.show(this.$configs);
       // window.location.href = '/documents/' + filename
+    },
+    editPresentation: function editPresentation(presentation) {
+      this.presentation = presentation;
+      this.showPopup = true;
+      this.isEdit = true;
+      this.time = Date.now();
     },
 
     /**
@@ -7353,6 +7441,8 @@ __webpack_require__.r(__webpack_exports__);
      */
     close: function close() {
       this.showPopup = false;
+      this.showPopup = false;
+      this.isEdit = true;
       this.getPresentation();
     },
 
@@ -60661,78 +60751,114 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Description"),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-12" },
+                    [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Description"),
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fields.description,
+                              expression: "fields.description",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "", id: "", cols: "30", rows: "2" },
+                          domProps: { value: _vm.fields.description },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.fields,
+                                "description",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
                       ]),
                       _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.description,
-                            expression: "fields.description",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: { name: "", id: "", cols: "30", rows: "2" },
-                        domProps: { value: _vm.fields.description },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.fields,
-                              "description",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { attrs: { for: "" } }, [_vm._v("File")]),
-                        _vm._v(" "),
-                        _c(
-                          "vue-dropzone",
-                          {
-                            attrs: {
-                              options: _vm.dropzoneOptions,
-                              id: "customdropzone",
-                            },
-                            on: { "vdropzone-success": _vm.uploadResponse },
-                          },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "dropzone-custom-content" },
-                              [
-                                _c(
-                                  "h3",
-                                  { staticClass: "dropzone-custom-title" },
-                                  [_vm._v("Drag and drop to upload content!")]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "subtitle" }, [
-                                  _vm._v(
-                                    "...or click to select a file from your computer"
-                                  ),
-                                ]),
-                              ]
-                            ),
+                      !_vm.isEdit
+                        ? [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("File"),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { href: "" },
+                                },
+                                [_vm._v("View File")]
+                              ),
+                            ]),
                           ]
-                        ),
-                      ],
-                      1
-                    ),
-                  ]),
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.isEdit
+                        ? _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("File"),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "vue-dropzone",
+                                {
+                                  attrs: {
+                                    options: _vm.dropzoneOptions,
+                                    id: "customdropzone",
+                                  },
+                                  on: {
+                                    "vdropzone-success": _vm.uploadResponse,
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "dropzone-custom-content" },
+                                    [
+                                      _c(
+                                        "h3",
+                                        {
+                                          staticClass: "dropzone-custom-title",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "Drag and drop to upload content!"
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "subtitle" }, [
+                                        _vm._v(
+                                          "...or click to select a file from your computer"
+                                        ),
+                                      ]),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                    ],
+                    2
+                  ),
                 ]),
               ]),
               _vm._v(" "),
@@ -60942,44 +61068,72 @@ var render = function () {
                       }),
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("label", { attrs: { for: "" } }, [_vm._v("File")]),
-                        _vm._v(" "),
-                        _c(
-                          "vue-dropzone",
-                          {
-                            attrs: {
-                              options: _vm.dropzoneOptions,
-                              id: "customdropzone",
+                    !_vm.isEdit
+                      ? _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "" } }, [_vm._v("File")]),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.downloadpdf()
+                                },
+                              },
                             },
-                            on: { "vdropzone-success": _vm.uploadResponse },
-                          },
+                            [_vm._v("View")]
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.isEdit
+                      ? _c(
+                          "div",
+                          { staticClass: "form-group" },
                           [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("File"),
+                            ]),
+                            _vm._v(" "),
                             _c(
-                              "div",
-                              { staticClass: "dropzone-custom-content" },
+                              "vue-dropzone",
+                              {
+                                attrs: {
+                                  options: _vm.dropzoneOptions,
+                                  id: "customdropzone",
+                                },
+                                on: { "vdropzone-success": _vm.uploadResponse },
+                              },
                               [
                                 _c(
-                                  "h3",
-                                  { staticClass: "dropzone-custom-title" },
-                                  [_vm._v("Drag and drop to upload content!")]
+                                  "div",
+                                  { staticClass: "dropzone-custom-content" },
+                                  [
+                                    _c(
+                                      "h3",
+                                      { staticClass: "dropzone-custom-title" },
+                                      [
+                                        _vm._v(
+                                          "Drag and drop to upload content!"
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "subtitle" }, [
+                                      _vm._v(
+                                        "...or click to select a file from your computer"
+                                      ),
+                                    ]),
+                                  ]
                                 ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "subtitle" }, [
-                                  _vm._v(
-                                    "...or click to select a file from your computer"
-                                  ),
-                                ]),
                               ]
                             ),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
                   ]),
                 ]),
               ]),
@@ -62183,9 +62337,7 @@ var render = function () {
                                         },
                                         on: {
                                           click: function ($event) {
-                                            return _vm.viewMeeting(
-                                              meeting.attachment
-                                            )
+                                            return _vm.viewMeeting(meeting)
                                           },
                                         },
                                       },
@@ -62228,7 +62380,13 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("meeting-minutes-popup", {
-        attrs: { showPopup: _vm.showPopup, user: _vm.user },
+        attrs: {
+          showPopup: _vm.showPopup,
+          time: _vm.time,
+          meeting: _vm.meeting,
+          isEdit: _vm.isEdit,
+          user: _vm.user,
+        },
         on: {
           close: function ($event) {
             return _vm.reload()
@@ -62315,7 +62473,7 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
-                      _vm.showPopup = true
+                      ;(_vm.showPopup = true), (_vm.isEdit = true)
                     },
                   },
                 },
@@ -62394,7 +62552,7 @@ var render = function () {
                                         on: {
                                           click: function ($event) {
                                             return _vm.viewPresentation(
-                                              presentation.attachment
+                                              presentation
                                             )
                                           },
                                         },
@@ -62443,6 +62601,7 @@ var render = function () {
         attrs: {
           user: _vm.user,
           showPopup: _vm.showPopup,
+          time: _vm.time,
           isEdit: _vm.isEdit,
           presentation: _vm.presentation,
         },
