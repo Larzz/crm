@@ -42,6 +42,7 @@ class MeetingController extends Controller
         $meeting->description = $this->request->description;
         $meeting->attachment = $this->request->filename;
         $meeting->date_added = $this->request->meeting_date;
+        $meeting->meeting_date = $this->request->meeting_date;
         $meeting->client_id = $client_id;
         $meeting->user_id = auth()->user()->id;
 

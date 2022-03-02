@@ -43,7 +43,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+
+                    <template v-if="!isEdit">
+                        <div class="col-md-12 text-center">
+                            <div class="form-group">
+                                 <a href="javascript:;" @click="downloadpdf()" class="btn btn-primary">View Attachment</a>
+                            </div>
+                        </div>
+                    </template>
+
+
+                    <div class="col-md-12" v-if="isEdit">
                         <div class="form-group">
                             <label for="">File</label>
                             <vue-dropzone :options="dropzoneOptions" v-on:vdropzone-success="uploadResponse"
@@ -55,6 +65,7 @@
                             </vue-dropzone>
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" @click="postDocument" class="btn btn-primary">Save changes</button>
@@ -80,14 +91,14 @@
                 files: [],
                 types: [],
                 fields: {
-                    id:null,
+                    id: null,
                     name: null,
                     type: null,
                     renewal_date: null,
                     expiration_date: null,
                     filename: null
                 },
-                path: null,
+                path: '/documents/',
                 api_token: window.Laravel.api_token,
                 dropzoneOptions: {
                     url: `/api/v1/documents/upload/docs?api_token=${window.Laravel.api_token}`,
@@ -132,7 +143,9 @@
                 this.fields.type = this.document.type
                 this.fields.renewal_date = this.document.renewal_date
                 this.fields.expiration_date = this.document.expiration_date
-                
+
+                this.path = `${this.path}/${this.document.attachment}`
+
                 console.log(this.document)
             }
         },
@@ -201,9 +214,15 @@
 
                 let $this = this
 
+                let url = `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`
+
+                if(this.fields.id) {
+                    let url = `/api/v1/documents/${this.user.id}/${this.fields.id}?api_token=${window.Laravel.api_token}`
+                }
+
                 axios({
                         method: 'post',
-                        url: `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`,
+                        url: url,
                         data: $this.fields
                     }).then(function (response) {
                         if (response.data.status) {
@@ -239,6 +258,12 @@
                 this.fields.renewal_date = null
                 this.fields.expiration_date = null
                 this.fields.filename = null
+            },
+            downloadpdf: function() {
+                window.open(
+                    `${this.path}`,
+                    '_blank' // <- This is what makes it open in a new window.
+                    );
             }
         }
     }

@@ -6255,6 +6255,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6274,7 +6285,7 @@ __webpack_require__.r(__webpack_exports__);
         expiration_date: null,
         filename: null
       },
-      path: null,
+      path: '/documents/',
       api_token: window.Laravel.api_token,
       dropzoneOptions: {
         url: "/api/v1/documents/upload/docs?api_token=".concat(window.Laravel.api_token),
@@ -6318,6 +6329,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.type = this.document.type;
       this.fields.renewal_date = this.document.renewal_date;
       this.fields.expiration_date = this.document.expiration_date;
+      this.path = "".concat(this.path, "/").concat(this.document.attachment);
       console.log(this.document);
     }
   },
@@ -6381,9 +6393,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var $this = this;
+      var url = "/api/v1/documents/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token);
+
+      if (this.fields.id) {
+        var _url = "/api/v1/documents/".concat(this.user.id, "/").concat(this.fields.id, "?api_token=").concat(window.Laravel.api_token);
+      }
+
       axios({
         method: 'post',
-        url: "/api/v1/documents/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
+        url: url,
         data: $this.fields
       }).then(function (response) {
         if (response.data.status) {
@@ -6419,6 +6437,10 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.renewal_date = null;
       this.fields.expiration_date = null;
       this.fields.filename = null;
+    },
+    downloadpdf: function downloadpdf() {
+      window.open("".concat(this.path), '_blank' // <- This is what makes it open in a new window.
+      );
     }
   }
 });
@@ -7246,7 +7268,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       presentations: null,
-      showPopup: false
+      showPopup: false,
+      isEdit: false,
+      presentation: {},
+      time: Date.now()
     };
   },
   props: {
@@ -7283,9 +7308,11 @@ __webpack_require__.r(__webpack_exports__);
      * View Presentation
      * @return redirect to other page
      */
-    viewPresentation: function viewPresentation(filename) {
-      JsLoadingOverlay.show(this.$configs);
-      window.location.href = '/documents/' + filename;
+    viewPresentation: function viewPresentation(presentation) {
+      this.presentation = presentation;
+      this.showPopup = true;
+      this.time = Date.now(); // JsLoadingOverlay.show(this.$configs);
+      // window.location.href = '/documents/' + filename
     },
 
     /**
@@ -61066,199 +61093,236 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.name,
-                            expression: "fields.name",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.fields.name },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.fields, "name", $event.target.value)
-                          },
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Document Type"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
+                        _vm._v(" "),
+                        _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.fields.type,
-                              expression: "fields.type",
+                              value: _vm.fields.name,
+                              expression: "fields.name",
                             },
                           ],
                           staticClass: "form-control",
-                          attrs: { name: "", id: "" },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.fields.name },
                           on: {
-                            change: function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.fields, "name", $event.target.value)
+                            },
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Document Type"),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.fields.type,
+                                expression: "fields.type",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { name: "", id: "" },
+                            on: {
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.fields,
+                                  "type",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                            },
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "", selected: "" } },
+                              [_vm._v("Select Document Type")]
+                            ),
+                            _vm._v(" "),
+                            _vm.types
+                              ? _vm._l(_vm.types, function (type, index) {
+                                  return _c("option", { key: index }, [
+                                    _vm._v(_vm._s(type.name)),
+                                  ])
                                 })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
+                              : _vm._e(),
+                          ],
+                          2
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Expiration Date"),
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fields.expiration_date,
+                              expression: "fields.expiration_date",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.fields.expiration_date },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
                               _vm.$set(
                                 _vm.fields,
-                                "type",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
+                                "expiration_date",
+                                $event.target.value
                               )
                             },
                           },
-                        },
-                        [
-                          _c("option", { attrs: { value: "", selected: "" } }, [
-                            _vm._v("Select Document Type"),
-                          ]),
-                          _vm._v(" "),
-                          _vm.types
-                            ? _vm._l(_vm.types, function (type, index) {
-                                return _c("option", { key: index }, [
-                                  _vm._v(_vm._s(type.name)),
-                                ])
-                              })
-                            : _vm._e(),
-                        ],
-                        2
-                      ),
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Renewal Date"),
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fields.renewal_date,
+                              expression: "fields.renewal_date",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.fields.renewal_date },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.fields,
+                                "renewal_date",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                      ]),
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Expiration Date"),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.expiration_date,
-                            expression: "fields.expiration_date",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "date" },
-                        domProps: { value: _vm.fields.expiration_date },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.fields,
-                              "expiration_date",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Renewal Date"),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.renewal_date,
-                            expression: "fields.renewal_date",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "date" },
-                        domProps: { value: _vm.fields.renewal_date },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.fields,
-                              "renewal_date",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { attrs: { for: "" } }, [_vm._v("File")]),
-                      _vm._v(" "),
-                      _c(
-                        "vue-dropzone",
-                        {
-                          attrs: {
-                            options: _vm.dropzoneOptions,
-                            id: "customdropzone",
-                          },
-                          on: { "vdropzone-success": _vm.uploadResponse },
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "dropzone-custom-content" },
-                            [
-                              _c(
-                                "h3",
-                                { staticClass: "dropzone-custom-title" },
-                                [_vm._v("Drag and drop to upload content!")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "subtitle" }, [
-                                _vm._v(
-                                  "...or click to select a file from your computer"
+                  !_vm.isEdit
+                    ? [
+                        _c("div", { staticClass: "col-md-12 text-center" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { href: "javascript:;" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.downloadpdf()
+                                  },
+                                },
+                              },
+                              [_vm._v("View Attachment")]
+                            ),
+                          ]),
+                        ]),
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isEdit
+                    ? _c("div", { staticClass: "col-md-12" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("File"),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "vue-dropzone",
+                              {
+                                attrs: {
+                                  options: _vm.dropzoneOptions,
+                                  id: "customdropzone",
+                                },
+                                on: { "vdropzone-success": _vm.uploadResponse },
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "dropzone-custom-content" },
+                                  [
+                                    _c(
+                                      "h3",
+                                      { staticClass: "dropzone-custom-title" },
+                                      [
+                                        _vm._v(
+                                          "Drag and drop to upload content!"
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "subtitle" }, [
+                                      _vm._v(
+                                        "...or click to select a file from your computer"
+                                      ),
+                                    ]),
+                                  ]
                                 ),
-                              ]),
-                            ]
-                          ),
-                        ]
-                      ),
-                    ],
-                    1
-                  ),
-                ]),
-              ]),
+                              ]
+                            ),
+                          ],
+                          1
+                        ),
+                      ])
+                    : _vm._e(),
+                ],
+                2
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -62376,7 +62440,12 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("presentation-popup", {
-        attrs: { user: _vm.user, showPopup: _vm.showPopup },
+        attrs: {
+          user: _vm.user,
+          showPopup: _vm.showPopup,
+          isEdit: _vm.isEdit,
+          presentation: _vm.presentation,
+        },
         on: {
           close: function ($event) {
             return _vm.close()

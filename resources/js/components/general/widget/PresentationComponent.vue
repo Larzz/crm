@@ -56,7 +56,7 @@
                 </table>
             </div>
         </div>
-        <presentation-popup :user="user" :showPopup="showPopup" @close="close()"> </presentation-popup>
+        <presentation-popup :user="user" :showPopup="showPopup" :isEdit="isEdit" :presentation="presentation" @close="close()"> </presentation-popup>
     </div>
 </template>
 
@@ -66,7 +66,10 @@
         data() {
             return {
                 presentations: null,
-                showPopup: false
+                showPopup: false,
+                isEdit: false,
+                presentation: {},
+                time: Date.now()
             }
         },
         props: {
@@ -105,9 +108,14 @@
              * View Presentation
              * @return redirect to other page
              */
-            viewPresentation(filename) {
-                JsLoadingOverlay.show(this.$configs);
-                window.location.href = '/documents/' + filename
+            viewPresentation(presentation) {
+
+                this.presentation = presentation
+                this.showPopup = true
+                this.time=Date.now()
+                
+                // JsLoadingOverlay.show(this.$configs);
+                // window.location.href = '/documents/' + filename
             },
             /**
              * Delete Presentation
