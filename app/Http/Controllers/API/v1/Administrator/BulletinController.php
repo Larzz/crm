@@ -69,19 +69,19 @@ class BulletinController extends Controller
 
         if($bulletin) {
 
-            $validated = $this->request->validate([
+            $validator = Validator::make($this->request->all(), [
                 'title' => 'required',
                 'message' => 'required',
                 'active' => 'required',
             ]);
-
+    
             if ($validator->fails()) {    
-                return response()->json(['status' => false, 'messages' => $validated->messages()], 422);
+                return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
             }
 
             $bulletin->title = $this->request->title;
             $bulletin->message = $this->request->message;
-            $bulletin->active = $this->request->active;
+            // $bulletin->active = $this->request->active;
             $bulletin->added_by = auth()->user()->id;
 
             if($bulletin->save()) {

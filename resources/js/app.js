@@ -28,6 +28,10 @@ import administrator from './administrator'
 import general from './general'
 import staff from './staff'
 
+import VueGoodTablePlugin from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css'
+Vue.use(VueGoodTablePlugin);
+
 const app = new Vue({
     el: '#wrapper',
 });

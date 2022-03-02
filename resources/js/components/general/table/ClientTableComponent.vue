@@ -19,9 +19,12 @@
                     <td scope="row" width="100%">
                         <div class="d-flex ">
                             <ul>
-                                <li><a href="#!" @click="editClient(client)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
-                                <li><a href="#!" @click="viewClient(client.id)" title="View Client"><i class="fas fa-eye"></i></a> </li>
-                                <li><a href="#!" @click="deleteClient(client.id)" title="Update Client"><i class="fas fa-trash"></i></a> </li>
+                                <li><a href="#!" @click="editClient(client)" title="Edit Client"><i
+                                            class="fa fa-edit"></i></a> </li>
+                                <li><a href="#!" @click="viewClient(client.id)" title="View Client"><i
+                                            class="fas fa-eye"></i></a> </li>
+                                <li><a href="#!" @click="deleteClient(client.id)" title="Update Client"><i
+                                            class="fas fa-trash"></i></a> </li>
                             </ul>
                         </div>
                     </td>
@@ -44,9 +47,9 @@
     export default {
         data() {
             return {
-                client:{},
+                client: {},
                 clients: {},
-                showPopup: false
+                showPopup: false,
             }
         },
         props: {

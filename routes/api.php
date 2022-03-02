@@ -26,7 +26,7 @@ Route::namespace('API')->group(function() {
             Route::post('/', 'BulletinController@addBulletin')->name('api.bulletin.create');
             Route::get('/', 'BulletinController@getBulletins')->name('api.bulletin.get');
             Route::get('{id}', 'BulletinController@getBulletin')->name('api.bulletin.specific');
-            Route::patch('{id}', 'BulletinController@editBulletin')->name('api.bulletin.edit');
+            Route::put('{id}', 'BulletinController@editBulletin')->name('api.bulletin.edit');
             Route::delete('{id}', 'BulletinController@deleteBulletin')->name('api.bulletin.delete');
         });
 

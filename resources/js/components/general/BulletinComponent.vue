@@ -6,7 +6,7 @@
                     <div class="col">
                         <h4 class="h3 mb-0">Bulletin</h4>
                     </div>
-                    <div class="col">
+                    <div class="col" v-if="user.role === 1">
                         <div class="align-items-right">
                             <div class="col text-right"><a href="#!" @click="showPopup()"
                                     class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></div>
@@ -34,7 +34,7 @@
 
             </div>
         </div>
-        <edit-bulletin-popup :bulletin="bulletinProp" :showPopup="showPopups" @close="close($event)"></edit-bulletin-popup>
+        <edit-bulletin-popup :bulletin="bulletin" :time="time" :showPopup="showPopups" @close="close($event)"></edit-bulletin-popup>
     </div>
 </template>
 
@@ -44,11 +44,19 @@
             return {
                 bulletin: {},
                 bulletinProp: {},
-                showPopups: false
+                showPopups: false,
+                time: Date.now()
+            }
+        },
+        props: {
+            user: {
+                required: false,
+                type: Object
             }
         },
         mounted() {
             this.getBulettin()
+            console.log(this.user)
         },
         methods: {
             getBulettin() {
@@ -71,10 +79,12 @@
             },
             close(bulletin) {
                 this.showPopups = false
+                this.getBulettin()
             },
             showPopup() {
                 this.showPopups = true
                 this.bulletinProp = this.bulletin
+                this.time = Date.now()
             }
         }
     }

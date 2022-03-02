@@ -58,6 +58,10 @@
                 required: true,
                 type: Boolean
             },
+            time: {
+                required: true,
+                type: Number
+            }
         },
         mounted() {
             this.fields.id = this.bulletin.id
@@ -66,16 +70,32 @@
             this.fields.active = this.bulletin.active
         },
         watch: {
-            bulletin() {
+            time() {
                 this.fields.id = this.bulletin.id
-                this.fields.title = this.fields.title
-                this.fields.message = this.fields.message
-                this.fields.active = this.fields.active
+                this.fields.title = this.bulletin.title
+                this.fields.message = this.bulletin.message
+                this.fields.active = this.bulletin.active
+
             }
         },
         methods: {
             UpdateBulletin() {
-                console.log(this.fields)
+                let $this = this
+                axios({
+                        method: 'put',
+                        url: `/api/v1/bulletin/${this.fields.id}?api_token=${window.Laravel.api_token}`,
+                        data: this.fields
+                    }).then(function (response) {
+                        if (response.data.status) {
+                            $this.close()
+                        }
+                    })
+                    .catch(function (error) {
+                        $this.$toastr.e(error);
+                    })
+                    .then(function () {
+
+                    });
             },
             close() {
                 this.$emit('close', this.fields)

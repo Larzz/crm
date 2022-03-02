@@ -43,7 +43,7 @@
     <div class="container-fluid mt--6">
         <div class="row">
             <div class="col-xl-6">
-                <general-bulletin-card> </general-bulletin-card>
+                <general-bulletin-card :user="{{ Auth()->User() }}"> </general-bulletin-card>
             </div>
             <div class="col-xl-6">
                 <staff-leave-application :leave="{{ $leave }}"> </staff-leave-application>
