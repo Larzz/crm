@@ -80,12 +80,14 @@
                 files: [],
                 types: [],
                 fields: {
+                    id:null,
                     name: null,
                     type: null,
                     renewal_date: null,
                     expiration_date: null,
                     filename: null
                 },
+                path: null,
                 api_token: window.Laravel.api_token,
                 dropzoneOptions: {
                     url: `/api/v1/documents/upload/docs?api_token=${window.Laravel.api_token}`,
@@ -106,10 +108,33 @@
             user: {
                 required: true,
                 type: Object
+            },
+            isEdit: {
+                required: true,
+                type: Boolean
+            },
+            document: {
+                required: true,
+                type: Object
+            },
+            time: {
+                required: true,
+                type: Number
             }
         },
         mounted() {
             this.getDocumentTypes()
+
+        },
+        watch: {
+            time() {
+                this.fields.name = this.document.name
+                this.fields.type = this.document.type
+                this.fields.renewal_date = this.document.renewal_date
+                this.fields.expiration_date = this.document.expiration_date
+                
+                console.log(this.document)
+            }
         },
         methods: {
             /** Close Document
@@ -117,6 +142,12 @@
              * @return Object| list of documents
              * */
             close() {
+                this.fields.id = null
+                this.fields.name = null
+                this.fields.type = null
+                this.fields.renewal_date = null
+                this.fields.expiration_date = null
+
                 this.$emit('close', false)
                 this.$emit('fetchDocument')
             },

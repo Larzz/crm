@@ -54,8 +54,7 @@
                 </template>
             </div>
         </div>
-        <upload-document-popup :showPopup="showPopup" :user="user" @fetchDocument="getDocuments"
-            @close="showPopup = false"></upload-document-popup>
+        <upload-document-popup :showPopup="showPopup" :user="user" :time="time" :document="document" :isEdit="isEdit" @fetchDocument="getDocuments" @close="showPopup = false"></upload-document-popup>
     </div>
 </template>
 
@@ -65,8 +64,11 @@
     export default {
         data() {
             return {
+                document: {},
                 documents: [],
-                showPopup: false
+                showPopup: false,
+                isEdit: false,
+                time: Date.now()
             }
         },
         props: {
@@ -129,6 +131,16 @@
             },
             viewDocument(document) {
                 console.log(document)
+                this.isEdit = false
+                this.showPopup = true
+                this.document = document
+                this.time = Date.now()
+            },
+            editDocument(document) {
+                this.isEdit = true
+                this.showPopup = true
+                this.document = document
+                     this.time = Date.now()
             },
             formatDate(date) {
                 const currentDate = new Date(date);
@@ -146,8 +158,7 @@
 </script>
 
 <style scoped>
-    /* .card {
+    .card {
         height: 355px;
-    } */
-
+    }
 </style>

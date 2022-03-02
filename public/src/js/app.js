@@ -6267,12 +6267,14 @@ __webpack_require__.r(__webpack_exports__);
       files: [],
       types: [],
       fields: {
+        id: null,
         name: null,
         type: null,
         renewal_date: null,
         expiration_date: null,
         filename: null
       },
+      path: null,
       api_token: window.Laravel.api_token,
       dropzoneOptions: {
         url: "/api/v1/documents/upload/docs?api_token=".concat(window.Laravel.api_token),
@@ -6293,10 +6295,31 @@ __webpack_require__.r(__webpack_exports__);
     user: {
       required: true,
       type: Object
+    },
+    isEdit: {
+      required: true,
+      type: Boolean
+    },
+    document: {
+      required: true,
+      type: Object
+    },
+    time: {
+      required: true,
+      type: Number
     }
   },
   mounted: function mounted() {
     this.getDocumentTypes();
+  },
+  watch: {
+    time: function time() {
+      this.fields.name = this.document.name;
+      this.fields.type = this.document.type;
+      this.fields.renewal_date = this.document.renewal_date;
+      this.fields.expiration_date = this.document.expiration_date;
+      console.log(this.document);
+    }
   },
   methods: {
     /** Close Document
@@ -6304,6 +6327,11 @@ __webpack_require__.r(__webpack_exports__);
      * @return Object| list of documents
      * */
     close: function close() {
+      this.fields.id = null;
+      this.fields.name = null;
+      this.fields.type = null;
+      this.fields.renewal_date = null;
+      this.fields.expiration_date = null;
       this.$emit('close', false);
       this.$emit('fetchDocument');
     },
@@ -6871,13 +6899,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      document: {},
       documents: [],
-      showPopup: false
+      showPopup: false,
+      isEdit: false,
+      time: Date.now()
     };
   },
   props: {
@@ -6933,6 +6963,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     viewDocument: function viewDocument(document) {
       console.log(document);
+      this.isEdit = false;
+      this.showPopup = true;
+      this.document = document;
+      this.time = Date.now();
+    },
+    editDocument: function editDocument(document) {
+      this.isEdit = true;
+      this.showPopup = true;
+      this.document = document;
+      this.time = Date.now();
     },
     formatDate: function formatDate(date) {
       var currentDate = new Date(date);
@@ -10257,7 +10297,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .card {\n    height: 355px;\n} */\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px;\n}\n", ""]);
 
 // exports
 
@@ -10276,7 +10316,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-fbe2162a] {\n    height: 355px;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-fbe2162a] {\n    height: 355px;\n    overflow-y: scroll;\n}\n\n", ""]);
 
 // exports
 
@@ -61911,7 +61951,13 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("upload-document-popup", {
-        attrs: { showPopup: _vm.showPopup, user: _vm.user },
+        attrs: {
+          showPopup: _vm.showPopup,
+          user: _vm.user,
+          time: _vm.time,
+          document: _vm.document,
+          isEdit: _vm.isEdit,
+        },
         on: {
           fetchDocument: _vm.getDocuments,
           close: function ($event) {

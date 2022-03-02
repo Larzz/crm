@@ -172,6 +172,7 @@
 <style scoped>
     .card {
         height: 355px;
+        overflow-y: scroll;
     }
 
 </style>
