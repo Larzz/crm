@@ -132,7 +132,7 @@
             viewDocument(document) {
                 
                     window.open(
-                    `/documents/${this.presentation.attachment}`,
+                    `/documents/${this.document.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
                     );
                     return
