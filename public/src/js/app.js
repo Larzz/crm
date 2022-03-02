@@ -62048,7 +62048,7 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
-                      _vm.showPopup = true
+                      ;(_vm.showPopup = true), (_vm.isEdit = true)
                     },
                   },
                 },

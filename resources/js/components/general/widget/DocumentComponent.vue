@@ -7,7 +7,7 @@
                         <h3 class="mb-0">Documents</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a>
+                        <a href="#!" @click="showPopup=true, isEdit=true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
             viewDocument(document) {
                 
                     window.open(
-                    `/documents/${document.attachment}`,
+                    `/documents/${this.document.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
                     );
                     return
