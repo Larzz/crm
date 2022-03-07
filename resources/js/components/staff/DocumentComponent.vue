@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <upload-document-popup :showPopup="showPopup" @fetchDocument="getDocuments" @close="showPopup = false">
+        <upload-document-popup :showPopup="showPopup" :isEdit="true" :document="document" :user="user" :time="timess" @fetchDocument="getDocuments" @close="showPopup = false">
         </upload-document-popup>
 
     </div>
@@ -66,8 +66,16 @@
         data() {
             return {
                 documents: [],
-                showPopup: false
+                showPopup: false,
+                timess: Date.now(),
+                document: {}
             }
+        },
+        props: {
+            user: {
+                required: true,
+                type: Object
+            }  
         },
         mounted() {
             this.getDocuments()
@@ -77,7 +85,7 @@
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/documents?api_token=' + window.Laravel.api_token,
+                        url: `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.documents = response.data.documents

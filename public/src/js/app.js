@@ -2727,6 +2727,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7629,8 +7630,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       documents: [],
-      showPopup: false
+      showPopup: false,
+      timess: Date.now(),
+      document: {}
     };
+  },
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
   },
   mounted: function mounted() {
     this.getDocuments();
@@ -7640,7 +7649,7 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'get',
-        url: '/api/v1/documents?api_token=' + window.Laravel.api_token
+        url: "/api/v1/documents/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token)
       }).then(function (response) {
         if (response.data.status) {
           $this.documents = response.data.documents;
@@ -56223,23 +56232,25 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-footer align-items-right" }, [
-          _c("div", { staticClass: "col-md-12 text-right" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { href: "#!" },
-                on: {
-                  click: function ($event) {
-                    return _vm.showPopup()
+        _vm.user.role === 1
+          ? _c("div", { staticClass: "card-footer align-items-right" }, [
+              _c("div", { staticClass: "col-md-12 text-right" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-sm btn-primary",
+                    attrs: { href: "#!" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.showPopup()
+                      },
+                    },
                   },
-                },
-              },
-              [_vm._v("View Old Post")]
-            ),
-          ]),
-        ]),
+                  [_vm._v("View Old Post")]
+                ),
+              ]),
+            ])
+          : _vm._e(),
       ]),
       _vm._v(" "),
       _c("edit-bulletin-popup", {
@@ -63065,7 +63076,13 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("upload-document-popup", {
-        attrs: { showPopup: _vm.showPopup },
+        attrs: {
+          showPopup: _vm.showPopup,
+          isEdit: true,
+          document: _vm.document,
+          user: _vm.user,
+          time: _vm.timess,
+        },
         on: {
           fetchDocument: _vm.getDocuments,
           close: function ($event) {

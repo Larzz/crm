@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer align-items-right">
+            <div class="card-footer align-items-right"  v-if="user.role===1">
                 <div class="col-md-12 text-right">
                     <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary">View Old Post</i></a>
                 </div>
@@ -51,6 +51,7 @@
 
         <edit-bulletin-popup :bulletin="bulletin" :time="time" :showPopup="showPopups" @close="close($event)">
         </edit-bulletin-popup>
+
     </div>
 </template>
 
