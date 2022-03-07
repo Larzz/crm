@@ -64,7 +64,7 @@
                 
                axios({
                   method: 'get',
-                  url: '/api/v1/documents?api_token='+window.Laravel.api_token,
+                  url: '/api/v1/documents/expiration?api_token='+window.Laravel.api_token,
                   data: this.fields
                 }).then(function (response) {
                 })
@@ -80,6 +80,9 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+   .card {
+        height: 357px;
+        overflow-y: scroll;
+    }
 </style>

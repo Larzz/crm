@@ -163,6 +163,11 @@
 </script>
 
 <style>
+
+    .card {
+        height: 357px;
+        overflow-y: scroll;
+    }
     .table-flush th {
         font-size: 15px;
     }

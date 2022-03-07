@@ -71,4 +71,9 @@ class DocumentController extends Controller
     }
 
 
+    public function deleteExpiration() {
+        return response()->json(['status' => true, 'documents' => Documents::where('expiration_date', '<=' , Date.now())->get()]);
+    }
+
+
 }

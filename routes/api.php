@@ -71,6 +71,7 @@ Route::namespace('API')->group(function() {
             // Route::get('{id}', 'DocumentController@getDocument');
             Route::patch('{id}', 'DocumentController@editDocument');
             Route::delete('{id}', 'DocumentController@deleteDocument');
+            Route::get('expiration', 'DocumentController@deleteExpiration');
         });
 
         Route::prefix('tutorials')->group(function() {

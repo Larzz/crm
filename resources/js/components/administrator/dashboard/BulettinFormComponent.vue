@@ -76,6 +76,9 @@
 
 </script>
 
-<style>
-
+<style scoped>
+    .card {
+        height: 391px;
+        overflow-y: scroll;
+    }
 </style>

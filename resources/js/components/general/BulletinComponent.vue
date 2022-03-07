@@ -8,33 +8,49 @@
                     </div>
                     <div class="col" v-if="user.role === 1">
                         <div class="align-items-right">
-                            <div class="col text-right"><a href="#!" @click="showPopup()"
-                                    class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></div>
+
+                            <div class="col text-right">
+                                <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary"><i
+                                        class="fa fa-edit"></i></a>
+                                <!-- <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> -->
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <template v-if="bulletin">
-                    <div class="bulettin-container">
-                        <h4>{{ this.bulletin.title }}</h4>
-                        <p>
-                            {{ this.bulletin.message }}
-                        </p>
-                    </div>
-                </template>
+                <div class="row">
+                    <div class="col-md-12">
 
-                <template v-else>
-                    <div class="container">
-                        <div class="alert alert-warning" role="alert">
-                            <strong>Sorry!</strong> No Record Found
-                        </div>
-                    </div>
-                </template>
+                        <template v-if="bulletin">
+                            <div class="bulettin-containers">
+                                <h4>{{ this.bulletin.title }}</h4>
+                                <p>
+                                    {{ this.bulletin.message }}
+                                </p>
+                            </div>
+                        </template>
 
+                        <template v-else>
+                            <div class="container">
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Sorry!</strong> No Record Found
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer align-items-right">
+                <div class="col-md-12 text-right">
+                    <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary">View Old Post</i></a>
+                </div>
             </div>
         </div>
-        <edit-bulletin-popup :bulletin="bulletin" :time="time" :showPopup="showPopups" @close="close($event)"></edit-bulletin-popup>
+
+        <edit-bulletin-popup :bulletin="bulletin" :time="time" :showPopup="showPopups" @close="close($event)">
+        </edit-bulletin-popup>
     </div>
 </template>
 
@@ -92,5 +108,8 @@
 </script>
 
 <style scoped>
+    .card {
+        height: 393px;
+    }
 
 </style>
