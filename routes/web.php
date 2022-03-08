@@ -32,116 +32,118 @@ Route::prefix('auth')->group(function() {
    Route::post('reset-password', 'HomeController@reset_password')->name('home.password.submit');
 });
 
-Route::prefix('administrator')->namespace('Administrator')->group(function() {
+Route::middleware('isAuthenticated')->group(function() {
 
-   Route::get('/', 'HomeController@index')->name('admin.home');
+   Route::prefix('administrator')->namespace('Administrator')->group(function() {
 
-   Route::prefix('employee')->group(function() {
-      Route::get('{id?}', 'HomeController@employee_page')->name('admin.employee');
-   });
-
-   Route::prefix('leave_request')->group(function() {
-      Route::get('/', 'HomeController@leave_request_page')->name('admin.leave_request');
-   });
-
-   Route::prefix('projects')->group(function() {
-      Route::get('/', 'HomeController@project_page')->name('admin.projects');
-   });
-
-   Route::prefix('documents')->group(function() {
-      Route::get('/', 'HomeController@document_page')->name('admin.documents');
-      Route::post('/', 'HomeController@save_document')->name('admin.save_document');
-      Route::post('upload', 'HomeController@upload_document')->name('admin.upload_document');
-   });
-
-   Route::prefix('meeting_minutes')->group(function() {
-      Route::get('/', 'HomeController@meeting_minutes_page')->name('admin.meeting_minutes_page');
-      Route::post('/', 'HomeController@save_minutes')->name('admin.save_minutes');
-      Route::post('upload', 'HomeController@upload_minutes')->name('admin.upload_minutes');
-   });
-
-   Route::prefix('presentations')->group(function() {
-      Route::get('/', 'HomeController@presentation_page')->name('admin.presentations');
-      Route::post('/', 'HomeController@save_presentation')->name('admin.save_presentation');
-      Route::post('upload', 'HomeController@upload_presentation')->name('admin.upload_presentation');
-   });
-
-   Route::prefix('notes')->group(function() {
-      Route::get('{note_id}', 'HomeController@view_note')->name('admin.note.view');
-   });
-
-});
-
-Route::prefix('guidelines')->group(function() {
-   // Route::get
-});
-
-Route::prefix('my')->namespace('Client')->group(function() {
-
-   Route::get('/', 'HomeController@index')->name('client.index');
-
-   Route::prefix('presentation')->group(function() {
-      Route::get('/', 'HomeController@presentations')->name('client.presentation');
-   });
-
-   Route::prefix('meeting-minutes')->group(function() {
-      Route::get('/', 'HomeController@meeting_minutes')->name('client.meeting_minutes');
-   });
-
-   Route::prefix('documents')->group(function() {
-      Route::get('/', 'HomeController@documents')->name('client.documents');
-   });
-
-});
-
-Route::prefix('staff')->namespace('Staff')->group(function() {
-
-   Route::get('/', 'HomeController@index')->name('staff.home');
-
-   Route::prefix('clients')->group(function() {
-      Route::get('/', 'HomeController@client_page')->name('staff.client');
-      Route::get('{id?}', 'HomeController@client_index_page')->name('staff.client.index');
-   });
-
-   Route::prefix('leave')->group(function() {
-      Route::get('/', 'HomeController@index')->name('staff.leave');
-   });
-
-   Route::prefix('tickets')->group(function() {
-      Route::get('/', 'HomeController@index')->name('staff.tickets');
-   });
-
-   Route::prefix('bulletin')->group(function() {
-      Route::get('/', 'HomeController@index')->name('staff.bulletin');
-   });
-
-});
-
-
-
-
-Route::prefix('general')->namespace('General')->group(function() {
-
-   Route::prefix('websites')->group(function() {
-      Route::get('/', 'WebsiteController@index')->name('website.index');
-   });
-
-   Route::prefix('newsletters')->group(function() {
-      Route::get('/', 'HomeController@newsletter')->name('newsletter.index');
-   });
-
-   Route::prefix('tutorials')->group(function() {
-      Route::get('/', 'TutorialController@index')->name('tutorial.index');
-      Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
-   });
-
-   Route::prefix('clients')->group(function() {
-      Route::get('/', 'HomeController@client_page')->name('general.admin.client');
-      Route::get('{id?}', 'HomeController@client_index_page')->name('general.admin.client.index');
+      Route::get('/', 'HomeController@index')->name('admin.home');
+   
+      Route::prefix('employee')->group(function() {
+         Route::get('{id?}', 'HomeController@employee_page')->name('admin.employee');
+      });
+   
+      Route::prefix('leave_request')->group(function() {
+         Route::get('/', 'HomeController@leave_request_page')->name('admin.leave_request');
+      });
+   
+      Route::prefix('projects')->group(function() {
+         Route::get('/', 'HomeController@project_page')->name('admin.projects');
+      });
+   
+      Route::prefix('documents')->group(function() {
+         Route::get('/', 'HomeController@document_page')->name('admin.documents');
+         Route::post('/', 'HomeController@save_document')->name('admin.save_document');
+         Route::post('upload', 'HomeController@upload_document')->name('admin.upload_document');
+      });
+   
+      Route::prefix('meeting_minutes')->group(function() {
+         Route::get('/', 'HomeController@meeting_minutes_page')->name('admin.meeting_minutes_page');
+         Route::post('/', 'HomeController@save_minutes')->name('admin.save_minutes');
+         Route::post('upload', 'HomeController@upload_minutes')->name('admin.upload_minutes');
+      });
+   
+      Route::prefix('presentations')->group(function() {
+         Route::get('/', 'HomeController@presentation_page')->name('admin.presentations');
+         Route::post('/', 'HomeController@save_presentation')->name('admin.save_presentation');
+         Route::post('upload', 'HomeController@upload_presentation')->name('admin.upload_presentation');
+      });
+   
+      Route::prefix('notes')->group(function() {
+         Route::get('{note_id}', 'HomeController@view_note')->name('admin.note.view');
+      });
+   
    });
    
-   Route::prefix('tools')->group(function() {
-      Route::get('/', 'HomeController@tools')->name('general.tools');
+   Route::prefix('guidelines')->group(function() {
+      // Route::get
    });
+   
+   Route::prefix('my')->namespace('Client')->group(function() {
+   
+      Route::get('/', 'HomeController@index')->name('client.index');
+   
+      Route::prefix('presentation')->group(function() {
+         Route::get('/', 'HomeController@presentations')->name('client.presentation');
+      });
+   
+      Route::prefix('meeting-minutes')->group(function() {
+         Route::get('/', 'HomeController@meeting_minutes')->name('client.meeting_minutes');
+      });
+   
+      Route::prefix('documents')->group(function() {
+         Route::get('/', 'HomeController@documents')->name('client.documents');
+      });
+   
+   });
+   
+   Route::prefix('staff')->namespace('Staff')->group(function() {
+   
+      Route::get('/', 'HomeController@index')->name('staff.home');
+   
+      Route::prefix('clients')->group(function() {
+         Route::get('/', 'HomeController@client_page')->name('staff.client');
+         Route::get('{id?}', 'HomeController@client_index_page')->name('staff.client.index');
+      });
+   
+      Route::prefix('leave')->group(function() {
+         Route::get('/', 'HomeController@index')->name('staff.leave');
+      });
+   
+      Route::prefix('tickets')->group(function() {
+         Route::get('/', 'HomeController@index')->name('staff.tickets');
+      });
+   
+      Route::prefix('bulletin')->group(function() {
+         Route::get('/', 'HomeController@index')->name('staff.bulletin');
+      });
+   
+   });
+   
+   Route::prefix('general')->namespace('General')->group(function() {
+   
+      Route::prefix('websites')->group(function() {
+         Route::get('/', 'WebsiteController@index')->name('website.index');
+      });
+   
+      Route::prefix('newsletters')->group(function() {
+         Route::get('/', 'HomeController@newsletter')->name('newsletter.index');
+      });
+   
+      Route::prefix('tutorials')->group(function() {
+         Route::get('/', 'TutorialController@index')->name('tutorial.index');
+         Route::get('{sluq}', 'TutorialController@viewTutorial')->name('tutorial.view');
+      });
+   
+      Route::prefix('clients')->group(function() {
+         Route::get('/', 'HomeController@client_page')->name('general.admin.client');
+         Route::get('{id?}', 'HomeController@client_index_page')->name('general.admin.client.index');
+      });
+      
+      Route::prefix('tools')->group(function() {
+         Route::get('/', 'HomeController@tools')->name('general.tools');
+      });
+   
+   });
+   
 
 });

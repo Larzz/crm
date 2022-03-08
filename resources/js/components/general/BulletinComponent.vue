@@ -12,7 +12,7 @@
                             <div class="col text-right">
                                 <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary"><i
                                         class="fa fa-edit"></i></a>
-                                      <!-- <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> -->
+                                <!-- <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> -->
                             </div>
                         </div>
                     </div>
@@ -41,15 +41,17 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer align-items-right"  v-if="user.role===1">
+            <div class="card-footer align-items-right" v-if="user.role===1">
                 <div class="col-md-12 text-right">
-                    <a href="#!" @click="showPopup()" class="btn btn-sm btn-primary">View Old Post</i></a>
+                    <a href="#!" @click="showBulletinPopup()" class="btn btn-sm btn-primary">View Old Post</i></a>
                 </div>
             </div>
         </div>
 
         <edit-bulletin-popup :bulletin="bulletin" :time="time" :showPopup="showPopups" @close="close($event)">
         </edit-bulletin-popup>
+
+        <bulletin-post-popup :showPopup="showBulletin" :times="time" @close="close($event)" />
 
     </div>
 </template>
@@ -61,7 +63,8 @@
                 bulletin: {},
                 bulletinProp: {},
                 showPopups: false,
-                time: Date.now()
+                time: Date.now(),
+                showBulletin: false
             }
         },
         props: {
@@ -95,11 +98,16 @@
             },
             close(bulletin) {
                 this.showPopups = false
+                this.showBulletin = false
                 this.getBulettin()
             },
             showPopup() {
                 this.showPopups = true
                 this.bulletinProp = this.bulletin
+                this.time = Date.now()
+            },
+            showBulletinPopup() {
+                this.showBulletin = true
                 this.time = Date.now()
             }
         }

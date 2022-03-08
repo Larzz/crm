@@ -23,11 +23,14 @@ Route::namespace('API')->group(function() {
     Route::prefix('v1')->namespace('v1')->middleware('auth:api')->group(function() {
 
         Route::prefix('bulletin')->namespace('Administrator')->group(function() {
+            Route::get('all-bulletin', 'BulletinController@getAllBulletin')->name('api.bulletin.get.all');
             Route::post('/', 'BulletinController@addBulletin')->name('api.bulletin.create');
             Route::get('/', 'BulletinController@getBulletins')->name('api.bulletin.get');
             Route::get('{id}', 'BulletinController@getBulletin')->name('api.bulletin.specific');
             Route::put('{id}', 'BulletinController@editBulletin')->name('api.bulletin.edit');
             Route::delete('{id}', 'BulletinController@deleteBulletin')->name('api.bulletin.delete');
+            Route::post('{id}/post', 'BulletinController@postBulletin')->name('api.bulletin.specific');
+
         });
 
         Route::prefix('notes')->namespace('Administrator')->group(function() {

@@ -43,8 +43,13 @@ class BulletinController extends Controller
         return response()->json(['status' => true], 500);
     }
 
+
+    public function getAllBulletin() {
+        return response()->json(['status' => true, 'bulletins' => Bulletin::orderBy('created_at', 'desc')->get() ], 200);
+    }
+
     public function getBulletins() {
-        return response()->json(['status' => true, 'bulletins' => Bulletin::orderBy('created_at', 'desc')->first() ], 201);
+        return response()->json(['status' => true, 'bulletins' => Bulletin::orderBy('created_at', 'desc')->where('active', true)->first() ], 200);
     }
 
     public function getBulletin($bulletin_id) {
@@ -81,7 +86,7 @@ class BulletinController extends Controller
 
             $bulletin->title = $this->request->title;
             $bulletin->message = $this->request->message;
-            // $bulletin->active = $this->request->active;
+            $bulletin->active = $this->request->active == 'Yes' ? true:false;
             $bulletin->added_by = auth()->user()->id;
 
             if($bulletin->save()) {
@@ -100,11 +105,20 @@ class BulletinController extends Controller
         $bulletin = Bulletin::where('id', $bulletin_id)->first();
 
         if($bulletin) {
-            $bulletin->destroy();
-            return response()->json(['status' => true], 201);
+            $bulletin->delete();
+            return response()->json(['status' => true], 200);
         }   
 
         return response()->json(['status' => false], 404);
+    }
+
+    public function postBulletin($bulletin_id) {
+        $bulletin = Bulletin::where('id', $bulletin_id)->update(['active' => true]);
+        if($bulletin) {
+            Bulletin::where('id', '!=', $bulletin_id )->update(['active' => false]);
+            return response()->json(['status' => true]);
+        }
+        return respose()->json(['status' => false]);
     }
 
 

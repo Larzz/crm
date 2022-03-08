@@ -19,7 +19,6 @@ import Presentation from './components/general/PresentationComponent.vue'
 import Client from './components/general/ClientComponent.vue'
 import ClientDetails from './components/general/ClientDetails.vue'
 import Tools from './components/general/ToolsComponent.vue'
-
 // popup
 import CreateClientPopup from './components/general/popup/CreateClientComponent.vue'
 import UploadDocumentPopup from './components/general/popup/UploadDocumentComponent.vue'
@@ -30,7 +29,7 @@ import MeetingMinutesPopup from './components/general/popup/MeetingMinutesCompon
 import EditBulletinPopup from './components/general/popup/EditBulletinComponent.vue'
 import EditClientPopup from './components/general/popup/EditClientComponent.vue'
 import EditToolPopup from './components/general/popup/EditToolComponent.vue'
-
+import BulettinPostPopup from './components/general/popup/BulettinPostComponent.vue'
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
 import ToolForm from './components/general/form/ToolFormComponent.vue'
@@ -71,6 +70,7 @@ Vue.component('meeting-minutes-popup', MeetingMinutesPopup)
 Vue.component('edit-bulletin-popup', EditBulletinPopup)
 Vue.component('edit-client-popup', EditClientPopup)
 Vue.component('edit-tool-popup', EditToolPopup)
+Vue.component('bulletin-post-popup', BulettinPostPopup)
 // form
 Vue.component('client-form', ClientForm)
 Vue.component('tool-form', ToolForm)
