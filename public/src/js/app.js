@@ -57836,7 +57836,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Titles")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Description")]),
         _vm._v(" "),
@@ -63169,7 +63169,7 @@ var render = function () {
                             _vm._v(
                               "\n                                " +
                                 _vm._s(
-                                  _vm.formatDate(presentation.date_added)
+                                  _vm.formatDate(presentation.meeting_date)
                                 ) +
                                 "\n                            "
                             ),
