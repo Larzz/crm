@@ -37,6 +37,7 @@ class PresentationController extends Controller
         $presentation->description = $this->request->description;
         $presentation->attachment = $this->request->filename;
         $presentation->date_added = now();
+        $presentation->meeting_date = $this->request->meeting_date;
         $presentation->client_id = $client_id;
         $presentation->user_id = auth()->user()->id;
 
@@ -48,6 +49,7 @@ class PresentationController extends Controller
 
     }
 
+
     public function getPresentation($client_id) {
         $presentations = Presentations::where('client_id', $client_id)->get();
         if($presentations) {
@@ -56,12 +58,14 @@ class PresentationController extends Controller
         return response()->json(['status' => false, 'presentations' => $presentations]);
     }
 
+
     public function getAllPresentation() {
         $presentations = Presentations::leftjoin('users', 'users.id', 'presentation.client_id')
                                         ->select('presentation.id','presentation.name as filename', 'presentation.description', 'users.name')
                                         ->get();
         return response()->json(['status' => true, 'presentations' => $presentations]);
     }
+
 
     public function deletePresentation($presentation_id, $client_id) {
         $presentation = Presentations::where('id', $presentation_id)->where('client_id', $client_id)->first();
@@ -73,4 +77,6 @@ class PresentationController extends Controller
 
         return response()->json(['status' => false]);
     }
+
+
 }
