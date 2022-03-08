@@ -52,7 +52,7 @@ class DocumentController extends Controller
     }
 
     public function getDocuments($user_id) {
-        return response()->json(['status' => true, 'documents' => Documents::where('user_id', $user_id)->get()]);
+        return response()->json(['status' => true, 'documents' => Documents::where('user_id', $user_id)->orderBy('created_at', 'desc')->get()]);
     }
 
     public function deleteDocument($id) {
@@ -67,12 +67,12 @@ class DocumentController extends Controller
     }
 
     public function getDocumentTypes() {
-        return response()->json(['status' => true, 'types' => DocumentType::get()]);
+        return response()->json(['status' => true, 'types' => DocumentType::orderBy('created_at', 'desc')->get()]);
     }
 
 
     public function deleteExpiration() {
-        return response()->json(['status' => true, 'documents' => Documents::where('expiration_date', '<=' , Date.now())->get()]);
+        return response()->json(['status' => true, 'documents' => Documents::where('expiration_date', '<=' , Date.now())->orderBy('created_at', 'desc')->get()]);
     }
 
 

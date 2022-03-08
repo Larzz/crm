@@ -44,7 +44,7 @@ class NotesController extends Controller
      * @return status
      */
     public function getNotesByUserId($user_id) {
-        return response()->json(['status' => true, 'notes' => Notes::where('user_id', $user_id)->get()]);
+        return response()->json(['status' => true, 'notes' => Notes::where('user_id', $user_id)->orderBy('created_at', 'desc')->get()]);
     }
 
 

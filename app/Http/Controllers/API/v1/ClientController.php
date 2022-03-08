@@ -62,7 +62,7 @@ class ClientController extends Controller
     }   
     
     public function getClients() {
-        return response()->json(['status' => true, 'clients' => User::where('role' , 3)->get()]);
+        return response()->json(['status' => true, 'clients' => User::where('role' , 3)->orderBy('created_at', 'desc')->get()]);
     }
 
 

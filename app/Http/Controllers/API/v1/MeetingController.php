@@ -70,7 +70,7 @@ class MeetingController extends Controller
      * @return status
     */
     public function getMeeting($client_id) {
-        return response()->json(['status' => true, 'meetings'=> MeetingMinutes::where('client_id', $client_id)->get()]);
+        return response()->json(['status' => true, 'meetings'=> MeetingMinutes::where('client_id', $client_id)->orderBy('created_at', 'desc')->get()]);
     }
 
 

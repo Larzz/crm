@@ -27,7 +27,7 @@
                                     {{ limitName(presentation.name) }}
                                 </td>
                                 <td scope="row" width="100%">
-                                    {{ formatDate(presentation.date_added) }}
+                                    {{ formatDate(presentation.meeting_date) }}
                                 </td>
                                 <td width="100%">
                                     <div class="d-flex align-items-center">

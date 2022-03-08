@@ -48,7 +48,7 @@ class NewsletterController extends Controller
     }
 
     public function getAllNewsletter() {
-        return response()->json(['status' => true, 'newsletters' => Newsletter::all()]);
+        return response()->json(['status' => true, 'newsletters' => Newsletter::orderBy('created_at', 'desc')->all()]);
     }
 
     public function deleteNewsletter($newsletter_id) {

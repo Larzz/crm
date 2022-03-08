@@ -71,7 +71,7 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Title</th>
+                                        <th scope="col">Titles</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Client Name</th>
                                         <th scope="col text-right">Action</th>

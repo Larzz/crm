@@ -76,7 +76,7 @@ class EmployeeController extends Controller
 
 
     public function getEmployees() {
-        return response()->json(['employees' => User::where('role', 2)->get()], 200);
+        return response()->json(['employees' => User::where('role', 2)->orderBy('created_at', 'desc')->get()], 200);
     }
 
 
