@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsAuthenticated;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::prefix('auth')->group(function() {
    Route::post('reset-password', 'HomeController@reset_password')->name('home.password.submit');
 });
 
-Route::middleware('isAuthenticated')->group(function() {
+Route::middleware([IsAuthenticated::class])->group(function () {
 
    Route::prefix('administrator')->namespace('Administrator')->group(function() {
 
