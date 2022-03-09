@@ -19,7 +19,7 @@
     </div>
 
     <div class="col-xl-4">
-      <staff-document></staff-document>
+      <staff-document :user="{{ $user }}"></staff-document>
     </div>
 
     <div class="col-xl-4">
