@@ -30,4 +30,10 @@
     </div>
 </div>
 
+<style>
+    .card {
+        height: auto;
+    }
+</style>
+
 @endsection
