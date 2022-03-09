@@ -51,6 +51,14 @@
             user: {
                 required: true,
                 type: Object
+            },
+            isEdit: {
+                required: true,
+                type: Boolean
+            },
+            time: {
+                required: true,
+                type: Number
             }
         },
         mounted() {

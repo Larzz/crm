@@ -3472,7 +3472,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showPopup: false,
-      notes: []
+      notes: [],
+      isEdit: false,
+      time: Date.now(),
+      note: {}
     };
   },
   props: {
@@ -3579,6 +3582,17 @@ __webpack_require__.r(__webpack_exports__);
         day: 'numeric'
       };
       return currentDate.toLocaleDateString('en-us', options);
+    },
+
+    /**
+     * Edit Note  
+     * @param string note
+     * @return formatted datetime
+     */
+    editNote: function editNote(note) {
+      this.showPopup = true;
+      this.time = Date.now();
+      this.note = note;
     }
   }
 });
@@ -5300,6 +5314,14 @@ __webpack_require__.r(__webpack_exports__);
     user: {
       required: true,
       type: Object
+    },
+    isEdit: {
+      required: true,
+      type: Boolean
+    },
+    time: {
+      required: true,
+      type: Number
     }
   },
   mounted: function mounted() {
@@ -57651,10 +57673,15 @@ var render = function () {
       ),
       _vm._v(" "),
       _c("create-note-popup", {
-        attrs: { showPopup: _vm.showPopup, user: _vm.user },
+        attrs: {
+          showPopup: _vm.showPopup,
+          isEdit: _vm.isEdit,
+          time: _vm.time,
+          user: _vm.user,
+        },
         on: {
           close: function ($event) {
-            _vm.showPopup = _vm.close()
+            return _vm.close()
           },
         },
       }),

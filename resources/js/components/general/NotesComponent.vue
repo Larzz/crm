@@ -66,7 +66,7 @@
                 </div>
             </template>
         </div>
-        <create-note-popup :showPopup="showPopup" :user="user" @close="showPopup = close()"></create-note-popup>
+        <create-note-popup :showPopup="showPopup" :isEdit="isEdit" :time="time" :user="user" @close="close()"></create-note-popup>
     </div>
 </template>
 
@@ -76,7 +76,10 @@
         data() {
             return {
                 showPopup: false,
-                notes: []
+                notes: [],
+                isEdit: false,
+                time: Date.now(),
+                note: {}
             }
         },
         props: {
@@ -185,6 +188,16 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            /**
+             * Edit Note  
+             * @param string note
+             * @return formatted datetime
+             */
+            editNote(note) {
+                this.showPopup = true
+                this.time = Date.now()
+                this.note = note
             }
         }
 
