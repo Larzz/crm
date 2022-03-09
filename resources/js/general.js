@@ -30,6 +30,7 @@ import EditBulletinPopup from './components/general/popup/EditBulletinComponent.
 import EditClientPopup from './components/general/popup/EditClientComponent.vue'
 import EditToolPopup from './components/general/popup/EditToolComponent.vue'
 import BulettinPostPopup from './components/general/popup/BulettinPostComponent.vue'
+import EditTutorialPopup from './components/general/popup/EditTutorialComponent.vue'
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
 import ToolForm from './components/general/form/ToolFormComponent.vue'
@@ -71,6 +72,7 @@ Vue.component('edit-bulletin-popup', EditBulletinPopup)
 Vue.component('edit-client-popup', EditClientPopup)
 Vue.component('edit-tool-popup', EditToolPopup)
 Vue.component('bulletin-post-popup', BulettinPostPopup)
+Vue.component('edit-tutorial-popup', EditTutorialPopup)
 // form
 Vue.component('client-form', ClientForm)
 Vue.component('tool-form', ToolForm)

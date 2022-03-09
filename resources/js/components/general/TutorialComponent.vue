@@ -19,41 +19,40 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-body">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Date Added</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-if="tutorials">
-                                    <tr v-for="(tutorial, index) in tutorials" :key="index">
-                                        <td>{{ tutorial.title }}</td>
-                                        <td>{{ formatDate(tutorial.created_at) }}</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <ul>
-                                                    <li><a href="#!" @click="viewTutorial(tutorial.slug)"
-                                                            title="View Tutorial"><i class="fas fa-eye"></i></a> </li>
-                                                    <li> <a href="#!" @click="editTutorial(tutorial.id)"
-                                                            title="Update Tutorial"><i class="fas fa-pen"></i></a> </li>
-                                                    <li> <a href="#!" @click="deleteTutorial(tutorial.id)"
-                                                            title="Delete Tutorial"><i class="fas fa-trash"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
+                    <div class="table-responsive">
+                        <template v-if="tutorials">
+                            <vue-good-table :columns="columns" :pagination-options="{ enabled: true }"
+                                theme="polar-bear" :rows="rows" :sort-options="{ enabled: true, }"
+                                :search-options="{ enabled: true, placeholder: 'Search Tutorials'}"
+                                styleClass="table align-items-center table-flush">
+                                <template slot="table-row" slot-scope="props">
+                                    <span v-if="props.column.field == 'action'">
+                                        <div class="d-flex align-items-center">
+                                            <ul>
+                                                <li><a href="#!" @click="viewTutorial(props.row.slug)"
+                                                        title="View Tutorial"><i class="fas fa-eye"></i></a> </li>
+                                                <li> <a href="#!" @click="editTutorial(props.row)"
+                                                        title="Update Tutorial"><i class="fas fa-pen"></i></a> </li>
+                                                <li> <a href="#!" @click="deleteTutorial(props.row.id)"
+                                                        title="Delete Tutorial"><i class="fas fa-trash"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </span>
                                 </template>
-                            </tbody>
-                        </table>
+                            </vue-good-table>
+                        </template>
+                        <template v-if="!tutorials">
+                            <div class="container mt-3">
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Sorry!</strong> No Record Found
+                                </div>
+                            </div>
+                        </template>
                     </div>
-
                 </div>
             </div>
+            <edit-tutorial-popup :showPopup="showPopup" :time="time" :tutorial="tutorial" @close="close"/>
         </div>
     </div>
 </template>
@@ -70,11 +69,29 @@
         },
         data() {
             return {
+                showPopup: false,
+                time: Date.now(),
+                tutorial: null,
                 fields: {
                     title: null,
                     content: null
                 },
-                tutorials: []
+                tutorials: [],
+                columns: [{
+                        label: 'Title',
+                        field: 'title',
+                    },
+                    {
+                        label: 'Date Added',
+                        field: this.setDate,
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
+                ],
+                rows: [],
+                
             }
         },
         mounted() {
@@ -129,7 +146,7 @@
              * @return data object
              */
             getTutorials() {
-                            JsLoadingOverlay.show(this.$configs);
+                JsLoadingOverlay.show(this.$configs);
                 let $this = this
                 axios({
                         method: 'get',
@@ -137,13 +154,14 @@
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.tutorials = response.data.tutorials
+                            $this.rows = response.data.tutorials
                         }
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
                     .then(function () {
-                       JsLoadingOverlay.hide();
+                        JsLoadingOverlay.hide();
                     });
             },
             /**
@@ -160,8 +178,10 @@
              * @param id string
              * @return void
              */
-            editTutorial: function (id) {
-                console.log(id)
+            editTutorial: function (tutorial) {
+                this.showPopup = true
+                this.tutorial = tutorial
+                this.time = Date.now()
             },
             /**
              * Delete Tutorial 
@@ -210,6 +230,12 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            setDate(tutorial) {
+                return this.formatDate(tutorial.created_at)
+            },
+            close() {
+                this.showPopup = false
             }
         }
     }

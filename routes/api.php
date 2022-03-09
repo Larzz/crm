@@ -81,6 +81,7 @@ Route::namespace('API')->group(function() {
             Route::post('/', 'TutorialController@addTutorial');
             Route::get('/', 'TutorialController@getTutorials');
             Route::get('{id}', 'TutorialController@getTutorial');
+            Route::patch('{id}', 'TutorialController@editTutorial');
             Route::delete('{id}', 'TutorialController@deleteTutorial');
         }); 
 

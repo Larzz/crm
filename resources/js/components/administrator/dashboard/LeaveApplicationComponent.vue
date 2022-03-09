@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table align-items-center table-flush">
+                <!-- <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Employee Name</th>
@@ -41,7 +41,7 @@
                                 <td>
                                     {{ leave.balance }}
                                 </td>
-                                  <td v-html="getStatus(leave.status)">
+                                <td v-html="getStatus(leave.status)">
                                 </td>
                                 <td>
                                     <a href="#!" @click="approved(leave.id)" class="btn btn-sm btn-primary">Approved</a>
@@ -55,7 +55,30 @@
                     <div class="alert alert-warning" role="alert">
                         <strong>Sorry!</strong> No Record Found
                     </div>
-                </div>
+                </div> -->
+
+                <template v-if="leaves">
+                    <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
+                        :rows="rows" :sort-options="{ enabled: true, }"
+                        :search-options="{ enabled: true, placeholder: 'Search Leaves'}"
+                        styleClass="table align-items-center table-flush">
+                        <template slot="table-row" slot-scope="props">
+                            <span v-if="props.column.field == 'action'">
+                                <div class="d-flex align-items-center">
+                                     <a href="#!" @click="approved(props.row.id)" class="btn btn-sm btn-primary">Approved</a>
+                                    <a href="#!" @click="declined(props.row.id)" class="btn btn-sm btn-primary">Declined</a> 
+                                </div>
+                            </span>
+                        </template>
+                    </vue-good-table>
+                </template>
+                <template v-if="!leaves">
+                    <div class="container mt-3">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Sorry!</strong> No Record Found
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -64,11 +87,41 @@
 <script>
     import Swal from 'sweetalert2'
 
-
     export default {
         data() {
             return {
-                leaves: []
+                leaves: [],
+                columns: [{
+                        label: 'Employee Name',
+                        field: 'name',
+                    },
+                    {
+                        label: 'Leave From',
+                        field: this.setLeaveFrom,
+                    },
+                    {
+                        label: 'Leave To',
+                        field: this.setLeaveTo,
+                    },
+                    {
+                        label: 'Days',
+                        field: 'number_of_day',
+                    },
+                    {
+                        label: 'Balance',
+                        field: 'balance',
+                    },
+                    {
+                        label: 'Status',
+                        field: this.getStatus,
+                            html: true,
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
+                ],
+                rows: [],
             }
         },
         mounted() {
@@ -86,6 +139,7 @@
                         data: this.fields
                     }).then(function (response) {
                         $this.leaves = response.data.leaves
+                        $this.rows = response.data.leaves
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
@@ -161,8 +215,8 @@
                 })
 
             },
-            getStatus(status_id) {
-                switch (status_id) {
+            getStatus(leave) {
+                switch (leave.status) {
                     case 0:
                         return '<span style="color:gray;"> <i class="bg-warning"></i> Pending </span>'
                         break;
@@ -176,9 +230,20 @@
                 }
             },
             formatDate(date) {
-              const currentDate = new Date(date);
-              const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };       
-              return currentDate.toLocaleDateString('en-us', options)
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
+            },
+            setLeaveFrom(leave) {
+                return this.formatDate(leave.leave_from)
+            },
+            setLeaveTo(leave) {
+                return this.formatDate(leave.leave_to)
             }
 
         }

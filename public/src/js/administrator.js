@@ -478,11 +478,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      leaves: []
+      leaves: [],
+      columns: [{
+        label: 'Employee Name',
+        field: 'name'
+      }, {
+        label: 'Leave From',
+        field: this.setLeaveFrom
+      }, {
+        label: 'Leave To',
+        field: this.setLeaveTo
+      }, {
+        label: 'Days',
+        field: 'number_of_day'
+      }, {
+        label: 'Balance',
+        field: 'balance'
+      }, {
+        label: 'Status',
+        field: this.getStatus,
+        html: true
+      }, {
+        label: 'Action',
+        field: 'action'
+      }],
+      rows: []
     };
   },
   mounted: function mounted() {
@@ -497,6 +544,7 @@ __webpack_require__.r(__webpack_exports__);
         data: this.fields
       }).then(function (response) {
         $this.leaves = response.data.leaves;
+        $this.rows = response.data.leaves;
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -568,8 +616,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    getStatus: function getStatus(status_id) {
-      switch (status_id) {
+    getStatus: function getStatus(leave) {
+      switch (leave.status) {
         case 0:
           return '<span style="color:gray;"> <i class="bg-warning"></i> Pending </span>';
           break;
@@ -592,6 +640,12 @@ __webpack_require__.r(__webpack_exports__);
         day: 'numeric'
       };
       return currentDate.toLocaleDateString('en-us', options);
+    },
+    setLeaveFrom: function setLeaveFrom(leave) {
+      return this.formatDate(leave.leave_from);
+    },
+    setLeaveTo: function setLeaveTo(leave) {
+      return this.formatDate(leave.leave_to);
     }
   }
 });
@@ -5223,108 +5277,86 @@ var render = function () {
     _c("div", { staticClass: "card" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "table-responsive" }, [
-        _c(
-          "table",
-          { staticClass: "table align-items-center table-flush" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm.leaves
-              ? [
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.leaves, function (leave, index) {
-                      return _c("tr", { key: index }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(leave.name) +
-                              "\n                            "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.formatDate(leave.leave_from)) +
-                              "\n                            "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.formatDate(leave.leave_to)) +
-                              "\n                            "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(leave.number_of_day) +
-                              "\n                            "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(leave.balance) +
-                              "\n                            "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.getStatus(leave.status)),
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-sm btn-primary",
-                              attrs: { href: "#!" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.approved(leave.id)
-                                },
-                              },
-                            },
-                            [_vm._v("Approved")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-sm btn-primary",
-                              attrs: { href: "#!" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.declined(leave.id)
-                                },
-                              },
-                            },
-                            [_vm._v("Declined")]
-                          ),
-                        ]),
-                      ])
-                    }),
-                    0
+      _c(
+        "div",
+        { staticClass: "table-responsive" },
+        [
+          _vm.leaves
+            ? [
+                _c("vue-good-table", {
+                  attrs: {
+                    columns: _vm.columns,
+                    "pagination-options": { enabled: true },
+                    theme: "polar-bear",
+                    rows: _vm.rows,
+                    "sort-options": { enabled: true },
+                    "search-options": {
+                      enabled: true,
+                      placeholder: "Search Leaves",
+                    },
+                    styleClass: "table align-items-center table-flush",
+                  },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "table-row",
+                        fn: function (props) {
+                          return [
+                            props.column.field == "action"
+                              ? _c("span", [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "d-flex align-items-center",
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-sm btn-primary",
+                                          attrs: { href: "#!" },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.approved(props.row.id)
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Approved")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-sm btn-primary",
+                                          attrs: { href: "#!" },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.declined(props.row.id)
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Declined")]
+                                      ),
+                                    ]
+                                  ),
+                                ])
+                              : _vm._e(),
+                          ]
+                        },
+                      },
+                    ],
+                    null,
+                    false,
+                    1298860498
                   ),
-                ]
-              : _vm._e(),
-          ],
-          2
-        ),
-        _vm._v(" "),
-        !_vm.leaves
-          ? _c("div", { staticClass: "container mt-3" }, [_vm._m(2)])
-          : _vm._e(),
-      ]),
+                }),
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.leaves ? [_vm._m(1)] : _vm._e(),
+        ],
+        2
+      ),
     ]),
   ])
 }
@@ -5347,36 +5379,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Employee Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Leave From")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Leave To")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Days")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Balance")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
-      ]),
+    return _c("div", { staticClass: "container mt-3" }, [
+      _c(
+        "div",
+        { staticClass: "alert alert-warning", attrs: { role: "alert" } },
+        [
+          _c("strong", [_vm._v("Sorry!")]),
+          _vm._v(" No Record Found\n                    "),
+        ]
+      ),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "alert alert-warning", attrs: { role: "alert" } },
-      [
-        _c("strong", [_vm._v("Sorry!")]),
-        _vm._v(" No Record Found\n                "),
-      ]
-    )
   },
 ]
 render._withStripped = true

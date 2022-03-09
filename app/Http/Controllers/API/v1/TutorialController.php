@@ -48,11 +48,10 @@ class TutorialController extends Controller
     } 
 
     public function getTutorials() {
-        return response()->json(['status' => true, 'tutorials' => Tutorials::get()]);
+        return response()->json(['status' => true, 'tutorials' => Tutorials::orderBy('created_at', 'desc')->get()]);
     }
 
     public function getTutorial() {
-
     }
 
     public function deleteTutorial($tutorial_id) {
@@ -67,6 +66,25 @@ class TutorialController extends Controller
         return response()->json(['status' => false]);
 
         
+    }
+
+    public function editTutorial($tutorial_id) {
+
+        $tutorial = Tutorials::where('id', $tutorial_id)->first();
+
+        if($tutorial) {
+
+            $tutorial->slug = Str::slug($this->request->title, '-');
+            $tutorial->title = $this->request->title;
+            $tutorial->content = $this->request->content;
+
+            if($tutorial->update()) {
+                return response()->json(['status' => true]);
+            }
+
+        }
+
+        return response()->json(['status' => false]);
     }
 
 
