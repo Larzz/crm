@@ -60590,7 +60590,7 @@ var render = function () {
                     staticClass: "modal-title",
                     attrs: { id: "modal-title-default" },
                   },
-                  [_vm._v("Upload Meeting Minutes")]
+                  [_vm._v("Update Client")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -61331,7 +61331,7 @@ var render = function () {
                     staticClass: "modal-title",
                     attrs: { id: "modal-title-default" },
                   },
-                  [_vm._v("Upload Meeting Minutes")]
+                  [_vm._v("Edit Tutorial")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -61859,7 +61859,7 @@ var render = function () {
                     staticClass: "modal-title",
                     attrs: { id: "modal-title-default" },
                   },
-                  [_vm._v("Upload Meeting Minutes")]
+                  [_vm._v("Meeting Meetings")]
                 ),
                 _vm._v(" "),
                 _c(

@@ -6,7 +6,7 @@
         <transition name="slide" appear>
             <div class="modal" v-if="showPopup">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Bulletin Post</h6>
+                    <h6 class="modal-title" id="modal-title-default">Leave Application</h6>
                     <button type="button" @click.prevent="close" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
