@@ -1,4 +1,4 @@
-<template>
+vvv<template>
     <div>
         <div class="card">
             <div class="card-header border-0">
@@ -12,39 +12,27 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Document</th>
-                            <th scope="col">Expiration</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <template v-if="documents">
-                        <tbody>
-                            <tr v-for="(document, index) in documents" :key="index">
-                                <th scope="row">
-                                    {{ document.name }}
-                                </th>
-                                <td>
-                                    {{ formatDate(document.expiration_date)  }}
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <ul>
-                                            <li><a href="#!" @click="editDocument(document)" title="Edit Client"><i
-                                                        class="fa fa-edit"></i></a> </li>
-                                            <li> <a href="#!" @click="viewDocument(document)" title="View Document"><i
-                                                        class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" @click="removeDocument(document.id)"
-                                                    title="Delete Document"><i class="fas fa-trash"></i></a> </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </table>
+                <template v-if="documents">
+                    <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
+                        :rows="rows" :sort-options="{ enabled: true, }"
+                        :search-options="{ enabled: true, placeholder: 'Search Documents'}"
+                        styleClass="table align-items-center table-flush">
+                        <template slot="table-row" slot-scope="props">
+                            <span v-if="props.column.field == 'action'">
+                                <div class="d-flex align-items-center">
+                                    <ul>
+                                        <li><a href="#!" @click="editDocument(props.row)" title="Edit Client"><i
+                                                    class="fa fa-edit"></i></a> </li>
+                                        <li> <a href="#!" @click="viewDocument(props.row)" title="View Document"><i
+                                                    class="fas fa-eye"></i></a> </li>
+                                        <li> <a href="#!" @click="removeDocument(props.row.id)"
+                                                title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </template>
+                    </vue-good-table>
+                </template>
                 <template v-if="!documents">
                     <div class="container mt-3">
                         <div class="alert alert-warning" role="alert">
@@ -53,8 +41,16 @@
                     </div>
                 </template>
             </div>
+            <!-- <div class="card-footer border-0">
+                <div class="row align-items-right text-right">
+                    <div class="col text-right">
+                        <a href="#!" @click="showPopup=true, isEdit=true" class="btn btn-sm btn-primary">Archive</a>
+                    </div>
+                </div>
+            </div> -->
         </div>
-        <upload-document-popup :showPopup="showPopup" :user="user" :time="time" :document="document" :isEdit="isEdit" @fetchDocument="getDocuments" @close="showPopup = false"></upload-document-popup>
+        <upload-document-popup :showPopup="showPopup" :user="user" :time="time" :document="document" :isEdit="isEdit"
+            @fetchDocument="getDocuments" @close="showPopup = false"></upload-document-popup>
     </div>
 </template>
 
@@ -68,7 +64,21 @@
                 documents: [],
                 showPopup: false,
                 isEdit: false,
-                time: Date.now()
+                time: Date.now(),
+                columns: [{
+                        label: 'Name',
+                        field: 'name',
+                    },
+                    {
+                        label: 'Expiration',
+                        field: this.setExpiration,
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
+                ],
+                rows: [],
             }
         },
         props: {
@@ -88,7 +98,7 @@
                         url: `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
                         if (response.data.status) {
-                            $this.documents = response.data.documents
+                            $this.rows = response.data.documents
                         }
                     })
                     .catch(function (error) {
@@ -130,12 +140,12 @@
 
             },
             viewDocument(document) {
-                
-                    window.open(
+
+                window.open(
                     `/documents/${this.document.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
-                    );
-                    return
+                );
+                return
 
                 console.log(document)
                 this.isEdit = false
@@ -147,7 +157,7 @@
                 this.isEdit = true
                 this.showPopup = true
                 this.document = document
-                     this.time = Date.now()
+                this.time = Date.now()
             },
             formatDate(date) {
                 const currentDate = new Date(date);
@@ -158,6 +168,21 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            setExpiration(document) {
+                return this.formatDate(document.expiration_date)
+            },
+            setActions(document) {
+                return ` <div class="d-flex align-items-center">
+                        <ul>
+                            <li><a href="#!" @click="editDocument(document)" title="Edit Client"><i
+                                        class="fa fa-edit"></i></a> </li>
+                            <li> <a href="#!" @click="viewDocument(document)" title="View Document"><i
+                                        class="fas fa-eye"></i></a> </li>
+                            <li> <a href="#!" @click="removeDocument(document.id)"
+                                    title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                        </ul>
+                    </div>`
             }
         }
     }
@@ -166,6 +191,27 @@
 
 <style scoped>
     .card {
-        height: 355px;
+        height: 355px !important;
     }
+
+    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__label {
+        font-size: 11px !important;
+    }
+
+    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select {
+      font-size: 11px !important;
+    }
+
+    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info, .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info {
+       font-size: 11px !important;
+    }
+
+    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn {
+       font-size: 11px !important;
+    }
+
+    .footer__navigation__page-btn disabled {
+      font-size: 11px !important;
+    }
+
 </style>

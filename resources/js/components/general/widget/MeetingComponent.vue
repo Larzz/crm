@@ -11,48 +11,36 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Meeting Date</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <template v-if="meetings">
-                        <tbody>
-                            <tr v-for="(meeting, index) in meetings" :key="index">
-                                <td scope="row" width="100%">
-                                    {{ meeting.name }}
-                                </td>
-                                <td scope="row" width="100%">
-                                    {{ formatDate(meeting.meeting_date) }}
-                                </td>
-                                <td width="100%">
-                                    <div class="d-flex align-items-center">
-                                        <ul>
-                                            <li><a href="#!" @click="editMeeting(meeting)" title="Edit Client"><i
-                                                        class="fa fa-edit"></i></a> </li>
-                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting)"
-                                                    title="View Employee">
-                                                    <i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)"
-                                                    title="Update Employee"><i class="fas fa-trash"></i></a> </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template>
-                    <template v-else>
-                        <div class="container">
-                            <div class="alert alert-warning" role="alert">
-                                <strong>Sorry!</strong> No Record Found
-                            </div>
+            <div class="table-responsive">
+                <template v-if="meetings">
+                    <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
+                        :rows="rows" :sort-options="{ enabled: true, }"
+                        :search-options="{ enabled: true, placeholder: 'Search Meeting Minutes'}"
+                        styleClass="table align-items-center table-flush">
+                        <template slot="table-row" slot-scope="props">
+                            <span v-if="props.column.field == 'action'">
+                                <div class="d-flex align-items-center">
+                                    <ul>
+                                        <li><a href="#!" @click="editMeeting(props.row)" title="Edit Client"><i
+                                                    class="fa fa-edit"></i></a> </li>
+                                        <li> <a href="#!" @click="viewMeeting(props.row)" title="View Document"><i
+                                                    class="fas fa-eye"></i></a> </li>
+                                        <li> <a href="#!" @click="deleteMeeting(props.row.id)"
+                                                title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </template>
+                    </vue-good-table>
+                </template>
+                <template v-if="!meetings">
+                    <div class="container mt-3">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Sorry!</strong> No Record Found
                         </div>
-                    </template>
-                </table>
+                    </div>
+                </template>
+
             </div>
         </div>
         <meeting-minutes-popup :showPopup="showPopup" :time="time" :meeting="meeting" :isEdit="isEdit" :user="user"
@@ -69,7 +57,21 @@
                 meetings: {},
                 showPopup: false,
                 isEdit: false,
-                time: Date.now()
+                time: Date.now(),
+                columns: [{
+                        label: 'Name',
+                        field: 'name',
+                    },
+                    {
+                        label: 'Expiration',
+                        field: this.setMeeting,
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
+                ],
+                rows: [],
             }
         },
         props: {
@@ -100,7 +102,7 @@
                         url: `/api/v1/meetings/${this.user.id}?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
-                        $this.meetings = response.data.meetings
+                        $this.rows = response.data.meetings
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
@@ -114,12 +116,12 @@
              */
             viewMeeting(meeting) {
 
-                  window.open(
+                window.open(
                     `/documents/${meeting.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
-                    );
-                    return
-                
+                );
+                return
+
                 this.showPopup = true
                 this.time = Date.now()
                 this.meeting = meeting
@@ -180,7 +182,7 @@
              */
             reload() {
                 this.showPopup = false
-                 this.isEdit = false
+                this.isEdit = false
                 this.getMeetings()
             },
             formatDate(date) {
@@ -192,6 +194,9 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            setMeeting(meeting) {
+                return this.formatDate(meeting.meeting_date)
             }
         }
 

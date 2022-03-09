@@ -25,7 +25,6 @@ class NewsletterController extends Controller
             'filename' => 'required'
         ]); 
 
-
         if ($validator->fails()) {    
             return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
         }
@@ -48,7 +47,7 @@ class NewsletterController extends Controller
     }
 
     public function getAllNewsletter() {
-        return response()->json(['status' => true, 'newsletters' => Newsletter::orderBy('created_at', 'desc')->all()]);
+        return response()->json(['status' => true, 'newsletters' => Newsletter::orderBy('created_at', 'desc')->get()]);
     }
 
     public function deleteNewsletter($newsletter_id) {

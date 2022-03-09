@@ -1,45 +1,59 @@
 <template>
     <div>
         <template v-if="tools">
-             <div class="card">
-                    <div class="card-body">
-                        <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                        <!-- <th width="100%" scope="col">Product</th> -->
-                        <!-- <th width="100%" scope="col">URL</th> -->
-                        <th width="100%" scope="col">Details</th>
-                        <th width="100%" scope="col">Action</th>
-                    </tr>
-                </thead>
-              <tbody id="table-body">
-                <tr v-for="(tool, index) in tools" :key="index">
-                    <td scope="row" width="100%">
-                       Product: {{ tool.product }} <br/>
-                       URL: {{ tool.url }} <br/>
-                       Email: {{ tool.email }} <br/>
-                       Password: {{ tool.password }} <br>
-                       Purpose {{ tool.purpose }} <br>
-                       Subscription Type {{ tool.subscription_type }} <br>
-                       Frequency {{ tool.frequency_type }} <br>
-                       Price {{ tool.price }} <br>
-                       Expiration {{ tool.expiration }} <br>
-                       Notes: {{ tool.notes }}
-                    </td>
-                    <td width="100%">
-                        <div class="d-flex align-items-center">
-                            <ul>
-                                <li><a href="#!" @click="editTool(tool)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
-                                <li><a href="javascript:;" @click="viewTool(tool)" title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                <li><a href="javascript:;" @click="deleteTool(tool.id)" title="Update Employee"><i class="fas fa-trash"></i></a> </li>
-                            </ul>
+            <div class="card">
+                <div class="table-responsive">
+                   
+                    <template v-if="tools">
+                        <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
+                            :rows="rows" :sort-options="{ enabled: true, }"
+                            :search-options="{ enabled: true, placeholder: 'Search Tools'}"
+                            styleClass="table align-items-center table-flush">
+                            <template slot="table-row" slot-scope="props">
+
+                                
+                                <span v-if="props.column.field == 'product'">
+                                     {{ props.row.product }} <br />
+                                </span>
+
+                                <span v-if="props.column.field == 'details'">
+                                    URL: {{ props.row.url }} <br />
+                                    Email: {{ props.row.email }} <br />
+                                    Password: {{ props.row.password }} <br>
+                                    Purpose: {{ props.row.purpose }} <br>
+                                    Subscription Type: {{ props.row.subscription_type }} <br>
+                                    Frequency: {{ props.row.frequency_type }} <br>
+                                    Price: {{ props.row.price }} <br>
+                                    Expiration: {{ props.row.expiration }} <br>
+                                    Notes: {{ props.row.notes }}
+                                </span>
+
+                                <span v-if="props.column.field == 'action'">
+                                    <div class="d-flex align-items-center">
+                                        <ul>
+                                            <li><a href="#!" @click="editTool(props.row)" title="Edit Client"><i
+                                                        class="fa fa-edit"></i></a> </li>
+                                            <li> <a href="#!" @click="viewTool(props.row)" title="View Document"><i
+                                                        class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" @click="deleteTool(props.row.id)"
+                                                    title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                        </ul>
+                                    </div>
+                                </span>
+
+
+                            </template>
+                        </vue-good-table>
+                    </template>
+                    <template v-if="!tools">
+                        <div class="container mt-3">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Sorry!</strong> No Record Found
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-                   </table>
-                    </div>
+                    </template>
                 </div>
+            </div>
         </template>
         <template v-else>
             <div class="container">
@@ -60,13 +74,27 @@
                 tools: {},
                 showPopup: false,
                 tool: {},
-                isEdit: false
+                isEdit: false,
+                   columns: [{
+                        label: 'Product',
+                        field: 'product',
+                    },
+                    {
+                        label: 'Details',
+                        field: 'details',
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
+                ],
+                rows: [],
             }
         },
         props: {
             newToolAdded: {
                 required: true,
-                type: Number 
+                type: Number
             }
         },
         watch: {
@@ -91,6 +119,7 @@
                     }).then(function (response) {
                         console.log(response)
                         $this.tools = response.data.tools
+                        $this.rows = response.data.tools
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
@@ -162,10 +191,12 @@
 <style scoped>
     #table-body {
         overflow-y: scroll;
-         height: 794px;
+        height: 794px;
     }
-     .card {
+
+    .card {
         height: 794px;
         overflow-y: scroll;
     }
+
 </style>

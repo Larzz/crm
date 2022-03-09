@@ -6908,6 +6908,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6915,7 +6929,18 @@ __webpack_require__.r(__webpack_exports__);
       tools: {},
       showPopup: false,
       tool: {},
-      isEdit: false
+      isEdit: false,
+      columns: [{
+        label: 'Product',
+        field: 'product'
+      }, {
+        label: 'Details',
+        field: 'details'
+      }, {
+        label: 'Action',
+        field: 'action'
+      }],
+      rows: []
     };
   },
   props: {
@@ -6946,6 +6971,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response);
         $this.tools = response.data.tools;
+        $this.rows = response.data.tools;
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -7152,10 +7178,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7164,7 +7186,18 @@ __webpack_require__.r(__webpack_exports__);
       documents: [],
       showPopup: false,
       isEdit: false,
-      time: Date.now()
+      time: Date.now(),
+      columns: [{
+        label: 'Name',
+        field: 'name'
+      }, {
+        label: 'Expiration',
+        field: this.setExpiration
+      }, {
+        label: 'Action',
+        field: 'action'
+      }],
+      rows: []
     };
   },
   props: {
@@ -7184,7 +7217,7 @@ __webpack_require__.r(__webpack_exports__);
         url: "/api/v1/documents/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token)
       }).then(function (response) {
         if (response.data.status) {
-          $this.documents = response.data.documents;
+          $this.rows = response.data.documents;
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -7243,6 +7276,12 @@ __webpack_require__.r(__webpack_exports__);
         day: 'numeric'
       };
       return currentDate.toLocaleDateString('en-us', options);
+    },
+    setExpiration: function setExpiration(document) {
+      return this.formatDate(document.expiration_date);
+    },
+    setActions: function setActions(document) {
+      return " <div class=\"d-flex align-items-center\">\n                    <ul>\n                        <li><a href=\"#!\" @click=\"editDocument(document)\" title=\"Edit Client\"><i\n                                    class=\"fa fa-edit\"></i></a> </li>\n                        <li> <a href=\"#!\" @click=\"viewDocument(document)\" title=\"View Document\"><i\n                                    class=\"fas fa-eye\"></i></a> </li>\n                        <li> <a href=\"#!\" @click=\"removeDocument(document.id)\"\n                                title=\"Delete Document\"><i class=\"fas fa-trash\"></i></a> </li>\n                    </ul>\n                </div>";
     }
   }
 });
@@ -7310,18 +7349,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7330,7 +7357,18 @@ __webpack_require__.r(__webpack_exports__);
       meetings: {},
       showPopup: false,
       isEdit: false,
-      time: Date.now()
+      time: Date.now(),
+      columns: [{
+        label: 'Name',
+        field: 'name'
+      }, {
+        label: 'Expiration',
+        field: this.setMeeting
+      }, {
+        label: 'Action',
+        field: 'action'
+      }],
+      rows: []
     };
   },
   props: {
@@ -7360,7 +7398,7 @@ __webpack_require__.r(__webpack_exports__);
         url: "/api/v1/meetings/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
         data: this.fields
       }).then(function (response) {
-        $this.meetings = response.data.meetings;
+        $this.rows = response.data.meetings;
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -7447,6 +7485,9 @@ __webpack_require__.r(__webpack_exports__);
         day: 'numeric'
       };
       return currentDate.toLocaleDateString('en-us', options);
+    },
+    setMeeting: function setMeeting(meeting) {
+      return this.formatDate(meeting.meeting_date);
     }
   }
 });
@@ -7513,20 +7554,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7535,7 +7562,18 @@ __webpack_require__.r(__webpack_exports__);
       showPopup: false,
       isEdit: false,
       presentation: {},
-      time: Date.now()
+      time: Date.now(),
+      columns: [{
+        label: 'Name',
+        field: 'name'
+      }, {
+        label: 'Meeting Date',
+        field: this.setMeeting
+      }, {
+        label: 'Action',
+        field: 'action'
+      }],
+      rows: []
     };
   },
   props: {
@@ -7559,8 +7597,8 @@ __webpack_require__.r(__webpack_exports__);
         method: 'get',
         url: "/api/v1/presentations/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token)
       }).then(function (response) {
+        $this.rows = response.data.presentations;
         $this.presentations = response.data.presentations;
-        console.log($this.presentations);
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {
@@ -7649,6 +7687,9 @@ __webpack_require__.r(__webpack_exports__);
         day: 'numeric'
       };
       return currentDate.toLocaleDateString('en-us', options);
+    },
+    setMeeting: function setMeeting(presentation) {
+      return this.formatDate(presentation.meeting_date);
     }
   }
 });
@@ -10368,6 +10409,25 @@ exports.push([module.i, "\n.fade-enter-active[data-v-c341f43a],\n.fade-leave-act
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-4bf75114] {\n    height: 771px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/TutorialComponent.vue?vue&type=style&index=0&id=5b497c06&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/TutorialComponent.vue?vue&type=style&index=0&id=5b497c06&scoped=true&lang=css& ***!
@@ -10418,7 +10478,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-b980ae70] {\n    height: 803px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-b980ae70] {\n    height: 771px;\n}\n", ""]);
 
 // exports
 
@@ -10646,7 +10706,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n#table-body[data-v-23531b87] {\n    overflow-y: scroll;\n     height: 794px;\n}\n.card[data-v-23531b87] {\n    height: 794px;\n    overflow-y: scroll;\n}\n", ""]);
+exports.push([module.i, "\n#table-body[data-v-23531b87] {\n    overflow-y: scroll;\n    height: 794px;\n}\n.card[data-v-23531b87] {\n    height: 794px;\n    overflow-y: scroll;\n}\n\n", ""]);
 
 // exports
 
@@ -10684,7 +10744,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__label[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select[data-v-2805c789] {\n  font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info[data-v-2805c789], .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info[data-v-2805c789] {\n   font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn[data-v-2805c789] {\n   font-size: 11px !important;\n}\n.footer__navigation__page-btn disabled[data-v-2805c789] {\n  font-size: 11px !important;\n}\n\n", ""]);
 
 // exports
 
@@ -40441,6 +40501,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/TutorialComponent.vue?vue&type=style&index=0&id=5b497c06&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/TutorialComponent.vue?vue&type=style&index=0&id=5b497c06&scoped=true&lang=css& ***!
@@ -57853,10 +57943,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -62352,150 +62442,214 @@ var render = function () {
       _vm.tools
         ? [
             _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "table",
-                  { staticClass: "table align-items-center table-flush" },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      { attrs: { id: "table-body" } },
-                      _vm._l(_vm.tools, function (tool, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", { attrs: { scope: "row", width: "100%" } }, [
-                            _vm._v(
-                              "\n                   Product: " +
-                                _vm._s(tool.product) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   URL: " +
-                                _vm._s(tool.url) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Email: " +
-                                _vm._s(tool.email) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Password: " +
-                                _vm._s(tool.password) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Purpose " +
-                                _vm._s(tool.purpose) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Subscription Type " +
-                                _vm._s(tool.subscription_type) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Frequency " +
-                                _vm._s(tool.frequency_type) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Price " +
-                                _vm._s(tool.price) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Expiration " +
-                                _vm._s(tool.expiration) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n                   Notes: " +
-                                _vm._s(tool.notes) +
-                                "\n                "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { attrs: { width: "100%" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "d-flex align-items-center" },
-                              [
-                                _c("ul", [
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          title: "Edit Client",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.editTool(tool)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fa fa-edit" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "javascript:;",
-                                          title: "View Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.viewTool(tool)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-eye" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "javascript:;",
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.deleteTool(tool.id)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-trash" })]
-                                    ),
-                                  ]),
-                                ]),
-                              ]
-                            ),
-                          ]),
-                        ])
-                      }),
-                      0
-                    ),
-                  ]
-                ),
-              ]),
+              _c(
+                "div",
+                { staticClass: "table-responsive" },
+                [
+                  _vm.tools
+                    ? [
+                        _c("vue-good-table", {
+                          attrs: {
+                            columns: _vm.columns,
+                            "pagination-options": { enabled: true },
+                            theme: "polar-bear",
+                            rows: _vm.rows,
+                            "sort-options": { enabled: true },
+                            "search-options": {
+                              enabled: true,
+                              placeholder: "Search Tools",
+                            },
+                            styleClass: "table align-items-center table-flush",
+                          },
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "table-row",
+                                fn: function (props) {
+                                  return [
+                                    props.column.field == "product"
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                 " +
+                                              _vm._s(props.row.product) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    props.column.field == "details"
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                URL: " +
+                                              _vm._s(props.row.url) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Email: " +
+                                              _vm._s(props.row.email) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Password: " +
+                                              _vm._s(props.row.password) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Purpose: " +
+                                              _vm._s(props.row.purpose) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Subscription Type: " +
+                                              _vm._s(
+                                                props.row.subscription_type
+                                              ) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Frequency: " +
+                                              _vm._s(props.row.frequency_type) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Price: " +
+                                              _vm._s(props.row.price) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Expiration: " +
+                                              _vm._s(props.row.expiration) +
+                                              " "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                Notes: " +
+                                              _vm._s(props.row.notes) +
+                                              "\n                            "
+                                          ),
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    props.column.field == "action"
+                                      ? _c("span", [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "d-flex align-items-center",
+                                            },
+                                            [
+                                              _c("ul", [
+                                                _c("li", [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      attrs: {
+                                                        href: "#!",
+                                                        title: "Edit Client",
+                                                      },
+                                                      on: {
+                                                        click: function (
+                                                          $event
+                                                        ) {
+                                                          return _vm.editTool(
+                                                            props.row
+                                                          )
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "fa fa-edit",
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("li", [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      attrs: {
+                                                        href: "#!",
+                                                        title: "View Document",
+                                                      },
+                                                      on: {
+                                                        click: function (
+                                                          $event
+                                                        ) {
+                                                          return _vm.viewTool(
+                                                            props.row
+                                                          )
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "fas fa-eye",
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("li", [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      attrs: {
+                                                        href: "#!",
+                                                        title:
+                                                          "Delete Document",
+                                                      },
+                                                      on: {
+                                                        click: function (
+                                                          $event
+                                                        ) {
+                                                          return _vm.deleteTool(
+                                                            props.row.id
+                                                          )
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "fas fa-trash",
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]),
+                                              ]),
+                                            ]
+                                          ),
+                                        ])
+                                      : _vm._e(),
+                                  ]
+                                },
+                              },
+                            ],
+                            null,
+                            false,
+                            4193832463
+                          ),
+                        }),
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.tools ? [_vm._m(0)] : _vm._e(),
+                ],
+                2
+              ),
             ]),
           ]
         : [_vm._m(1)],
@@ -62517,16 +62671,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", { attrs: { width: "100%", scope: "col" } }, [
-          _vm._v("Details"),
-        ]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "100%", scope: "col" } }, [
-          _vm._v("Action"),
-        ]),
-      ]),
+    return _c("div", { staticClass: "container mt-3" }, [
+      _c(
+        "div",
+        { staticClass: "alert alert-warning", attrs: { role: "alert" } },
+        [
+          _c("strong", [_vm._v("Sorry!")]),
+          _vm._v(" No Record Found\n                        "),
+        ]
+      ),
     ])
   },
   function () {
@@ -62714,116 +62867,126 @@ var render = function () {
           "div",
           { staticClass: "table-responsive" },
           [
-            _c(
-              "table",
-              { staticClass: "table align-items-center table-flush" },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm.documents
-                  ? [
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.documents, function (document, index) {
-                          return _c("tr", { key: index }, [
-                            _c("th", { attrs: { scope: "row" } }, [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(document.name) +
-                                  "\n                            "
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(
-                                    _vm.formatDate(document.expiration_date)
-                                  ) +
-                                  "\n                            "
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "div",
-                                { staticClass: "d-flex align-items-center" },
-                                [
-                                  _c("ul", [
-                                    _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "#!",
-                                            title: "Edit Client",
-                                          },
-                                          on: {
-                                            click: function ($event) {
-                                              return _vm.editDocument(document)
-                                            },
-                                          },
-                                        },
-                                        [_c("i", { staticClass: "fa fa-edit" })]
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "#!",
-                                            title: "View Document",
-                                          },
-                                          on: {
-                                            click: function ($event) {
-                                              return _vm.viewDocument(document)
-                                            },
-                                          },
-                                        },
-                                        [_c("i", { staticClass: "fas fa-eye" })]
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "#!",
-                                            title: "Delete Document",
-                                          },
-                                          on: {
-                                            click: function ($event) {
-                                              return _vm.removeDocument(
-                                                document.id
-                                              )
-                                            },
-                                          },
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash",
-                                          }),
-                                        ]
-                                      ),
-                                    ]),
-                                  ]),
-                                ]
-                              ),
-                            ]),
-                          ])
-                        }),
-                        0
-                      ),
-                    ]
-                  : _vm._e(),
-              ],
-              2
-            ),
+            _vm.documents
+              ? [
+                  _c("vue-good-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      "pagination-options": { enabled: true },
+                      theme: "polar-bear",
+                      rows: _vm.rows,
+                      "sort-options": { enabled: true },
+                      "search-options": {
+                        enabled: true,
+                        placeholder: "Search Documents",
+                      },
+                      styleClass: "table align-items-center table-flush",
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "table-row",
+                          fn: function (props) {
+                            return [
+                              props.column.field == "action"
+                                ? _c("span", [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "d-flex align-items-center",
+                                      },
+                                      [
+                                        _c("ul", [
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "Edit Client",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.editDocument(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fa fa-edit",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "View Document",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.viewDocument(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-eye",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "Delete Document",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.removeDocument(
+                                                      props.row.id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-trash",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                        ]),
+                                      ]
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          },
+                        },
+                      ],
+                      null,
+                      false,
+                      2490117460
+                    ),
+                  }),
+                ]
+              : _vm._e(),
             _vm._v(" "),
-            !_vm.documents ? [_vm._m(2)] : _vm._e(),
+            !_vm.documents ? [_vm._m(1)] : _vm._e(),
           ],
           2
         ),
@@ -62855,20 +63018,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Documents")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Document")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Expiration")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }),
-      ]),
     ])
   },
   function () {
@@ -62934,110 +63083,133 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "table",
-            { staticClass: "table align-items-center table-flush" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm.meetings
-                ? [
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.meetings, function (meeting, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", { attrs: { scope: "row", width: "100%" } }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(meeting.name) +
-                                "\n                            "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { attrs: { scope: "row", width: "100%" } }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(_vm.formatDate(meeting.meeting_date)) +
-                                "\n                            "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { attrs: { width: "100%" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "d-flex align-items-center" },
-                              [
-                                _c("ul", [
-                                  _c("li", [
+        _c(
+          "div",
+          { staticClass: "table-responsive" },
+          [
+            _vm.meetings
+              ? [
+                  _c("vue-good-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      "pagination-options": { enabled: true },
+                      theme: "polar-bear",
+                      rows: _vm.rows,
+                      "sort-options": { enabled: true },
+                      "search-options": {
+                        enabled: true,
+                        placeholder: "Search Meeting Minutes",
+                      },
+                      styleClass: "table align-items-center table-flush",
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "table-row",
+                          fn: function (props) {
+                            return [
+                              props.column.field == "action"
+                                ? _c("span", [
                                     _c(
-                                      "a",
+                                      "div",
                                       {
-                                        attrs: {
-                                          href: "#!",
-                                          title: "Edit Client",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.editMeeting(meeting)
-                                          },
-                                        },
+                                        staticClass:
+                                          "d-flex align-items-center",
                                       },
-                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                      [
+                                        _c("ul", [
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "Edit Client",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.editMeeting(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fa fa-edit",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "View Document",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.viewMeeting(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-eye",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "Delete Document",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.deleteMeeting(
+                                                      props.row.id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-trash",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                        ]),
+                                      ]
                                     ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": meeting.id,
-                                          title: "View Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.viewMeeting(meeting)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-eye" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": meeting.id,
-                                          title: "Update Employee",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.deleteMeeting(meeting.id)
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-trash" })]
-                                    ),
-                                  ]),
-                                ]),
-                              ]
-                            ),
-                          ]),
-                        ])
-                      }),
-                      0
+                                  ])
+                                : _vm._e(),
+                            ]
+                          },
+                        },
+                      ],
+                      null,
+                      false,
+                      3434487165
                     ),
-                  ]
-                : [_vm._m(2)],
-            ],
-            2
-          ),
-        ]),
+                  }),
+                ]
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.meetings ? [_vm._m(1)] : _vm._e(),
+          ],
+          2
+        ),
       ]),
       _vm._v(" "),
       _c("meeting-minutes-popup", {
@@ -63071,27 +63243,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Meeting Date")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container mt-3" }, [
       _c(
         "div",
         { staticClass: "alert alert-warning", attrs: { role: "alert" } },
         [
           _c("strong", [_vm._v("Sorry!")]),
-          _vm._v(" No Record Found\n                        "),
+          _vm._v(" No Record Found\n                    "),
         ]
       ),
     ])
@@ -63144,118 +63302,133 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "table",
-            { staticClass: "table align-items-center table-flush" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm.presentations
-                ? [
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.presentations, function (presentation, index) {
-                        return _c("tr", { key: index }, [
-                          _c("td", { attrs: { scope: "row", width: "100%" } }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(_vm.limitName(presentation.name)) +
-                                "\n                            "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { attrs: { scope: "row", width: "100%" } }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(
-                                  _vm.formatDate(presentation.meeting_date)
-                                ) +
-                                "\n                            "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { attrs: { width: "100%" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "d-flex align-items-center" },
-                              [
-                                _c("ul", [
-                                  _c("li", [
+        _c(
+          "div",
+          { staticClass: "table-responsive" },
+          [
+            _vm.presentations
+              ? [
+                  _c("vue-good-table", {
+                    attrs: {
+                      columns: _vm.columns,
+                      "pagination-options": { enabled: true },
+                      theme: "polar-bear",
+                      rows: _vm.rows,
+                      "sort-options": { enabled: true },
+                      "search-options": {
+                        enabled: true,
+                        placeholder: "Search Presentations",
+                      },
+                      styleClass: "table align-items-center table-flush",
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "table-row",
+                          fn: function (props) {
+                            return [
+                              props.column.field == "action"
+                                ? _c("span", [
                                     _c(
-                                      "a",
+                                      "div",
                                       {
-                                        attrs: {
-                                          href: "#!",
-                                          title: "Edit Client",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.editPresentation(
-                                              presentation
-                                            )
-                                          },
-                                        },
+                                        staticClass:
+                                          "d-flex align-items-center",
                                       },
-                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                      [
+                                        _c("ul", [
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "Edit Client",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.editPresentation(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fa fa-edit",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "View Document",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.viewPresentation(
+                                                      props.row
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-eye",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                attrs: {
+                                                  href: "#!",
+                                                  title: "Delete Document",
+                                                },
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.deletePresentation(
+                                                      props.row.id
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fas fa-trash",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                        ]),
+                                      ]
                                     ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": presentation.id,
-                                          title: "View Presentation",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.viewPresentation(
-                                              presentation
-                                            )
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-eye" })]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        attrs: {
-                                          href: "#!",
-                                          "data-id": presentation.id,
-                                          title: "Delete Presentation",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.deletePresentation(
-                                              presentation.id
-                                            )
-                                          },
-                                        },
-                                      },
-                                      [_c("i", { staticClass: "fas fa-trash" })]
-                                    ),
-                                  ]),
-                                ]),
-                              ]
-                            ),
-                          ]),
-                        ])
-                      }),
-                      0
+                                  ])
+                                : _vm._e(),
+                            ]
+                          },
+                        },
+                      ],
+                      null,
+                      false,
+                      3723881554
                     ),
-                  ]
-                : [_vm._m(2)],
-            ],
-            2
-          ),
-        ]),
+                  }),
+                ]
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.presentations ? [_vm._m(1)] : _vm._e(),
+          ],
+          2
+        ),
       ]),
       _vm._v(" "),
       _c("presentation-popup", {
@@ -63289,27 +63462,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Meeting Date")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container mt-3" }, [
       _c(
         "div",
         { staticClass: "alert alert-warning", attrs: { role: "alert" } },
         [
           _c("strong", [_vm._v("Sorry!")]),
-          _vm._v(" No Record Found\n                        "),
+          _vm._v(" No Record Found\n                    "),
         ]
       ),
     ])
@@ -79240,9 +79399,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ToolsComponent_vue_vue_type_template_id_4bf75114___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ToolsComponent.vue?vue&type=template&id=4bf75114& */ "./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&");
+/* harmony import */ var _ToolsComponent_vue_vue_type_template_id_4bf75114_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true& */ "./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true&");
 /* harmony import */ var _ToolsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ToolsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/general/ToolsComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _ToolsComponent_vue_vue_type_style_index_0_id_4bf75114_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css& */ "./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -79250,13 +79411,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _ToolsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ToolsComponent_vue_vue_type_template_id_4bf75114___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ToolsComponent_vue_vue_type_template_id_4bf75114___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ToolsComponent_vue_vue_type_template_id_4bf75114_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ToolsComponent_vue_vue_type_template_id_4bf75114_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "4bf75114",
   null
   
 )
@@ -79282,19 +79443,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_style_index_0_id_4bf75114_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=style&index=0&id=4bf75114&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_style_index_0_id_4bf75114_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_style_index_0_id_4bf75114_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_style_index_0_id_4bf75114_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_style_index_0_id_4bf75114_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true& ***!
+  \*******************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_template_id_4bf75114___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ToolsComponent.vue?vue&type=template&id=4bf75114& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_template_id_4bf75114___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_template_id_4bf75114_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/ToolsComponent.vue?vue&type=template&id=4bf75114&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_template_id_4bf75114_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_template_id_4bf75114___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToolsComponent_vue_vue_type_template_id_4bf75114_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

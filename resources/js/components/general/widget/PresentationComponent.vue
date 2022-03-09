@@ -11,53 +11,39 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Meeting Date</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <template v-if="presentations">
-                        <tbody>
-                            <tr v-for="(presentation, index) in presentations" :key="index">
-                                <td scope="row" width="100%">
-                                    {{ limitName(presentation.name) }}
-                                </td>
-                                <td scope="row" width="100%">
-                                    {{ formatDate(presentation.meeting_date) }}
-                                </td>
-                                <td width="100%">
-                                    <div class="d-flex align-items-center">
-                                        <ul>
-                                            <li><a href="#!" @click="editPresentation(presentation)"
-                                                    title="Edit Client"><i class="fa fa-edit"></i></a> </li>
-                                            <li><a href="#!" :data-id="presentation.id"
-                                                    @click="viewPresentation(presentation)"
-                                                    title="View Presentation"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="presentation.id"
-                                                    @click="deletePresentation(presentation.id)"
-                                                    title="Delete Presentation"><i class="fas fa-trash"></i></a> </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template>
-                    <template v-else>
-                        <div class="container">
-                            <div class="alert alert-warning" role="alert">
-                                <strong>Sorry!</strong> No Record Found
-                            </div>
+            <div class="table-responsive">
+                <template v-if="presentations">
+                    <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
+                        :rows="rows" :sort-options="{ enabled: true, }"
+                        :search-options="{ enabled: true, placeholder: 'Search Presentations'}"
+                        styleClass="table align-items-center table-flush">
+                        <template slot="table-row" slot-scope="props">
+                            <span v-if="props.column.field == 'action'">
+                                <div class="d-flex align-items-center">
+                                    <ul>
+                                        <li><a href="#!" @click="editPresentation(props.row)" title="Edit Client"><i
+                                                    class="fa fa-edit"></i></a> </li>
+                                        <li> <a href="#!" @click="viewPresentation(props.row)" title="View Document"><i
+                                                    class="fas fa-eye"></i></a> </li>
+                                        <li> <a href="#!" @click="deletePresentation(props.row.id)"
+                                                title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </template>
+                    </vue-good-table>
+                </template>
+                <template v-if="!presentations">
+                    <div class="container mt-3">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Sorry!</strong> No Record Found
                         </div>
-                    </template>
-                </table>
+                    </div>
+                </template>
             </div>
         </div>
-        <presentation-popup :user="user" :showPopup="showPopup" :time="time" :isEdit="isEdit" :presentation="presentation"
-            @close="close()"> </presentation-popup>
+        <presentation-popup :user="user" :showPopup="showPopup" :time="time" :isEdit="isEdit"
+            :presentation="presentation" @close="close()"> </presentation-popup>
     </div>
 </template>
 
@@ -70,7 +56,21 @@
                 showPopup: false,
                 isEdit: false,
                 presentation: {},
-                time: Date.now()
+                time: Date.now(),
+                columns: [{
+                        label: 'Name',
+                        field: 'name',
+                    },
+                    {
+                        label: 'Meeting Date',
+                        field: this.setMeeting,
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
+                ],
+                rows: [],
             }
         },
         props: {
@@ -95,8 +95,8 @@
                         method: 'get',
                         url: `/api/v1/presentations/${this.user.id}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
+                        $this.rows = response.data.presentations
                         $this.presentations = response.data.presentations
-                        console.log($this.presentations)
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
@@ -112,15 +112,15 @@
             viewPresentation(presentation) {
 
 
-                    window.open(
+                window.open(
                     `/documents/${presentation.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
-                    );
-                    return
+                );
+                return
 
                 this.presentation = presentation
                 this.showPopup = true
-                                this.isEdit = false
+                this.isEdit = false
                 this.time = Date.now()
                 // JsLoadingOverlay.show(this.$configs);
                 // window.location.href = '/documents/' + filename
@@ -190,6 +190,9 @@
                     day: 'numeric'
                 };
                 return currentDate.toLocaleDateString('en-us', options)
+            },
+            setMeeting(presentation) {
+                return this.formatDate(presentation.meeting_date)
             }
         }
 
