@@ -32,6 +32,8 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <ul>
+                                              <li> <a href="#!" @click="viewDocument(document)"
+                                                    title="Delete Document"><i class="fas fa-eye"></i></a> </li>
                                             <li> <a href="#!" @click="removeDocument(document.id)"
                                                     title="Delete Document"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
@@ -98,6 +100,12 @@
             },
             close() {
                 this.$emit('close', false)
+            },
+            viewDocument(document) {
+                window.open(
+                    `/documents/${document.attachment}`,
+                    '_blank'
+                )
             },
             removeDocument(document_id) {
                 let $this = this

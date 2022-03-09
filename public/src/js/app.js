@@ -8023,6 +8023,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -8058,6 +8060,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     close: function close() {
       this.$emit('close', false);
+    },
+    viewDocument: function viewDocument(document) {
+      window.open("/documents/".concat(document.attachment), '_blank');
     },
     removeDocument: function removeDocument(document_id) {
       var $this = this;
@@ -64096,6 +64101,24 @@ var render = function () {
                                 { staticClass: "d-flex align-items-center" },
                                 [
                                   _c("ul", [
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "Delete Document",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.viewDocument(document)
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
                                     _c("li", [
                                       _c(
                                         "a",
