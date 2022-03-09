@@ -77,5 +77,8 @@
 
 </script>
 
-<style>
+<style scope>
+    .card {
+        height: 800px;
+    }
 </style>
