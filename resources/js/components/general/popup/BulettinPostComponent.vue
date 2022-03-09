@@ -107,6 +107,7 @@
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.$toastr.s('Successfully Posted!');
+                             $this.getBulletins()
                         }
                     })
                     .catch(function (error) {

@@ -4832,6 +4832,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.data.status) {
           $this.$toastr.s('Successfully Posted!');
+          $this.getBulletins();
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
