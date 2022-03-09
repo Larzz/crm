@@ -28,7 +28,7 @@
                                     {{ bulletin.message }}
                                 </td>
                                 <td scope="row" width="100%">
-                                   {{ formatStatus(bulletin.status) }}
+                                   {{ formatStatus(bulletin.active) }}
                                 </td>
                                 <td scope="row" width="100%">
                                     {{  formatDate(bulletin.created_at) }}

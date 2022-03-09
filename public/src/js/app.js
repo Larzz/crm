@@ -59403,7 +59403,7 @@ var render = function () {
                               [
                                 _vm._v(
                                   "\n                               " +
-                                    _vm._s(_vm.formatStatus(bulletin.status)) +
+                                    _vm._s(_vm.formatStatus(bulletin.active)) +
                                     "\n                            "
                                 ),
                               ]
