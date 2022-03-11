@@ -48,7 +48,7 @@
                         <h3 class="card-title">
                             {{ $item->name }} <br />
                             <small>{{ $item->description }}</small> <br>
-                        </h3> <a target="_blank" href="{{ asset('presentation') }}/{{ $item->attachment }}"
+                        </h3> <a target="_blank" href="{{ asset('documents') }}/{{ $item->attachment }}"
                             class="btn btn-primary">View Presentation</a>
                     </div>
                 </div>
