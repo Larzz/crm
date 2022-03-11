@@ -34,7 +34,7 @@ class HomeController extends Controller
         $meta = [
                     'active' => 'presentations', 
                     'title' => 'My Presentation',
-                    'files' => Presentations::where('client_id', Auth::User()->id)->get(),
+                    'files' => Presentations::where('client_id', Auth::User()->id)->orderBy('created_at', 'desc')->get(),
                  ];
         return view('clients.pages.presentations', $meta);
     }
@@ -43,7 +43,7 @@ class HomeController extends Controller
         $meta = [
                     'active' => 'meeting_minutes', 
                     'title' => 'My Meeting Minutes',
-                    'files' => MeetingMinutes::where('client_id', Auth::User()->id)->get(),
+                    'files' => MeetingMinutes::where('client_id', Auth::User()->id)->orderBy('created_at', 'desc')->get(),
                 ];
         return view('clients.pages.meeting_minutes', $meta);
     }
@@ -52,7 +52,7 @@ class HomeController extends Controller
         $meta = [
             'active' => 'documents', 
             'title' => 'My Documents',
-            'files' => Documents::where('client_id', Auth::User()->id)->get(),
+            'files' => Documents::where('client_id', Auth::User()->id)->orderBy('created_at', 'desc')->get(),
         ];
         return view('clients.pages.documents', $meta);
     }
