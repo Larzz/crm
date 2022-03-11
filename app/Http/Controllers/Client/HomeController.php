@@ -43,7 +43,7 @@ class HomeController extends Controller
         $meta = [
                     'active' => 'meeting_minutes', 
                     'title' => 'My Meeting Minutes',
-                    'files' => MeetingMinutes::where('client_id', Auth::User()->id)->orderBy('created_at', 'desc')->get(),
+                    'files' => MeetingMinutes::where('client_id', Auth::User()->id)->orderBy('meeting_date', 'desc')->get(),
                 ];
         return view('clients.pages.meeting_minutes', $meta);
     }
