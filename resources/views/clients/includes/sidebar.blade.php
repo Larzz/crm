@@ -27,7 +27,7 @@
                 <li class="nav-item">
                   <a class="nav-link {{ $active === 'meeting_minutes' ? 'active' : '' }}" href="{{ route('client.meeting_minutes') }}">
                       <i class="ni ni-single-copy-04 text-orange"></i>
-                      <span class="nav-link-text">My Metting Minutes</span>
+                      <span class="nav-link-text">My Meeting Minutes</span>
                     </a>
                 </li>
                 <li class="nav-item">
