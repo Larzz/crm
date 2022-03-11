@@ -34,7 +34,7 @@ class HomeController extends Controller
         $meta = [
                     'active' => 'presentations', 
                     'title' => 'My Presentation',
-                    'files' => Presentations::where('client_id', Auth::User()->id)->orderBy('created_at', 'desc')->get(),
+                    'files' => Presentations::where('client_id', Auth::User()->id)->orderBy('date_added', 'desc')->get(),
                  ];
         return view('clients.pages.presentations', $meta);
     }
