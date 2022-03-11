@@ -243,10 +243,13 @@
              * @return void
              */
             uploadResponse: function (data, response) {
+                                    console.log( response.filename)
                 if (response.status) {
-                    this.$toastr.s('Successfully Uploaded');
                     this.fields.filename = response.filename
+                    this.$toastr.s('Successfully Uploaded');
                 }
+
+                console.log(this.fields)
             },
             /**
              * On clear fields

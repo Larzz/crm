@@ -6875,10 +6875,14 @@ __webpack_require__.r(__webpack_exports__);
      * @return void
      */
     uploadResponse: function uploadResponse(data, response) {
+      console.log(response.filename);
+
       if (response.status) {
-        this.$toastr.s('Successfully Uploaded');
         this.fields.filename = response.filename;
+        this.$toastr.s('Successfully Uploaded');
       }
+
+      console.log(this.fields);
     },
 
     /**
@@ -7471,7 +7475,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     viewDocument: function viewDocument(document) {
-      window.open("/documents/".concat(this.document.attachment), '_blank' // <- This is what makes it open in a new window.
+      window.open("/documents/".concat(document.attachment), '_blank' // <- This is what makes it open in a new window.
       );
       return;
       console.log(document);

@@ -142,7 +142,7 @@ vvv<template>
             viewDocument(document) {
 
                 window.open(
-                    `/documents/${this.document.attachment}`,
+                    `/documents/${document.attachment}`,
                     '_blank' // <- This is what makes it open in a new window.
                 );
                 return
