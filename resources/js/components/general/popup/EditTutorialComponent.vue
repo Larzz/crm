@@ -116,6 +116,7 @@
 </script>
 
 <style scoped>
+
     .customdropzone {
         width: 100%;
     }
@@ -166,6 +167,11 @@
         padding: 0px;
         display: block;
         height: max-content;
+    }
+
+    .modal-body {
+            overflow-y: scroll;
+    height: 633px;
     }
 
     h1 {
