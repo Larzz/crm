@@ -7,8 +7,8 @@
                         <h3 class="mb-0">{{ user.name }}</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary"><i
-                                class="fa fa-edit"></i></a>
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                        <a href="#!" @click="showChangePassword=true" class="btn btn-sm btn-primary"><i class="fa-solid fa-align-justify"></i></a>
                     </div>
                 </div>
             </div>
@@ -28,6 +28,7 @@
         </div>
 
         <edit-client-popup :client="user" :showPopup="showPopup" @close="close($event)"  />
+        <changed-password-popup :client="user" :showPopup="showChangePassword" @close="close($event)" />
 
     </div>
 </template>
@@ -36,7 +37,8 @@
     export default {
         data() {
             return {
-                showPopup: false
+                showPopup: false,
+                showChangePassword: false
             }
         },
         props: {

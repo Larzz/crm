@@ -64,6 +64,7 @@ Route::namespace('API')->group(function() {
             Route::get('{id}', 'ClientController@getClient');
             Route::post('{id}', 'ClientController@editClient');
             Route::delete('{id}', 'ClientController@deleteClient');
+            Route::post('change-password/{id}', 'ClientController@changePassword');
         });
 
         Route::prefix('documents')->group(function() {

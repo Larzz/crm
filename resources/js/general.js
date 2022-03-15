@@ -31,6 +31,7 @@ import EditClientPopup from './components/general/popup/EditClientComponent.vue'
 import EditToolPopup from './components/general/popup/EditToolComponent.vue'
 import BulettinPostPopup from './components/general/popup/BulettinPostComponent.vue'
 import EditTutorialPopup from './components/general/popup/EditTutorialComponent.vue'
+import ChangedPasswordPopup from './components/general/popup/ChangePasswordComponent.vue'
 // form
 import ClientForm from './components/general/form/ClientFormComponent.vue'
 import ToolForm from './components/general/form/ToolFormComponent.vue'
@@ -73,6 +74,7 @@ Vue.component('edit-client-popup', EditClientPopup)
 Vue.component('edit-tool-popup', EditToolPopup)
 Vue.component('bulletin-post-popup', BulettinPostPopup)
 Vue.component('edit-tutorial-popup', EditTutorialPopup)
+Vue.component('changed-password-popup', ChangedPasswordPopup)
 // form
 Vue.component('client-form', ClientForm)
 Vue.component('tool-form', ToolForm)
