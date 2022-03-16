@@ -29,7 +29,7 @@
                                 </span>
 
                                 <span v-if="props.column.field == 'service_type'">
-                                    {{ props.row.subscription_type }}
+                                    {{ props.row.type }}
                                 </span>
 
                                 <span v-if="props.column.field == 'action'">

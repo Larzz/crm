@@ -4652,6 +4652,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4665,7 +4669,8 @@ __webpack_require__.r(__webpack_exports__);
         frequency: null,
         price: null,
         expiration: null,
-        note: null
+        note: null,
+        type: null
       }
     };
   },
@@ -5865,6 +5870,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5879,7 +5889,8 @@ __webpack_require__.r(__webpack_exports__);
         frequency_type: null,
         price: null,
         expiration: null,
-        notes: null
+        notes: null,
+        type: null
       }
     };
   },
@@ -5905,6 +5916,7 @@ __webpack_require__.r(__webpack_exports__);
     this.fields.price = this.tool.price;
     this.fields.expiration = this.tool.expiration;
     this.fields.notes = this.tool.notes;
+    this.fields.type = this.tool.type;
   },
   watch: {
     tool: function tool() {
@@ -5919,6 +5931,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.price = this.tool.price;
       this.fields.expiration = this.tool.expiration;
       this.fields.notes = this.tool.notes;
+      this.fields.type = this.tool.type;
     }
   },
   methods: {
@@ -11012,7 +11025,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.customdropzone[data-v-7ba41776] {\n    width: 100%;\n}\n.form-group[data-v-7ba41776] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-7ba41776],\n.fade-leave-active[data-v-7ba41776] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-7ba41776],\n.fade-leave-to[data-v-7ba41776] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-7ba41776],\n.slide-leave-active[data-v-7ba41776] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-7ba41776],\n.slide-leave-to[data-v-7ba41776] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-7ba41776] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-7ba41776] {\n    position: fixed;\n    top: 4%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-7ba41776] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-7ba41776] {\n    float: right;\n}\n.btn[data-v-7ba41776] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-7ba41776] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.customdropzone[data-v-7ba41776] {\n    width: 100%;\n}\n.form-group[data-v-7ba41776] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-7ba41776],\n.fade-leave-active[data-v-7ba41776] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-7ba41776],\n.fade-leave-to[data-v-7ba41776] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-7ba41776],\n.slide-leave-active[data-v-7ba41776] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-7ba41776],\n.slide-leave-to[data-v-7ba41776] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-7ba41776] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-7ba41776] {\n    position: fixed;\n    top: 4%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-7ba41776] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-7ba41776] {\n    float: right;\n}\n.btn[data-v-7ba41776] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-7ba41776] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n", ""]);
 
 // exports
 
@@ -59385,6 +59398,32 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Type")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.type,
+                expression: "fields.type",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.fields.type },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "type", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "Purpose" } }, [_vm._v("Purpose")]),
           _vm._v(" "),
           _c("textarea", {
@@ -61471,6 +61510,32 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Type")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.type,
+                            expression: "fields.type",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.fields.type },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.fields, "type", $event.target.value)
+                          },
+                        },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "Purpose" } }, [
                         _vm._v("Purpose"),
                       ]),
@@ -63391,9 +63456,7 @@ var render = function () {
                                       ? _c("span", [
                                           _vm._v(
                                             "\n                                " +
-                                              _vm._s(
-                                                props.row.subscription_type
-                                              ) +
+                                              _vm._s(props.row.type) +
                                               "\n                            "
                                           ),
                                         ])
@@ -63501,7 +63564,7 @@ var render = function () {
                             ],
                             null,
                             false,
-                            3120511553
+                            2565651261
                           ),
                         }),
                       ]

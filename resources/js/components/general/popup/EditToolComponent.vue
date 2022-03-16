@@ -38,6 +38,10 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="">Type</label>
+                                <input type="text" v-model="fields.type" class="form-control">
+                            </div>
+                            <div class="form-group">
                                 <label for="Purpose">Purpose</label>
                                 <textarea name="" id="" cols="30" v-model="fields.purpose" class="form-control"
                                     rows="3"></textarea>
@@ -69,7 +73,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Notes</label>
-                                <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30" rows="4"></textarea>
+                                <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30"
+                                    rows="4"></textarea>
                             </div>
 
                         </div>
@@ -102,7 +107,8 @@
                     frequency_type: null,
                     price: null,
                     expiration: null,
-                    notes: null
+                    notes: null,
+                    type: null
                 }
             }
         },
@@ -128,6 +134,7 @@
             this.fields.price = this.tool.price
             this.fields.expiration = this.tool.expiration
             this.fields.notes = this.tool.notes
+            this.fields.type = this.tool.type
         },
         watch: {
             tool() {
@@ -142,6 +149,7 @@
                 this.fields.price = this.tool.price
                 this.fields.expiration = this.tool.expiration
                 this.fields.notes = this.tool.notes
+                this.fields.type = this.tool.type
             }
         },
         methods: {
@@ -178,7 +186,6 @@
 
         }
     }
-
 </script>
 
 <style scoped>
@@ -260,5 +267,4 @@
         background-color: #f26f24;
         box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
     }
-
 </style>

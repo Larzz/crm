@@ -43,6 +43,7 @@ class ToolController extends Controller
         $tool->price = $this->request->price;
         $tool->expiration = $this->request->expiration;
         $tool->notes = $this->request->notes;
+        $tool->type = $this->request->type;
 
         if($tool->save()) {
             return response()->json(['status' => true]);
@@ -75,6 +76,7 @@ class ToolController extends Controller
             $tool->price = $this->request->price;
             $tool->expiration = $this->request->expiration;
             $tool->notes = $this->request->notes;
+            $tool->type = $this->request->type;
 
             if($tool->save()) {
                 return response()->json(['status' => true]);

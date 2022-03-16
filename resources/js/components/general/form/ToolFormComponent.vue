@@ -25,6 +25,10 @@
 
             <div class="col-md-12">
                 <div class="form-group">
+                    <label for="">Type</label>
+                    <input type="text" v-model="fields.type" class="form-control">
+                </div> 
+                <div class="form-group">
                     <label for="Purpose">Purpose</label>
                     <textarea name="" id="" cols="30" v-model="fields.purpose" class="form-control" rows="3"></textarea>
                 </div>
@@ -81,7 +85,8 @@
                     frequency: null,
                     price: null,
                     expiration:null,
-                    note: null
+                    note: null,
+                    type: null
                 }
             }
         },
