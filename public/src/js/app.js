@@ -7270,6 +7270,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7284,6 +7288,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Details',
         field: 'details'
+      }, {
+        label: 'Service Type',
+        field: 'service_type'
       }, {
         label: 'Action',
         field: 'action'
@@ -63359,12 +63366,7 @@ var render = function () {
                                               " "
                                           ),
                                           _c("br"),
-                                          _vm._v(
-                                            "\n                                Frequency: " +
-                                              _vm._s(props.row.frequency_type) +
-                                              " "
-                                          ),
-                                          _c("br"),
+                                          _vm._v(" "),
                                           _vm._v(
                                             "\n                                Price: " +
                                               _vm._s(props.row.price) +
@@ -63380,6 +63382,18 @@ var render = function () {
                                           _vm._v(
                                             "\n                                Notes: " +
                                               _vm._s(props.row.notes) +
+                                              "\n                            "
+                                          ),
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    props.column.field == "service_type"
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                " +
+                                              _vm._s(
+                                                props.row.subscription_type
+                                              ) +
                                               "\n                            "
                                           ),
                                         ])
@@ -63487,7 +63501,7 @@ var render = function () {
                             ],
                             null,
                             false,
-                            4193832463
+                            3120511553
                           ),
                         }),
                       ]

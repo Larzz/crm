@@ -22,10 +22,14 @@
                                     Password: {{ props.row.password }} <br>
                                     Purpose: {{ props.row.purpose }} <br>
                                     Subscription Type: {{ props.row.subscription_type }} <br>
-                                    Frequency: {{ props.row.frequency_type }} <br>
+                                    <!-- Frequency: {{ props.row.frequency_type }} <br> -->
                                     Price: {{ props.row.price }} <br>
                                     Expiration: {{ props.row.expiration }} <br>
                                     Notes: {{ props.row.notes }}
+                                </span>
+
+                                <span v-if="props.column.field == 'service_type'">
+                                    {{ props.row.subscription_type }}
                                 </span>
 
                                 <span v-if="props.column.field == 'action'">
@@ -82,6 +86,10 @@
                     {
                         label: 'Details',
                         field: 'details',
+                    },
+                    {
+                        label: 'Service Type',
+                        field: 'service_type'
                     },
                     {
                         label: 'Action',
