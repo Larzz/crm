@@ -131,7 +131,27 @@ class ClientController extends Controller
 
 
 
-    public function changePassword() {
+    public function changePassword($user_id) {
+
+        try {
+
+            if ($this->request->password != $this->request->confirmPassword) {
+                return response()->json(['status' => false, 'message' => 'the password and confirm password are not match.']);
+            } 
+
+            $user = User::where('id', $user_id)->update([
+                'password' => Hash::make($this->request->password)
+            ]);
+            
+            if ($user) {
+                return response()->json(['status' => true, 'message' => 'Successfully updated password!']);
+            }
+            
+            return response()->json(['status' => false]);
+        
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false]);
+        }
         
     }
 

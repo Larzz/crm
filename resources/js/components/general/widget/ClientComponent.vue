@@ -62,6 +62,7 @@
 
                 console.log(client)
                 this.showPopup = false
+                this.showChangePassword = false
                 this.user.name = client.name
                 this.user.email = client.email
                 this.user.mobile_number = client.mobile_number

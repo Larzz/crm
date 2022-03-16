@@ -4971,7 +4971,7 @@ __webpack_require__.r(__webpack_exports__);
   watch: {},
   methods: {
     close: function close() {
-      this.$emit('close', false);
+      this.$emit('close', this.client);
     },
     changePassword: function changePassword() {
       var $this = this;
@@ -4993,16 +4993,18 @@ __webpack_require__.r(__webpack_exports__);
 
       axios({
         method: 'post',
-        url: "/api/v1/client/change-password/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
+        url: "/api/v1/client/change-password/".concat(this.client.id, "?api_token=").concat(window.Laravel.api_token),
         data: this.fields
       }).then(function (response) {
         if (response.data.status) {
           $this.close();
-          $this.$toastr.s('Successfully Added new Client');
+          $this.$toastr.s(response.data.message);
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {
+        this.fields.password = null;
+        this.fields.confirmPassword = null;
         JsLoadingOverlay.hide();
       });
     }
@@ -7448,6 +7450,7 @@ __webpack_require__.r(__webpack_exports__);
     close: function close(client) {
       console.log(client);
       this.showPopup = false;
+      this.showChangePassword = false;
       this.user.name = client.name;
       this.user.email = client.email;
       this.user.mobile_number = client.mobile_number;

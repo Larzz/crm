@@ -77,7 +77,7 @@
         },
         methods: {
             close() {
-                this.$emit('close', false)
+                this.$emit('close', this.client)
             },
             changePassword() {
 
@@ -100,18 +100,20 @@
 
                 axios({
                         method: 'post',
-                        url: `/api/v1/client/change-password/${this.user.id}?api_token=${window.Laravel.api_token}`,
+                        url: `/api/v1/client/change-password/${this.client.id}?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.close()
-                            $this.$toastr.s('Successfully Added new Client')
+                            $this.$toastr.s(response.data.message)
                         }
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
                     })
                     .then(function () {
+                        this.fields.password = null
+                        this.fields.confirmPassword = null
                         JsLoadingOverlay.hide();
                     });
 
