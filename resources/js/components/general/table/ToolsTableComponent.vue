@@ -88,7 +88,7 @@
                         field: 'details',
                     },
                     {
-                        label: 'Service Type',
+                        label: 'Type',
                         field: 'service_type'
                     },
                     {

@@ -7302,7 +7302,7 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Details',
         field: 'details'
       }, {
-        label: 'Service Type',
+        label: 'Type',
         field: 'service_type'
       }, {
         label: 'Action',
