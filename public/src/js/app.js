@@ -59461,7 +59461,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control",
-          attrs: { type: "text", name: "", id: "" },
+          attrs: { type: "date", name: "", id: "" },
         }),
       ]),
     ])
@@ -61600,7 +61600,7 @@ var render = function () {
                           },
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", name: "", id: "" },
+                        attrs: { type: "date", name: "", id: "" },
                         domProps: { value: _vm.fields.expiration },
                         on: {
                           input: function ($event) {
@@ -63597,14 +63597,14 @@ var render = function () {
                 "a",
                 {
                   staticClass: "btn btn-sm btn-primary",
-                  attrs: { href: "#!" },
+                  attrs: { href: "#!", title: "Change Password" },
                   on: {
                     click: function ($event) {
                       _vm.showChangePassword = true
                     },
                   },
                 },
-                [_c("i", { staticClass: "fa-solid fa-align-justify" })]
+                [_c("i", { staticClass: "fa fa-lock" })]
               ),
             ]),
           ]),

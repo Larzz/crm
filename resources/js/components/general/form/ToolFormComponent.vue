@@ -48,7 +48,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Expiration</label>
-                    <input type="text" class="form-control" name="" id="">
+                    <input type="date" class="form-control" name="" id="">
                 </div>
             </div>
 

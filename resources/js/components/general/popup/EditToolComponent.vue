@@ -62,7 +62,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Expiration</label>
-                                <input type="text" v-model="fields.expiration" class="form-control" name="" id="">
+                                <input type="date" v-model="fields.expiration" class="form-control" name="" id="">
                             </div>
                         </div>
 

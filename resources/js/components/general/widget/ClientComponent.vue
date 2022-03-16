@@ -8,7 +8,7 @@
                     </div>
                     <div class="col text-right">
                         <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                        <a href="#!" @click="showChangePassword=true" class="btn btn-sm btn-primary"><i class="fa-solid fa-align-justify"></i></a>
+                        <a href="#!" @click="showChangePassword=true" title="Change Password" class="btn btn-sm btn-primary"><i class="fa fa-lock"></i></a>
                     </div>
                 </div>
             </div>
