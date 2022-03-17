@@ -16,6 +16,7 @@ class PresentationController extends Controller
 
     public function __construct(Request $request) {
         $this->request = $request;
+        define("YEAR",     date('Y'));
     }
 
 
@@ -50,8 +51,8 @@ class PresentationController extends Controller
     }
 
 
-    public function getPresentation($client_id) {
-        $presentations = Presentations::where('client_id', $client_id)->get();
+    public function getPresentation($client_id, $year=YEAR) {
+        $presentations = Presentations::where('client_id', $client_id)->whereYear('meeting_date', $year)->get();
         if($presentations) {
             return response()->json(['status' => true, 'presentations' => $presentations]);
         }

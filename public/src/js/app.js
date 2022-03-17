@@ -7043,6 +7043,79 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/popup/YearPopup.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      year: '2022'
+    };
+  },
+  props: {
+    showPopup: {
+      required: true,
+      type: Boolean
+    }
+  },
+  mounted: function mounted() {},
+  watch: {},
+  methods: {
+    close: function close() {
+      this.$emit('close', this.year);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/table/ClientTableComponent.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/table/ClientTableComponent.vue?vue&type=script&lang=js& ***!
@@ -7549,6 +7622,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7556,6 +7676,7 @@ __webpack_require__.r(__webpack_exports__);
       document: {},
       documents: [],
       showPopup: false,
+      ShowYearPopup: false,
       isEdit: false,
       time: Date.now(),
       columns: [{
@@ -7568,7 +7689,8 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Action',
         field: 'action'
       }],
-      rows: []
+      rows: [],
+      year: '2022'
     };
   },
   props: {
@@ -7585,10 +7707,11 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'get',
-        url: "/api/v1/documents/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token)
+        url: "/api/v1/documents/".concat(this.user.id, "/").concat(this.year, "?api_token=").concat(window.Laravel.api_token)
       }).then(function (response) {
         if (response.data.status) {
           $this.rows = response.data.documents;
+          $this.documents = response.data.documents;
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -7652,7 +7775,12 @@ __webpack_require__.r(__webpack_exports__);
       return this.formatDate(document.expiration_date);
     },
     setActions: function setActions(document) {
-      return " <div class=\"d-flex align-items-center\">\n                    <ul>\n                        <li><a href=\"#!\" @click=\"editDocument(document)\" title=\"Edit Client\"><i\n                                    class=\"fa fa-edit\"></i></a> </li>\n                        <li> <a href=\"#!\" @click=\"viewDocument(document)\" title=\"View Document\"><i\n                                    class=\"fas fa-eye\"></i></a> </li>\n                        <li> <a href=\"#!\" @click=\"removeDocument(document.id)\"\n                                title=\"Delete Document\"><i class=\"fas fa-trash\"></i></a> </li>\n                    </ul>\n                </div>";
+      return " <div class=\"d-flex align-items-center\">\n                        <ul>\n                            <li><a href=\"#!\" @click=\"editDocument(document)\" title=\"Edit Client\"><i\n                                        class=\"fa fa-edit\"></i></a> </li>\n                            <li> <a href=\"#!\" @click=\"viewDocument(document)\" title=\"View Document\"><i\n                                        class=\"fas fa-eye\"></i></a> </li>\n                            <li> <a href=\"#!\" @click=\"removeDocument(document.id)\"\n                                    title=\"Delete Document\"><i class=\"fas fa-trash\"></i></a> </li>\n                        </ul>\n                    </div>";
+    },
+    sort: function sort(year) {
+      this.ShowYearPopup = false;
+      this.year = year;
+      this.getDocuments();
     }
   }
 });
@@ -7720,6 +7848,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7727,6 +7893,7 @@ __webpack_require__.r(__webpack_exports__);
       meeting: {},
       meetings: {},
       showPopup: false,
+      ShowYearPopup: false,
       isEdit: false,
       time: Date.now(),
       columns: [{
@@ -7739,7 +7906,8 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Action',
         field: 'action'
       }],
-      rows: []
+      rows: [],
+      year: '2022'
     };
   },
   props: {
@@ -7766,10 +7934,11 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'get',
-        url: "/api/v1/meetings/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token),
+        url: "/api/v1/meetings/".concat(this.user.id, "/").concat(this.year, "?api_token=").concat(window.Laravel.api_token),
         data: this.fields
       }).then(function (response) {
         $this.rows = response.data.meetings;
+        $this.meetings = response.data.meetings;
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {});
@@ -7859,6 +8028,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     setMeeting: function setMeeting(meeting) {
       return this.formatDate(meeting.meeting_date);
+    },
+    sort: function sort(year) {
+      this.ShowYearPopup = false;
+      this.year = year;
+      this.getMeetings();
     }
   }
 });
@@ -7925,12 +8099,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       presentations: null,
       showPopup: false,
+      ShowYearPopup: false,
       isEdit: false,
       presentation: {},
       time: Date.now(),
@@ -7966,7 +8179,7 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'get',
-        url: "/api/v1/presentations/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token)
+        url: "/api/v1/presentations/".concat(this.user.id, "/").concat(this.year, "?api_token=").concat(window.Laravel.api_token)
       }).then(function (response) {
         $this.rows = response.data.presentations;
         $this.presentations = response.data.presentations;
@@ -8061,6 +8274,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     setMeeting: function setMeeting(presentation) {
       return this.formatDate(presentation.meeting_date);
+    },
+    sort: function sort(year) {
+      this.ShowYearPopup = false;
+      this.year = year;
+      this.getPresentation();
     }
   }
 });
@@ -11127,6 +11345,25 @@ exports.push([module.i, "\n.customdropzone[data-v-56767808] {\n    width: 100%;\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.form-group[data-v-7c2c92ec] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-7c2c92ec],\n.fade-leave-active[data-v-7c2c92ec] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-7c2c92ec],\n.fade-leave-to[data-v-7c2c92ec] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-7c2c92ec],\n.slide-leave-active[data-v-7c2c92ec] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-7c2c92ec],\n.slide-leave-to[data-v-7c2c92ec] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-7c2c92ec] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-7c2c92ec] {\n    position: fixed;\n     left: 42%;\ntop: 20%;\n    z-index: 1000;\n    width: 20%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-7c2c92ec] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-7c2c92ec] {\n    float: right;\n}\n.btn[data-v-7c2c92ec] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-7c2c92ec] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/table/ToolsTableComponent.vue?vue&type=style&index=0&id=23531b87&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/table/ToolsTableComponent.vue?vue&type=style&index=0&id=23531b87&scoped=true&lang=css& ***!
@@ -11177,7 +11414,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__label[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select[data-v-2805c789] {\n  font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info[data-v-2805c789], .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info[data-v-2805c789] {\n   font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn[data-v-2805c789] {\n   font-size: 11px !important;\n}\n.footer__navigation__page-btn disabled[data-v-2805c789] {\n  font-size: 11px !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__label[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info[data-v-2805c789],\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.footer__navigation__page-btn disabled[data-v-2805c789] {\n    font-size: 11px !important;\n}\n", ""]);
 
 // exports
 
@@ -11196,7 +11433,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-fbe2162a] {\n    height: 355px;\n    overflow-y: scroll;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-fbe2162a] {\n    height: 355px;\n    overflow-y: scroll;\n}\n", ""]);
 
 // exports
 
@@ -11215,7 +11452,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-76a4106a] {\n    height: 355px;\n}\n.card-body[data-v-76a4106a] {\n    overflow-y: scroll;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-76a4106a] {\n    height: 355px;\n}\n.card-body[data-v-76a4106a] {\n    overflow-y: scroll;\n}\n", ""]);
 
 // exports
 
@@ -41474,6 +41711,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--5-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/table/ToolsTableComponent.vue?vue&type=style&index=0&id=23531b87&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/table/ToolsTableComponent.vue?vue&type=style&index=0&id=23531b87&scoped=true&lang=css& ***!
@@ -63188,6 +63455,178 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/popup/YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("transition", { attrs: { name: "fade", appear: "" } }, [
+        _vm.showPopup
+          ? _c("div", {
+              staticClass: "modal-overlay",
+              on: {
+                click: function ($event) {
+                  $event.preventDefault()
+                  return _vm.close.apply(null, arguments)
+                },
+              },
+            })
+          : _vm._e(),
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "slide", appear: "" } }, [
+        _vm.showPopup
+          ? _c("div", { staticClass: "modal" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h6",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "modal-title-default" },
+                  },
+                  [_vm._v("Sort")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.close.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×"),
+                    ]),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Year")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.year,
+                              expression: "year",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "", id: "" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.year = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        [
+                          _c("option", { attrs: { value: "2022" } }, [
+                            _vm._v("2022"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2021" } }, [
+                            _vm._v("2021"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2020" } }, [
+                            _vm._v("2020"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2019" } }, [
+                            _vm._v("2019"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2018" } }, [
+                            _vm._v("2018"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2017" } }, [
+                            _vm._v("2017"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2016" } }, [
+                            _vm._v("2016"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2015" } }, [
+                            _vm._v("2015"),
+                          ]),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.close()
+                      },
+                    },
+                  },
+                  [_vm._v("Select")]
+                ),
+              ]),
+            ])
+          : _vm._e(),
+      ]),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/table/ClientTableComponent.vue?vue&type=template&id=53efc14d&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/general/table/ClientTableComponent.vue?vue&type=template&id=53efc14d& ***!
@@ -63800,6 +64239,20 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
+                      _vm.ShowYearPopup = true
+                    },
+                  },
+                },
+                [_c("i", { staticClass: "fa fa-filter" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function ($event) {
                       ;(_vm.showPopup = true), (_vm.isEdit = true)
                     },
                   },
@@ -63814,126 +64267,98 @@ var render = function () {
           "div",
           { staticClass: "table-responsive" },
           [
-            _vm.documents
-              ? [
-                  _c("vue-good-table", {
-                    attrs: {
-                      columns: _vm.columns,
-                      "pagination-options": { enabled: true },
-                      theme: "polar-bear",
-                      rows: _vm.rows,
-                      "sort-options": { enabled: true },
-                      "search-options": {
-                        enabled: true,
-                        placeholder: "Search Documents",
-                      },
-                      styleClass: "table align-items-center table-flush",
-                    },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "table-row",
-                          fn: function (props) {
-                            return [
-                              props.column.field == "action"
-                                ? _c("span", [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "d-flex align-items-center",
-                                      },
-                                      [
-                                        _c("ul", [
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "Edit Client",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.editDocument(
-                                                      props.row
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-edit",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "View Document",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.viewDocument(
-                                                      props.row
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fas fa-eye",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "Delete Document",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.removeDocument(
-                                                      props.row.id
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fas fa-trash",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                        ]),
-                                      ]
-                                    ),
-                                  ])
-                                : _vm._e(),
-                            ]
-                          },
-                        },
-                      ],
-                      null,
-                      false,
-                      2490117460
-                    ),
-                  }),
-                ]
-              : _vm._e(),
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm.documents
+                  ? [
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.documents, function (document, index) {
+                          return _c("tr", { key: index }, [
+                            _c("th", { attrs: { scope: "row" } }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(document.name) +
+                                  "\n                            "
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(
+                                    _vm.formatDate(document.expiration_date)
+                                  ) +
+                                  "\n                            "
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "div",
+                                { staticClass: "d-flex align-items-center" },
+                                [
+                                  _c("ul", [
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "Open Document",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.viewDocument(document)
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fa fa-eye" })]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "Delete Document",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.removeDocument(
+                                                document.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash",
+                                          }),
+                                        ]
+                                      ),
+                                    ]),
+                                  ]),
+                                ]
+                              ),
+                            ]),
+                          ])
+                        }),
+                        0
+                      ),
+                    ]
+                  : _vm._e(),
+              ],
+              2
+            ),
             _vm._v(" "),
-            !_vm.documents ? [_vm._m(1)] : _vm._e(),
+            !_vm.documents ? [_vm._m(2)] : _vm._e(),
           ],
           2
         ),
@@ -63954,6 +64379,15 @@ var render = function () {
           },
         },
       }),
+      _vm._v(" "),
+      _c("year-popup", {
+        attrs: { showPopup: _vm.ShowYearPopup },
+        on: {
+          close: function ($event) {
+            return _vm.sort($event)
+          },
+        },
+      }),
     ],
     1
   )
@@ -63965,6 +64399,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Documents")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Document")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Expiration")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
+      ]),
     ])
   },
   function () {
@@ -64020,6 +64468,20 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
+                      _vm.ShowYearPopup = true
+                    },
+                  },
+                },
+                [_c("i", { staticClass: "fa fa-filter" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function ($event) {
                       ;(_vm.showPopup = true), (_vm.isEdit = true)
                     },
                   },
@@ -64036,124 +64498,123 @@ var render = function () {
           [
             _vm.meetings
               ? [
-                  _c("vue-good-table", {
-                    attrs: {
-                      columns: _vm.columns,
-                      "pagination-options": { enabled: true },
-                      theme: "polar-bear",
-                      rows: _vm.rows,
-                      "sort-options": { enabled: true },
-                      "search-options": {
-                        enabled: true,
-                        placeholder: "Search Meeting Minutes",
-                      },
-                      styleClass: "table align-items-center table-flush",
-                    },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "table-row",
-                          fn: function (props) {
-                            return [
-                              props.column.field == "action"
-                                ? _c("span", [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "d-flex align-items-center",
-                                      },
-                                      [
-                                        _c("ul", [
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "Edit Client",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.editMeeting(
-                                                      props.row
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-edit",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "View Document",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.viewMeeting(
-                                                      props.row
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fas fa-eye",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "Delete Document",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.deleteMeeting(
-                                                      props.row.id
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fas fa-trash",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                        ]),
-                                      ]
-                                    ),
-                                  ])
-                                : _vm._e(),
-                            ]
-                          },
-                        },
-                      ],
-                      null,
-                      false,
-                      3434487165
-                    ),
-                  }),
+                  _c(
+                    "table",
+                    { staticClass: "table align-items-center table-flush" },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.meetings, function (meeting, index) {
+                          return _c("tr", { key: index }, [
+                            _c(
+                              "td",
+                              { attrs: { scope: "row", width: "100%" } },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(meeting.name) +
+                                    "\n                            "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { attrs: { scope: "row", width: "100%" } },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      _vm.formatDate(meeting.meeting_date)
+                                    ) +
+                                    "\n                            "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { attrs: { width: "100%" } }, [
+                              _c(
+                                "div",
+                                { staticClass: "d-flex align-items-center" },
+                                [
+                                  _c("ul", [
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            title: "Edit Client",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.editMeeting(meeting)
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            "data-id": meeting.id,
+                                            title: "View Employee",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.viewMeeting(meeting)
+                                            },
+                                          },
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "#!",
+                                            "data-id": meeting.id,
+                                            title: "Update Employee",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.deleteMeeting(
+                                                meeting.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash",
+                                          }),
+                                        ]
+                                      ),
+                                    ]),
+                                  ]),
+                                ]
+                              ),
+                            ]),
+                          ])
+                        }),
+                        0
+                      ),
+                    ]
+                  ),
                 ]
               : _vm._e(),
             _vm._v(" "),
-            !_vm.meetings ? [_vm._m(1)] : _vm._e(),
+            !_vm.meetings ? [_vm._m(2)] : _vm._e(),
           ],
           2
         ),
@@ -64173,6 +64634,15 @@ var render = function () {
           },
         },
       }),
+      _vm._v(" "),
+      _c("year-popup", {
+        attrs: { showPopup: _vm.ShowYearPopup },
+        on: {
+          close: function ($event) {
+            return _vm.sort($event)
+          },
+        },
+      }),
     ],
     1
   )
@@ -64184,6 +64654,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Meeting Minutes")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Meeting Date")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }),
+      ]),
     ])
   },
   function () {
@@ -64239,6 +64723,20 @@ var render = function () {
                   attrs: { href: "#!" },
                   on: {
                     click: function ($event) {
+                      _vm.ShowYearPopup = true
+                    },
+                  },
+                },
+                [_c("i", { staticClass: "fa fa-filter" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { href: "#!" },
+                  on: {
+                    click: function ($event) {
                       ;(_vm.showPopup = true), (_vm.isEdit = true)
                     },
                   },
@@ -64255,124 +64753,140 @@ var render = function () {
           [
             _vm.presentations
               ? [
-                  _c("vue-good-table", {
-                    attrs: {
-                      columns: _vm.columns,
-                      "pagination-options": { enabled: true },
-                      theme: "polar-bear",
-                      rows: _vm.rows,
-                      "sort-options": { enabled: true },
-                      "search-options": {
-                        enabled: true,
-                        placeholder: "Search Presentations",
-                      },
-                      styleClass: "table align-items-center table-flush",
-                    },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "table-row",
-                          fn: function (props) {
-                            return [
-                              props.column.field == "action"
-                                ? _c("span", [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "d-flex align-items-center",
-                                      },
-                                      [
-                                        _c("ul", [
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "Edit Client",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.editPresentation(
-                                                      props.row
-                                                    )
-                                                  },
-                                                },
+                  _c(
+                    "table",
+                    { staticClass: "table align-items-center table-flush" },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(
+                          _vm.presentations,
+                          function (presentation, index) {
+                            return _c("tr", { key: index }, [
+                              _c(
+                                "td",
+                                { attrs: { scope: "row", width: "100%" } },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.limitName(presentation.name)) +
+                                      "\n                                "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { attrs: { scope: "row", width: "100%" } },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.formatDate(
+                                          presentation.meeting_date
+                                        )
+                                      ) +
+                                      "\n                                "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "100%" } }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "d-flex align-items-center" },
+                                  [
+                                    _c("ul", [
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              title: "Edit Client",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.editPresentation(
+                                                  presentation
+                                                )
                                               },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-edit",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "View Document",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.viewPresentation(
-                                                      props.row
-                                                    )
-                                                  },
-                                                },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-edit",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              "data-id": presentation.id,
+                                              title: "View Presentation",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.viewPresentation(
+                                                  presentation
+                                                )
                                               },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fas fa-eye",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("li", [
-                                            _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: "#!",
-                                                  title: "Delete Document",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.deletePresentation(
-                                                      props.row.id
-                                                    )
-                                                  },
-                                                },
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-eye",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "#!",
+                                              "data-id": presentation.id,
+                                              title: "Delete Presentation",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                return _vm.deletePresentation(
+                                                  presentation.id
+                                                )
                                               },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fas fa-trash",
-                                                }),
-                                              ]
-                                            ),
-                                          ]),
-                                        ]),
-                                      ]
-                                    ),
-                                  ])
-                                : _vm._e(),
-                            ]
-                          },
-                        },
-                      ],
-                      null,
-                      false,
-                      3723881554
-                    ),
-                  }),
+                                            },
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-trash",
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                    ]),
+                                  ]
+                                ),
+                              ]),
+                            ])
+                          }
+                        ),
+                        0
+                      ),
+                    ]
+                  ),
                 ]
               : _vm._e(),
             _vm._v(" "),
-            !_vm.presentations ? [_vm._m(1)] : _vm._e(),
+            !_vm.presentations ? [_vm._m(2)] : _vm._e(),
           ],
           2
         ),
@@ -64392,6 +64906,15 @@ var render = function () {
           },
         },
       }),
+      _vm._v(" "),
+      _c("year-popup", {
+        attrs: { showPopup: _vm.ShowYearPopup },
+        on: {
+          close: function ($event) {
+            return _vm.sort($event)
+          },
+        },
+      }),
     ],
     1
   )
@@ -64403,6 +64926,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col" }, [
       _c("h3", { staticClass: "mb-0" }, [_vm._v("Presentation")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Meeting Date")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }),
+      ]),
     ])
   },
   function () {
@@ -81921,6 +82458,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/general/popup/YearPopup.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/general/popup/YearPopup.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _YearPopup_vue_vue_type_template_id_7c2c92ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true& */ "./resources/js/components/general/popup/YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true&");
+/* harmony import */ var _YearPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./YearPopup.vue?vue&type=script&lang=js& */ "./resources/js/components/general/popup/YearPopup.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _YearPopup_vue_vue_type_style_index_0_id_7c2c92ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css& */ "./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _YearPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _YearPopup_vue_vue_type_template_id_7c2c92ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _YearPopup_vue_vue_type_template_id_7c2c92ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7c2c92ec",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/general/popup/YearPopup.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/general/popup/YearPopup.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/general/popup/YearPopup.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./YearPopup.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_style_index_0_id_7c2c92ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--5-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=style&index=0&id=7c2c92ec&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_style_index_0_id_7c2c92ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_style_index_0_id_7c2c92ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_style_index_0_id_7c2c92ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_style_index_0_id_7c2c92ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/general/popup/YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/general/popup/YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_template_id_7c2c92ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/general/popup/YearPopup.vue?vue&type=template&id=7c2c92ec&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_template_id_7c2c92ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_YearPopup_vue_vue_type_template_id_7c2c92ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/general/table/ClientTableComponent.vue":
 /*!************************************************************************!*\
   !*** ./resources/js/components/general/table/ClientTableComponent.vue ***!
@@ -82791,12 +83415,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_general_popup_BulettinPostComponent_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/general/popup/BulettinPostComponent.vue */ "./resources/js/components/general/popup/BulettinPostComponent.vue");
 /* harmony import */ var _components_general_popup_EditTutorialComponent_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/general/popup/EditTutorialComponent.vue */ "./resources/js/components/general/popup/EditTutorialComponent.vue");
 /* harmony import */ var _components_general_popup_ChangePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/general/popup/ChangePasswordComponent.vue */ "./resources/js/components/general/popup/ChangePasswordComponent.vue");
-/* harmony import */ var _components_general_form_ClientFormComponent_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/general/form/ClientFormComponent.vue */ "./resources/js/components/general/form/ClientFormComponent.vue");
-/* harmony import */ var _components_general_form_ToolFormComponent_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/general/form/ToolFormComponent.vue */ "./resources/js/components/general/form/ToolFormComponent.vue");
-/* harmony import */ var _components_general_table_ClientTableComponent_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/general/table/ClientTableComponent.vue */ "./resources/js/components/general/table/ClientTableComponent.vue");
-/* harmony import */ var _components_general_table_ToolsTableComponent_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/general/table/ToolsTableComponent.vue */ "./resources/js/components/general/table/ToolsTableComponent.vue");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var _components_general_popup_YearPopup_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/general/popup/YearPopup.vue */ "./resources/js/components/general/popup/YearPopup.vue");
+/* harmony import */ var _components_general_form_ClientFormComponent_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/general/form/ClientFormComponent.vue */ "./resources/js/components/general/form/ClientFormComponent.vue");
+/* harmony import */ var _components_general_form_ToolFormComponent_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/general/form/ToolFormComponent.vue */ "./resources/js/components/general/form/ToolFormComponent.vue");
+/* harmony import */ var _components_general_table_ClientTableComponent_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/general/table/ClientTableComponent.vue */ "./resources/js/components/general/table/ClientTableComponent.vue");
+/* harmony import */ var _components_general_table_ToolsTableComponent_vue__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/general/table/ToolsTableComponent.vue */ "./resources/js/components/general/table/ToolsTableComponent.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_32__);
 //////////////////////////////////// IMPORTING ///////////////////////////////////////////////////
 // widget
 
@@ -82828,6 +83453,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
  // form
 
 
@@ -82838,43 +83464,44 @@ __webpack_require__.r(__webpack_exports__);
  ////////////////////////////////// DECLARATIONS //////////////////////////////////////////////////
 // widget
 
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('presentation-widget', _components_general_widget_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('meeting-widget', _components_general_widget_MeetingComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('client-widget', _components_general_widget_ClientComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('document-widget', _components_general_widget_DocumentComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('general-bulletin-card', _components_general_BulletinComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('general-client-card', _components_general_ClientWidgetComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('popup', _components_general_PopupComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('notes', _components_general_NotesComponent__WEBPACK_IMPORTED_MODULE_2__["default"]); // widget
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('presentation-widget', _components_general_widget_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('meeting-widget', _components_general_widget_MeetingComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('client-widget', _components_general_widget_ClientComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('document-widget', _components_general_widget_DocumentComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('general-bulletin-card', _components_general_BulletinComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('general-client-card', _components_general_ClientWidgetComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('popup', _components_general_PopupComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('notes', _components_general_NotesComponent__WEBPACK_IMPORTED_MODULE_2__["default"]); // widget
 // pages
 
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('tutorial', _components_general_TutorialComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('newsletter', _components_general_NewsletterComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('website', _components_general_WebsiteComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('presentation', _components_general_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('client', _components_general_ClientComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('client-detail', _components_general_ClientDetails_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('tools', _components_general_ToolsComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]); // popup
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('tutorial', _components_general_TutorialComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('newsletter', _components_general_NewsletterComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('website', _components_general_WebsiteComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('presentation', _components_general_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('client', _components_general_ClientComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('client-detail', _components_general_ClientDetails_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('tools', _components_general_ToolsComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"]); // popup
 
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('create-client-popup', _components_general_popup_CreateClientComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('upload-document-popup', _components_general_popup_UploadDocumentComponent_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('create-employee-popup', _components_general_popup_CreateEmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('create-note-popup', _components_general_popup_CreateNoteComponent_vue__WEBPACK_IMPORTED_MODULE_18__["default"]); // new naming method, need to change the above when have time
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('create-client-popup', _components_general_popup_CreateClientComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('upload-document-popup', _components_general_popup_UploadDocumentComponent_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('create-employee-popup', _components_general_popup_CreateEmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('create-note-popup', _components_general_popup_CreateNoteComponent_vue__WEBPACK_IMPORTED_MODULE_18__["default"]); // new naming method, need to change the above when have time
 
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('presentation-popup', _components_general_popup_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_19__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('meeting-minutes-popup', _components_general_popup_MeetingMinutesComponent_vue__WEBPACK_IMPORTED_MODULE_20__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('edit-bulletin-popup', _components_general_popup_EditBulletinComponent_vue__WEBPACK_IMPORTED_MODULE_21__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('edit-client-popup', _components_general_popup_EditClientComponent_vue__WEBPACK_IMPORTED_MODULE_22__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('edit-tool-popup', _components_general_popup_EditToolComponent_vue__WEBPACK_IMPORTED_MODULE_23__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('bulletin-post-popup', _components_general_popup_BulettinPostComponent_vue__WEBPACK_IMPORTED_MODULE_24__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('edit-tutorial-popup', _components_general_popup_EditTutorialComponent_vue__WEBPACK_IMPORTED_MODULE_25__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('changed-password-popup', _components_general_popup_ChangePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_26__["default"]); // form
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('presentation-popup', _components_general_popup_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_19__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('meeting-minutes-popup', _components_general_popup_MeetingMinutesComponent_vue__WEBPACK_IMPORTED_MODULE_20__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('edit-bulletin-popup', _components_general_popup_EditBulletinComponent_vue__WEBPACK_IMPORTED_MODULE_21__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('edit-client-popup', _components_general_popup_EditClientComponent_vue__WEBPACK_IMPORTED_MODULE_22__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('edit-tool-popup', _components_general_popup_EditToolComponent_vue__WEBPACK_IMPORTED_MODULE_23__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('bulletin-post-popup', _components_general_popup_BulettinPostComponent_vue__WEBPACK_IMPORTED_MODULE_24__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('edit-tutorial-popup', _components_general_popup_EditTutorialComponent_vue__WEBPACK_IMPORTED_MODULE_25__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('changed-password-popup', _components_general_popup_ChangePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_26__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('year-popup', _components_general_popup_YearPopup_vue__WEBPACK_IMPORTED_MODULE_27__["default"]); // form
 
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('client-form', _components_general_form_ClientFormComponent_vue__WEBPACK_IMPORTED_MODULE_27__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('tool-form', _components_general_form_ToolFormComponent_vue__WEBPACK_IMPORTED_MODULE_28__["default"]); // table 
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('client-form', _components_general_form_ClientFormComponent_vue__WEBPACK_IMPORTED_MODULE_28__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('tool-form', _components_general_form_ToolFormComponent_vue__WEBPACK_IMPORTED_MODULE_29__["default"]); // table 
 
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('client-table', _components_general_table_ClientTableComponent_vue__WEBPACK_IMPORTED_MODULE_29__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_31___default.a.component('tool-table', _components_general_table_ToolsTableComponent_vue__WEBPACK_IMPORTED_MODULE_30__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('client-table', _components_general_table_ClientTableComponent_vue__WEBPACK_IMPORTED_MODULE_30__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_32___default.a.component('tool-table', _components_general_table_ToolsTableComponent_vue__WEBPACK_IMPORTED_MODULE_31__["default"]);
 
 /***/ }),
 

@@ -1,4 +1,4 @@
-vvv<template>
+<template>
     <div>
         <div class="card">
             <div class="card-header border-0">
@@ -7,11 +7,12 @@ vvv<template>
                         <h3 class="mb-0">Documents</h3>
                     </div>
                     <div class="col text-right">
+                        <a href="#!" @click="ShowYearPopup=true" class="btn btn-sm btn-primary"><i class="fa fa-filter"> </i></a>
                         <a href="#!" @click="showPopup=true, isEdit=true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
+            <!-- <div class="table-responsive">
                 <template v-if="documents">
                     <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
                         :rows="rows" :sort-options="{ enabled: true, }"
@@ -40,6 +41,50 @@ vvv<template>
                         </div>
                     </div>
                 </template>
+            </div> -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Document</th>
+                            <th scope="col">Expiration</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <template v-if="documents">
+                        <tbody>
+                            <tr v-for="(document, index) in documents" :key="index">
+                                <th scope="row">
+                                    {{ document.name }}
+                                </th>
+                                <td>
+                                    {{ formatDate(document.expiration_date)  }}
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <ul>
+                                              <li>
+                                                <a href="#!" @click="viewDocument(document)" title="Open Document"><i
+                                                        class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" @click="removeDocument(document.id)"
+                                                    title="Delete Document"><i class="fas fa-trash"></i></a> </li>
+                                          
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </template>
+                </table>
+                <template v-if="!documents">
+                    <div class="container mt-3">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Sorry!</strong> No Record Found
+                        </div>
+                    </div>
+                </template>
             </div>
             <!-- <div class="card-footer border-0">
                 <div class="row align-items-right text-right">
@@ -51,11 +96,14 @@ vvv<template>
         </div>
         <upload-document-popup :showPopup="showPopup" :user="user" :time="time" :document="document" :isEdit="isEdit"
             @fetchDocument="getDocuments" @close="showPopup = false"></upload-document-popup>
+        
+        <year-popup :showPopup="ShowYearPopup" @close="sort($event)"></year-popup>
     </div>
 </template>
 
 <script>
-    import Swal from 'sweetalert2'
+
+import Swal from 'sweetalert2'
 
     export default {
         data() {
@@ -63,6 +111,7 @@ vvv<template>
                 document: {},
                 documents: [],
                 showPopup: false,
+                ShowYearPopup: false,
                 isEdit: false,
                 time: Date.now(),
                 columns: [{
@@ -79,6 +128,7 @@ vvv<template>
                     },
                 ],
                 rows: [],
+                year: '2022'
             }
         },
         props: {
@@ -95,10 +145,11 @@ vvv<template>
                 let $this = this
                 axios({
                         method: 'get',
-                        url: `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`,
+                        url: `/api/v1/documents/${this.user.id}/${this.year}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.rows = response.data.documents
+                            $this.documents = response.data.documents
                         }
                     })
                     .catch(function (error) {
@@ -183,10 +234,14 @@ vvv<template>
                                     title="Delete Document"><i class="fas fa-trash"></i></a> </li>
                         </ul>
                     </div>`
+            },
+            sort(year) {
+                this.ShowYearPopup = false
+                this.year = year
+                this.getDocuments()
             }
         }
     }
-
 </script>
 
 <style scoped>
@@ -199,19 +254,19 @@ vvv<template>
     }
 
     .vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select {
-      font-size: 11px !important;
+        font-size: 11px !important;
     }
 
-    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info, .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info {
-       font-size: 11px !important;
+    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info,
+    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info {
+        font-size: 11px !important;
     }
 
     .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn {
-       font-size: 11px !important;
+        font-size: 11px !important;
     }
 
     .footer__navigation__page-btn disabled {
-      font-size: 11px !important;
+        font-size: 11px !important;
     }
-
 </style>

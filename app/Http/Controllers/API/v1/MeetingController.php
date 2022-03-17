@@ -15,6 +15,7 @@ class MeetingController extends Controller
 
     public function __construct(Request $request) {
         $this->request = $request;
+        define("YEAR",     date('Y'));
     }
 
 
@@ -69,8 +70,8 @@ class MeetingController extends Controller
      * @param  array $file
      * @return status
     */
-    public function getMeeting($client_id) {
-        return response()->json(['status' => true, 'meetings'=> MeetingMinutes::where('client_id', $client_id)->orderBy('created_at', 'desc')->get()]);
+    public function getMeeting($client_id, $year = YEAR) {
+        return response()->json(['status' => true, 'meetings'=> MeetingMinutes::where('client_id', $client_id)->whereYear('meeting_date', $year)->orderBy('created_at', 'desc')->get()]);
     }
 
 

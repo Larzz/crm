@@ -7,12 +7,14 @@
                         <h3 class="mb-0">Meeting Minutes</h3>
                     </div>
                     <div class="col text-right">
+                        <a href="#!" @click="ShowYearPopup=true" class="btn btn-sm btn-primary"><i class="fa fa-filter">
+                            </i></a>
                         <a href="#!" @click="showPopup=true, isEdit=true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
-                <template v-if="meetings">
+                <!-- <template v-if="meetings">
                     <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
                         :rows="rows" :sort-options="{ enabled: true, }"
                         :search-options="{ enabled: true, placeholder: 'Search Meeting Minutes'}"
@@ -32,6 +34,40 @@
                             </span>
                         </template>
                     </vue-good-table>
+                </template> -->
+                <template v-if="meetings">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Meeting Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(meeting, index) in meetings" :key="index">
+                                <td scope="row" width="100%">
+                                    {{ meeting.name }}
+                                </td>
+                                <td scope="row" width="100%">
+                                    {{ formatDate(meeting.meeting_date) }}
+                                </td>
+                                <td width="100%">
+                                    <div class="d-flex align-items-center">
+                                        <ul>
+                                            <li><a href="#!" @click="editMeeting(meeting)" title="Edit Client"><i
+                                                        class="fa fa-edit"></i></a> </li>
+                                            <li><a href="#!" :data-id="meeting.id" @click="viewMeeting(meeting)"
+                                                    title="View Employee">
+                                                    <i class="fas fa-eye"></i></a> </li>
+                                            <li> <a href="#!" :data-id="meeting.id" @click="deleteMeeting(meeting.id)"
+                                                    title="Update Employee"><i class="fas fa-trash"></i></a> </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </template>
                 <template v-if="!meetings">
                     <div class="container mt-3">
@@ -45,6 +81,8 @@
         </div>
         <meeting-minutes-popup :showPopup="showPopup" :time="time" :meeting="meeting" :isEdit="isEdit" :user="user"
             @close="reload()"></meeting-minutes-popup>
+        <year-popup :showPopup="ShowYearPopup" @close="sort($event)"></year-popup>
+
     </div>
 </template>
 
@@ -56,6 +94,7 @@
                 meeting: {},
                 meetings: {},
                 showPopup: false,
+                ShowYearPopup: false,
                 isEdit: false,
                 time: Date.now(),
                 columns: [{
@@ -72,6 +111,7 @@
                     },
                 ],
                 rows: [],
+                year: '2022'
             }
         },
         props: {
@@ -99,10 +139,11 @@
                 let $this = this
                 axios({
                         method: 'get',
-                        url: `/api/v1/meetings/${this.user.id}?api_token=${window.Laravel.api_token}`,
+                        url: `/api/v1/meetings/${this.user.id}/${this.year}?api_token=${window.Laravel.api_token}`,
                         data: this.fields
                     }).then(function (response) {
                         $this.rows = response.data.meetings
+                        $this.meetings = response.data.meetings
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);
@@ -197,11 +238,15 @@
             },
             setMeeting(meeting) {
                 return this.formatDate(meeting.meeting_date)
+            },
+            sort(year) {
+                this.ShowYearPopup = false
+                this.year = year
+                this.getMeetings()
             }
         }
 
     }
-
 </script>
 
 <style scoped>
@@ -209,5 +254,4 @@
         height: 355px;
         overflow-y: scroll;
     }
-
 </style>

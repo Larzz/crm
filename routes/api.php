@@ -70,7 +70,7 @@ Route::namespace('API')->group(function() {
         Route::prefix('documents')->group(function() {
             Route::post('{id}', 'DocumentController@addDocument');
             Route::post('upload/docs', 'DocumentController@uploadDocument');
-            Route::get('{id}', 'DocumentController@getDocuments');
+            Route::get('{id}/{year?}', 'DocumentController@getDocuments');
             Route::get('types/docs', 'DocumentController@getDocumentTypes');
             // Route::get('{id}', 'DocumentController@getDocument');
             Route::patch('{id}', 'DocumentController@editDocument');
@@ -88,7 +88,7 @@ Route::namespace('API')->group(function() {
 
         Route::prefix('presentations')->group(function() {
             Route::post('{client_id}', "PresentationController@addPresentation");
-            Route::get('{client_id}', 'PresentationController@getPresentation');
+            Route::get('{client_id}/{year?}', 'PresentationController@getPresentation');
             Route::post('upload', 'PresentationController@uploadPresentation');
             Route::delete('{presentation_id}/client/{client_id}', 'PresentationController@deletePresentation');
             Route::patch('{presentation_id}/client/{client_id}', 'PresentationController@updatePresentation');
@@ -96,7 +96,7 @@ Route::namespace('API')->group(function() {
 
         Route::prefix('meetings')->group(function() {
             Route::post('{client_id}', 'MeetingController@addMeeting');
-            Route::get('{client_id}', 'MeetingController@getMeeting');
+            Route::get('{client_id}/{year?}', 'MeetingController@getMeeting');
             Route::delete('{client_id}/client/{meeting_id}', 'MeetingController@deleteMeeting');
             Route::patch('{client_id}/client/{meeting_id}', 'MeetingController@updateMeeting');
         });

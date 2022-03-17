@@ -12,10 +12,15 @@ class DocumentController extends Controller
 {
     //
 
+
+
     private $request;
     
     public function __construct(Request $request) {
+
         $this->request = $request;
+        define("YEAR",     date('Y'));
+
     }
 
     public function addDocument($id) {
@@ -51,8 +56,8 @@ class DocumentController extends Controller
         return response()->json(['status' => false]);
     }
 
-    public function getDocuments($user_id) {
-        return response()->json(['status' => true, 'documents' => Documents::where('user_id', $user_id)->orderBy('created_at', 'desc')->get()]);
+    public function getDocuments($user_id, $year=YEAR) {
+        return response()->json(['status' => true, 'documents' => Documents::where('user_id', $user_id)->whereYear('expiration_date', $year)->orderBy('created_at', 'desc')->get()]);
     }
 
     public function deleteDocument($id) {

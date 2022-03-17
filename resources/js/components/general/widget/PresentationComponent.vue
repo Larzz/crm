@@ -7,13 +7,15 @@
                         <h3 class="mb-0">Presentation</h3>
                     </div>
                     <div class="col text-right">
+                        <a href="#!" @click="ShowYearPopup=true" class="btn btn-sm btn-primary"><i class="fa fa-filter">
+                            </i></a>
                         <a href="#!" @click="showPopup=true, isEdit = true" class="btn btn-sm btn-primary">Upload</a>
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
                 <template v-if="presentations">
-                    <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
+                    <!-- <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
                         :rows="rows" :sort-options="{ enabled: true, }"
                         :search-options="{ enabled: true, placeholder: 'Search Presentations'}"
                         styleClass="table align-items-center table-flush">
@@ -31,7 +33,41 @@
                                 </div>
                             </span>
                         </template>
-                    </vue-good-table>
+                    </vue-good-table> -->
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Meeting Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                <tr v-for="(presentation, index) in presentations" :key="index">
+                                    <td scope="row" width="100%">
+                                        {{ limitName(presentation.name) }}
+                                    </td>
+                                    <td scope="row" width="100%">
+                                        {{ formatDate(presentation.meeting_date) }}
+                                    </td>
+                                    <td width="100%">
+                                        <div class="d-flex align-items-center">
+                                            <ul>
+                                                <li><a href="#!" @click="editPresentation(presentation)"
+                                                        title="Edit Client"><i class="fa fa-edit"></i></a> </li>
+                                                <li><a href="#!" :data-id="presentation.id"
+                                                        @click="viewPresentation(presentation)"
+                                                        title="View Presentation"><i class="fas fa-eye"></i></a> </li>
+                                                <li> <a href="#!" :data-id="presentation.id"
+                                                        @click="deletePresentation(presentation.id)"
+                                                        title="Delete Presentation"><i class="fas fa-trash"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
                 </template>
                 <template v-if="!presentations">
                     <div class="container mt-3">
@@ -44,6 +80,8 @@
         </div>
         <presentation-popup :user="user" :showPopup="showPopup" :time="time" :isEdit="isEdit"
             :presentation="presentation" @close="close()"> </presentation-popup>
+        <year-popup :showPopup="ShowYearPopup" @close="sort($event)"></year-popup>
+
     </div>
 </template>
 
@@ -54,6 +92,7 @@
             return {
                 presentations: null,
                 showPopup: false,
+                ShowYearPopup: false,
                 isEdit: false,
                 presentation: {},
                 time: Date.now(),
@@ -93,7 +132,7 @@
                 let $this = this
                 axios({
                         method: 'get',
-                        url: `/api/v1/presentations/${this.user.id}?api_token=${window.Laravel.api_token}`,
+                        url: `/api/v1/presentations/${this.user.id}/${this.year}?api_token=${window.Laravel.api_token}`,
                     }).then(function (response) {
                         $this.rows = response.data.presentations
                         $this.presentations = response.data.presentations
@@ -193,11 +232,15 @@
             },
             setMeeting(presentation) {
                 return this.formatDate(presentation.meeting_date)
+            },
+            sort(year) {
+                this.ShowYearPopup = false
+                this.year = year
+                this.getPresentation()
             }
         }
 
     }
-
 </script>
 
 <style scoped>
@@ -208,5 +251,4 @@
     .card-body {
         overflow-y: scroll;
     }
-
 </style>
