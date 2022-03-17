@@ -19,6 +19,7 @@ class BulletinController extends Controller
 
     public function addBulletin() {
 
+
         $validator = Validator::make($this->request->all(), [
             'title' => 'required',
             'message' => 'required',
@@ -33,10 +34,11 @@ class BulletinController extends Controller
         
         $bulletin->title = $this->request->title;
         $bulletin->message = $this->request->message;
-        $bulletin->active = $this->request->active == 'yes' ? true : false;
+        $bulletin->active = true;
         $bulletin->added_by = auth()->user()->id;
 
         if($bulletin->save()) {
+             Bulletin::where('id', '!=', $bulletin->id)->update(['active' => false]);
             return response()->json(['status' => true], 201);
         }
 
