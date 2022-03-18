@@ -52,7 +52,12 @@ class PresentationController extends Controller
 
 
     public function getPresentation($client_id, $year=YEAR) {
-        $presentations = Presentations::where('client_id', $client_id)->whereYear('meeting_date', $year)->get();
+        if($year=='all') {
+            $presentations = Presentations::where('client_id', $client_id)->get();
+        } else {
+            $presentations = Presentations::where('client_id', $client_id)->whereYear('meeting_date', $year)->get();
+        }
+        
         if($presentations) {
             return response()->json(['status' => true, 'presentations' => $presentations]);
         }

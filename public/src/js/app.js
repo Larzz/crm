@@ -7108,6 +7108,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7705,7 +7706,7 @@ __webpack_require__.r(__webpack_exports__);
         field: 'action'
       }],
       rows: [],
-      year: '2022'
+      year: 'all'
     };
   },
   props: {
@@ -63658,6 +63659,10 @@ var render = function () {
                           },
                         },
                         [
+                          _c("option", { attrs: { value: "all" } }, [
+                            _vm._v("All"),
+                          ]),
+                          _vm._v(" "),
                           _c("option", { attrs: { value: "2022" } }, [
                             _vm._v("2022"),
                           ]),

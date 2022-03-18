@@ -128,7 +128,7 @@ import Swal from 'sweetalert2'
                     },
                 ],
                 rows: [],
-                year: '2022'
+                year: 'all'
             }
         },
         props: {

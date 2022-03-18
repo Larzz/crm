@@ -18,6 +18,7 @@
                             <div class="form-group">
                                 <label for="">Year</label>
                                 <select name="" id="" v-model="year" class="form-control">
+                                    <option value="all">All</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>

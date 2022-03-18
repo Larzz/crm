@@ -71,7 +71,12 @@ class MeetingController extends Controller
      * @return status
     */
     public function getMeeting($client_id, $year = YEAR) {
-        return response()->json(['status' => true, 'meetings'=> MeetingMinutes::where('client_id', $client_id)->whereYear('meeting_date', $year)->orderBy('created_at', 'desc')->get()]);
+        if ($year == 'all') {
+            $meeting_minutes = MeetingMinutes::where('client_id', $client_id)->orderBy('created_at', 'desc')->get();
+        } else {
+            $meeting_minutes = MeetingMinutes::where('client_id', $client_id)->whereYear('meeting_date', $year)->orderBy('created_at', 'desc')->get();
+        }
+        return response()->json(['status' => true, 'meetings'=> $meeting_minutes ]);
     }
 
 

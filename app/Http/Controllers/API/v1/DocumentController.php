@@ -57,7 +57,12 @@ class DocumentController extends Controller
     }
 
     public function getDocuments($user_id, $year=YEAR) {
-        return response()->json(['status' => true, 'documents' => Documents::where('user_id', $user_id)->whereYear('expiration_date', $year)->orderBy('created_at', 'desc')->get()]);
+        if ($year == 'all') {
+            $documents = Documents::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+        } else {
+            $documents = Documents::where('user_id', $user_id)->whereYear('expiration_date', $year)->orderBy('created_at', 'desc')->get();
+        }
+        return response()->json(['status' => true, 'documents' => $documents]);
     }
 
     public function deleteDocument($id) {
