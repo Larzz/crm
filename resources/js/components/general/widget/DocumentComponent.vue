@@ -269,4 +269,8 @@ import Swal from 'sweetalert2'
     .footer__navigation__page-btn disabled {
         font-size: 11px !important;
     }
+
+    .table-flush th {
+        font-size: 14px !important;
+    }
 </style>
