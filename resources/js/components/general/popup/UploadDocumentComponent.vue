@@ -33,13 +33,26 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">Expiration Date</label>
+                                <label for="">Starting Date</label>
                                 <input type="date" class="form-control" v-model="fields.expiration_date">
                             </div>
 
                             <div class="form-group">
-                                <label for="">Renewal Date</label>
-                                <input type="date" class="form-control" v-model="fields.renewal_date">
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                        <label for="">Open Ended</label>
+                                            <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" v-model="fields.open_ended" class="custom-control-input" id="customCheck1">
+                                                 <label class="custom-control-label" for="customCheck1">Tick if yes</label>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label for="">Renewal Date</label>
+                                        <input type="date" class="form-control" v-model="fields.renewal_date">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -47,7 +60,8 @@
                     <template v-if="!isEdit">
                         <div class="col-md-12 text-center">
                             <div class="form-group">
-                                 <a href="javascript:;" @click="downloadpdf()" class="btn btn-primary">View Attachment</a>
+                                <a href="javascript:;" @click="downloadpdf()" class="btn btn-primary">View
+                                    Attachment</a>
                             </div>
                         </div>
                     </template>
@@ -96,7 +110,8 @@
                     type: null,
                     renewal_date: null,
                     expiration_date: null,
-                    filename: null
+                    filename: null,
+                    open_ended: false
                 },
                 path: '/documents/',
                 api_token: window.Laravel.api_token,
@@ -173,7 +188,7 @@
                 let $this = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/documents/types/docs?api_token=' + window.Laravel.api_token,
+                        url: '/api/v1/documents/types/docs/get?api_token=' + window.Laravel.api_token,
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.types = response.data.types
@@ -205,7 +220,7 @@
                 }
 
                 if (!this.fields.expiration_date) {
-                    return this.$toastr.e('Expiration Date is Required');
+                    return this.$toastr.e('Starting Date is Required');
                 }
 
                 if (!this.fields.filename) {
@@ -216,8 +231,9 @@
 
                 let url = `/api/v1/documents/${this.user.id}?api_token=${window.Laravel.api_token}`
 
-                if(this.fields.id) {
-                    let url = `/api/v1/documents/${this.user.id}/${this.fields.id}?api_token=${window.Laravel.api_token}`
+                if (this.fields.id) {
+                    let url =
+                        `/api/v1/documents/${this.user.id}/${this.fields.id}?api_token=${window.Laravel.api_token}`
                 }
 
                 axios({
@@ -243,7 +259,7 @@
              * @return void
              */
             uploadResponse: function (data, response) {
-                                    console.log( response.filename)
+                console.log(response.filename)
                 if (response.status) {
                     this.fields.filename = response.filename
                     this.$toastr.s('Successfully Uploaded');
@@ -262,11 +278,11 @@
                 this.fields.expiration_date = null
                 this.fields.filename = null
             },
-            downloadpdf: function() {
+            downloadpdf: function () {
                 window.open(
                     `${this.path}`,
                     '_blank' // <- This is what makes it open in a new window.
-                    );
+                );
             }
         }
     }

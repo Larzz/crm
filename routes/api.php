@@ -71,7 +71,7 @@ Route::namespace('API')->group(function() {
             Route::post('{id}', 'DocumentController@addDocument');
             Route::post('upload/docs', 'DocumentController@uploadDocument');
             Route::get('{id}/{year?}', 'DocumentController@getDocuments');
-            Route::get('types/docs', 'DocumentController@getDocumentTypes');
+            Route::get('types/docs/get', 'DocumentController@getDocumentTypes');
             // Route::get('{id}', 'DocumentController@getDocument');
             Route::patch('{id}', 'DocumentController@editDocument');
             Route::delete('{id}', 'DocumentController@deleteDocument');

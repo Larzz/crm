@@ -47,7 +47,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Document</th>
-                            <th scope="col">Expiration</th>
+                            <th scope="col">Starting Date</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>

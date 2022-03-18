@@ -24,8 +24,8 @@
                         <template v-if="notes">
                             <tbody>
                                 <tr v-for="(note, index) in notes" :key="index">
-                                    <th scope="row">
-                                        <span v-html="note.notes"></span>
+                                    <th>
+                                        {{ note.title }}
                                     </th>
                                     <td>
                                         {{ formatDate(note.created_at)  }}
@@ -66,7 +66,7 @@
                 </div>
             </template>
         </div>
-        <create-note-popup :showPopup="showPopup" :isEdit="isEdit" :time="time" :user="user" @close="close()"></create-note-popup>
+        <create-note-popup :showPopup="showPopup" :isEdit="isEdit" :note="note" :time="time" :user="user" @close="close()"></create-note-popup>
     </div>
 </template>
 

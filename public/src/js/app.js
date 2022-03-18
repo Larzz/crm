@@ -6858,6 +6858,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6875,7 +6889,8 @@ __webpack_require__.r(__webpack_exports__);
         type: null,
         renewal_date: null,
         expiration_date: null,
-        filename: null
+        filename: null,
+        open_ended: false
       },
       path: '/documents/',
       api_token: window.Laravel.api_token,
@@ -6948,7 +6963,7 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       axios({
         method: 'get',
-        url: '/api/v1/documents/types/docs?api_token=' + window.Laravel.api_token
+        url: '/api/v1/documents/types/docs/get?api_token=' + window.Laravel.api_token
       }).then(function (response) {
         if (response.data.status) {
           $this.types = response.data.types;
@@ -6977,7 +6992,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (!this.fields.expiration_date) {
-        return this.$toastr.e('Expiration Date is Required');
+        return this.$toastr.e('Starting Date is Required');
       }
 
       if (!this.fields.filename) {
@@ -58020,12 +58035,12 @@ var render = function () {
                                 "tbody",
                                 _vm._l(_vm.notes, function (note, index) {
                                   return _c("tr", { key: index }, [
-                                    _c("th", { attrs: { scope: "row" } }, [
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(note.notes),
-                                        },
-                                      }),
+                                    _c("th", [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(note.title) +
+                                          "\n                                "
+                                      ),
                                     ]),
                                     _vm._v(" "),
                                     _c("td", [
@@ -58144,6 +58159,7 @@ var render = function () {
         attrs: {
           showPopup: _vm.showPopup,
           isEdit: _vm.isEdit,
+          note: _vm.note,
           time: _vm.time,
           user: _vm.user,
         },
@@ -63277,7 +63293,7 @@ var render = function () {
                     _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Expiration Date"),
+                          _vm._v("Starting Date"),
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -63308,35 +63324,113 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Renewal Date"),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-5" }, [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("Open Ended"),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "custom-control custom-checkbox" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.fields.open_ended,
+                                      expression: "fields.open_ended",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "checkbox",
+                                    id: "customCheck1",
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.fields.open_ended
+                                    )
+                                      ? _vm._i(_vm.fields.open_ended, null) > -1
+                                      : _vm.fields.open_ended,
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      var $$a = _vm.fields.open_ended,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.fields,
+                                              "open_ended",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.fields,
+                                              "open_ended",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.fields, "open_ended", $$c)
+                                      }
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "customCheck1" },
+                                  },
+                                  [_vm._v("Tick if yes")]
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-7" }, [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("Renewal Date"),
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.fields.renewal_date,
+                                  expression: "fields.renewal_date",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "date" },
+                              domProps: { value: _vm.fields.renewal_date },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.fields,
+                                    "renewal_date",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
                         ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fields.renewal_date,
-                              expression: "fields.renewal_date",
-                            },
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "date" },
-                          domProps: { value: _vm.fields.renewal_date },
-                          on: {
-                            input: function ($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.fields,
-                                "renewal_date",
-                                $event.target.value
-                              )
-                            },
-                          },
-                        }),
                       ]),
                     ]),
                   ]),
@@ -63356,7 +63450,11 @@ var render = function () {
                                   },
                                 },
                               },
-                              [_vm._v("View Attachment")]
+                              [
+                                _vm._v(
+                                  "View\n                                Attachment"
+                                ),
+                              ]
                             ),
                           ]),
                         ]),
@@ -64409,7 +64507,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Document")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Expiration")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Starting Date")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),

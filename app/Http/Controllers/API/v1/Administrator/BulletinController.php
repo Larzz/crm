@@ -88,7 +88,7 @@ class BulletinController extends Controller
 
             $bulletin->title = $this->request->title;
             $bulletin->message = $this->request->message;
-            $bulletin->active = $this->request->active == 'Yes' ? true:false;
+            $bulletin->active = true;
             $bulletin->added_by = auth()->user()->id;
 
             if($bulletin->save()) {
