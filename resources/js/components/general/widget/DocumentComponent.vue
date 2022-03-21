@@ -270,7 +270,7 @@ import Swal from 'sweetalert2'
         font-size: 11px !important;
     }
 
-    .table-flush th {
+    /* .table-flush th {
         font-size: 14px !important;
-    }
+    } */
 </style>

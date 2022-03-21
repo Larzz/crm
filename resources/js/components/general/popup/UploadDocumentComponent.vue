@@ -154,6 +154,7 @@
         },
         watch: {
             time() {
+                
                 this.fields.name = this.document.name
                 this.fields.type = this.document.type
                 this.fields.renewal_date = this.document.renewal_date
