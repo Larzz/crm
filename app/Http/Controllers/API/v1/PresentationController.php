@@ -84,5 +84,4 @@ class PresentationController extends Controller
         return response()->json(['status' => false]);
     }
 
-
 }

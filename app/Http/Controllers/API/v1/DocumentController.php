@@ -33,6 +33,7 @@ class DocumentController extends Controller
         $document->type = $this->request->type;
         $document->expiration_date = $this->request->expiration_date;
         $document->renewal_date = $this->request->renewal_date;
+        $document->open_ended = $this->request->open_ended;
 
         if($document->save()) {
             $response = ['status' => true, 'success' => true];
