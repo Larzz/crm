@@ -9,7 +9,9 @@ use Auth;
 use App\Models\User;
 use App\Models\Role;
 
+use App\Mail\ForgotPassword;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -112,12 +114,45 @@ class HomeController extends Controller
     }
 
     public function reset_password() {
-        dd($this->request);
+
+        $user = User::where('email', $this->request->email)->first();
+
+        if($user) {
+            $email = Mail::to($user->email)->send(New ForgotPassword($user, $this->quickRandom(), 'Forgot Password'));
+            if($email) {
+                return response()->json(['status' => true, 'msg' => 'Successfully sent a message.']);
+            }
+            return response()->json(['status' => false, 'msg' => 'Something went wrong, please try again.']);
+        }
+        return response()->json(['status' => false, 'msg' => 'The email is not associated with any account.']);
+    }
+
+
+    public function reset_password_view($code) {
+
+        $user = User::where('reset_code', $code)->first();
+
+        if($user) {
+        
+        }
+
+    }
+
+    public function submit_reset_password() {
+
     }
 
     public function logout() {
         Auth::logout();
         return redirect(route('home.login'));
     }
+
+
+    public static function quickRandom($length = 16)
+{
+    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+}
 
 }

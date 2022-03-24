@@ -7,13 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Documents;
 use App\Models\DocumentType;
-
 class DocumentController extends Controller
 {
     //
-
-
-
     private $request;
     
     public function __construct(Request $request) {

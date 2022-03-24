@@ -26,11 +26,15 @@ Route::get('email', function() {
 Route::get('register','HomeController@register')->name('home.register');
 Route::get('/','HomeController@login')->name('home.login');
 Route::get('logout', 'HomeController@logout')->name('home.logout');
+Route::get('forgot-password/{code}', 'HomeController@reset_password_view')->name('submit.reset_password');
+
 Route::post('registers', 'HomeController@submit_register')->name('register.submit');
+
 
 Route::prefix('auth')->group(function() {
    Route::post('login', 'HomeController@submit_login')->name('login.submit');
    Route::post('reset-password', 'HomeController@reset_password')->name('home.password.submit');
+
 });
 
 Route::middleware([IsAuthenticated::class])->group(function () {
