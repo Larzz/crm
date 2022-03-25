@@ -47,7 +47,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Document</th>
-                            <th scope="col">Starting Date</th>
+                            <!-- <th scope="col">Starting Date</th> -->
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -55,11 +55,9 @@
                         <tbody>
                             <tr v-for="(document, index) in documents" :key="index">
                                 <th scope="row">
-                                    {{ document.name }}
+                                    {{ document.name }} <br/>
+                                    Date Added:  {{ formatDate(document.expiration_date)  }}
                                 </th>
-                                <td>
-                                    {{ formatDate(document.expiration_date)  }}
-                                </td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <ul>

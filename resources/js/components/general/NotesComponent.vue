@@ -13,21 +13,20 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
+                <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Title / Date Added</th>
+                                <th scope="col">Title</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <template v-if="notes">
                             <tbody>
                                 <tr v-for="(note, index) in notes" :key="index">
-                                    <td>
-                                        <b> {{ note.title }} </b> <br/>
-                                        {{ formatDate(note.created_at)  }}
-                                    </td>
-                                  
+                                    <th scope="row">
+                                         {{ note.title }}  <br/>
+                                         Date Added: {{ formatDate(note.created_at)  }}
+                                    </th>
                                 
                                     <td>
                                         <div class="d-flex align-items-center">

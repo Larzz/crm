@@ -3576,7 +3576,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7709,8 +7708,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
 //
 //
 //
@@ -58266,14 +58263,15 @@ var render = function () {
                                 "tbody",
                                 _vm._l(_vm.notes, function (note, index) {
                                   return _c("tr", { key: index }, [
-                                    _c("td", [
-                                      _c("b", [
-                                        _vm._v(" " + _vm._s(note.title) + " "),
-                                      ]),
-                                      _vm._v(" "),
+                                    _c("th", { attrs: { scope: "row" } }, [
+                                      _vm._v(
+                                        "\n                                     " +
+                                          _vm._s(note.title) +
+                                          "  "
+                                      ),
                                       _c("br"),
                                       _vm._v(
-                                        "\n                                    " +
+                                        "\n                                     Date Added: " +
                                           _vm._s(
                                             _vm.formatDate(note.created_at)
                                           ) +
@@ -58393,7 +58391,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title / Date Added")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),
@@ -64588,13 +64586,11 @@ var render = function () {
                               _vm._v(
                                 "\n                                " +
                                   _vm._s(document.name) +
-                                  "\n                            "
+                                  " "
                               ),
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
+                              _c("br"),
                               _vm._v(
-                                "\n                                " +
+                                "\n                                Date Added:  " +
                                   _vm._s(
                                     _vm.formatDate(document.expiration_date)
                                   ) +
@@ -64713,8 +64709,6 @@ var staticRenderFns = [
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Document")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Starting Date")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),
