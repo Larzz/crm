@@ -11136,7 +11136,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.card[data-v-b9351c24] {\n    min-height: 355px;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-b9351c24] {\n        min-height: 355px;\n}\n.table-flush th[data-v-b9351c24] {\n    font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -11554,7 +11554,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card[data-v-2805c789] {\n    height: 355px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__label[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info[data-v-2805c789],\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn[data-v-2805c789] {\n    font-size: 11px !important;\n}\n.footer__navigation__page-btn disabled[data-v-2805c789] {\n    font-size: 11px !important;\n}\n\n/* .table-flush th {\n    font-size: 14px !important;\n} */\n", ""]);
+exports.push([module.i, "\n.card[data-v-2805c789] {\n        height: 355px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__label[data-v-2805c789] {\n        font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__row-count__select[data-v-2805c789] {\n        font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__info[data-v-2805c789],\n    .vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-info[data-v-2805c789] {\n        font-size: 11px !important;\n}\n.vgt-wrap.polar-bear .vgt-wrap__footer .footer__navigation__page-btn[data-v-2805c789] {\n        font-size: 11px !important;\n}\n.footer__navigation__page-btn disabled[data-v-2805c789] {\n        font-size: 11px !important;\n}\n\n    /* .table-flush th {\n        font-size: 14px !important;\n    } */\n.table-flush th[data-v-2805c789] {\n    font-size: 12px;\n}\n", ""]);
 
 // exports
 

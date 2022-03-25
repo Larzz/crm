@@ -205,4 +205,7 @@
     .card {
         min-height: 355px;
     }
+    .table-flush th {
+    font-size: 12px;
+}
 </style>

@@ -271,4 +271,8 @@ import Swal from 'sweetalert2'
     /* .table-flush th {
         font-size: 14px !important;
     } */
+
+    .table-flush th {
+    font-size: 12px;
+}
 </style>
