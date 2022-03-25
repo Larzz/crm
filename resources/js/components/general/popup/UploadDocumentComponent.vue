@@ -42,10 +42,11 @@
                                     <div class="col-md-5">
 
                                         <label for="">Open Ended</label>
-                                            <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" v-model="fields.open_ended" class="custom-control-input" id="customCheck1">
-                                                 <label class="custom-control-label" for="customCheck1">Tick if yes</label>
-                                            </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" v-model="fields.open_ended"
+                                                class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Tick if yes</label>
+                                        </div>
                                     </div>
                                     <div class="col-md-7">
                                         <label for="">Renewal Date</label>
@@ -154,7 +155,7 @@
         },
         watch: {
             time() {
-                
+
                 this.fields.name = this.document.name
                 this.fields.type = this.document.type
                 this.fields.renewal_date = this.document.renewal_date
@@ -214,10 +215,6 @@
 
                 if (!this.fields.type) {
                     return this.$toastr.e('Type is Required');
-                }
-
-                if (!this.fields.renewal_date) {
-                    return this.$toastr.e('Renewal Date is Required');
                 }
 
                 if (!this.fields.expiration_date) {
@@ -291,6 +288,11 @@
 </script>
 
 <style scoped>
+    .custom-control {
+        margin-top: 13px;
+        margin-left: 10px;
+    }
+
     .customdropzone {
         width: 100%;
     }

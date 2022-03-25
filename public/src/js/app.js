@@ -3577,7 +3577,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3687,7 +3686,7 @@ __webpack_require__.r(__webpack_exports__);
     formatDate: function formatDate(date) {
       var currentDate = new Date(date);
       var options = {
-        weekday: 'long',
+        // weekday: 'long',
         year: 'numeric',
         month: 'short',
         day: 'numeric'
@@ -5543,7 +5542,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       fields: {
         notes: null,
-        title: null
+        title: null,
+        id: null
       }
     };
   },
@@ -5563,10 +5563,18 @@ __webpack_require__.r(__webpack_exports__);
     time: {
       required: true,
       type: Number
+    },
+    note: {
+      required: false,
+      type: Object
     }
   },
-  mounted: function mounted() {
-    console.log(this.user);
+  watch: {
+    time: function time() {
+      this.fields.title = this.note.title;
+      this.fields.notes = this.note.notes;
+      this.fields.id = this.note.id;
+    }
   },
   methods: {
     /**
@@ -5585,6 +5593,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     addNotes: function addNotes() {
       var $this = this;
+      var url = null;
 
       if (!this.fields.title) {
         $this.$toastr.e('Title is Required');
@@ -5596,9 +5605,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       JsLoadingOverlay.show(this.$configs);
+
+      if (!this.fields.id) {
+        url = "/api/v1/notes/".concat(this.user.id, "?api_token=").concat(window.Laravel.api_token);
+      } else {
+        url = "/api/v1/notes/".concat(this.user.id, "/").concat(this.fields.id, "?api_token=").concat(window.Laravel.api_token);
+      }
+
       axios({
         method: 'post',
-        url: "/api/v1/notes/".concat($this.user.id, "?api_token=").concat(window.Laravel.api_token),
+        url: url,
         data: this.fields
       }).then(function (response) {
         if (response.data.status) {
@@ -6983,6 +6999,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7096,10 +7113,6 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.fields.type) {
         return this.$toastr.e('Type is Required');
-      }
-
-      if (!this.fields.renewal_date) {
-        return this.$toastr.e('Renewal Date is Required');
       }
 
       if (!this.fields.expiration_date) {
@@ -11465,7 +11478,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.customdropzone[data-v-56767808] {\n    width: 100%;\n}\n.dropzone-custom-content[data-v-56767808] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n}\n.dropzone-custom-title[data-v-56767808] {\n    margin-top: 0;\n    color: #00b782;\n}\n.subtitle[data-v-56767808] {\n    color: #314b5f;\n}\n.form-group[data-v-56767808] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-56767808],\n.fade-leave-active[data-v-56767808] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-56767808],\n.fade-leave-to[data-v-56767808] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-56767808],\n.slide-leave-active[data-v-56767808] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-56767808],\n.slide-leave-to[data-v-56767808] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-56767808] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-56767808] {\n    position: fixed;\n    top: 4%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-56767808] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-56767808] {\n    float: right;\n}\n.btn[data-v-56767808] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-56767808] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.custom-control[data-v-56767808] {\n    margin-top: 13px;\n    margin-left: 10px;\n}\n.customdropzone[data-v-56767808] {\n    width: 100%;\n}\n.dropzone-custom-content[data-v-56767808] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n}\n.dropzone-custom-title[data-v-56767808] {\n    margin-top: 0;\n    color: #00b782;\n}\n.subtitle[data-v-56767808] {\n    color: #314b5f;\n}\n.form-group[data-v-56767808] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-56767808],\n.fade-leave-active[data-v-56767808] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-56767808],\n.fade-leave-to[data-v-56767808] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-56767808],\n.slide-leave-active[data-v-56767808] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-56767808],\n.slide-leave-to[data-v-56767808] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-56767808] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-56767808] {\n    position: fixed;\n    top: 4%;\n    left: 27%;\n    z-index: 1000;\n    width: 100%;\n    max-width: 50%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-56767808] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-56767808] {\n    float: right;\n}\n.btn[data-v-56767808] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-56767808] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 
@@ -58250,15 +58263,12 @@ var render = function () {
                                 "tbody",
                                 _vm._l(_vm.notes, function (note, index) {
                                   return _c("tr", { key: index }, [
-                                    _c("th", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(note.title) +
-                                          "\n                                "
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
                                     _c("td", [
+                                      _c("b", [
+                                        _vm._v(" " + _vm._s(note.title) + " "),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("br"),
                                       _vm._v(
                                         "\n                                    " +
                                           _vm._s(
@@ -58283,7 +58293,8 @@ var render = function () {
                                                 {
                                                   attrs: {
                                                     href: "#!",
-                                                    title: "Edit Client",
+                                                    title:
+                                                      "Edit and View Notes",
                                                   },
                                                   on: {
                                                     click: function ($event) {
@@ -58294,30 +58305,6 @@ var render = function () {
                                                 [
                                                   _c("i", {
                                                     staticClass: "fa fa-edit",
-                                                  }),
-                                                ]
-                                              ),
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("li", [
-                                              _c(
-                                                "a",
-                                                {
-                                                  attrs: {
-                                                    href: "#!",
-                                                    title: "View Tutorial",
-                                                  },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      return _vm.viewNote(
-                                                        note.id
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [
-                                                  _c("i", {
-                                                    staticClass: "fas fa-eye",
                                                   }),
                                                 ]
                                               ),
@@ -58403,11 +58390,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Title / Date Added")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
       ]),
     ])
   },
@@ -64857,24 +64842,6 @@ var render = function () {
                                 { staticClass: "d-flex align-items-center" },
                                 [
                                   _c("ul", [
-                                    _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "#!",
-                                            title: "Edit Client",
-                                          },
-                                          on: {
-                                            click: function ($event) {
-                                              return _vm.editMeeting(meeting)
-                                            },
-                                          },
-                                        },
-                                        [_c("i", { staticClass: "fa fa-edit" })]
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
                                     _c("li", [
                                       _c(
                                         "a",

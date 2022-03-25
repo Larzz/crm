@@ -71,12 +71,17 @@ class NotesController extends Controller
      * @param user_id
      * @return status
      */
-    public function updateNotes($note_id, $user_id) {
-        $note = Notes::where('note_id', $note_id)->where('user_id', $user_id)->first();
+    public function updateNotes($user_id, $note_id) {
+        $note = Notes::where('id', $note_id)->where('user_id', $user_id)->first();
 
         if($note) {
-            $note->update(['notes' => $this->request->note]);
-            return response()->json(['status' => $status]);
+
+            Notes::where('id', $note_id)->where('user_id', $user_id)->update([
+                'title' => $this->request->title,
+                'notes' => $this->request->notes
+            ]);
+
+            return response()->json(['status' => true]);
         }
 
         return response()->json(['status' => false]);

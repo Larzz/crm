@@ -16,26 +16,25 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Date</th>
-                                <th scope="col"></th>
+                                <th scope="col">Title / Date Added</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <template v-if="notes">
                             <tbody>
                                 <tr v-for="(note, index) in notes" :key="index">
-                                    <th>
-                                        {{ note.title }}
-                                    </th>
                                     <td>
+                                        <b> {{ note.title }} </b> <br/>
                                         {{ formatDate(note.created_at)  }}
                                     </td>
+                                  
+                                
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <ul>
-                                                <li><a href="#!" @click="editNote(note)" title="Edit Client"><i class="fa fa-edit"></i></a> </li>
-                                                <li><a href="#!" @click="viewNote(note.id)" title="View Tutorial"><i
-                                                            class="fas fa-eye"></i></a> </li>
+                                                <li><a href="#!" @click="editNote(note)" title="Edit and View Notes"><i class="fa fa-edit"></i></a> </li>
+                                                <!-- <li><a href="#!" @click="viewNote(note.id)" title="View Tutorial"><i
+                                                            class="fas fa-eye"></i></a> </li> -->
                                                 <li> <a href="#!" @click="deleteNote(note.id)" title="Delete Note"><i
                                                             class="fas fa-trash"></i></a> </li>
 
@@ -182,7 +181,7 @@
             formatDate(date) {
                 const currentDate = new Date(date);
                 const options = {
-                    weekday: 'long',
+                    // weekday: 'long',
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric'

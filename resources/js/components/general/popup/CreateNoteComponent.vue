@@ -39,7 +39,8 @@
             return {
                 fields: {
                     notes: null,
-                    title: null
+                    title: null,
+                    id: null
                 }
             }
         },
@@ -59,10 +60,18 @@
             time: {
                 required: true,
                 type: Number
+            },
+            note: {
+                required: false,
+                type: Object
             }
         },
-        mounted() {
-            console.log(this.user)
+        watch: {
+            time() {
+               this.fields.title = this.note.title
+               this.fields.notes = this.note.notes
+               this.fields.id = this.note.id
+            }
         },
         methods: {
             /**
@@ -80,7 +89,8 @@
              */
             addNotes() {
                 let $this = this
-
+                let url = null
+                
                 if (!this.fields.title) {
                     $this.$toastr.e('Title is Required')
                 }
@@ -91,9 +101,15 @@
 
                 JsLoadingOverlay.show(this.$configs);
 
+                if (!this.fields.id) {
+                     url = `/api/v1/notes/${this.user.id}?api_token=${window.Laravel.api_token}`
+                } else {
+                     url = `/api/v1/notes/${this.user.id}/${this.fields.id}?api_token=${window.Laravel.api_token}`
+                }
+
                 axios({
                         method: 'post',
-                        url: `/api/v1/notes/${$this.user.id}?api_token=${window.Laravel.api_token}`,
+                        url: url,
                         data: this.fields
                     }
 

@@ -35,6 +35,7 @@ Route::namespace('API')->group(function() {
 
         Route::prefix('notes')->namespace('Administrator')->group(function() {
             Route::post('{user_id}', 'NotesController@addNotes');
+            Route::post('{user_id}/{note_id}', 'NotesController@updateNotes');
             Route::get('{user_id}', 'NotesController@getNotesByUserId');
             Route::delete('{note_id}', 'NotesController@deleteNotes');
             Route::patch('{note_id}', 'NotesController@updateNotes');
