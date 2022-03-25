@@ -3,30 +3,27 @@
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
-            <a href="https://creativouae.com/">← Back to Website</a>
+            <!-- <a href="https://creativouae.com/">← Back to Website</a> -->
             <div id="login" class="text-center">
                 <img class="img-fluid" src="/logo-creativo-normal.png" alt="Creativo" />
 
                 <!--Login-->
-                <div id="form" class="form-login" v-if="login_page">
+                <div id="form" class="form-login">
                     <h1> Forgot Password</h1>
                     <div class="form-group">
-                        <input type="email" v-model="collection.email" class="form-control" placeholder="Email Address">
+                        <input type="password" v-model="fields.password" class="form-control" placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <input type="password" v-model="collection.password" class="form-control"
-                            placeholder="Password">
+                        <input type="password" v-model="fields.confirm_password" class="form-control"
+                            placeholder="Confirm Password">
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-6"></div>
                             <div class="col-lg-6">
-                                <input type="submit" @click="login" class="form-control" value="Login →">
+                                <input type="submit" @click="resetPassword" class="form-control" value="Submit →">
                             </div>
                         </div>
-                    </div>
-                    <div id="forgot" class="col-lg-12 text-left">
-                        <p>Forgot password? <a href="#" @click="login_page=false;password_page=true">Click here.</a></p>
                     </div>
                 </div>
 
@@ -41,89 +38,59 @@
 
         data() {
             return {
-
-                collection: {
-                    email: '',
-                    password: '',
+                fields: {
+                    confirm_password: null,
+                    password: null,
+                    email: this.user.email,
+                    code: this.user.reset_code
                 },
-                reset: {
-                    email: '',
-                },
-
-                is_success: true,
-                login_page: true,
-                password_page: false,
             };
         },
-        props: [
-            'login_route',
-        ],
+        props: {
+            user: {
+                required: true,
+                type: Object
+            }
+        }
+
+        ,
+        mounted() {
+            console.log(this.user.email)
+        },
         methods: {
+            resetPassword() {
 
-            login() {
 
-                let data = this.collection
-                var _this = this
 
-                if (data.email == '') {
-                    this.$toastr.e(
-                        "Please Enter your Email"
-                    );
+                if (!this.fields.password) {
+                    this.$toastr.e('Please enter your new password.')
                     return;
-                } 
-                 if (data.password == '') {
-                    this.$toastr.e(
-                        "Please enter your password"
-                    );
+                }
+                if (!this.fields.confirm_password) {
+                    this.$toastr.e('Please confirm your password.')
                     return;
-                } 
-
-                    JsLoadingOverlay.show(this.$configs);
-
-                    axios.post(this.login_route, data).then(function (response) {
-                        JsLoadingOverlay.hide();
-                        if (response.data.status) {
-                            window.location.href = response.data.redirect_url
-                        } else {
-                            this.$toastr.e(
-                                "Email and Password is not Match"
-                            );
-                        }
-                    }).catch(error => {
-                        this.message(error.response)
-                    })
-                       .then(function () {
-                        JsLoadingOverlay.hide();
-                });
-             
-
-            },
-
-            message(response) {
-                console.log(response)
-                this.$toastr.e(
-                    "User not found or your password is mismatch. Please try again."
-                );
-            },
-
-            forgot_password() {
-                
-                let $this = this
-
-                if (!this.reset.email) {
-                  this.$toastr.e('Please enter your email address.')
-                  return;
+                }
+                if (this.fields.password != this.fields.confirm_password) {
+                    this.$toastr.e('Your password does not match')
+                    return;
                 }
 
+                let $this = this
                 JsLoadingOverlay.show(this.$configs);
 
                 axios({
                         method: 'post',
-                        url: `/auth/reset-password/`,
-                        data: $this.reset.email
+                        url: `/auth/change-password/`,
+                        data: this.fields
                     }).then(function (response) {
                         if (response.data.status) {
-                            $this.$toastr.s('Succesfully Added')
+                            $this.$toastr.s(response.data.msg)
+
+                            setTimeout(() => {
+                                window.location.href = '/login'
+                            }, 1000);
+                        } else {
+                            $this.$toastr.e(response.data.msg)
                         }
                     })
                     .catch(function (error) {
@@ -131,16 +98,9 @@
                     })
                     .then(function () {
                         JsLoadingOverlay.hide();
-                });
-
-            },
+                    });
+            }
         },
-        created: function () {
-            console.log('realoaded')
-        },
-        mounted: function () {
-            this.$toastr.defaultPosition = "toast-top-right";
-        }
     }
 
 </script>

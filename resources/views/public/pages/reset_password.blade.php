@@ -1,6 +1,6 @@
 @extends('public.layouts.default')
 @section('content')
     <div class="container">
-        <login login_route="{{ route('login.submit') }}"></login>
+        <forgot-password :user="{{ $user }}"></forgot-password>
     </div>
 @endsection

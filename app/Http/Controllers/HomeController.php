@@ -118,28 +118,45 @@ class HomeController extends Controller
         $user = User::where('email', $this->request->email)->first();
 
         if($user) {
-            $email = Mail::to($user->email)->send(New ForgotPassword($user, $this->quickRandom(), 'Forgot Password'));
-            if($email) {
+            
+            $reset_code = $this->quickRandom();
+            $user->reset_code = $reset_code;
+            
+            if ($user->save()) {
+                Mail::to('larry@creativouae.com')->send(New ForgotPassword($user, $reset_code, 'Request a Reset Password: Creativo Backend'));
                 return response()->json(['status' => true, 'msg' => 'Successfully sent a message.']);
             }
+
             return response()->json(['status' => false, 'msg' => 'Something went wrong, please try again.']);
         }
         return response()->json(['status' => false, 'msg' => 'The email is not associated with any account.']);
     }
-
 
     public function reset_password_view($code) {
 
         $user = User::where('reset_code', $code)->first();
 
         if($user) {
-        
+            return view('public.pages.reset_password', ['user' => $user]);
         }
 
+        abort(404);
     }
 
-    public function submit_reset_password() {
+    public function change_password() {
 
+        $user = User::where('email', $this->request->email)->where('reset_code', $this->request->code)->first();
+
+        if($user) {
+
+            $user->reset_code = null;
+            $user->password = Hash::make($this->request->password);
+            if($user->save()) {
+                return response()->json(['status' => true, 'msg' => 'Successfully reset your password!']);
+            }
+        }
+
+        return response()->json(['status' => false, 'msg' => 'Unable to find the user. if you believe this is mistake. kindly contact us.']);
     }
 
     public function logout() {

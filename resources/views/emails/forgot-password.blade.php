@@ -41,7 +41,7 @@
                                                     <p
                                                         style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 51px;">
                                                         <span
-                                                            style="font-size:34px;">{{ $subject ?? 'Something great will happened' }}</span>
+                                                            style="font-size:34px;">{{ $subject ?? 'Reset Password Notification' }}</span>
                                                     </p>
                                                 </div>
                                             </div>

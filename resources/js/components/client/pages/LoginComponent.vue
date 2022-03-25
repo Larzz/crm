@@ -35,7 +35,7 @@
                     <h1>Forgot Password</h1>
                     <div id="form">
                         <div class="form-group">
-                            <input type="text" class="form-control" v-model="reset.email" placeholder="Email Address">
+                            <input type="email" class="form-control" v-model="reset.email" placeholder="Email Address">
                         </div>
                         <div class="form-group">
                             <div class="row">
@@ -141,10 +141,12 @@
                 axios({
                         method: 'post',
                         url: `/auth/reset-password/`,
-                        data: $this.reset.email
+                        data: { email: $this.reset.email}
                     }).then(function (response) {
                         if (response.data.status) {
-                            $this.$toastr.s('Succesfully Added')
+                            $this.$toastr.s('We have sent you an email containing the reset password link.')
+                        } else {
+                            $this.$toastr.e(response.data.msg)
                         }
                     })
                     .catch(function (error) {
