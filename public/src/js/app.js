@@ -5620,6 +5620,9 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data.status) {
           $this.close();
           $this.$toastr.s('Successfully Added!');
+          $this.fields.title = null;
+          $this.fields.notes = null;
+          $this.fields.id = null;
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
