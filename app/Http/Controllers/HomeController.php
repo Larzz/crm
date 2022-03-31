@@ -123,7 +123,7 @@ class HomeController extends Controller
             $user->reset_code = $reset_code;
             
             if ($user->save()) {
-                Mail::to('larry@creativouae.com')->send(New ForgotPassword($user, $reset_code, 'Request a Reset Password: Creativo Backend'));
+                Mail::to($user->email)->send(New ForgotPassword($user, $reset_code, 'Request a Reset Password: Creativo Backend'));
                 return response()->json(['status' => true, 'msg' => 'Successfully sent a message.']);
             }
 
