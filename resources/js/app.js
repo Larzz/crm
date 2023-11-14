@@ -24,9 +24,9 @@ Vue.prototype.$configs = configs
 window.BASE_URL = process.env.BASE_URL
 
 import client from './clients.js'
-import administrator from './administrator'
-import general from './general'
-import staff from './staff'
+import administrator from './administrator.js'
+import general from './general.js'
+import staff from './staff.js'
 
 import VueGoodTablePlugin from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css'

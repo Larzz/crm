@@ -24,20 +24,15 @@
             </div>
             <div class="col-xl-4">
                 <employee-widget> </employee-widget>
-        
+
             </div>
             <div class="col-xl-4">
-                <general-client-card></general-client-card>
+                {{-- <general-client-card></general-client-card> --}}
+                <sick-leave></sick-leave>
             </div>
 
             <div class="col-xl-4">
                 <document-expiration-widget></document-expiration-widget>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xl-12">
-                <linked-in> </linked-in>
             </div>
         </div>
 

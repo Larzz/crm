@@ -16,3 +16,7 @@ yarn-error.log
 /public/presentation
 .well-known
 .logs
+.composer.json
+.composer.lock
+.package.json
+.package.lock

@@ -23,6 +23,7 @@ import Tools from './components/general/ToolsComponent.vue'
 import CreateClientPopup from './components/general/popup/CreateClientComponent.vue'
 import UploadDocumentPopup from './components/general/popup/UploadDocumentComponent.vue'
 import CreateEmployeePopup from './components/general/popup/CreateEmployeeComponent.vue'
+import CreateLeaveComponent from './components/general/popup/CreateLeaveComponent.vue'
 import CreateNotePopup from './components/general/popup/CreateNoteComponent.vue'
 import PresentationPopup from './components/general/popup/PresentationComponent.vue'
 import MeetingMinutesPopup from './components/general/popup/MeetingMinutesComponent.vue'
@@ -66,7 +67,8 @@ Vue.component('tools', Tools)
 // popup
 Vue.component('create-client-popup', CreateClientPopup)
 Vue.component('upload-document-popup', UploadDocumentPopup)
-Vue.component('create-employee-popup', CreateEmployeePopup)
+Vue.component('create-employee-popup', CreateLeaveComponent)
+Vue.component('create-leave-popup', CreateEmployeePopup)
 Vue.component('create-note-popup', CreateNotePopup)
 // new naming method, need to change the above when have time
 Vue.component('presentation-popup', PresentationPopup)
