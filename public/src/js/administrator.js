@@ -723,6 +723,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -844,7 +846,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card {\n    height: 357px;\n    overflow-y: scroll;\n}\n.table-flush th {\n    font-size: 15px;\n}\n.table-flush ul {\n    display: contents;\n    list-style: none;\n}\n.table-flush ul li {\n    margin-right: 10px;\n}\n.table-flush ul li a {\n    color: #525f7f;\n}\n\n", ""]);
+exports.push([module.i, "\n.card {\n    height: 357px;\n    overflow-y: scroll;\n}\n.table-flush th {\n    font-size: 15px;\n}\n.table-flush ul {\n    display: contents;\n    list-style: none;\n}\n.table-flush ul li {\n    margin-right: 10px;\n}\n.table-flush ul li a {\n    color: #525f7f;\n}\n", ""]);
 
 // exports
 
@@ -6396,7 +6398,7 @@ var render = function() {
                                         "a",
                                         {
                                           staticClass: "btn btn-sm btn-primary",
-                                          attrs: { href: "#!" },
+                                          attrs: { href: "#!", disabled: true },
                                           on: {
                                             click: function($event) {
                                               return _vm.approved(props.row.id)
@@ -6410,7 +6412,7 @@ var render = function() {
                                         "a",
                                         {
                                           staticClass: "btn btn-sm btn-primary",
-                                          attrs: { href: "#!" },
+                                          attrs: { href: "#!", disabled: true },
                                           on: {
                                             click: function($event) {
                                               return _vm.declined(props.row.id)
@@ -6429,7 +6431,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    1298860498
+                    441493714
                   )
                 })
               ]
@@ -6562,6 +6564,24 @@ var render = function() {
                                       {
                                         attrs: {
                                           href: "#!",
+                                          title: "View Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.viewEmployee(leave)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
                                           "data-id": leave.id,
                                           title: "Delete Employee"
                                         },
@@ -6589,7 +6609,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("create-employee-popup", {
+        _c("create-leave-popup", {
           attrs: { showPopup: _vm.showPopup },
           on: {
             new_employee: _vm.getSickLeaves,

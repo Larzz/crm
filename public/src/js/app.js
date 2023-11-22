@@ -2536,6 +2536,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5507,6 +5509,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5520,6 +5526,7 @@ __webpack_require__.r(__webpack_exports__);
         birth_date: null,
         mobile_number: null,
         number_of_days: null,
+        number_of_sick_days: null,
         notes: null
       }
     };
@@ -5582,6 +5589,11 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
+      if (!this.fields.number_of_sick_days) {
+        $this.$toastr.e('Number of vacation days is Required!');
+        return false;
+      }
+
       JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',
@@ -5609,6 +5621,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.birth_date = null;
       this.fields.mobile_number = null;
       this.fields.number_of_days = null;
+      this.fields.number_of_sick_days = null;
       this.fields.notes = null;
     }
   }
@@ -5760,6 +5773,8 @@ __webpack_require__.r(__webpack_exports__);
           $this.resetForms();
           $this.close();
           $this.$toastr.s('Successfully Added!', 'Success');
+        } else {
+          $this.$toastr.e(response.data.message);
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -6621,6 +6636,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6640,7 +6669,9 @@ __webpack_require__.r(__webpack_exports__);
         mobile_number: null,
         number_of_days: null,
         notes: null,
-        filename: null
+        filename: null,
+        annual_leave: null,
+        sick_leave: null
       },
       dropzoneOptions: {
         url: "/api/v1/documents/upload/docs?api_token=".concat(window.Laravel.api_token),
@@ -6672,6 +6703,8 @@ __webpack_require__.r(__webpack_exports__);
     this.fields.mobile_number = this.employee.mobile_number;
     this.fields.password = this.employee.password;
     this.fields.filename = this.employee.filename;
+    this.fields.annual_leave = this.employee.annual_leave;
+    this.fields.sick_leave = this.employee.sick_leave;
   },
   methods: {
     beforeCreate: function beforeCreate() {
@@ -11327,7 +11360,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card {\n    height: 357px;\n    overflow-y: scroll;\n}\n.table-flush th {\n    font-size: 15px;\n}\n.table-flush ul {\n    display: contents;\n    list-style: none;\n}\n.table-flush ul li {\n    margin-right: 10px;\n}\n.table-flush ul li a {\n    color: #525f7f;\n}\n\n", ""]);
+exports.push([module.i, "\n.card {\n    height: 357px;\n    overflow-y: scroll;\n}\n.table-flush th {\n    font-size: 15px;\n}\n.table-flush ul {\n    display: contents;\n    list-style: none;\n}\n.table-flush ul li {\n    margin-right: 10px;\n}\n.table-flush ul li a {\n    color: #525f7f;\n}\n", ""]);
 
 // exports
 
@@ -58218,7 +58251,7 @@ var render = function() {
                                         "a",
                                         {
                                           staticClass: "btn btn-sm btn-primary",
-                                          attrs: { href: "#!" },
+                                          attrs: { href: "#!", disabled: true },
                                           on: {
                                             click: function($event) {
                                               return _vm.approved(props.row.id)
@@ -58232,7 +58265,7 @@ var render = function() {
                                         "a",
                                         {
                                           staticClass: "btn btn-sm btn-primary",
-                                          attrs: { href: "#!" },
+                                          attrs: { href: "#!", disabled: true },
                                           on: {
                                             click: function($event) {
                                               return _vm.declined(props.row.id)
@@ -58251,7 +58284,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    1298860498
+                    441493714
                   )
                 })
               ]
@@ -58384,6 +58417,24 @@ var render = function() {
                                       {
                                         attrs: {
                                           href: "#!",
+                                          title: "View Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.viewEmployee(leave)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-eye" })]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
                                           "data-id": leave.id,
                                           title: "Delete Employee"
                                         },
@@ -58411,7 +58462,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("create-employee-popup", {
+        _c("create-leave-popup", {
           attrs: { showPopup: _vm.showPopup },
           on: {
             new_employee: _vm.getSickLeaves,
@@ -62477,6 +62528,38 @@ var render = function() {
                           }
                         }
                       })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Number of Sick Days")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.number_of_sick_days,
+                            expression: "fields.number_of_sick_days"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number" },
+                        domProps: { value: _vm.fields.number_of_sick_days },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "number_of_sick_days",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
                     ])
                   ]),
                   _vm._v(" "),
@@ -64397,6 +64480,74 @@ var render = function() {
                             _vm.$set(
                               _vm.fields,
                               "position",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Number of Annual Leave")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.annual_leave,
+                            expression: "fields.annual_leave"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.fields.annual_leave },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "annual_leave",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Number of Sick Leave")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.sick_leave,
+                            expression: "fields.sick_leave"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.fields.sick_leave },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "sick_leave",
                               $event.target.value
                             )
                           }
@@ -85664,8 +85815,8 @@ vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('tools', _components_gener
 
 vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('create-client-popup', _components_general_popup_CreateClientComponent_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('upload-document-popup', _components_general_popup_UploadDocumentComponent_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('create-employee-popup', _components_general_popup_CreateLeaveComponent_vue__WEBPACK_IMPORTED_MODULE_18__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('create-leave-popup', _components_general_popup_CreateEmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('create-employee-popup', _components_general_popup_CreateEmployeeComponent_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('create-leave-popup', _components_general_popup_CreateLeaveComponent_vue__WEBPACK_IMPORTED_MODULE_18__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('create-note-popup', _components_general_popup_CreateNoteComponent_vue__WEBPACK_IMPORTED_MODULE_19__["default"]); // new naming method, need to change the above when have time
 
 vue__WEBPACK_IMPORTED_MODULE_33___default.a.component('presentation-popup', _components_general_popup_PresentationComponent_vue__WEBPACK_IMPORTED_MODULE_20__["default"]);

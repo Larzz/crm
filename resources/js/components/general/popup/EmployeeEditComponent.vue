@@ -52,6 +52,20 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Number of Annual Leave</label>
+                                <input type="text" v-model="fields.annual_leave" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Number of Sick Leave</label>
+                                <input type="text" v-model="fields.sick_leave" class="form-control">
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">File</label>
@@ -97,7 +111,9 @@
                     mobile_number: null,
                     number_of_days: null,
                     notes: null,
-                    filename: null
+                    filename: null,
+                    annual_leave: null,
+                    sick_leave: null
                 },
                 dropzoneOptions: {
                     url: `/api/v1/documents/upload/docs?api_token=${window.Laravel.api_token}`,
@@ -129,6 +145,8 @@
             this.fields.mobile_number = this.employee.mobile_number
             this.fields.password = this.employee.password
             this.fields.filename = this.employee.filename
+            this.fields.annual_leave = this.employee.annual_leave
+            this.fields.sick_leave = this.employee.sick_leave
         },
         methods: {
             beforeCreate() {

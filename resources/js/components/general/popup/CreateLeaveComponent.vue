@@ -137,6 +137,8 @@
                             $this.resetForms()
                             $this.close()
                             $this.$toastr.s('Successfully Added!', 'Success');
+                        } else {
+                            $this.$toastr.e(response.data.message);
                         }
                     })
                     .catch(function (error) {

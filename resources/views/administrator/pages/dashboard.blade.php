@@ -27,7 +27,6 @@
 
             </div>
             <div class="col-xl-4">
-                {{-- <general-client-card></general-client-card> --}}
                 <sick-leave></sick-leave>
             </div>
 

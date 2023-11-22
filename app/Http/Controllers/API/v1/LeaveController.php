@@ -46,7 +46,7 @@ class LeaveController extends Controller
             return response()->json(['status' => false, 'messages' => $validator->messages()], 422);
         }
     
-        $leave_details = new LeaveDetails;
+        $leave_details = new LeaveDetails;          
         $leave_details->leave_id = $this->request->leave_id;
         $leave_details->leave_from = Carbon::parse($this->request->leave_from);
         $leave_details->leave_to = Carbon::parse($this->request->leave_to);
@@ -113,15 +113,37 @@ class LeaveController extends Controller
     public function addSickLeave() {
 
         try {
-            $sickLeave = new SickLeave;
-            $sickLeave->user_id = $this->request->user_id;
-            $sickLeave->leave_from = $this->request->leave_from;
-            $sickLeave->leave_to = $this->request->leave_to;
-            $sickLeave->number_of_days = $this->request->number_of_days;
-            $sickLeave->status = true;
-            if ($sickLeave->save()) {
-                return response()->json(['status' => true]);
+
+            $user = User::find($this->request->user_id);
+
+            if ($user) {
+
+                $current_leave = (int) $user->sick_leave;
+                $applied_leave = (int) $this->request->number_of_days;
+
+                if ($applied_leave > $current_leave) {
+                    return response()->json(['status' => false, 'message' => 'Insufficient Leaves']);
+                }
+
+                $user->sick_leave = $current_leave - $applied_leave;
+                
+                if ($user->save()) {
+                    
+                    $sickLeave = new SickLeave;
+                    $sickLeave->user_id = $this->request->user_id;
+                    $sickLeave->leave_from = $this->request->leave_from;
+                    $sickLeave->leave_to = $this->request->leave_to;
+                    $sickLeave->number_of_days = $this->request->number_of_days;
+                    $sickLeave->status = true;
+        
+                    if ($sickLeave->save()) {
+                        return response()->json(['status' => true]);
+                    }
+
+                }
+
             }
+
             return response()->json(['status' => false]);
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);

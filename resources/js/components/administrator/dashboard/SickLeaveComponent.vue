@@ -33,6 +33,8 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <ul>
+                                            <li><a href="#!" @click="viewEmployee(leave)"
+                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
                                             <li> <a href="#!" :data-id="leave.id" @click="deleteSickLeave(leave.id)"
                                                     title="Delete Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
@@ -51,8 +53,8 @@
                 </table>
             </div>
 
-            <create-employee-popup @new_employee="getSickLeaves" :showPopup="showPopup" @close="showPopup = false">
-            </create-employee-popup>
+            <create-leave-popup @new_employee="getSickLeaves" :showPopup="showPopup" @close="showPopup = false">
+            </create-leave-popup>
 
         </div>
     </div>
@@ -137,5 +139,4 @@
     .table-flush ul li a {
         color: #525f7f;
     }
-
 </style>

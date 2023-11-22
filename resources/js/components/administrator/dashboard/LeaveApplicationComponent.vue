@@ -65,8 +65,8 @@
                         <template slot="table-row" slot-scope="props">
                             <span v-if="props.column.field == 'action'">
                                 <div class="d-flex align-items-center">
-                                     <a href="#!" @click="approved(props.row.id)" class="btn btn-sm btn-primary">Approved</a>
-                                    <a href="#!" @click="declined(props.row.id)" class="btn btn-sm btn-primary">Declined</a> 
+                                     <a href="#!" @click="approved(props.row.id)" :disabled="true" class="btn btn-sm btn-primary">Approved</a>
+                                    <a href="#!" @click="declined(props.row.id)" :disabled="true" class="btn btn-sm btn-primary">Declined</a> 
                                 </div>
                             </span>
                         </template>

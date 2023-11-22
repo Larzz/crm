@@ -50,6 +50,8 @@ class EmployeeController extends Controller
         $user->date_joined = $this->request->date_joined;
         $user->birth_date = $this->request->birth_date;
         $user->mobile_number = $this->request->mobile_number;
+        $user->annual_leave = $this->request->number_of_days;
+        $user->sick_leave = $this->request->number_of_sick_days;
         $user->api_token = hash('sha256', $token);
         $user->notes = $this->request->notes;
 
@@ -108,6 +110,8 @@ class EmployeeController extends Controller
             $employee->password = $this->request->password;
             $employee->position = $this->request->position;
             $employee->date_joined = $this->request->date_joined;
+            $employee->annual_leave = $this->request->annual_leave;
+            $employee->sick_leave = $this->request->sick_leave;
 
             if($employee->save()) {
                 return response()->json(['status' => true, 'employee' => $employee]);

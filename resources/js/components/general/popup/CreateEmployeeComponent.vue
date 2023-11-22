@@ -49,6 +49,10 @@
                                 <label for="">Number of Vacation Days</label>
                                 <input type="number" v-model="fields.number_of_days" class="form-control">
                             </div>
+                              <div class="form-group">
+                                <label for="">Number of Sick Days</label>
+                                <input type="number" v-model="fields.number_of_sick_days" class="form-control">
+                            </div>
                         </div>
 
                         <div class="col-md-12">
@@ -84,6 +88,7 @@
                     birth_date: null,
                     mobile_number: null,
                     number_of_days: null,
+                    number_of_sick_days: null,
                     notes: null
                 }
             }
@@ -147,6 +152,11 @@
                     return false
                 }
 
+                if (!this.fields.number_of_sick_days) {
+                    $this.$toastr.e('Number of vacation days is Required!')
+                    return false
+                }
+
                 JsLoadingOverlay.show(this.$configs);
 
                 axios({
@@ -178,6 +188,7 @@
                 this.fields.birth_date= null
                 this.fields.mobile_number= null
                 this.fields.number_of_days= null
+                this.fields.number_of_sick_days=null
                 this.fields.notes= null
             }
 

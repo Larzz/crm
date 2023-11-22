@@ -67,8 +67,8 @@ Vue.component('tools', Tools)
 // popup
 Vue.component('create-client-popup', CreateClientPopup)
 Vue.component('upload-document-popup', UploadDocumentPopup)
-Vue.component('create-employee-popup', CreateLeaveComponent)
-Vue.component('create-leave-popup', CreateEmployeePopup)
+Vue.component('create-employee-popup', CreateEmployeePopup)
+Vue.component('create-leave-popup', CreateLeaveComponent)
 Vue.component('create-note-popup', CreateNotePopup)
 // new naming method, need to change the above when have time
 Vue.component('presentation-popup', PresentationPopup)
