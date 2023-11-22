@@ -6,7 +6,11 @@
                     <div class="col">
                         <h5 class="h3 mb-0">Apply for Vacation</h5>
                     </div>
+                    <div class="col text-right">
+                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Previous Application</a>
+                    </div>
                 </div>
+
             </div>
             <div class="card-body">
                 <div class="row">
@@ -14,9 +18,6 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h4>Date</h4>
-                                <!-- <input v-model="field.leave_from" type="date" class="form-control"> -->
-                                <!-- <h5 v-html="field.leave_from"></h5> -->
-                                <!-- <v-date-picker v-model="field.date" is-range /> -->
                                 <v-date-picker :available-dates='{ start: new Date(), end: null }' v-model="field.date"
                                     is-range>
                                     <template v-slot="{ inputValue, inputEvents }">
@@ -34,11 +35,6 @@
                                     </template>
                                 </v-date-picker>
                             </div>
-                            <!-- <div class="col-md-6">
-                                <h4>To</h4>
-                                <input v-model="field.leave_to" @change="validate" type="date" class="form-control">
-                                <h5 v-html="field.leave_to"></h5>
-                            </div> -->
                         </div>
                     </div>
 
@@ -60,19 +56,6 @@
                             <a href="javascript:;" @click="submitVacation()" class="btn btn-primary">Submit</a>
                         </div>
                     </div>
-
-                    <div class="col-xl-12">
-                        <div class="row mt-5">
-                            <div class="col-xl-4">
-                                <h4>Previous Vacation</h4>
-                            </div>
-                            <div class="col-xl-4">
-                                <h4>Pending Vacation</h4>
-                            </div>
-                            <div class="col-xl-4"></div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -180,7 +163,7 @@
                 this.formatDate(this.field.leave_from)
                 this.formatDate(this.field.leave_to)
 
-            return;
+                return;
             },
 
             validate() {
@@ -215,22 +198,10 @@
                 }
 
                 let $this = this
-                 this.dateDifference(this.field.date.start, this.field.date.end)
-
-                if (!this.field.leave_from) {
-                    $this.$toastr.e('Leave From is Required')
-                    return;
-                }
-
-                if (!this.field.leave_to) {
-                    $this.$toastr.e('Leave to is Required')
-                    return;
-                }
-
-
-                console.log(this.field)
+                this.dateDifference(this.field.date.start, this.field.date.end)
 
                 JsLoadingOverlay.show(this.$configs);
+                return
 
                 axios({
                         method: 'post',

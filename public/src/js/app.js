@@ -2535,29 +2535,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      employees: [],
+      sickLeaves: [],
       showPopup: false
     };
   },
   beforeMount: function beforeMount() {
-    this.getEmployees();
+    this.getSickLeaves();
   },
   methods: {
-    getEmployees: function getEmployees() {
-      var $this = this;
+    getSickLeaves: function getSickLeaves() {
+      var self = this;
       axios({
         method: 'get',
-        url: '/api/v1/employee?api_token=' + window.Laravel.api_token //   data: this.fields
-
+        url: '/api/v1/leave/sick/leve?api_token=' + window.Laravel.api_token
       }).then(function (response) {
-        $this.employees = response.data.employees;
+        self.sickLeaves = response.data.sick_leaves;
       })["catch"](function (error) {
-        $this.$toastr.e(error);
+        self.$toastr.e(error);
       }).then(function () {});
+    },
+    deleteSickLeave: function deleteSickLeave(leave_id) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+        icon: 'question',
+        title: 'Are you sure you want to delete this leave?',
+        showCancelButton: true,
+        confirmButtonText: 'Remove'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this.$configs);
+          var self = _this;
+          axios({
+            method: 'delete',
+            url: "/api/v1/leave/sick/leve/".concat(leave_id, "?api_token=") + window.Laravel.api_token
+          }).then(function (response) {
+            JsLoadingOverlay.hide();
+            self.getSickLeaves();
+          })["catch"](function (error) {
+            self.$toastr.e(error);
+          }).then(function () {});
+        }
+      });
     }
   }
 });
@@ -5657,20 +5681,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       showClientPopup: false,
       fields: {
-        name: null,
-        email: null,
-        password: null,
-        position: null,
-        date_joined: null,
-        birth_date: null,
-        mobile_number: null,
-        number_of_days: null,
-        notes: null
+        employee_id: null,
+        date_from: null,
+        date_to: null,
+        notes: null,
+        number_of_days: null
       },
       employees: []
     };
@@ -5698,61 +5720,61 @@ __webpack_require__.r(__webpack_exports__);
     close: function close() {
       this.$emit('close', false);
     },
-    addEmployee: function addEmployee() {
+    onSubmitLeave: function onSubmitLeave() {
       var $this = this;
 
-      if (!this.fields.name) {
-        $this.$toastr.e('Name is Required');
+      if (!this.fields.employee_id) {
+        $this.$toastr.e('Employee is Required');
         return false;
       }
 
-      if (!this.fields.email) {
-        $this.$toastr.e('Email is Required');
+      if (!this.fields.date_from) {
+        $this.$toastr.e('Date From is Required');
         return false;
       }
 
-      if (!this.fields.password) {
-        $this.$toastr.e('Password is Required');
+      if (!this.fields.date_to) {
+        $this.$toastr.e('Date to is Required');
         return false;
       }
 
-      if (!this.fields.position) {
-        $this.$toastr.e('Position is Required');
+      if (!this.fields.notes) {
+        $this.$toastr.e('Notes is Required');
         return false;
       }
 
-      if (!this.fields.birth_date) {
-        $this.$toastr.e('Birth Date is Required');
-        return false;
-      }
-
-      if (!this.fields.mobile_number) {
-        $this.$toastr.e('Mobile Number is Required');
-        return false;
-      }
-
-      if (!this.fields.number_of_days) {
-        $this.$toastr.e('Number of vacation days is Required!');
-        return false;
-      }
-
+      this.fields.number_of_days = this.getDaysBetweenDates(this.fields.date_from, this.fields.date_to);
       JsLoadingOverlay.show(this.$configs);
       axios({
         method: 'post',
-        url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
-        data: this.fields
+        url: '/api/v1/leave/sick?api_token=' + window.Laravel.api_token,
+        data: {
+          user_id: this.fields.employee_id,
+          leave_from: this.fields.date_from,
+          leave_to: this.fields.date_to,
+          number_of_days: this.fields.number_of_days
+        }
       }).then(function (response) {
         if (response.data.status) {
           $this.$emit('new_employee', true);
           $this.resetForms();
           $this.close();
-          $this.$toastr.s('Successfully Added Employee!', 'Success');
+          $this.$toastr.s('Successfully Added!', 'Success');
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
       }).then(function () {
         JsLoadingOverlay.hide();
       });
+    },
+    getDaysBetweenDates: function getDaysBetweenDates(startDate, endDate) {
+      var start = new Date(startDate);
+      var end = new Date(endDate); // Calculate the time difference in milliseconds
+
+      var timeDifference = Math.abs(end - start); // Convert time difference from milliseconds to days
+
+      var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+      return daysDifference + 1;
     },
     resetForms: function resetForms() {
       this.fields.name = null;
@@ -9002,23 +9024,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -9130,19 +9135,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var $this = this;
       this.dateDifference(this.field.date.start, this.field.date.end);
-
-      if (!this.field.leave_from) {
-        $this.$toastr.e('Leave From is Required');
-        return;
-      }
-
-      if (!this.field.leave_to) {
-        $this.$toastr.e('Leave to is Required');
-        return;
-      }
-
-      console.log(this.field);
       JsLoadingOverlay.show(this.$configs);
+      return;
       axios({
         method: 'post',
         url: '/api/v1/leave?api_token=' + window.Laravel.api_token,
@@ -58354,8 +58348,63 @@ var render = function() {
             "table",
             { staticClass: "table align-items-center table-flush" },
             [
-              false
-                ? undefined
+              _vm.sickLeaves.length
+                ? [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.sickLeaves, function(leave, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(leave.name) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(leave.number_of_days) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
+                                _c("ul", [
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
+                                          "data-id": leave.id,
+                                          title: "Delete Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteSickLeave(leave.id)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-trash" })]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
                 : [_vm._m(2)]
             ],
             2
@@ -58365,7 +58414,7 @@ var render = function() {
         _c("create-employee-popup", {
           attrs: { showPopup: _vm.showPopup },
           on: {
-            new_employee: _vm.getEmployees,
+            new_employee: _vm.getSickLeaves,
             close: function($event) {
               _vm.showPopup = false
             }
@@ -58393,7 +58442,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Dates")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Days")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } })
       ])
     ])
   },
@@ -62581,14 +62632,46 @@ var render = function() {
                       _c(
                         "select",
                         {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fields.employee_id,
+                              expression: "fields.employee_id"
+                            }
+                          ],
                           staticClass: "form-control",
-                          attrs: { name: "", id: "" }
+                          attrs: { name: "", id: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.fields,
+                                "employee_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
                         },
                         _vm._l(_vm.employees, function(employee, index) {
                           return _c(
                             "option",
                             { key: index, domProps: { value: employee.id } },
-                            [_vm._v(_vm._s(employee.name))]
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(employee.name)
+                              )
+                            ]
                           )
                         }),
                         0
@@ -62603,8 +62686,29 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.date_from,
+                            expression: "fields.date_from"
+                          }
+                        ],
                         staticClass: "form-control",
-                        attrs: { type: "date" }
+                        attrs: { type: "date" },
+                        domProps: { value: _vm.fields.date_from },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "date_from",
+                              $event.target.value
+                            )
+                          }
+                        }
                       })
                     ])
                   ]),
@@ -62614,8 +62718,25 @@ var render = function() {
                       _c("label", { attrs: { for: "" } }, [_vm._v("Date To")]),
                       _vm._v(" "),
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.date_to,
+                            expression: "fields.date_to"
+                          }
+                        ],
                         staticClass: "form-control",
-                        attrs: { type: "date" }
+                        attrs: { type: "date" },
+                        domProps: { value: _vm.fields.date_to },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.fields, "date_to", $event.target.value)
+                          }
+                        }
                       })
                     ])
                   ]),
@@ -62625,8 +62746,25 @@ var render = function() {
                       _c("label", { attrs: { for: "" } }, [_vm._v("Notes")]),
                       _vm._v(" "),
                       _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.notes,
+                            expression: "fields.notes"
+                          }
+                        ],
                         staticClass: "form-control",
-                        attrs: { name: "", id: "", cols: "30", rows: "4" }
+                        attrs: { name: "", id: "", cols: "30", rows: "4" },
+                        domProps: { value: _vm.fields.notes },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.fields, "notes", $event.target.value)
+                          }
+                        }
                       })
                     ])
                   ])
@@ -62640,11 +62778,11 @@ var render = function() {
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
-                          return _vm.addEmployee()
+                          return _vm.onSubmitLeave()
                         }
                       }
                     },
-                    [_vm._v("Save changes")]
+                    [_vm._v("Submit")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -67122,7 +67260,27 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "card" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "card-header bg-transparent" }, [
+        _c("div", { staticClass: "row align-items-center" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col text-right" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { href: "#!" },
+                on: {
+                  click: function($event) {
+                    _vm.showPopup = true
+                  }
+                }
+              },
+              [_vm._v("Previous Application")]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row" }, [
@@ -67254,9 +67412,7 @@ var render = function() {
                 [_vm._v("Submit")]
               )
             ])
-          ]),
-          _vm._v(" "),
-          _vm._m(1)
+          ])
         ])
       ])
     ])
@@ -67267,30 +67423,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header bg-transparent" }, [
-      _c("div", { staticClass: "row align-items-center" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h5", { staticClass: "h3 mb-0" }, [_vm._v("Apply for Vacation")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-12" }, [
-      _c("div", { staticClass: "row mt-5" }, [
-        _c("div", { staticClass: "col-xl-4" }, [
-          _c("h4", [_vm._v("Previous Vacation")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-xl-4" }, [
-          _c("h4", [_vm._v("Pending Vacation")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-xl-4" })
-      ])
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h3 mb-0" }, [_vm._v("Apply for Vacation")])
     ])
   }
 ]

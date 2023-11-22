@@ -14,28 +14,29 @@
 
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
-                    <template v-if="false">
+                    <template v-if="sickLeaves.length">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Dates</th>
+                                <th scope="col">Days</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(employee, index) in employees" :key="index">
+                            <tr v-for="(leave, index) in sickLeaves" :key="index">
                                 <th scope="row">
-                                    {{ employee.name }}
+                                    {{ leave.name }}
+                                </th>
+                                <th scope="row">
+                                    {{ leave.number_of_days }}
                                 </th>
                                 <td>
-                                    <!-- <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" :data-id="employee.id" @click="viewEmployee(employee.id)"
-                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
-                                            <li> <a href="#!" :data-id="employee.id"
-                                                    @click="deleteEmployee(employee.id)" title="Delete Employee"><i
-                                                        class="fas fa-trash"></i></a> </li>
+                                            <li> <a href="#!" :data-id="leave.id" @click="deleteSickLeave(leave.id)"
+                                                    title="Delete Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
-                                    </div> -->
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -50,7 +51,7 @@
                 </table>
             </div>
 
-            <create-employee-popup @new_employee="getEmployees" :showPopup="showPopup" @close="showPopup = false">
+            <create-employee-popup @new_employee="getSickLeaves" :showPopup="showPopup" @close="showPopup = false">
             </create-employee-popup>
 
         </div>
@@ -63,41 +64,63 @@
     export default {
         data() {
             return {
-                employees: [],
+                sickLeaves: [],
                 showPopup: false
             }
         },
         beforeMount() {
-            this.getEmployees()
+            this.getSickLeaves()
         },
         methods: {
-            getEmployees() {
-
-                let $this = this
+            getSickLeaves() {
+                let self = this
                 axios({
                         method: 'get',
-                        url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
-                        //   data: this.fields
+                        url: '/api/v1/leave/sick/leve?api_token=' + window.Laravel.api_token,
                     }).then(function (response) {
-                        $this.employees = response.data.employees
+                        self.sickLeaves = response.data.sick_leaves
                     })
                     .catch(function (error) {
-                        $this.$toastr.e(error);
+                        self.$toastr.e(error);
                     })
                     .then(function () {});
-
             },
+            deleteSickLeave(leave_id) {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Are you sure you want to delete this leave?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Remove',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        JsLoadingOverlay.show(this.$configs);
+                        let self = this
+                        axios({
+                                method: 'delete',
+                                url: `/api/v1/leave/sick/leve/${leave_id}?api_token=` + window.Laravel
+                                    .api_token,
+                            }).then(function (response) {
+                                JsLoadingOverlay.hide();
+                                self.getSickLeaves()
+                            })
+                            .catch(function (error) {
+                                self.$toastr.e(error);
+                            })
+                            .then(function () {});
+                    } 
+                })
+            }
         }
     }
 
 </script>
 
 <style>
-
     .card {
         height: 357px;
         overflow-y: scroll;
     }
+
     .table-flush th {
         font-size: 15px;
     }

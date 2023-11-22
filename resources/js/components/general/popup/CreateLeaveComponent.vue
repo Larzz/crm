@@ -12,12 +12,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Employee</label>
-                                <select name="" id="" class="form-control">
-                                    <option v-for="(employee, index) in employees" :key="index" :value="employee.id">{{ employee.name }}</option>
+                                <select name="" id="" class="form-control" v-model="fields.employee_id">
+                                    <option v-for="(employee, index) in employees" :key="index" :value="employee.id">
+                                        {{ employee.name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -25,26 +26,27 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Date From</label>
-                                <input type="date" class="form-control">
+                                <input type="date" v-model="fields.date_from" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Date To</label>
-                                <input type="date" class="form-control">
+                                <input type="date" v-model="fields.date_to" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Notes</label>
-                                <textarea name="" class="form-control" id="" cols="30" rows="4"></textarea>
+                                <textarea name="" v-model="fields.notes" class="form-control" id="" cols="30"
+                                    rows="4"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" @click="addEmployee()" class="btn btn-primary">Save changes</button>
+                        <button type="button" @click="onSubmitLeave()" class="btn btn-primary">Submit</button>
                         <button type="button" @click.prevent="close" class="btn btn-link  ml-auto"
                             data-dismiss="modal">Close</button>
                     </div>
@@ -60,15 +62,11 @@
             return {
                 showClientPopup: false,
                 fields: {
-                    name: null,
-                    email: null,
-                    password: null,
-                    position: null,
-                    date_joined: null,
-                    birth_date: null,
-                    mobile_number: null,
-                    number_of_days: null,
-                    notes: null
+                    employee_id: null,
+                    date_from: null,
+                    date_to: null,
+                    notes: null,
+                    number_of_days: null
                 },
                 employees: []
             }
@@ -96,57 +94,49 @@
             close() {
                 this.$emit('close', false)
             },
-            addEmployee() {
+            onSubmitLeave() {
 
                 let $this = this
 
-                if (!this.fields.name) {
-                    $this.$toastr.e('Name is Required');
+                if (!this.fields.employee_id) {
+                    $this.$toastr.e('Employee is Required');
                     return false
                 }
 
-                if (!this.fields.email) {
-                    $this.$toastr.e('Email is Required');
+                if (!this.fields.date_from) {
+                    $this.$toastr.e('Date From is Required');
                     return false
                 }
 
-                if (!this.fields.password) {
-                    $this.$toastr.e('Password is Required');
+                if (!this.fields.date_to) {
+                    $this.$toastr.e('Date to is Required');
                     return false
                 }
 
-                if (!this.fields.position) {
-                    $this.$toastr.e('Position is Required')
+                if (!this.fields.notes) {
+                    $this.$toastr.e('Notes is Required')
                     return false
                 }
-
-                if (!this.fields.birth_date) {
-                    $this.$toastr.e('Birth Date is Required')
-                    return false
-                }
-
-                if (!this.fields.mobile_number) {
-                    $this.$toastr.e('Mobile Number is Required')
-                    return false
-                }
-
-                if (!this.fields.number_of_days) {
-                    $this.$toastr.e('Number of vacation days is Required!')
-                    return false
-                }
+                
+                this.fields.number_of_days = this.getDaysBetweenDates(this.fields.date_from, this.fields.date_to)
 
                 JsLoadingOverlay.show(this.$configs);
 
                 axios({
                         method: 'post',
-                        url: '/api/v1/employee?api_token=' + window.Laravel.api_token,
-                        data: this.fields
+                        url: '/api/v1/leave/sick?api_token=' + window.Laravel.api_token,
+                        data: {
+                            user_id: this.fields.employee_id,
+                            leave_from: this.fields.date_from,
+                            leave_to: this.fields.date_to,
+                            number_of_days: this.fields.number_of_days
+                        }
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.$emit('new_employee', true)
                             $this.resetForms()
                             $this.close()
-                            $this.$toastr.s('Successfully Added Employee!', 'Success');
+                            $this.$toastr.s('Successfully Added!', 'Success');
                         }
                     })
                     .catch(function (error) {
@@ -157,7 +147,19 @@
                     });
 
             },
-       
+
+            getDaysBetweenDates(startDate, endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+
+                // Calculate the time difference in milliseconds
+                const timeDifference = Math.abs(end - start);
+
+                // Convert time difference from milliseconds to days
+                const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+                return daysDifference + 1
+            },
             resetForms() {
                 this.fields.name = null
                 this.fields.email = null
@@ -178,7 +180,7 @@
                         //   data: this.fields
                     }).then(function (response) {
                         self.employees = response.data.employees
-                        console.log('FUCKER ',response.data.employees)
+                        console.log('FUCKER ', response.data.employees)
                     })
                     .catch(function (error) {
                         $this.$toastr.e(error);

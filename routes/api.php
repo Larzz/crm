@@ -42,6 +42,7 @@ Route::namespace('API')->group(function() {
         });
 
         Route::prefix('leave')->group(function() {
+
             Route::post('/', 'LeaveController@addLeave');
             Route::get('/', 'LeaveController@getLeaves');
             Route::get('{id}', 'LeaveController@getLeave');
@@ -49,6 +50,13 @@ Route::namespace('API')->group(function() {
             Route::delete('{id}', 'LeaveController@deleteLeave');
             Route::post('approved', 'LeaveController@approved');
             Route::post('declined', 'LeaveController@declined');
+            
+            Route::prefix('sick')->group(function () {
+                Route::post('/', 'LeaveController@addSickLeave');
+                Route::get('leve', 'LeaveController@getSickLeaves');
+                Route::get('{user_id}', 'LeaveController@getSickLeave');
+                Route::delete('leve/{leave_id}', 'LeaveController@deleteSickLeave');
+            });
         });
 
         Route::prefix('employee')->namespace('Administrator')->group(function() {

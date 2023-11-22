@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use App\Models\Leave;
 use App\Models\LeaveDetails;
 
+use App\Models\SickLeave;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,11 +34,11 @@ class LeaveController extends Controller
     
     public function addLeave() {
 
-        $validator = Validator::make($this->request->all(), [
-            'leave_from' => 'required',
-            'leave_to' => 'required',
-            'total_day_used' => 'required',
-            'used_days' => 'required',
+            $validator = Validator::make($this->request->all(), [
+                'leave_from' => 'required',
+                'leave_to' => 'required',
+                'total_day_used' => 'required',
+                'used_days' => 'required',
             'leave_id' => 'required'
         ]);
 
@@ -58,14 +60,14 @@ class LeaveController extends Controller
             $leave->available_days = $this->request->remaining_days;
             $leave->used_days = $this->request->used_days;
             if($leave->save()) {
-                Mail::to('manfred@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
-                Mail::to('larry@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
-                Mail::to(auth()->user()->email)->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Confirmation'));
+                // Mail::to('manfred@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
+                // Mail::to('larry@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
+                // Mail::to(auth()->user()->email)->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Confirmation'));
                 return response()->json(['status' => true]);
             }
         }
 
-        return response()->json(['status' => false]);
+        return response()->json(['status' => false]);   
 
     }
 
@@ -106,5 +108,55 @@ class LeaveController extends Controller
         }
         return response()->json(['status' => false]);
     }
+
+
+    public function addSickLeave() {
+
+        try {
+            $sickLeave = new SickLeave;
+            $sickLeave->user_id = $this->request->user_id;
+            $sickLeave->leave_from = $this->request->leave_from;
+            $sickLeave->leave_to = $this->request->leave_to;
+            $sickLeave->number_of_days = $this->request->number_of_days;
+            $sickLeave->status = true;
+            if ($sickLeave->save()) {
+                return response()->json(['status' => true]);
+            }
+            return response()->json(['status' => false]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+        }
+
+    }
+
+    public function getSickLeaves() {
+        $sickLeaves = SickLeave::leftjoin('users', 'users.id', 'sick_leave.user_id')->select('sick_leave.*', 'users.name')->get();
+        return response()->json([
+            'status' => true,
+            'sick_leaves' => $sickLeaves
+        ]);
+    }
+
+    public function getSickLeave($user_id) {
+        $sickLeaves = SickLeave::where('user_id', $user_id)->leftjoin('users', 'users.id', 'sick_leave.user_id')->select('sick_leave.*', 'users.name')->get();
+        return response()->json([
+            'status' => true,
+            'sick_leaves' => $sickLeaves
+        ]);
+    }
+
+    public function deleteSickLeave($leave_id) {
+        $sickLeave = SickLeave::where('id', $leave_id)->delete();
+        if ($sickLeave) {
+            return response()->json([
+                'status' => true
+            ]);
+        }
+        return response()->json([
+            'status' => false
+        ]);
+    }
+
+
     
 }

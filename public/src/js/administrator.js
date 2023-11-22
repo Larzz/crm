@@ -722,29 +722,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      employees: [],
+      sickLeaves: [],
       showPopup: false
     };
   },
   beforeMount: function beforeMount() {
-    this.getEmployees();
+    this.getSickLeaves();
   },
   methods: {
-    getEmployees: function getEmployees() {
-      var $this = this;
+    getSickLeaves: function getSickLeaves() {
+      var self = this;
       axios({
         method: 'get',
-        url: '/api/v1/employee?api_token=' + window.Laravel.api_token //   data: this.fields
-
+        url: '/api/v1/leave/sick/leve?api_token=' + window.Laravel.api_token
       }).then(function (response) {
-        $this.employees = response.data.employees;
+        self.sickLeaves = response.data.sick_leaves;
       })["catch"](function (error) {
-        $this.$toastr.e(error);
+        self.$toastr.e(error);
       }).then(function () {});
+    },
+    deleteSickLeave: function deleteSickLeave(leave_id) {
+      var _this = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+        icon: 'question',
+        title: 'Are you sure you want to delete this leave?',
+        showCancelButton: true,
+        confirmButtonText: 'Remove'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          JsLoadingOverlay.show(_this.$configs);
+          var self = _this;
+          axios({
+            method: 'delete',
+            url: "/api/v1/leave/sick/leve/".concat(leave_id, "?api_token=") + window.Laravel.api_token
+          }).then(function (response) {
+            JsLoadingOverlay.hide();
+            self.getSickLeaves();
+          })["catch"](function (error) {
+            self.$toastr.e(error);
+          }).then(function () {});
+        }
+      });
     }
   }
 });
@@ -6502,8 +6526,63 @@ var render = function() {
             "table",
             { staticClass: "table align-items-center table-flush" },
             [
-              false
-                ? undefined
+              _vm.sickLeaves.length
+                ? [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.sickLeaves, function(leave, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(leave.name) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(leave.number_of_days) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "div",
+                              { staticClass: "d-flex align-items-center" },
+                              [
+                                _c("ul", [
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: "#!",
+                                          "data-id": leave.id,
+                                          title: "Delete Employee"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteSickLeave(leave.id)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-trash" })]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
                 : [_vm._m(2)]
             ],
             2
@@ -6513,7 +6592,7 @@ var render = function() {
         _c("create-employee-popup", {
           attrs: { showPopup: _vm.showPopup },
           on: {
-            new_employee: _vm.getEmployees,
+            new_employee: _vm.getSickLeaves,
             close: function($event) {
               _vm.showPopup = false
             }
@@ -6541,7 +6620,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Dates")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Days")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } })
       ])
     ])
   },

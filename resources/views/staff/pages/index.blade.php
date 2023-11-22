@@ -23,13 +23,13 @@
                                     href="{{ route('general.admin.client') }}">Client</a> </li>
                             <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
                                     href="{{ route('general.tools') }}">Tools</a> </li>
-                            <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
-                                    href="{{ route('website.index') }}">Website</a> </li>
+                            {{-- <li> <a class="{{ $active === 'website_domains' ? 'active' : '' }}"
+                                    href="{{ route('website.index') }}">Website</a> </li> --}}
                             <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"
                                     href="{{ route('newsletter.index') }}">Newsletter</a> </li>
-                            <li> <a class="{{ $active === 'tutorials' ? 'active' : '' }}"
+                            {{-- <li> <a class="{{ $active === 'tutorials' ? 'active' : '' }}"
                                     href="{{ route('tutorial.index') }}">Tutorials</a> </li>
-                            <li> <a href="https://creativouae.com/articles-and-newsletters/">Blog</a> </li>
+                            <li> <a href="https://creativouae.com/articles-and-newsletters/">Blog</a> </li> --}}
 
                         </ul>
                     </div>
@@ -60,13 +60,9 @@
             </div>
 
             <div class="col-xl-4">
-                <general-client-card></general-client-card>
+                {{-- <general-client-card></general-client-card> --}}
             </div>
 
-        </div>
-
-        <div class="col-lx-12">
-            <linked-in></linked-in>
         </div>
 
         <!-- Footer -->
