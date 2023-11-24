@@ -86212,10 +86212,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+Vue.component('staff-sick-leave', _components_staff_SickLeaveComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
 Vue.component('staff-leave-application', _components_staff_LeaveApplicationComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.component('staff-profile', _components_staff_StaffComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
 Vue.component('staff-document', _components_staff_DocumentComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
-Vue.component('staff-sick-leave', _components_staff_SickLeaveComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
 /***/ }),
 
