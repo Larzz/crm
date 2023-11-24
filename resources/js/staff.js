@@ -1,5 +1,4 @@
 
- 
 import LeaveApplication from './components/staff/LeaveApplicationComponent.vue'
 import StaffComponent from './components/staff/StaffComponent.vue'
 import DocumentComponent from './components/staff/DocumentComponent.vue'
