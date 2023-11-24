@@ -7,7 +7,6 @@
                         <h3 class="mb-0">Sick Leaves</h3>
                     </div>
                     <div class="col text-right">
-                        <!-- <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Upload</a> -->
                     </div>
                 </div>
             </div>
@@ -24,8 +23,6 @@
                             <tr v-for="(leave, index) in leaves" :key="index">
                                 <td>
                                     {{ formatDate(leave.leave_from)  }} to  {{ formatDate(leave.leave_to)  }}
-                                   
-
                                 </td>
                                 <td>
                                     {{ leave.number_of_days }}
@@ -33,9 +30,7 @@
                             </tr>
                         </tbody>
                     </template>
-
                 </table>
-
                 <template v-if="!leaves">
                     <div class="container mt-3">
                         <div class="alert alert-warning" role="alert">

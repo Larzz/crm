@@ -9257,11 +9257,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -67784,7 +67779,7 @@ var render = function() {
                                 _vm._s(_vm.formatDate(leave.leave_from)) +
                                 " to  " +
                                 _vm._s(_vm.formatDate(leave.leave_to)) +
-                                "\n                               \n\n                            "
+                                "\n                            "
                             )
                           ]),
                           _vm._v(" "),
