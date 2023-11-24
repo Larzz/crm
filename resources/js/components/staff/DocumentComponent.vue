@@ -42,7 +42,6 @@
                             </tr>
                         </tbody>
                     </template>
-
                 </table>
 
                 <template v-if="!documents">
