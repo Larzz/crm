@@ -10,7 +10,6 @@
                         <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Previous Application</a>
                     </div>
                 </div>
-
             </div>
             <div class="card-body">
                 <div class="row">
@@ -40,7 +39,7 @@
 
                     <div class="col-xl-4">
                         <div class="available-section">
-                            <h4> Available <span>{{ leave.available_days }} days</span></h4>
+                            <h4> Available <span>{{ field.remaining_days }} days</span></h4>
                         </div>
 
                         <div class="used-days-section">
@@ -86,12 +85,11 @@
                 }
             }
         },
-        props: ['leave'],
+        props: ['leave', 'user'],
         mounted() {
-            this.field.remaining_days = this.leave.available_days
-            this.field.used_days = this.leave.used_days
+            this.field.remaining_days = this.user.annual_leave
+            this.field.used_days = 23 - parseInt(this.user.annual_leave)
             this.field.leave_id = this.leave.id
-
         },
         watch: {
 

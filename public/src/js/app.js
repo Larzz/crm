@@ -9055,7 +9055,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -9078,10 +9077,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  props: ['leave'],
+  props: ['leave', 'user'],
   mounted: function mounted() {
-    this.field.remaining_days = this.leave.available_days;
-    this.field.used_days = this.leave.used_days;
+    this.field.remaining_days = this.user.annual_leave;
+    this.field.used_days = 23 - parseInt(this.user.annual_leave);
     this.field.leave_id = this.leave.id;
   },
   watch: {},
@@ -67684,7 +67683,7 @@ var render = function() {
             _c("div", { staticClass: "available-section" }, [
               _c("h4", [
                 _vm._v(" Available "),
-                _c("span", [_vm._v(_vm._s(_vm.leave.available_days) + " days")])
+                _c("span", [_vm._v(_vm._s(_vm.field.remaining_days) + " days")])
               ])
             ]),
             _vm._v(" "),

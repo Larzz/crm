@@ -36,7 +36,7 @@
                 <general-bulletin-card :user="{{ Auth()->User() }}"> </general-bulletin-card>
             </div>
             <div class="col-xl-6">
-                <staff-leave-application :leave="{{ $leave }}"> </staff-leave-application>
+                <staff-leave-application :user="{{ Auth()->User() }}" :leave="{{ $leave }}"> </staff-leave-application>
             </div>
         </div>
         <div class="row">
