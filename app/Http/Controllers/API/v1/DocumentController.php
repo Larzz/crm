@@ -13,10 +13,8 @@ class DocumentController extends Controller
     private $request;
     
     public function __construct(Request $request) {
-
         $this->request = $request;
         define("YEAR",     date('Y'));
-
     }
 
     public function addDocument($id) {
