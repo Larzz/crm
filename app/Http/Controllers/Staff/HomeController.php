@@ -12,7 +12,6 @@ use App\Models\Notes;
 
 class HomeController extends Controller
 {
-    //
     public function index() {
         $meta = array('active' => 'dashboard', 'title' => 'Dashboard', 'leave' => Leave::where('user_id', auth()->user()->id)->first());
         return view('staff.pages.index', $meta);
@@ -27,5 +26,4 @@ class HomeController extends Controller
         $meta = array('active' => 'client', 'title' => 'Client', 'active' => 'client', 'user' => User::where('id', $id)->first());
         return view('administrator.pages.client.view_client', $meta);
     }
-
 }
