@@ -17,16 +17,9 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Year</label>
-                                <select name="" id="" v-model="year" class="form-control">
+                                <select name="" id=""  v-model="year" class="form-control">
                                     <option value="all">All</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
+                                    <option  v-for="(option, index) in yearOptions"  :key="index">{{ option }}</option>
                                 </select>
                             </div>
                         </div>
@@ -44,7 +37,9 @@
     export default {
         data() {
             return {
-              year: '2022'
+                // year: '2022',
+                year: new Date().getFullYear(),
+                yearOptions: []
             }
         },
         props: {
@@ -53,9 +48,14 @@
                 type: Boolean
             }
         },
-        mounted() {},
-        watch: {
+        created() {
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear; i >= 2015; i--) {
+                this.yearOptions.push(i.toString());
+            }
         },
+        mounted() {},
+        watch: {},
         methods: {
             close() {
                 this.$emit('close', this.year)
@@ -66,7 +66,6 @@
 </script>
 
 <style scoped>
-  
     .form-group {
         margin-bottom: 10px;
     }
@@ -103,8 +102,8 @@
 
     .modal {
         position: fixed;
-         left: 42%;
-    top: 20%;
+        left: 42%;
+        top: 20%;
         z-index: 1000;
         width: 20%;
         background-color: #FFF;

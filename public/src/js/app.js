@@ -5328,13 +5328,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      year: '2022'
+      // year: '2022',
+      year: new Date().getFullYear(),
+      yearOptions: []
     };
   },
   props: {
     showPopup: {
       required: true,
       type: Boolean
+    }
+  },
+  created: function created() {
+    var currentYear = new Date().getFullYear();
+    for (var i = currentYear; i >= 2015; i--) {
+      this.yearOptions.push(i.toString());
     }
   },
   mounted: function mounted() {},
@@ -6226,8 +6234,8 @@ __webpack_require__.r(__webpack_exports__);
         date: null
       },
       range: {
-        start: new Date(2020, 0, 1),
-        end: new Date(2020, 0, 5)
+        start: new Date(2024, 0, 1),
+        end: new Date(2025, 0, 12)
       }
     };
   },
@@ -12843,39 +12851,11 @@ var render = function render() {
     attrs: {
       value: "all"
     }
-  }, [_vm._v("All")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2022"
-    }
-  }, [_vm._v("2022")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2021"
-    }
-  }, [_vm._v("2021")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2020"
-    }
-  }, [_vm._v("2020")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2019"
-    }
-  }, [_vm._v("2019")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2018"
-    }
-  }, [_vm._v("2018")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2017"
-    }
-  }, [_vm._v("2017")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2016"
-    }
-  }, [_vm._v("2016")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "2015"
-    }
-  }, [_vm._v("2015")])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("All")]), _vm._v(" "), _vm._l(_vm.yearOptions, function (option, index) {
+    return _c("option", {
+      key: index
+    }, [_vm._v(_vm._s(option))]);
+  })], 2)])])])]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
     staticClass: "btn btn-primary",
@@ -16784,7 +16764,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.form-group[data-v-7c2c92ec] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-7c2c92ec],\n.fade-leave-active[data-v-7c2c92ec] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-7c2c92ec],\n.fade-leave-to[data-v-7c2c92ec] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-7c2c92ec],\n.slide-leave-active[data-v-7c2c92ec] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-7c2c92ec],\n.slide-leave-to[data-v-7c2c92ec] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-7c2c92ec] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-7c2c92ec] {\n    position: fixed;\n     left: 42%;\ntop: 20%;\n    z-index: 1000;\n    width: 20%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-7c2c92ec] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-7c2c92ec] {\n    float: right;\n}\n.btn[data-v-7c2c92ec] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-7c2c92ec] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
+exports.push([module.i, "\n.form-group[data-v-7c2c92ec] {\n    margin-bottom: 10px;\n}\n.fade-enter-active[data-v-7c2c92ec],\n.fade-leave-active[data-v-7c2c92ec] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-7c2c92ec],\n.fade-leave-to[data-v-7c2c92ec] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-7c2c92ec],\n.slide-leave-active[data-v-7c2c92ec] {\n    transition: transform .5s;\n}\n.slide-enter[data-v-7c2c92ec],\n.slide-leave-to[data-v-7c2c92ec] {\n    transform: translateY(-50%) translateX(100vw);\n}\n.modal-overlay[data-v-7c2c92ec] {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 900;\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.modal[data-v-7c2c92ec] {\n    position: fixed;\n    left: 42%;\n    top: 20%;\n    z-index: 1000;\n    width: 20%;\n    background-color: #FFF;\n    border-radius: 16px;\n    padding: 0px;\n    display: block;\n    height: max-content;\n}\nh1[data-v-7c2c92ec] {\n    font-size: 24px;\n    line-height: 1px;\n}\n.right[data-v-7c2c92ec] {\n    float: right;\n}\n.btn[data-v-7c2c92ec] {\n    font-size: .875rem;\n    position: relative;\n    transition: all .15s ease;\n    letter-spacing: .025em;\n    text-transform: none;\n    will-change: transform;\n}\n.btn-primary[data-v-7c2c92ec] {\n    color: #fff;\n    border-color: #f26f24;\n    background-color: #f26f24;\n    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);\n}\n\n", ""]);
 
 // exports
 

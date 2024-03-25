@@ -79,8 +79,8 @@
                     date: null,
                 },
                 range: {
-                    start: new Date(2020, 0, 1),
-                    end: new Date(2020, 0, 5),
+                    start: new Date(2024, 0, 1),
+                    end: new Date(2025, 0, 12),
 
                 }
             }
