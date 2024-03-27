@@ -442,7 +442,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       sickLeaves: [],
-      showPopup: false
+      showPopup: false,
+      showViewPopup: false,
+      sickLeave: {}
     };
   },
   beforeMount: function beforeMount() {
@@ -482,6 +484,20 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function () {});
         }
       });
+    },
+    viewSickLeave: function viewSickLeave(leave) {
+      this.showViewPopup = true;
+      this.sickLeave = leave;
+    },
+    formatDate: function formatDate(date) {
+      var currentDate = new Date(date);
+      var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      return currentDate.toLocaleDateString('en-us', options);
     }
   }
 });
@@ -984,7 +1000,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.viewEmployee(leave);
+          return _vm.viewSickLeave(leave);
         }
       }
     }, [_c("i", {
@@ -1011,6 +1027,16 @@ var render = function render() {
       new_employee: _vm.getSickLeaves,
       close: function close($event) {
         _vm.showPopup = false;
+      }
+    }
+  }), _vm._v(" "), _c("view-leave-popup", {
+    attrs: {
+      sickLeave: _vm.sickLeave,
+      showPopup: _vm.showViewPopup
+    },
+    on: {
+      close: function close($event) {
+        _vm.showViewPopup = false;
       }
     }
   })], 1)]);
@@ -1127,7 +1153,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.card {\n    height: 357px;\n    overflow-y: scroll;\n}\n.table-flush th {\n    font-size: 15px;\n}\n.table-flush ul {\n    display: contents;\n    list-style: none;\n}\n.table-flush ul li {\n    margin-right: 10px;\n}\n.table-flush ul li a {\n    color: #525f7f;\n}\n", ""]);
+exports.push([module.i, "\n.card {\n    height: 357px;\n    overflow-y: scroll;\n}\n.table-flush th {\n    font-size: 15px;\n}\n.table-flush ul {\n    display: contents;\n    list-style: none;\n}\n.table-flush ul li {\n    margin-right: 10px;\n}\n.table-flush ul li a {\n    color: #525f7f;\n}\n\n", ""]);
 
 // exports
 

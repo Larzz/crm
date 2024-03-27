@@ -33,8 +33,8 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <ul>
-                                            <li><a href="#!" @click="viewEmployee(leave)"
-                                                    title="View Employee"><i class="fas fa-eye"></i></a> </li>
+                                            <li><a href="#!" @click="viewSickLeave(leave)" title="View Employee"><i
+                                                        class="fas fa-eye"></i></a> </li>
                                             <li> <a href="#!" :data-id="leave.id" @click="deleteSickLeave(leave.id)"
                                                     title="Delete Employee"><i class="fas fa-trash"></i></a> </li>
                                         </ul>
@@ -52,9 +52,10 @@
                     </template>
                 </table>
             </div>
-
             <create-leave-popup @new_employee="getSickLeaves" :showPopup="showPopup" @close="showPopup = false">
             </create-leave-popup>
+            <view-leave-popup @close="showViewPopup = false" :sickLeave="sickLeave" :showPopup="showViewPopup">
+            </view-leave-popup>
 
         </div>
     </div>
@@ -67,7 +68,9 @@
         data() {
             return {
                 sickLeaves: [],
-                showPopup: false
+                showPopup: false,
+                showViewPopup: false,
+                sickLeave: {},
             }
         },
         beforeMount() {
@@ -109,9 +112,23 @@
                                 self.$toastr.e(error);
                             })
                             .then(function () {});
-                    } 
+                    }
                 })
-            }
+            },
+            viewSickLeave(leave) {
+                this.showViewPopup = true
+                this.sickLeave = leave
+            },
+                 formatDate(date) {
+                const currentDate = new Date(date);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                return currentDate.toLocaleDateString('en-us', options)
+            },
         }
     }
 
@@ -139,4 +156,5 @@
     .table-flush ul li a {
         color: #525f7f;
     }
+
 </style>
