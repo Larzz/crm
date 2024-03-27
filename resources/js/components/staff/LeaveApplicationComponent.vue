@@ -199,7 +199,6 @@
                 this.dateDifference(this.field.date.start, this.field.date.end)
 
                 JsLoadingOverlay.show(this.$configs);
-                return
 
                 axios({
                         method: 'post',

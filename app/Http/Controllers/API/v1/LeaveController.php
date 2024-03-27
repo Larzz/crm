@@ -60,7 +60,7 @@ class LeaveController extends Controller
             $leave->available_days = $this->request->remaining_days;
             $leave->used_days = $this->request->used_days;
             if($leave->save()) {
-                // Mail::to('manfred@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
+                Mail::to('manfred@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
                 // Mail::to('larry@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
                 // Mail::to(auth()->user()->email)->send(New LeaveMail($leave_details, auth()->user(), 'Leave Application Confirmation'));
                 return response()->json(['status' => true]);

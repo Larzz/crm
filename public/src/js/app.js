@@ -6407,7 +6407,6 @@ __webpack_require__.r(__webpack_exports__);
       var $this = this;
       this.dateDifference(this.field.date.start, this.field.date.end);
       JsLoadingOverlay.show(this.$configs);
-      return;
       axios({
         method: 'post',
         url: '/api/v1/leave?api_token=' + window.Laravel.api_token,
