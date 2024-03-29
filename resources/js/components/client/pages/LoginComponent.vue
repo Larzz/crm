@@ -1,6 +1,8 @@
 <template>
 
     <div class="row">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
             <a href="https://creativouae.com/">← Back to Website</a>
@@ -14,8 +16,10 @@
                         <input type="email" v-model="collection.email" class="form-control" placeholder="Email Address">
                     </div>
                     <div class="form-group">
+                         <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
                         <input type="password" v-model="collection.password" class="form-control"
                             placeholder="Password">
+
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -41,7 +45,8 @@
                             <div class="row">
                                 <div class="col-lg-6"></div>
                                 <div class="col-lg-6">
-                                    <input type="submit" @click="forgot_password()" class="form-control" value="Submit →">
+                                    <input type="submit" @click="forgot_password()" class="form-control"
+                                        value="Submit →">
                                 </div>
                             </div>
                         </div>
@@ -91,17 +96,17 @@
                         "Please Enter your Email"
                     );
                     return;
-                } 
-                 if (data.password == '') {
+                }
+                if (data.password == '') {
                     this.$toastr.e(
                         "Please enter your password"
                     );
                     return;
-                } 
+                }
 
-                    JsLoadingOverlay.show(this.$configs);
+                JsLoadingOverlay.show(this.$configs);
 
-                    axios.post(this.login_route, data).then(function (response) {
+                axios.post(this.login_route, data).then(function (response) {
                         JsLoadingOverlay.hide();
                         if (response.data.status) {
                             window.location.href = response.data.redirect_url
@@ -113,10 +118,10 @@
                     }).catch(error => {
                         this.message(error.response)
                     })
-                       .then(function () {
+                    .then(function () {
                         JsLoadingOverlay.hide();
-                });
-             
+                    });
+
 
             },
 
@@ -128,12 +133,12 @@
             },
 
             forgot_password() {
-                
+
                 let $this = this
 
                 if (!this.reset.email) {
-                  this.$toastr.e('Please enter your email address.')
-                  return;
+                    this.$toastr.e('Please enter your email address.')
+                    return;
                 }
 
                 JsLoadingOverlay.show(this.$configs);
@@ -141,7 +146,9 @@
                 axios({
                         method: 'post',
                         url: `/auth/reset-password/`,
-                        data: { email: $this.reset.email}
+                        data: {
+                            email: $this.reset.email
+                        }
                     }).then(function (response) {
                         if (response.data.status) {
                             $this.$toastr.s('We have sent you an email containing the reset password link.')
@@ -154,7 +161,7 @@
                     })
                     .then(function () {
                         JsLoadingOverlay.hide();
-                });
+                    });
 
             },
         },
@@ -165,6 +172,18 @@
             this.$toastr.defaultPosition = "toast-top-right";
         }
     }
+
+
+    const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#id_password');
+
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+});
 
 </script>
 

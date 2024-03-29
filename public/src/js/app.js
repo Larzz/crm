@@ -2475,6 +2475,15 @@ __webpack_require__.r(__webpack_exports__);
     this.$toastr.defaultPosition = "toast-top-right";
   }
 });
+var togglePassword = document.querySelector('#togglePassword');
+var password = document.querySelector('#id_password');
+togglePassword.addEventListener('click', function (e) {
+  // toggle the type attribute
+  var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+  password.setAttribute('type', type);
+  // toggle the eye slash icon
+  this.classList.toggle('fa-eye-slash');
+});
 
 /***/ }),
 
@@ -7245,7 +7254,12 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "row"
-  }, [_c("div", {
+  }, [_c("link", {
+    attrs: {
+      rel: "stylesheet",
+      href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    }
+  }), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
   }), _vm._v(" "), _c("div", {
     staticClass: "col-lg-6"
@@ -7294,7 +7308,16 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("input", {
+  }, [_c("i", {
+    staticClass: "far fa-eye",
+    staticStyle: {
+      "margin-left": "-30px",
+      cursor: "pointer"
+    },
+    attrs: {
+      id: "togglePassword"
+    }
+  }), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
