@@ -2407,7 +2407,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       is_success: true,
       login_page: true,
-      password_page: false
+      password_page: false,
+      isPasswordShown: false
     };
   },
   props: ['login_route'],
@@ -2466,6 +2467,18 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         JsLoadingOverlay.hide();
       });
+    },
+    toggleEyeIcon: function toggleEyeIcon() {
+      var password = document.getElementById('password'); // Removed '#' from the ID selector
+      var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type); // Update the 'type' attribute to toggle visibility
+      this.isPasswordShown = true;
+    },
+    unToggleEyeIcon: function unToggleEyeIcon() {
+      var password = document.getElementById('password'); // Removed '#' from the ID selector
+      var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type); // Update the 'type' attribute to toggle visibility
+      this.isPasswordShown = false;
     }
   },
   created: function created() {
@@ -2475,15 +2488,17 @@ __webpack_require__.r(__webpack_exports__);
     this.$toastr.defaultPosition = "toast-top-right";
   }
 });
-var togglePassword = document.querySelector('#togglePassword');
-var password = document.querySelector('#id_password');
-togglePassword.addEventListener('click', function (e) {
-  // toggle the type attribute
-  var type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-  password.setAttribute('type', type);
-  // toggle the eye slash icon
-  this.classList.toggle('fa-eye-slash');
-});
+
+//     const togglePassword = document.querySelector('#togglePassword');
+//   const password = document.querySelector('#id_password');
+
+//   togglePassword.addEventListener('click', function (e) {
+//     // toggle the type attribute
+//     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+//     password.setAttribute('type', type);
+//     // toggle the eye slash icon
+//     this.classList.toggle('fa-eye-slash');
+// });
 
 /***/ }),
 
@@ -7308,16 +7323,39 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("i", {
+  }, [_vm.isPasswordShown ? [_c("i", {
     staticClass: "far fa-eye",
     staticStyle: {
-      "margin-left": "-30px",
-      cursor: "pointer"
+      "margin-left": "200px",
+      cursor: "pointer",
+      "margin-top": "5px",
+      position: "fixed"
     },
     attrs: {
       id: "togglePassword"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.unToggleEyeIcon();
+      }
     }
-  }), _vm._v(" "), _c("input", {
+  })] : [_c("i", {
+    staticClass: "far fa-eye-slash",
+    staticStyle: {
+      "margin-left": "200px",
+      cursor: "pointer",
+      "margin-top": "5px",
+      position: "fixed"
+    },
+    attrs: {
+      id: "togglePassword"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.toggleEyeIcon();
+      }
+    }
+  })], _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7327,6 +7365,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "password",
+      id: "password",
       placeholder: "Password"
     },
     domProps: {
@@ -7338,7 +7377,7 @@ var render = function render() {
         _vm.$set(_vm.collection, "password", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  })], 2), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("div", {
     staticClass: "row"

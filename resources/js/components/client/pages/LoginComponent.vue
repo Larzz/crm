@@ -16,8 +16,19 @@
                         <input type="email" v-model="collection.email" class="form-control" placeholder="Email Address">
                     </div>
                     <div class="form-group">
-                         <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
-                        <input type="password" v-model="collection.password" class="form-control"
+                        <template v-if="isPasswordShown">
+                            <i class="far fa-eye" @click="unToggleEyeIcon()" id="togglePassword" style="margin-left: 200px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: fixed;"></i>
+                        </template>
+                        <template v-else>
+                            <i class="far fa-eye-slash" @click="toggleEyeIcon()" id="togglePassword" style="margin-left: 200px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: fixed;"></i>
+                        </template>
+                        <input type="password" id="password" v-model="collection.password" class="form-control"
                             placeholder="Password">
 
                     </div>
@@ -79,6 +90,7 @@
                 is_success: true,
                 login_page: true,
                 password_page: false,
+                isPasswordShown: false
             };
         },
         props: [
@@ -164,6 +176,18 @@
                     });
 
             },
+            toggleEyeIcon() {
+                const password = document.getElementById('password'); // Removed '#' from the ID selector
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type); // Update the 'type' attribute to toggle visibility
+                this.isPasswordShown = true
+            },
+            unToggleEyeIcon() {
+               const password = document.getElementById('password'); // Removed '#' from the ID selector
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type); // Update the 'type' attribute to toggle visibility
+                this.isPasswordShown = false
+            }
         },
         created: function () {
             console.log('realoaded')
@@ -174,16 +198,16 @@
     }
 
 
-    const togglePassword = document.querySelector('#togglePassword');
-  const password = document.querySelector('#id_password');
+//     const togglePassword = document.querySelector('#togglePassword');
+//   const password = document.querySelector('#id_password');
 
-  togglePassword.addEventListener('click', function (e) {
-    // toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    // toggle the eye slash icon
-    this.classList.toggle('fa-eye-slash');
-});
+//   togglePassword.addEventListener('click', function (e) {
+//     // toggle the type attribute
+//     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+//     password.setAttribute('type', type);
+//     // toggle the eye slash icon
+//     this.classList.toggle('fa-eye-slash');
+// });
 
 </script>
 
