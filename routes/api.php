@@ -134,6 +134,10 @@ Route::namespace('API')->group(function() {
             Route::delete('{tool_id}', 'ToolController@deleteTool');
         });
 
+        Route::prefix('logs')->group(function() {
+            Route::get('/', 'LogsController@getLogs');
+        });
+
     });
 
 });

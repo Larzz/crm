@@ -20,11 +20,13 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
+                <logs> </logs>
+            </div>
+            <div class="col-xl-12">
                 <leave-application> </leave-application>
             </div>
             <div class="col-xl-4">
                 <employee-widget> </employee-widget>
-
             </div>
             <div class="col-xl-4">
                 <sick-leave></sick-leave>
