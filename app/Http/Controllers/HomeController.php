@@ -26,6 +26,23 @@ class HomeController extends Controller
     }
    
     public function login() {
+
+        if (auth()->check()) {
+            $user = Auth()->user();
+
+            if($user->hasRole('admin')) {
+                $url = route('admin.home');
+            } 
+
+            if ($user->hasRole('employee')) {
+                $url = route('staff.home');
+            }
+
+            if($user->hasRole('client')) {
+                $url = route('client.index');
+            } 
+            return redirect($url);
+        }
         return view('public.pages.login');
     }
 
