@@ -30,7 +30,6 @@ Route::namespace('API')->group(function() {
             Route::put('{id}', 'BulletinController@editBulletin')->name('api.bulletin.edit');
             Route::delete('{id}', 'BulletinController@deleteBulletin')->name('api.bulletin.delete');
             Route::post('{id}/post', 'BulletinController@postBulletin')->name('api.bulletin.specific');
-
         });
 
         Route::prefix('notes')->namespace('Administrator')->group(function() {

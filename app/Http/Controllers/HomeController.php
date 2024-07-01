@@ -8,6 +8,7 @@ use Auth;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Logs;
 
 use App\Mail\ForgotPassword;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,7 @@ class HomeController extends Controller
     public function __construct(Request $request) {
         // $this->middleware('role:staff');
         $this->request = $request;
+        date_default_timezone_set('Asia/Dubai');
     }
    
     public function login() {
@@ -45,6 +47,7 @@ class HomeController extends Controller
         if(!$user) {
 
             $response = ['status' => 'false', 'message' => 'User not Found'];
+
             return Response()->json($response, 404);
 
         } else {
@@ -52,6 +55,23 @@ class HomeController extends Controller
             $credentials = $this->request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
+
+                $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+                 $deviceInfo = [
+                    'Operating System' => $this->getOS($userAgent),
+                    'Browser' => $this->getBrowser($userAgent),
+                    'Device Type' => $this->getDeviceType($userAgent)
+                ];
+
+                $logs = new Logs;
+                $logs->user_id = Auth()->user()->id;
+                $logs->date = date('Y-m-d');
+                $logs->login = date('H:i:s');
+                $logs->logout = '';
+                $logs->device = json_encode($deviceInfo);
+                $logs->ip_address = $this->getClientIP();
+                $logs->save();  
 
                 $url = '';
 
@@ -160,16 +180,133 @@ class HomeController extends Controller
     }
 
     public function logout() {
-        Auth::logout();
-        return redirect(route('home.login'));
+
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        $deviceInfo = [
+            'Operating System' => $this->getOS($userAgent),
+            'Browser' => $this->getBrowser($userAgent),
+            'Device Type' => $this->getDeviceType($userAgent)
+        ];
+
+        $logs = new Logs;
+        $logs->user_id = Auth()->user()->id;
+        $logs->date = date('Y-m-d');
+        $logs->login = '';
+        $logs->logout = date('H:i:s');
+        $logs->device = json_encode($deviceInfo);
+        $logs->ip_address = $this->getClientIP();
+
+        if ($logs->save()) {
+            Auth::logout();
+            return redirect(route('home.login'));
+        }
+
     }
 
 
-    public static function quickRandom($length = 16)
-{
-    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    public static function quickRandom($length = 16) {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
-}
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+    }
+
+    function getDevice() {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    
+        // Basic device info
+        // $deviceInfo = [
+        //     'Operating System' => getOS($userAgent),
+        //     'Browser' => getBrowser($userAgent),
+        //     'Device Type' => getDeviceType($userAgent)
+        // ];
+    
+        // return $deviceInfo;
+    }
+    
+    function getOS($userAgent) {
+        $osArray = [
+            '/windows nt 10/i'      => 'Windows 10',
+            '/windows nt 6.3/i'     => 'Windows 8.1',
+            '/windows nt 6.2/i'     => 'Windows 8',
+            '/windows nt 6.1/i'     => 'Windows 7',
+            '/windows nt 6.0/i'     => 'Windows Vista',
+            '/windows nt 5.2/i'     => 'Windows Server 2003/XP x64',
+            '/windows nt 5.1/i'     => 'Windows XP',
+            '/windows xp/i'         => 'Windows XP',
+            '/windows nt 5.0/i'     => 'Windows 2000',
+            '/windows me/i'         => 'Windows ME',
+            '/win98/i'              => 'Windows 98',
+            '/win95/i'              => 'Windows 95',
+            '/win16/i'              => 'Windows 3.11',
+            '/macintosh|mac os x/i' => 'Mac OS X',
+            '/mac_powerpc/i'        => 'Mac OS 9',
+            '/linux/i'              => 'Linux',
+            '/ubuntu/i'             => 'Ubuntu',
+            '/iphone/i'             => 'iPhone',
+            '/ipod/i'               => 'iPod',
+            '/ipad/i'               => 'iPad',
+            '/android/i'            => 'Android',
+            '/blackberry/i'         => 'BlackBerry',
+            '/webos/i'              => 'Mobile'
+        ];
+    
+        foreach ($osArray as $regex => $value) {
+            if (preg_match($regex, $userAgent)) {
+                return $value;
+            }
+        }
+    
+        return 'Unknown OS';
+    }
+    
+    function getBrowser($userAgent) {
+        $browserArray = [
+            '/msie/i'      => 'Internet Explorer',
+            '/firefox/i'   => 'Firefox',
+            '/safari/i'    => 'Safari',
+            '/chrome/i'    => 'Chrome',
+            '/edge/i'      => 'Edge',
+            '/opera/i'     => 'Opera',
+            '/netscape/i'  => 'Netscape',
+            '/maxthon/i'   => 'Maxthon',
+            '/konqueror/i' => 'Konqueror',
+            '/mobile/i'    => 'Handheld Browser'
+        ];
+    
+        foreach ($browserArray as $regex => $value) {
+            if (preg_match($regex, $userAgent)) {
+                return $value;
+            }
+        }
+    
+        return 'Unknown Browser';
+    }
+    
+    function getDeviceType($userAgent) {
+        if (preg_match('/mobile/i', $userAgent)) {
+            return 'Mobile';
+        } elseif (preg_match('/tablet/i', $userAgent)) {
+            return 'Tablet';
+        } else {
+            return 'Desktop';
+        }
+    }
+
+
+    function getClientIP() {
+        $ipAddress = '';
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            // Check IP from shared internet
+            $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            // Check IP passed from proxy
+            $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            // Check IP address from remote address
+            $ipAddress = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ipAddress;
+    }
 
 }
