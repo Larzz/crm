@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Message</label>
-                    <textarea name="" id="" v-model="forms.message" cols="30" rows="1" class="form-control"></textarea>
+                    <textarea name="" id="" v-model="forms.message" cols="30" rows="2" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Active</label>
@@ -18,7 +18,14 @@
                         <option value="No" class="form-control">No</option>
                     </select>
                 </div>
-                <button href="#!" @click="create()" class="btn btn-primary">Add</button>
+                <button href="javascript:;" @click="create()" :disabled="isLoading" class="btn btn-primary">
+                    <template v-if="isLoading">
+                        Please Wait..
+                    </template>
+                    <template v-else>
+                        Add
+                    </template>
+                </button>
             </div>
         </div>
     </div>
@@ -31,9 +38,10 @@
                 forms: {
                     title: null,
                     message: null,
-                    active: null
+                    active: null,
                 },
-                errors: []
+                errors: [],
+                isLoading: false
             }
         },
         props: [],
@@ -53,6 +61,8 @@
                     return false;
                 }
 
+                $this.isLoading = true 
+
                 axios({
                         method: 'post',
                         url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
@@ -61,6 +71,7 @@
                         if (response.data.status) {
                             $this.$toastr.s('Successfully added bulletin.');
                             $this.$emit('new_record')
+                            $this.isLoading = false 
                         }
                     })
                     .catch(function (error) {

@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Bulletin;
+use App\Models\User;
+use App\Mail\BulletinMail;
+use Illuminate\Support\Facades\Mail;
 
 class BulletinController extends Controller
 {   
@@ -38,7 +41,15 @@ class BulletinController extends Controller
         $bulletin->added_by = auth()->user()->id;
 
         if($bulletin->save()) {
-             Bulletin::where('id', '!=', $bulletin->id)->update(['active' => false]);
+
+            Bulletin::where('id', '!=', $bulletin->id)->update(['active' => false]);
+            $users = User::where('role', 2)->get();
+
+            foreach ($users as $val) {
+                // Mail::to('larry@creativouae.com')->send(new BulletinMail($val, $bulletin->message));
+                Mail::to($val->email)->send(new BulletinMail($val, $bulletin->message));
+            }
+
             return response()->json(['status' => true], 201);
         }
 

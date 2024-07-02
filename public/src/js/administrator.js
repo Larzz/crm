@@ -103,7 +103,8 @@ __webpack_require__.r(__webpack_exports__);
         message: null,
         active: null
       },
-      errors: []
+      errors: [],
+      isLoading: false
     };
   },
   props: [],
@@ -118,6 +119,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$toastr.e("Sorry, Message is Required");
         return false;
       }
+      $this.isLoading = true;
       axios({
         method: 'post',
         url: '/api/v1/bulletin?api_token=' + window.Laravel.api_token,
@@ -126,6 +128,7 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data.status) {
           $this.$toastr.s('Successfully added bulletin.');
           $this.$emit('new_record');
+          $this.isLoading = false;
         }
       })["catch"](function (error) {
         $this.$toastr.e(error);
@@ -720,7 +723,7 @@ var render = function render() {
       name: "",
       id: "",
       cols: "30",
-      rows: "1"
+      rows: "2"
     },
     domProps: {
       value: _vm.forms.message
@@ -773,14 +776,15 @@ var render = function render() {
   }, [_vm._v("No")])])]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
-      href: "#!"
+      href: "javascript:;",
+      disabled: _vm.isLoading
     },
     on: {
       click: function click($event) {
         return _vm.create();
       }
     }
-  }, [_vm._v("Add")])])])]);
+  }, [_vm.isLoading ? [_vm._v("\n                    Please Wait..\n                ")] : [_vm._v("\n                    Add\n                ")]], 2)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
