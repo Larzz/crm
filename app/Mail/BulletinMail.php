@@ -17,11 +17,12 @@ class BulletinMail extends Mailable
      * @return void
      */
 
-     public $user, $message;
-    public function __construct($user, $message)
+     public $user, $title, $message;
+    public function __construct($user, $title, $message)
     {
         $this->user = $user;
         $this->message = $message;
+        $this->title = $title;
     }
 
     /**
@@ -31,7 +32,9 @@ class BulletinMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.bulletin-mail')->with([
+        return $this->subject($this->title)
+            ->markdown('mail.bulletin-mail')
+            ->with([
             'message' => $this->message,
             'user' => $this->user
         ]);
