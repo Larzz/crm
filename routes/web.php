@@ -120,6 +120,10 @@ Route::middleware([IsAuthenticated::class])->group(function () {
       Route::prefix('bulletin')->group(function() {
          Route::get('/', 'HomeController@index')->name('staff.bulletin');
       });
+
+      Route::prefix('attendance')->group(function() {
+         Route::get('/', 'HomeController@index')->name('attendance.index');
+      });
    
    });
    

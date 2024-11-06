@@ -21,6 +21,8 @@
                                     href="{{ route('general.tools') }}">Tools</a> </li>
                             <li> <a class="{{ $active === 'newsletter' ? 'active' : '' }}"
                                     href="{{ route('newsletter.index') }}">Newsletter</a> </li>
+                            <li> <a class="{{ $active === 'attendance' ? 'active' : '' }}"
+                                        href="{{ route('attendance.index') }}">Attendance</a> </li>
                         </ul>
                     </div>
                 </div>

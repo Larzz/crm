@@ -18,15 +18,15 @@
                     <div class="form-group">
                         <template v-if="isPasswordShown">
                             <i class="far fa-eye" @click="unToggleEyeIcon()" id="togglePassword" style="margin-left: 200px;
-    cursor: pointer;
-    margin-top: 5px;
-    position: fixed;"></i>
+                        cursor: pointer;
+                        margin-top: 5px;
+                        position: fixed;"></i>
                         </template>
                         <template v-else>
                             <i class="far fa-eye-slash" @click="toggleEyeIcon()" id="togglePassword" style="margin-left: 200px;
-    cursor: pointer;
-    margin-top: 5px;
-    position: fixed;"></i>
+                        cursor: pointer;
+                        margin-top: 5px;
+                        position: fixed;"></i>
                         </template>
                         <input type="password" id="password" v-model="collection.password" class="form-control"
                             placeholder="Password">

@@ -7,7 +7,7 @@
                         <h5 class="h3 mb-0">Apply for Vacation</h5>
                     </div>
                     <div class="col text-right">
-                        <a href="#!" @click="showPopup=true" class="btn btn-sm btn-primary">Previous Application</a>
+                        <a href="#!" @click="showPopup = true" class="btn btn-sm btn-primary">Previous Application</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="used-days-section">
-                            <h4> {{ field.used_days }} days</h4>
+                            <h4> -{{ field.used_days }} days</h4>
                         </div>
 
                         <hr>
@@ -62,212 +62,225 @@
 </template>
 
 <script>
-    import VCalendar from 'v-calendar';
-    export default {
-        components: {
-            VCalendar: 'v-calendar'
-        },
-        data() {
-            return {
-                field: {
-                    leave_from: '',
-                    leave_to: '',
-                    total_day_used: 0,
-                    remaining_days: 0,
-                    used_days: 0,
-                    leave_id: null,
-                    date: null,
-                },
-                range: {
-                    start: new Date(2024, 0, 1),
-                    end: new Date(2025, 0, 12),
-
-                }
-            }
-        },
-        props: ['leave', 'user'],
-        mounted() {
-            this.field.remaining_days = this.user.annual_leave
-            this.field.used_days = 23 - parseInt(this.user.annual_leave)
-            this.field.leave_id = this.leave.id
-        },
-        watch: {
-
-        },
-        computed: {
-            leave_from: function () {
-                const currentDate = new Date(this.field.leave_from);
-                const options = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                };
-                this.field.leave_from = currentDate.toLocaleDateString('en-us', options)
+import VCalendar from 'v-calendar';
+export default {
+    components: {
+        VCalendar: 'v-calendar'
+    },
+    data()
+    {
+        return {
+            field: {
+                leave_from: '',
+                leave_to: '',
+                total_day_used: 0,
+                remaining_days: 0,
+                used_days: 0,
+                leave_id: null,
+                date: null,
             },
-            leave_to: function () {
-                const currentDate = new Date(this.field.leave_to);
-                const options = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                };
-                this.field.leave_to = currentDate.toLocaleDateString('en-us', options)
+            range: {
+                start: new Date(2024, 0, 1),
+                end: new Date(2025, 0, 12),
+
             }
+        }
+    },
+    props: ['leave', 'user'],
+    mounted()
+    {
+        this.field.remaining_days = this.leave.available_days
+        this.field.used_days = this.leave.used_days
+        this.field.leave_id = this.leave.id
+    },
+    computed: {
+        leave_from: function ()
+        {
+            const currentDate = new Date(this.field.leave_from);
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+            this.field.leave_from = currentDate.toLocaleDateString('en-us', options)
         },
-        methods: {
-            // Expects start date to be before end date
-            // start and end are Date objects
-            dateDifference(start, end) {
+        leave_to: function ()
+        {
+            const currentDate = new Date(this.field.leave_to);
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+            this.field.leave_to = currentDate.toLocaleDateString('en-us', options)
+        }
+    },
+    methods: {
+        // Expects start date to be before end date
+        // start and end are Date objects
+        dateDifference(start, end)
+        {
 
-                // Copy date objects so don't modify originals
-                var s = new Date(+start);
-                var e = new Date(+end);
+            // Copy date objects so don't modify originals
+            var s = new Date(+start);
+            var e = new Date(+end);
 
-                // Set time to midday to avoid dalight saving and browser quirks
-                s.setHours(12, 0, 0, 0);
-                e.setHours(12, 0, 0, 0);
+            // Set time to midday to avoid dalight saving and browser quirks
+            s.setHours(12, 0, 0, 0);
+            e.setHours(12, 0, 0, 0);
 
-                // Get the difference in whole days
-                var totalDays = Math.round((e - s) / 8.64e7);
+            // Get the difference in whole days
+            var totalDays = Math.round((e - s) / 8.64e7);
 
-                // Get the difference in whole weeks
-                var wholeWeeks = totalDays / 7 | 0;
+            // Get the difference in whole weeks
+            var wholeWeeks = totalDays / 7 | 0;
 
-                // Estimate business days as number of whole weeks * 5
-                var days = wholeWeeks * 5;
+            // Estimate business days as number of whole weeks * 5
+            var days = wholeWeeks * 5;
 
-                // If not even number of weeks, calc remaining weekend days
-                if (totalDays % 7) {
-                    s.setDate(s.getDate() + wholeWeeks * 7);
+            // If not even number of weeks, calc remaining weekend days
+            if (totalDays % 7)
+            {
+                s.setDate(s.getDate() + wholeWeeks * 7);
 
-                    while (s < e) {
-                        s.setDate(s.getDate() + 1);
+                while (s < e)
+                {
+                    s.setDate(s.getDate() + 1);
 
-                        // If day isn't a Sunday or Saturday, add to business days
-                        if (s.getDay() != 0 && s.getDay() != 6) {
-                            ++days;
-                        }
+                    // If day isn't a Sunday or Saturday, add to business days
+                    if (s.getDay() != 0 && s.getDay() != 6)
+                    {
+                        ++days;
                     }
                 }
-
-                this.field.leave_from = start
-                this.field.leave_to = end
-
-                this.field.used_days = days + 1
-                this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(days + 1)
-
-                this.formatDate(this.field.leave_from)
-                this.formatDate(this.field.leave_to)
-
-                return;
-            },
-
-            validate() {
-
-                this.field.remaining_days = this.leave.available_days
-                this.field.used_days = this.leave.used_days
-
-                this.field.leave_from = this.field.date.start
-                this.field.leave_to = this.field.date.end
-
-                const date1 = new Date(this.field.leave_from);
-                const date2 = new Date(this.field.leave_to);
-
-                const oneDay = 1000 * 60 * 60 * 24;
-
-                const diffInTime = date2.getTime() - date1.getTime();
-                const diffInDays = diffInTime / oneDay;
-
-                this.field.used_days = diffInDays
-                this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(diffInDays)
-
-                this.formatDate(this.field.leave_from)
-                this.formatDate(this.field.leave_to)
-
-            },
-
-            submitVacation() {
-
-                if (!this.field.date) {
-                    this.$toastr.e('Please enter your desired date')
-                    return;
-                }
-
-                let $this = this
-                this.dateDifference(this.field.date.start, this.field.date.end)
-
-                JsLoadingOverlay.show(this.$configs);
-
-                axios({
-                        method: 'post',
-                        url: '/api/v1/leave?api_token=' + window.Laravel.api_token,
-                        data: this.field
-                    }).then(function (response) {
-                        JsLoadingOverlay.hide()
-                        if (response.data.status) {
-                            $this.$toastr.s('Successfully submitted your request!');
-                        }
-                    })
-                    .catch(function (error) {
-                        JsLoadingOverlay.hide()
-                        $this.$toastr.e(error);
-                    })
-                    .then(function () {});
-
-            },
-
-            formatDate(date) {
-                const currentDate = new Date(date);
-                const options = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                };
-                return currentDate.toLocaleDateString('en-us', options)
             }
 
-        }
-    }
+            this.field.leave_from = start
+            this.field.leave_to = end
 
+            this.field.used_days = parseInt(this.field.used_days) + days + 1
+            this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(days + 1)
+
+            this.formatDate(this.field.leave_from)
+            this.formatDate(this.field.leave_to)
+
+            if (this.field.remaining_days < 0)
+            {
+                this.$toastr.e('Sorry, you dont have enough leave days remaining')
+                this.field.used_days = this.leave.used_days
+                this.field.remaining_days = this.leave.available_days
+                return false;
+            }
+
+            if (this.field.used_days < 0)
+            {
+                this.$toastr.e('Sorry, you have already used all your leave days')
+                this.field.used_days = this.leave.used_days
+                this.field.remaining_days = this.leave.available_days
+                return false;
+            }
+
+            if (this.field.used_days > this.field.remaining_days)
+            {
+                this.$toastr.e('Sorry, you dont have enough leave days remaining')
+
+                this.field.used_days = this.leave.used_days
+                this.field.remaining_days = this.leave.available_days
+
+                return false;
+            }
+
+            return true;
+        },
+
+        async submitVacation()
+        {
+
+            if (!this.field.date)
+            {
+                this.$toastr.e('Please enter your desired date');
+                return;
+            }
+
+            const start = this.field.date.start;
+            const end = this.field.date.end;
+
+            if (this.dateDifference(start, end))
+            {
+
+                try
+                {
+                    JsLoadingOverlay.show(this.$configs);
+                    const { data } = await axios.post(`/api/v1/leave?api_token=${window.Laravel.api_token}`, this.field);
+
+                    if (data.status)
+                    {
+                        this.$toastr.s('Successfully submitted your request!');
+                    }
+
+                } catch (error)
+                {
+                    this.$toastr.e(error);
+                } finally
+                {
+                    JsLoadingOverlay.hide();
+                }
+
+            }
+
+        },
+
+        formatDate(date)
+        {
+            const currentDate = new Date(date);
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+            return currentDate.toLocaleDateString('en-us', options)
+        }
+
+    }
+}
 </script>
 
 <style scoped>
-    #date-picker h5 {
-        margin-top: 11px;
-        font-size: 15px;
-        font-weight: 400;
-    }
+#date-picker h5 {
+    margin-top: 11px;
+    font-size: 15px;
+    font-weight: 400;
+}
 
-    hr {
-        margin-top: 6rem;
-    }
+hr {
+    margin-top: 6rem;
+}
 
-    .card {
-        min-height: 390px;
-    }
+.card {
+    min-height: 390px;
+}
 
-    .available-section span {
-        float: right;
-    }
+.available-section span {
+    float: right;
+}
 
-    .used-days-section {
-        float: right;
-        margin-top: 18px;
-    }
+.used-days-section {
+    float: right;
+    margin-top: 18px;
+}
 
-    .remaining-section {
-        float: right;
-    }
+.remaining-section {
+    float: right;
+}
 
-    .right {
-        float: right;
-        position: absolute;
-        top: 213px;
-        right: 10px;
-        z-index: 100;
-    }
-
+.right {
+    float: right;
+    position: absolute;
+    top: 213px;
+    right: 10px;
+    z-index: 100;
+}
 </style>
