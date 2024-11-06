@@ -160,13 +160,12 @@ export default {
             this.field.leave_from = start
             this.field.leave_to = end
 
-            this.field.used_days = parseInt(this.field.used_days) + days + 1
-            this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(days + 1)
-
+            this.field.used_days = parseInt(days) + 1
+      
             this.formatDate(this.field.leave_from)
             this.formatDate(this.field.leave_to)
-
-            if (this.field.remaining_days < 0)
+            
+            if (parseInt(days) + 1 > this.field.remaining_days)
             {
                 this.$toastr.e('Sorry, you dont have enough leave days remaining')
                 this.field.used_days = this.leave.used_days
@@ -174,24 +173,7 @@ export default {
                 return false;
             }
 
-            if (this.field.used_days < 0)
-            {
-                this.$toastr.e('Sorry, you have already used all your leave days')
-                this.field.used_days = this.leave.used_days
-                this.field.remaining_days = this.leave.available_days
-                return false;
-            }
-
-            if (this.field.used_days > this.field.remaining_days)
-            {
-                this.$toastr.e('Sorry, you dont have enough leave days remaining')
-
-                this.field.used_days = this.leave.used_days
-                this.field.remaining_days = this.leave.available_days
-
-                return false;
-            }
-
+            this.field.remaining_days = parseInt(this.field.remaining_days) - parseInt(days + 1)
             return true;
         },
 
@@ -218,6 +200,7 @@ export default {
                     if (data.status)
                     {
                         this.$toastr.s('Successfully submitted your request!');
+                        window.location.reload();   
                     }
 
                 } catch (error)
