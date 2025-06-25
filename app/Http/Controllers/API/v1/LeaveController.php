@@ -152,7 +152,10 @@ class LeaveController extends Controller
     }
 
     public function getSickLeaves() {
-        $sickLeaves = SickLeave::leftjoin('users', 'users.id', 'sick_leave.user_id')->select('sick_leave.*', 'users.name')->get();
+        $sickLeaves = SickLeave::leftjoin('users', 'users.id', 'sick_leave.user_id')
+            ->select('sick_leave.*', 'users.name')
+            ->whereYear('sick_leave.created_at', Carbon::now()->year)
+            ->get();
         return response()->json([
             'status' => true,
             'sick_leaves' => $sickLeaves
