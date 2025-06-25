@@ -19,16 +19,20 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Days</th>
+                                <th scope="col">Date</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(leave, index) in sickLeaves" :key="index">
+                            <tr v-for="(leave, index) in sortedSickLeaves" :key="index">
                                 <th scope="row">
                                     {{ leave.name }}
                                 </th>
                                 <th scope="row">
                                     {{ leave.number_of_days }}
+                                </th>
+                                <th scope="row">
+                                    {{ formatDate(leave.created_at) }}
                                 </th>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -71,6 +75,13 @@
                 showPopup: false,
                 showViewPopup: false,
                 sickLeave: {},
+            }
+        },
+        computed: {
+            sortedSickLeaves() {
+                return [...this.sickLeaves].sort((a, b) => {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
             }
         },
         beforeMount() {
@@ -119,7 +130,7 @@
                 this.showViewPopup = true
                 this.sickLeave = leave
             },
-                 formatDate(date) {
+            formatDate(date) {
                 const currentDate = new Date(date);
                 const options = {
                     weekday: 'long',

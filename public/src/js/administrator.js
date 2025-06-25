@@ -594,6 +594,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -603,6 +609,13 @@ __webpack_require__.r(__webpack_exports__);
       showViewPopup: false,
       sickLeave: {}
     };
+  },
+  computed: {
+    sortedSickLeaves: function sortedSickLeaves() {
+      return _toConsumableArray(this.sickLeaves).sort(function (a, b) {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+    }
   },
   beforeMount: function beforeMount() {
     this.getSickLeaves();
@@ -1206,7 +1219,7 @@ var render = function render() {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table align-items-center table-flush"
-  }, [_vm.sickLeaves.length ? [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.sickLeaves, function (leave, index) {
+  }, [_vm.sickLeaves.length ? [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.sortedSickLeaves, function (leave, index) {
     return _c("tr", {
       key: index
     }, [_c("th", {
@@ -1217,7 +1230,11 @@ var render = function render() {
       attrs: {
         scope: "row"
       }
-    }, [_vm._v("\n                                " + _vm._s(leave.number_of_days) + "\n                            ")]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_vm._v("\n                                " + _vm._s(leave.number_of_days) + "\n                            ")]), _vm._v(" "), _c("th", {
+      attrs: {
+        scope: "row"
+      }
+    }, [_vm._v("\n                                " + _vm._s(_vm.formatDate(leave.created_at)) + "\n                            ")]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "d-flex align-items-center"
     }, [_c("ul", [_c("li", [_c("a", {
       attrs: {
@@ -1289,6 +1306,10 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Days")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Date")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
     }
