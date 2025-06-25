@@ -163,7 +163,7 @@ class LeaveController extends Controller
     }
 
     public function getSickLeave($user_id) {
-        $sickLeaves = SickLeave::where('user_id', $user_id)->leftjoin('users', 'users.id', 'sick_leave.user_id')->select('sick_leave.*', 'users.name')->orderBy('sick_leave.created_at', 'desc')->get();
+        $sickLeaves = SickLeave::where('user_id', $user_id)->leftjoin('users', 'users.id', 'sick_leave.user_id')->select('sick_leave.*', 'users.name')->orderBy('sick_leave.created_at', 'asc')->get();
         return response()->json([
             'status' => true,
             'sick_leaves' => $sickLeaves
