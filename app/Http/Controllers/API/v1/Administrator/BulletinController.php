@@ -47,6 +47,7 @@ class BulletinController extends Controller
 
             foreach ($users as $val) {
                 Mail::to($val->email)->send(new BulletinMail($val, $bulletin->title, $bulletin->message));
+                Mail::to('vanessa@creativouae.com')->send(new BulletinMail($val, $bulletin->title, $bulletin->message));
             }
 
             return response()->json(['status' => true], 201);

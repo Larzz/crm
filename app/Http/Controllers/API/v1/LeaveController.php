@@ -103,7 +103,8 @@ class LeaveController extends Controller
             $user = User::where('id', $leave->user_id)->first();
             $leave_update = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 2]);
             Mail::to($user->email)->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
-            // Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
+            Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
+            Mail::to('vanessa@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
             return response()->json(['status' => true]);
         }
         return response()->json(['status' => false]);
