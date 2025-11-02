@@ -55,6 +55,7 @@ class ClientController extends Controller
             $client->attachRole('client');
             Mail::to('larry@creativouae.com')->send(New ClientNotification($client, $this->request->password, 'Client Creation Notification'));
             Mail::to('vanessa@creativouae.com')->send(New ClientNotification($client, $this->request->password, 'Client Creation Notification'));
+            Mail::to('manfred@creativouae.com')->send(New ClientNotification($client, $this->request->password, 'Client Creation Notification'));
             return response()->json(['status' => true]);
         }
 
