@@ -6507,8 +6507,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         date: null
       },
       range: {
-        start: new Date(2024, 0, 1),
-        end: new Date(2025, 0, 12)
+        start: new Date(2026, 0, 1),
+        end: new Date(2026, 11, 31)
       }
     };
   },
