@@ -2100,6 +2100,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       leaves: [],
+      showOnly2026: true,
       columns: [{
         label: 'Employee Name',
         field: 'name'
@@ -2128,6 +2129,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getLeaves();
+  },
+  computed: {
+    filteredLeaves: function filteredLeaves() {
+      if (!this.showOnly2026) return this.leaves;
+      return this.leaves.filter(function (leave) {
+        var leaveFromDate = new Date(leave.leave_from);
+        return leaveFromDate.getFullYear() === 2026;
+      });
+    }
   },
   methods: {
     getLeaves: function getLeaves() {
@@ -7122,7 +7132,7 @@ var render = function render() {
         enabled: true
       },
       theme: "polar-bear",
-      rows: _vm.rows,
+      rows: _vm.filteredLeaves,
       "sort-options": {
         enabled: true
       },

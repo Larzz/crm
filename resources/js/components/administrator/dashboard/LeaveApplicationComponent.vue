@@ -7,6 +7,9 @@
                         <h3 class="mb-0">Leave Application</h3>
                     </div>
                     <div class="col text-right">
+                        <!-- <button @click="showOnly2026 = !showOnly2026" class="btn btn-sm" :class="{'btn-primary': showOnly2026, 'btn-outline-primary': !showOnly2026}">
+                            {{ showOnly2026 ? 'Showing 2026 Only' : 'Show 2026 Only' }}
+                        </button> -->
                     </div>
                 </div>
             </div>
@@ -59,7 +62,7 @@
 
                 <template v-if="leaves">
                     <vue-good-table :columns="columns" :pagination-options="{ enabled: true }" theme="polar-bear"
-                        :rows="rows" :sort-options="{ enabled: true, }"
+                        :rows="filteredLeaves" :sort-options="{ enabled: true, }"
                         :search-options="{ enabled: true, placeholder: 'Search Leaves'}"
                         styleClass="table align-items-center table-flush">
                         <template slot="table-row" slot-scope="props">
@@ -91,6 +94,7 @@
         data() {
             return {
                 leaves: [],
+                showOnly2026: true,
                 columns: [{
                         label: 'Employee Name',
                         field: 'name',
@@ -126,7 +130,16 @@
         },
         mounted() {
             this.getLeaves()
-
+        },
+        computed: {
+            filteredLeaves() {
+                if (!this.showOnly2026) return this.leaves;
+                
+                return this.leaves.filter(leave => {
+                    const leaveFromDate = new Date(leave.leave_from);
+                    return leaveFromDate.getFullYear() === 2026;
+                });
+            }
         },
         methods: {
             getLeaves() {
