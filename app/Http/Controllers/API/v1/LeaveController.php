@@ -60,7 +60,7 @@ class LeaveController extends Controller
             $leave->available_days = $this->request->remaining_days;
             $leave->used_days = $this->request->used_days;
             if($leave->save()) {
-                Mail::to('manfred@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
+                // Mail::to('manfred@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
                 Mail::to('vanessa@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
                 Mail::to('larry@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
                 // Mail::to('larry@creativouae.com')->send(New LeaveMail2($leave_details, auth()->user(), 'Leave Application Notification'));
@@ -93,7 +93,7 @@ class LeaveController extends Controller
             $user = User::where('id', $leave->user_id)->first();
             $leave_update = LeaveDetails::where('id', $this->request->leave_id)->update(['status' => 1]);
             Mail::to($user->email)->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
-            Mail::to('manfred@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
+            // Mail::to('manfred@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
             Mail::to('vanessa@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
             Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
             // Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Approved', 'Leave Application Approved'));
@@ -110,7 +110,7 @@ class LeaveController extends Controller
             Mail::to($user->email)->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
             Mail::to('larry@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
             Mail::to('vanessa@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
-            Mail::to('manfred@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
+            // Mail::to('manfred@creativouae.com')->send(New LeaveNotification($leave, $user, 'Leave Application is Declined', 'Leave Application Declined'));
             return response()->json(['status' => true]);
         }
         return response()->json(['status' => false]);
