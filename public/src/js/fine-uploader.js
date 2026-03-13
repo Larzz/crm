@@ -19,14 +19,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       if (uploaderType) {
         uploaderType = uploaderType.charAt(0).toUpperCase() + uploaderType.slice(1).toLowerCase();
         if (namespace) {
-          return new qq[namespace]["FineUploader" + uploaderType](params);
+          return new _qq[namespace]["FineUploader" + uploaderType](params);
         }
-        return new qq["FineUploader" + uploaderType](params);
+        return new _qq["FineUploader" + uploaderType](params);
       } else {
         if (namespace) {
-          return new qq[namespace].FineUploader(params);
+          return new _qq[namespace].FineUploader(params);
         }
-        return new qq.FineUploader(params);
+        return new _qq.FineUploader(params);
       }
     }
     function dataStore(key, val) {
@@ -69,7 +69,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           try {
             jqueryEventCallbackRetVal = callbackEventTarget.triggerHandler(name, transformedArgs);
           } catch (error) {
-            qq.log("Caught error in Fine Uploader jQuery event handler: " + error.message, "error");
+            _qq.log("Caught error in Fine Uploader jQuery event handler: " + error.message, "error");
           }
           if (nonJqueryCallbackRetVal != null) {
             return nonJqueryCallbackRetVal;
@@ -177,7 +177,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       options.dropZoneElements = [$el];
       var xformedOpts = transformVariables(options);
       addCallbacks(xformedOpts);
-      dnd(new qq.DragAndDrop(xformedOpts));
+      dnd(new _qq.DragAndDrop(xformedOpts));
       return $el;
     }
     function dataStore(key, val) {
@@ -200,7 +200,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function addCallbacks(transformedOpts) {
       var callbacks = transformedOpts.callbacks = {};
-      $.each(new qq.DragAndDrop.callbacks(), function (prop, func) {
+      $.each(new _qq.DragAndDrop.callbacks(), function (prop, func) {
         var name = prop,
           $callbackEl;
         $callbackEl = $el;
@@ -276,7 +276,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return this;
     };
   })(jQuery);
-  var qq = function qq(element) {
+  var _qq = function qq(element) {
     "use strict";
 
     return {
@@ -291,7 +291,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           element.attachEvent("on" + type, fn);
         }
         return function () {
-          qq(element).detach(type, fn);
+          _qq(element).detach(type, fn);
         };
       },
       detach: function detach(type, fn) {
@@ -325,14 +325,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       css: function css(styles) {
         if (element.style == null) {
-          throw new qq.Error("Can't apply style to node as it is not on the HTMLElement prototype chain!");
+          throw new _qq.Error("Can't apply style to node as it is not on the HTMLElement prototype chain!");
         }
         if (styles.opacity != null) {
           if (typeof element.style.opacity !== "string" && typeof element.filters !== "undefined") {
             styles.filter = "alpha(opacity=" + Math.round(100 * styles.opacity) + ")";
           }
         }
-        qq.extend(element.style, styles);
+        _qq.extend(element.style, styles);
         return this;
       },
       hasClass: function hasClass(name, considerParent) {
@@ -340,7 +340,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return re.test(element.className) || !!(considerParent && re.test(element.parentNode.className));
       },
       addClass: function addClass(name) {
-        if (!qq(element).hasClass(name)) {
+        if (!_qq(element).hasClass(name)) {
           element.className += " " + name;
         }
         return this;
@@ -359,15 +359,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return element.querySelectorAll("." + className);
         }
         candidates = element.getElementsByTagName("*");
-        qq.each(candidates, function (idx, val) {
-          if (qq(val).hasClass(className)) {
+        _qq.each(candidates, function (idx, val) {
+          if (_qq(val).hasClass(className)) {
             result.push(val);
           }
         });
         return first ? result[0] : result;
       },
       getFirstByClass: function getFirstByClass(className) {
-        return qq(element).getByClass(className, true);
+        return _qq(element).getByClass(className, true);
       },
       children: function children() {
         var children = [],
@@ -386,7 +386,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return this;
       },
       clearText: function clearText() {
-        return qq(element).setText("");
+        return _qq(element).setText("");
       },
       hasAttribute: function hasAttribute(attrName) {
         var attrVal;
@@ -408,10 +408,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
   (function () {
     "use strict";
 
-    qq.canvasToBlob = function (canvas, mime, quality) {
-      return qq.dataUriToBlob(canvas.toDataURL(mime, quality));
+    _qq.canvasToBlob = function (canvas, mime, quality) {
+      return _qq.dataUriToBlob(canvas.toDataURL(mime, quality));
     };
-    qq.dataUriToBlob = function (dataUri) {
+    _qq.dataUriToBlob = function (dataUri) {
       var arrayBuffer,
         byteString,
         createBlob = function createBlob(data, mime) {
@@ -436,12 +436,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       mimeString = dataUri.split(",")[0].split(":")[1].split(";")[0];
       arrayBuffer = new ArrayBuffer(byteString.length);
       intArray = new Uint8Array(arrayBuffer);
-      qq.each(byteString, function (idx, character) {
+      _qq.each(byteString, function (idx, character) {
         intArray[idx] = character.charCodeAt(0);
       });
       return createBlob(arrayBuffer, mimeString);
     };
-    qq.log = function (message, level) {
+    _qq.log = function (message, level) {
       if (window.console) {
         if (!level || level === "info") {
           window.console.log(message);
@@ -454,35 +454,35 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       }
     };
-    qq.isObject = function (variable) {
+    _qq.isObject = function (variable) {
       return variable && !variable.nodeType && Object.prototype.toString.call(variable) === "[object Object]";
     };
-    qq.isFunction = function (variable) {
+    _qq.isFunction = function (variable) {
       return typeof variable === "function";
     };
-    qq.isArray = function (value) {
+    _qq.isArray = function (value) {
       return Object.prototype.toString.call(value) === "[object Array]" || value && window.ArrayBuffer && value.buffer && value.buffer.constructor === ArrayBuffer;
     };
-    qq.isItemList = function (maybeItemList) {
+    _qq.isItemList = function (maybeItemList) {
       return Object.prototype.toString.call(maybeItemList) === "[object DataTransferItemList]";
     };
-    qq.isNodeList = function (maybeNodeList) {
+    _qq.isNodeList = function (maybeNodeList) {
       return Object.prototype.toString.call(maybeNodeList) === "[object NodeList]" || maybeNodeList.item && maybeNodeList.namedItem;
     };
-    qq.isString = function (maybeString) {
+    _qq.isString = function (maybeString) {
       return Object.prototype.toString.call(maybeString) === "[object String]";
     };
-    qq.trimStr = function (string) {
+    _qq.trimStr = function (string) {
       if (String.prototype.trim) {
         return string.trim();
       }
       return string.replace(/^\s+|\s+$/g, "");
     };
-    qq.format = function (str) {
+    _qq.format = function (str) {
       var args = Array.prototype.slice.call(arguments, 1),
         newStr = str,
         nextIdxToReplace = newStr.indexOf("{}");
-      qq.each(args, function (idx, val) {
+      _qq.each(args, function (idx, val) {
         var strBefore = newStr.substring(0, nextIdxToReplace),
           strAfter = newStr.substring(nextIdxToReplace + 2);
         newStr = strBefore + val + strAfter;
@@ -493,16 +493,16 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return newStr;
     };
-    qq.isFile = function (maybeFile) {
+    _qq.isFile = function (maybeFile) {
       return window.File && Object.prototype.toString.call(maybeFile) === "[object File]";
     };
-    qq.isFileList = function (maybeFileList) {
+    _qq.isFileList = function (maybeFileList) {
       return window.FileList && Object.prototype.toString.call(maybeFileList) === "[object FileList]";
     };
-    qq.isFileOrInput = function (maybeFileOrInput) {
-      return qq.isFile(maybeFileOrInput) || qq.isInput(maybeFileOrInput);
+    _qq.isFileOrInput = function (maybeFileOrInput) {
+      return _qq.isFile(maybeFileOrInput) || _qq.isInput(maybeFileOrInput);
     };
-    qq.isInput = function (maybeInput, notFile) {
+    _qq.isInput = function (maybeInput, notFile) {
       var evaluateType = function evaluateType(type) {
         var normalizedType = type.toLowerCase();
         if (notFile) {
@@ -526,41 +526,41 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       return false;
     };
-    qq.isBlob = function (maybeBlob) {
+    _qq.isBlob = function (maybeBlob) {
       if (window.Blob && Object.prototype.toString.call(maybeBlob) === "[object Blob]") {
         return true;
       }
     };
-    qq.isXhrUploadSupported = function () {
+    _qq.isXhrUploadSupported = function () {
       var input = document.createElement("input");
       input.type = "file";
-      return input.multiple !== undefined && typeof File !== "undefined" && typeof FormData !== "undefined" && typeof qq.createXhrInstance().upload !== "undefined";
+      return input.multiple !== undefined && typeof File !== "undefined" && typeof FormData !== "undefined" && typeof _qq.createXhrInstance().upload !== "undefined";
     };
-    qq.createXhrInstance = function () {
+    _qq.createXhrInstance = function () {
       if (window.XMLHttpRequest) {
         return new XMLHttpRequest();
       }
       try {
         return new ActiveXObject("MSXML2.XMLHTTP.3.0");
       } catch (error) {
-        qq.log("Neither XHR or ActiveX are supported!", "error");
+        _qq.log("Neither XHR or ActiveX are supported!", "error");
         return null;
       }
     };
-    qq.isFolderDropSupported = function (dataTransfer) {
+    _qq.isFolderDropSupported = function (dataTransfer) {
       return dataTransfer.items && dataTransfer.items.length > 0 && dataTransfer.items[0].webkitGetAsEntry;
     };
-    qq.isFileChunkingSupported = function () {
-      return !qq.androidStock() && qq.isXhrUploadSupported() && (File.prototype.slice !== undefined || File.prototype.webkitSlice !== undefined || File.prototype.mozSlice !== undefined);
+    _qq.isFileChunkingSupported = function () {
+      return !_qq.androidStock() && _qq.isXhrUploadSupported() && (File.prototype.slice !== undefined || File.prototype.webkitSlice !== undefined || File.prototype.mozSlice !== undefined);
     };
-    qq.sliceBlob = function (fileOrBlob, start, end) {
+    _qq.sliceBlob = function (fileOrBlob, start, end) {
       var slicer = fileOrBlob.slice || fileOrBlob.mozSlice || fileOrBlob.webkitSlice;
       return slicer.call(fileOrBlob, start, end);
     };
-    qq.arrayBufferToHex = function (buffer) {
+    _qq.arrayBufferToHex = function (buffer) {
       var bytesAsHex = "",
         bytes = new Uint8Array(buffer);
-      qq.each(bytes, function (idx, byt) {
+      _qq.each(bytes, function (idx, byt) {
         var byteAsHexStr = byt.toString(16);
         if (byteAsHexStr.length < 2) {
           byteAsHexStr = "0" + byteAsHexStr;
@@ -569,34 +569,34 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return bytesAsHex;
     };
-    qq.readBlobToHex = function (blob, startOffset, length) {
-      var initialBlob = qq.sliceBlob(blob, startOffset, startOffset + length),
+    _qq.readBlobToHex = function (blob, startOffset, length) {
+      var initialBlob = _qq.sliceBlob(blob, startOffset, startOffset + length),
         fileReader = new FileReader(),
-        promise = new qq.Promise();
+        promise = new _qq.Promise();
       fileReader.onload = function () {
-        promise.success(qq.arrayBufferToHex(fileReader.result));
+        promise.success(_qq.arrayBufferToHex(fileReader.result));
       };
       fileReader.onerror = promise.failure;
       fileReader.readAsArrayBuffer(initialBlob);
       return promise;
     };
-    qq.extend = function (first, second, extendNested) {
-      qq.each(second, function (prop, val) {
-        if (extendNested && qq.isObject(val)) {
+    _qq.extend = function (first, second, extendNested) {
+      _qq.each(second, function (prop, val) {
+        if (extendNested && _qq.isObject(val)) {
           if (first[prop] === undefined) {
             first[prop] = {};
           }
-          qq.extend(first[prop], val, true);
+          _qq.extend(first[prop], val, true);
         } else {
           first[prop] = val;
         }
       });
       return first;
     };
-    qq.override = function (target, sourceFn) {
+    _qq.override = function (target, sourceFn) {
       var super_ = {},
         source = sourceFn(super_);
-      qq.each(source, function (srcPropName, srcPropVal) {
+      _qq.each(source, function (srcPropName, srcPropVal) {
         if (target[srcPropName] !== undefined) {
           super_[srcPropName] = target[srcPropName];
         }
@@ -604,7 +604,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return target;
     };
-    qq.indexOf = function (arr, elt, from) {
+    _qq.indexOf = function (arr, elt, from) {
       if (arr.indexOf) {
         return arr.indexOf(elt, from);
       }
@@ -620,84 +620,84 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       return -1;
     };
-    qq.getUniqueId = function () {
+    _qq.getUniqueId = function () {
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
         var r = Math.random() * 16 | 0,
           v = c == "x" ? r : r & 3 | 8;
         return v.toString(16);
       });
     };
-    qq.ie = function () {
+    _qq.ie = function () {
       return navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
     };
-    qq.ie7 = function () {
+    _qq.ie7 = function () {
       return navigator.userAgent.indexOf("MSIE 7") !== -1;
     };
-    qq.ie8 = function () {
+    _qq.ie8 = function () {
       return navigator.userAgent.indexOf("MSIE 8") !== -1;
     };
-    qq.ie10 = function () {
+    _qq.ie10 = function () {
       return navigator.userAgent.indexOf("MSIE 10") !== -1;
     };
-    qq.ie11 = function () {
-      return qq.ie() && navigator.userAgent.indexOf("rv:11") !== -1;
+    _qq.ie11 = function () {
+      return _qq.ie() && navigator.userAgent.indexOf("rv:11") !== -1;
     };
-    qq.edge = function () {
+    _qq.edge = function () {
       return navigator.userAgent.indexOf("Edge") >= 0;
     };
-    qq.safari = function () {
+    _qq.safari = function () {
       return navigator.vendor !== undefined && navigator.vendor.indexOf("Apple") !== -1;
     };
-    qq.chrome = function () {
+    _qq.chrome = function () {
       return navigator.vendor !== undefined && navigator.vendor.indexOf("Google") !== -1;
     };
-    qq.opera = function () {
+    _qq.opera = function () {
       return navigator.vendor !== undefined && navigator.vendor.indexOf("Opera") !== -1;
     };
-    qq.firefox = function () {
-      return !qq.edge() && !qq.ie11() && navigator.userAgent.indexOf("Mozilla") !== -1 && navigator.vendor !== undefined && navigator.vendor === "";
+    _qq.firefox = function () {
+      return !_qq.edge() && !_qq.ie11() && navigator.userAgent.indexOf("Mozilla") !== -1 && navigator.vendor !== undefined && navigator.vendor === "";
     };
-    qq.windows = function () {
+    _qq.windows = function () {
       return navigator.platform === "Win32";
     };
-    qq.android = function () {
+    _qq.android = function () {
       return navigator.userAgent.toLowerCase().indexOf("android") !== -1;
     };
-    qq.androidStock = function () {
-      return qq.android() && navigator.userAgent.toLowerCase().indexOf("chrome") < 0;
+    _qq.androidStock = function () {
+      return _qq.android() && navigator.userAgent.toLowerCase().indexOf("chrome") < 0;
     };
-    qq.ios6 = function () {
-      return qq.ios() && navigator.userAgent.indexOf(" OS 6_") !== -1;
+    _qq.ios6 = function () {
+      return _qq.ios() && navigator.userAgent.indexOf(" OS 6_") !== -1;
     };
-    qq.ios7 = function () {
-      return qq.ios() && navigator.userAgent.indexOf(" OS 7_") !== -1;
+    _qq.ios7 = function () {
+      return _qq.ios() && navigator.userAgent.indexOf(" OS 7_") !== -1;
     };
-    qq.ios8 = function () {
-      return qq.ios() && navigator.userAgent.indexOf(" OS 8_") !== -1;
+    _qq.ios8 = function () {
+      return _qq.ios() && navigator.userAgent.indexOf(" OS 8_") !== -1;
     };
-    qq.ios800 = function () {
-      return qq.ios() && navigator.userAgent.indexOf(" OS 8_0 ") !== -1;
+    _qq.ios800 = function () {
+      return _qq.ios() && navigator.userAgent.indexOf(" OS 8_0 ") !== -1;
     };
-    qq.ios = function () {
+    _qq.ios = function () {
       return navigator.userAgent.indexOf("iPad") !== -1 || navigator.userAgent.indexOf("iPod") !== -1 || navigator.userAgent.indexOf("iPhone") !== -1;
     };
-    qq.iosChrome = function () {
-      return qq.ios() && navigator.userAgent.indexOf("CriOS") !== -1;
+    _qq.iosChrome = function () {
+      return _qq.ios() && navigator.userAgent.indexOf("CriOS") !== -1;
     };
-    qq.iosSafari = function () {
-      return qq.ios() && !qq.iosChrome() && navigator.userAgent.indexOf("Safari") !== -1;
+    _qq.iosSafari = function () {
+      return _qq.ios() && !_qq.iosChrome() && navigator.userAgent.indexOf("Safari") !== -1;
     };
-    qq.iosSafariWebView = function () {
-      return qq.ios() && !qq.iosChrome() && !qq.iosSafari();
+    _qq.iosSafariWebView = function () {
+      return _qq.ios() && !_qq.iosChrome() && !_qq.iosSafari();
     };
-    qq.preventDefault = function (e) {
+    _qq.preventDefault = function (e) {
       if (e.preventDefault) {
         e.preventDefault();
       } else {
         e.returnValue = false;
       }
     };
-    qq.toElement = function () {
+    _qq.toElement = function () {
       var div = document.createElement("div");
       return function (html) {
         div.innerHTML = html;
@@ -706,7 +706,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return element;
       };
     }();
-    qq.each = function (iterableItem, callback) {
+    _qq.each = function (iterableItem, callback) {
       var keyOrIndex, retVal;
       if (iterableItem) {
         if (window.Storage && iterableItem.constructor === window.Storage) {
@@ -716,14 +716,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               break;
             }
           }
-        } else if (qq.isArray(iterableItem) || qq.isItemList(iterableItem) || qq.isNodeList(iterableItem)) {
+        } else if (_qq.isArray(iterableItem) || _qq.isItemList(iterableItem) || _qq.isNodeList(iterableItem)) {
           for (keyOrIndex = 0; keyOrIndex < iterableItem.length; keyOrIndex++) {
             retVal = callback(keyOrIndex, iterableItem[keyOrIndex]);
             if (retVal === false) {
               break;
             }
           }
-        } else if (qq.isString(iterableItem)) {
+        } else if (_qq.isString(iterableItem)) {
           for (keyOrIndex = 0; keyOrIndex < iterableItem.length; keyOrIndex++) {
             retVal = callback(keyOrIndex, iterableItem.charAt(keyOrIndex));
             if (retVal === false) {
@@ -742,11 +742,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       }
     };
-    qq.bind = function (oldFunc, context) {
-      if (qq.isFunction(oldFunc)) {
+    _qq.bind = function (oldFunc, context) {
+      if (_qq.isFunction(oldFunc)) {
         var args = Array.prototype.slice.call(arguments, 2);
         return function () {
-          var newArgs = qq.extend([], args);
+          var newArgs = _qq.extend([], args);
           if (arguments.length) {
             newArgs = newArgs.concat(Array.prototype.slice.call(arguments));
           }
@@ -755,25 +755,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       throw new Error("first parameter must be a function!");
     };
-    qq.obj2url = function (obj, temp, prefixDone) {
+    _qq.obj2url = function (obj, temp, prefixDone) {
       var uristrings = [],
         prefix = "&",
         add = function add(nextObj, i) {
           var nextTemp = temp ? /\[\]$/.test(temp) ? temp : temp + "[" + i + "]" : i;
           if (nextTemp !== "undefined" && i !== "undefined") {
-            uristrings.push(_typeof(nextObj) === "object" ? qq.obj2url(nextObj, nextTemp, true) : Object.prototype.toString.call(nextObj) === "[object Function]" ? encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj()) : encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj));
+            uristrings.push(_typeof(nextObj) === "object" ? _qq.obj2url(nextObj, nextTemp, true) : Object.prototype.toString.call(nextObj) === "[object Function]" ? encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj()) : encodeURIComponent(nextTemp) + "=" + encodeURIComponent(nextObj));
           }
         };
       if (!prefixDone && temp) {
         prefix = /\?/.test(temp) ? /\?$/.test(temp) ? "" : "&" : "?";
         uristrings.push(temp);
-        uristrings.push(qq.obj2url(obj));
+        uristrings.push(_qq.obj2url(obj));
       } else if (Object.prototype.toString.call(obj) === "[object Array]" && typeof obj !== "undefined") {
-        qq.each(obj, function (idx, val) {
+        _qq.each(obj, function (idx, val) {
           add(val, idx);
         });
       } else if (typeof obj !== "undefined" && obj !== null && _typeof(obj) === "object") {
-        qq.each(obj, function (prop, val) {
+        _qq.each(obj, function (prop, val) {
           add(val, prop);
         });
       } else {
@@ -785,15 +785,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return uristrings.join(prefix).replace(/^&/, "").replace(/%20/g, "+");
       }
     };
-    qq.obj2FormData = function (obj, formData, arrayKeyName) {
+    _qq.obj2FormData = function (obj, formData, arrayKeyName) {
       if (!formData) {
         formData = new FormData();
       }
-      qq.each(obj, function (key, val) {
+      _qq.each(obj, function (key, val) {
         key = arrayKeyName ? arrayKeyName + "[" + key + "]" : key;
-        if (qq.isObject(val)) {
-          qq.obj2FormData(val, formData, key);
-        } else if (qq.isFunction(val)) {
+        if (_qq.isObject(val)) {
+          _qq.obj2FormData(val, formData, key);
+        } else if (_qq.isFunction(val)) {
           formData.append(key, val());
         } else {
           formData.append(key, val);
@@ -801,12 +801,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return formData;
     };
-    qq.obj2Inputs = function (obj, form) {
+    _qq.obj2Inputs = function (obj, form) {
       var input;
       if (!form) {
         form = document.createElement("form");
       }
-      qq.obj2FormData(obj, {
+      _qq.obj2FormData(obj, {
         append: function append(key, val) {
           input = document.createElement("input");
           input.setAttribute("name", key);
@@ -816,30 +816,30 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return form;
     };
-    qq.parseJson = function (json) {
-      if (window.JSON && qq.isFunction(JSON.parse)) {
+    _qq.parseJson = function (json) {
+      if (window.JSON && _qq.isFunction(JSON.parse)) {
         return JSON.parse(json);
       } else {
         return eval("(" + json + ")");
       }
     };
-    qq.getExtension = function (filename) {
+    _qq.getExtension = function (filename) {
       var extIdx = filename.lastIndexOf(".") + 1;
       if (extIdx > 0) {
         return filename.substr(extIdx, filename.length - extIdx);
       }
     };
-    qq.getFilename = function (blobOrFileInput) {
-      if (qq.isInput(blobOrFileInput)) {
+    _qq.getFilename = function (blobOrFileInput) {
+      if (_qq.isInput(blobOrFileInput)) {
         return blobOrFileInput.value.replace(/.*(\/|\\)/, "");
-      } else if (qq.isFile(blobOrFileInput)) {
+      } else if (_qq.isFile(blobOrFileInput)) {
         if (blobOrFileInput.fileName !== null && blobOrFileInput.fileName !== undefined) {
           return blobOrFileInput.fileName;
         }
       }
       return blobOrFileInput.name;
     };
-    qq.DisposeSupport = function () {
+    _qq.DisposeSupport = function () {
       var disposers = [];
       return {
         dispose: function dispose() {
@@ -853,7 +853,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         },
         attach: function attach() {
           var args = arguments;
-          this.addDisposer(qq(args[0]).attach.apply(this, Array.prototype.slice.call(arguments, 1)));
+          this.addDisposer(_qq(args[0]).attach.apply(this, Array.prototype.slice.call(arguments, 1)));
         },
         addDisposer: function addDisposer(disposeFunction) {
           disposers.push(disposeFunction);
@@ -866,24 +866,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
     if (typeof define === "function" && define.amd) {
       define(function () {
-        return qq;
+        return _qq;
       });
     } else if (typeof module !== "undefined" && module.exports) {
-      module.exports = qq;
+      module.exports = _qq;
     } else {
-      global.qq = qq;
+      global.qq = _qq;
     }
   })();
   (function () {
     "use strict";
 
-    qq.Error = function (message) {
-      this.message = "[Fine Uploader " + qq.version + "] " + message;
+    _qq.Error = function (message) {
+      this.message = "[Fine Uploader " + _qq.version + "] " + message;
     };
-    qq.Error.prototype = new Error();
+    _qq.Error.prototype = new Error();
   })();
-  qq.version = "5.16.2";
-  qq.supportedFeatures = function () {
+  _qq.version = "5.16.2";
+  _qq.supportedFeatures = function () {
     "use strict";
 
     var supportsUploading, supportsUploadingBlobs, supportsFileDrop, supportsAjaxFileUploading, supportsFolderDrop, supportsChunking, supportsResume, supportsUploadViaPaste, supportsUploadCors, supportsDeleteFileXdr, supportsDeleteFileCorsXhr, supportsDeleteFileCors, supportsFolderSelection, supportsImagePreviews, supportsUploadProgress;
@@ -893,7 +893,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       try {
         tempInput = document.createElement("input");
         tempInput.type = "file";
-        qq(tempInput).hide();
+        _qq(tempInput).hide();
         if (tempInput.disabled) {
           supported = false;
         }
@@ -903,11 +903,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return supported;
     }
     function isChrome14OrHigher() {
-      return (qq.chrome() || qq.opera()) && navigator.userAgent.match(/Chrome\/[1][4-9]|Chrome\/[2-9][0-9]/) !== undefined;
+      return (_qq.chrome() || _qq.opera()) && navigator.userAgent.match(/Chrome\/[1][4-9]|Chrome\/[2-9][0-9]/) !== undefined;
     }
     function isCrossOriginXhrSupported() {
       if (window.XMLHttpRequest) {
-        var xhr = qq.createXhrInstance();
+        var xhr = _qq.createXhrInstance();
         return xhr.withCredentials !== undefined;
       }
       return false;
@@ -926,25 +926,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function isLocalStorageSupported() {
       try {
-        return !!window.localStorage && qq.isFunction(window.localStorage.setItem);
+        return !!window.localStorage && _qq.isFunction(window.localStorage.setItem);
       } catch (error) {
         return false;
       }
     }
     function isDragAndDropSupported() {
       var span = document.createElement("span");
-      return ("draggable" in span || "ondragstart" in span && "ondrop" in span) && !qq.android() && !qq.ios();
+      return ("draggable" in span || "ondragstart" in span && "ondrop" in span) && !_qq.android() && !_qq.ios();
     }
     supportsUploading = testSupportsFileInputElement();
-    supportsAjaxFileUploading = supportsUploading && qq.isXhrUploadSupported();
-    supportsUploadingBlobs = supportsAjaxFileUploading && !qq.androidStock();
+    supportsAjaxFileUploading = supportsUploading && _qq.isXhrUploadSupported();
+    supportsUploadingBlobs = supportsAjaxFileUploading && !_qq.androidStock();
     supportsFileDrop = supportsAjaxFileUploading && isDragAndDropSupported();
     supportsFolderDrop = supportsFileDrop && function () {
       var input = document.createElement("input");
       input.type = "file";
       return !!("webkitdirectory" in (input || document.querySelectorAll("input[type=file]")[0]));
     }();
-    supportsChunking = supportsAjaxFileUploading && qq.isFileChunkingSupported();
+    supportsChunking = supportsAjaxFileUploading && _qq.isFileChunkingSupported();
     supportsResume = supportsAjaxFileUploading && supportsChunking && isLocalStorageSupported();
     supportsUploadViaPaste = supportsAjaxFileUploading && isChrome14OrHigher();
     supportsUploadCors = supportsUploading && (window.postMessage !== undefined || supportsAjaxFileUploading);
@@ -955,7 +955,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     supportsImagePreviews = supportsAjaxFileUploading && window.FileReader !== undefined;
     supportsUploadProgress = function () {
       if (supportsAjaxFileUploading) {
-        return !qq.androidStock() && !qq.iosChrome();
+        return !_qq.androidStock() && !_qq.iosChrome();
       }
       return false;
     }();
@@ -978,8 +978,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       progressBar: supportsUploadProgress,
       resume: supportsResume,
       scaling: supportsImagePreviews && supportsUploadingBlobs,
-      tiffPreviews: qq.safari(),
-      unlimitedScaledImageSize: !qq.ios(),
+      tiffPreviews: _qq.safari(),
+      unlimitedScaledImageSize: !_qq.ios(),
       uploading: supportsUploading,
       uploadCors: supportsUploadCors,
       uploadCustomHeaders: supportsAjaxFileUploading,
@@ -987,12 +987,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       uploadViaPaste: supportsUploadViaPaste
     };
   }();
-  qq.isGenericPromise = function (maybePromise) {
+  _qq.isGenericPromise = function (maybePromise) {
     "use strict";
 
-    return !!(maybePromise && maybePromise.then && qq.isFunction(maybePromise.then));
+    return !!(maybePromise && maybePromise.then && _qq.isFunction(maybePromise.then));
   };
-  qq.Promise = function () {
+  _qq.Promise = function () {
     "use strict";
 
     var successArgs,
@@ -1001,7 +1001,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       failureCallbacks = [],
       doneCallbacks = [],
       state = 0;
-    qq.extend(this, {
+    _qq.extend(this, {
       then: function then(onSuccess, onFailure) {
         if (state === 0) {
           if (onSuccess) {
@@ -1029,12 +1029,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         state = 1;
         successArgs = arguments;
         if (successCallbacks.length) {
-          qq.each(successCallbacks, function (idx, callback) {
+          _qq.each(successCallbacks, function (idx, callback) {
             callback.apply(null, successArgs);
           });
         }
         if (doneCallbacks.length) {
-          qq.each(doneCallbacks, function (idx, callback) {
+          _qq.each(doneCallbacks, function (idx, callback) {
             callback.apply(null, successArgs);
           });
         }
@@ -1044,12 +1044,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         state = -1;
         failureArgs = arguments;
         if (failureCallbacks.length) {
-          qq.each(failureCallbacks, function (idx, callback) {
+          _qq.each(failureCallbacks, function (idx, callback) {
             callback.apply(null, failureArgs);
           });
         }
         if (doneCallbacks.length) {
-          qq.each(doneCallbacks, function (idx, callback) {
+          _qq.each(doneCallbacks, function (idx, callback) {
             callback.apply(null, failureArgs);
           });
         }
@@ -1057,21 +1057,21 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.BlobProxy = function (referenceBlob, onCreate) {
+  _qq.BlobProxy = function (referenceBlob, onCreate) {
     "use strict";
 
-    qq.extend(this, {
+    _qq.extend(this, {
       referenceBlob: referenceBlob,
       create: function create() {
         return onCreate(referenceBlob);
       }
     });
   };
-  qq.UploadButton = function (o) {
+  _qq.UploadButton = function (o) {
     "use strict";
 
     var self = this,
-      disposeSupport = new qq.DisposeSupport(),
+      disposeSupport = new _qq.DisposeSupport(),
       options = {
         acceptFiles: null,
         element: null,
@@ -1086,14 +1086,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       input,
       buttonId;
-    qq.extend(options, o);
-    buttonId = qq.getUniqueId();
+    _qq.extend(options, o);
+    buttonId = _qq.getUniqueId();
     function createInput() {
       var input = document.createElement("input");
-      input.setAttribute(qq.UploadButton.BUTTON_ID_ATTR_NAME, buttonId);
+      input.setAttribute(_qq.UploadButton.BUTTON_ID_ATTR_NAME, buttonId);
       input.setAttribute("title", options.title);
       self.setMultiple(options.multiple, input);
-      if (options.folders && qq.supportedFeatures.folderSelection) {
+      if (options.folders && _qq.supportedFeatures.folderSelection) {
         input.setAttribute("webkitdirectory", "");
       }
       if (options.acceptFiles) {
@@ -1101,18 +1101,18 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       input.setAttribute("type", "file");
       input.setAttribute("name", options.name);
-      qq(input).css({
+      _qq(input).css({
         position: "absolute",
         right: 0,
         top: 0,
         fontFamily: "Arial",
-        fontSize: qq.ie() && !qq.ie8() ? "3500px" : "118px",
+        fontSize: _qq.ie() && !_qq.ie8() ? "3500px" : "118px",
         margin: 0,
         padding: 0,
         cursor: "pointer",
         opacity: 0
       });
-      !qq.ie7() && qq(input).css({
+      !_qq.ie7() && _qq(input).css({
         height: "100%"
       });
       options.element.appendChild(input);
@@ -1120,25 +1120,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         options.onChange(input);
       });
       disposeSupport.attach(input, "mouseover", function () {
-        qq(options.element).addClass(options.hoverClass);
+        _qq(options.element).addClass(options.hoverClass);
       });
       disposeSupport.attach(input, "mouseout", function () {
-        qq(options.element).removeClass(options.hoverClass);
+        _qq(options.element).removeClass(options.hoverClass);
       });
       disposeSupport.attach(input, "focus", function () {
-        qq(options.element).addClass(options.focusClass);
+        _qq(options.element).addClass(options.focusClass);
       });
       disposeSupport.attach(input, "blur", function () {
-        qq(options.element).removeClass(options.focusClass);
+        _qq(options.element).removeClass(options.focusClass);
       });
       return input;
     }
-    qq(options.element).css({
+    _qq(options.element).css({
       position: "relative",
       overflow: "hidden",
       direction: "ltr"
     });
-    qq.extend(this, {
+    _qq.extend(this, {
       getInput: function getInput() {
         return input;
       },
@@ -1147,7 +1147,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       setMultiple: function setMultiple(isMultiple, optInput) {
         var input = optInput || this.getInput();
-        if (options.ios8BrowserCrashWorkaround && qq.ios8() && (qq.iosChrome() || qq.iosSafariWebView())) {
+        if (options.ios8BrowserCrashWorkaround && _qq.ios8() && (_qq.iosChrome() || _qq.iosSafariWebView())) {
           input.setAttribute("multiple", "");
         } else {
           if (isMultiple) {
@@ -1164,17 +1164,17 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       reset: function reset() {
         if (input.parentNode) {
-          qq(input).remove();
+          _qq(input).remove();
         }
-        qq(options.element).removeClass(options.focusClass);
+        _qq(options.element).removeClass(options.focusClass);
         input = null;
         input = createInput();
       }
     });
     input = createInput();
   };
-  qq.UploadButton.BUTTON_ID_ATTR_NAME = "qq-button-id";
-  qq.UploadData = function (uploaderProxy) {
+  _qq.UploadButton.BUTTON_ID_ATTR_NAME = "qq-button-id";
+  _qq.UploadData = function (uploaderProxy) {
     "use strict";
 
     var data = [],
@@ -1183,9 +1183,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       byProxyGroupId = {},
       byBatchId = {};
     function getDataByIds(idOrIds) {
-      if (qq.isArray(idOrIds)) {
+      if (_qq.isArray(idOrIds)) {
         var entries = [];
-        qq.each(idOrIds, function (idx, id) {
+        _qq.each(idOrIds, function (idx, id) {
           entries.push(data[id]);
         });
         return entries;
@@ -1193,9 +1193,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return data[idOrIds];
     }
     function getDataByUuids(uuids) {
-      if (qq.isArray(uuids)) {
+      if (_qq.isArray(uuids)) {
         var entries = [];
-        qq.each(uuids, function (idx, uuid) {
+        _qq.each(uuids, function (idx, uuid) {
           entries.push(data[byUuid[uuid]]);
         });
         return entries;
@@ -1205,19 +1205,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     function getDataByStatus(status) {
       var statusResults = [],
         statuses = [].concat(status);
-      qq.each(statuses, function (index, statusEnum) {
+      _qq.each(statuses, function (index, statusEnum) {
         var statusResultIndexes = byStatus[statusEnum];
         if (statusResultIndexes !== undefined) {
-          qq.each(statusResultIndexes, function (i, dataIndex) {
+          _qq.each(statusResultIndexes, function (i, dataIndex) {
             statusResults.push(data[dataIndex]);
           });
         }
       });
       return statusResults;
     }
-    qq.extend(this, {
+    _qq.extend(this, {
       addFile: function addFile(spec) {
-        var status = spec.status || qq.status.SUBMITTING,
+        var status = spec.status || _qq.status.SUBMITTING,
           id = data.push({
             name: spec.name,
             originalName: spec.name,
@@ -1251,7 +1251,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return id;
       },
       retrieve: function retrieve(optionalFilter) {
-        if (qq.isObject(optionalFilter) && data.length) {
+        if (_qq.isObject(optionalFilter) && data.length) {
           if (optionalFilter.id !== undefined) {
             return getDataByIds(optionalFilter.id);
           } else if (optionalFilter.uuid !== undefined) {
@@ -1260,7 +1260,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return getDataByStatus(optionalFilter.status);
           }
         } else {
-          return qq.extend([], data, true);
+          return _qq.extend([], data, true);
         }
       },
       removeFileRef: function removeFileRef(id) {
@@ -1277,7 +1277,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       setStatus: function setStatus(id, newStatus) {
         var oldStatus = data[id].status,
-          byStatusOldStatusIndex = qq.indexOf(byStatus[oldStatus], id);
+          byStatusOldStatusIndex = _qq.indexOf(byStatus[oldStatus], id);
         byStatus[oldStatus].splice(byStatusOldStatusIndex, 1);
         data[id].status = newStatus;
         if (byStatus[newStatus] === undefined) {
@@ -1314,7 +1314,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.status = {
+  _qq.status = {
     SUBMITTING: "submitting",
     SUBMITTED: "submitted",
     REJECTED: "rejected",
@@ -1333,48 +1333,48 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
   (function () {
     "use strict";
 
-    qq.basePublicApi = {
+    _qq.basePublicApi = {
       addBlobs: function addBlobs(blobDataOrArray, params, endpoint) {
         this.addFiles(blobDataOrArray, params, endpoint);
       },
       addInitialFiles: function addInitialFiles(cannedFileList) {
         var self = this;
-        qq.each(cannedFileList, function (index, cannedFile) {
+        _qq.each(cannedFileList, function (index, cannedFile) {
           self._addCannedFile(cannedFile);
         });
       },
       addFiles: function addFiles(data, params, endpoint) {
         this._maybeHandleIos8SafariWorkaround();
-        var batchId = this._storedIds.length === 0 ? qq.getUniqueId() : this._currentBatchId,
-          processBlob = qq.bind(function (blob) {
+        var batchId = this._storedIds.length === 0 ? _qq.getUniqueId() : this._currentBatchId,
+          processBlob = _qq.bind(function (blob) {
             this._handleNewFile({
               blob: blob,
               name: this._options.blobs.defaultName
             }, batchId, verifiedFiles);
           }, this),
-          processBlobData = qq.bind(function (blobData) {
+          processBlobData = _qq.bind(function (blobData) {
             this._handleNewFile(blobData, batchId, verifiedFiles);
           }, this),
-          processCanvas = qq.bind(function (canvas) {
-            var blob = qq.canvasToBlob(canvas);
+          processCanvas = _qq.bind(function (canvas) {
+            var blob = _qq.canvasToBlob(canvas);
             this._handleNewFile({
               blob: blob,
               name: this._options.blobs.defaultName + ".png"
             }, batchId, verifiedFiles);
           }, this),
-          processCanvasData = qq.bind(function (canvasData) {
+          processCanvasData = _qq.bind(function (canvasData) {
             var normalizedQuality = canvasData.quality && canvasData.quality / 100,
-              blob = qq.canvasToBlob(canvasData.canvas, canvasData.type, normalizedQuality);
+              blob = _qq.canvasToBlob(canvasData.canvas, canvasData.type, normalizedQuality);
             this._handleNewFile({
               blob: blob,
               name: canvasData.name
             }, batchId, verifiedFiles);
           }, this),
-          processFileOrInput = qq.bind(function (fileOrInput) {
-            if (qq.isInput(fileOrInput) && qq.supportedFeatures.ajaxUploading) {
+          processFileOrInput = _qq.bind(function (fileOrInput) {
+            if (_qq.isInput(fileOrInput) && _qq.supportedFeatures.ajaxUploading) {
               var files = Array.prototype.slice.call(fileOrInput.files),
                 self = this;
-              qq.each(files, function (idx, file) {
+              _qq.each(files, function (idx, file) {
                 self._handleNewFile(file, batchId, verifiedFiles);
               });
             } else {
@@ -1382,7 +1382,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             }
           }, this),
           normalizeData = function normalizeData() {
-            if (qq.isFileList(data)) {
+            if (_qq.isFileList(data)) {
               data = Array.prototype.slice.call(data);
             }
             data = [].concat(data);
@@ -1392,12 +1392,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         this._currentBatchId = batchId;
         if (data) {
           normalizeData();
-          qq.each(data, function (idx, fileContainer) {
-            if (qq.isFileOrInput(fileContainer)) {
+          _qq.each(data, function (idx, fileContainer) {
+            if (_qq.isFileOrInput(fileContainer)) {
               processFileOrInput(fileContainer);
-            } else if (qq.isBlob(fileContainer)) {
+            } else if (_qq.isBlob(fileContainer)) {
               processBlob(fileContainer);
-            } else if (qq.isObject(fileContainer)) {
+            } else if (_qq.isObject(fileContainer)) {
               if (fileContainer.blob && fileContainer.name) {
                 processBlobData(fileContainer);
               } else if (fileContainer.canvas && fileContainer.name) {
@@ -1417,8 +1417,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var uploadData = this._uploadData.retrieve({
           id: id
         });
-        if (uploadData && uploadData.status === qq.status.UPLOAD_FINALIZING) {
-          this.log(qq.format("Ignoring cancel for file ID {} ({}).  Finalizing upload.", id, this.getName(id)), "error");
+        if (uploadData && uploadData.status === _qq.status.UPLOAD_FINALIZING) {
+          this.log(_qq.format("Ignoring cancel for file ID {} ({}).  Finalizing upload.", id, this.getName(id)), "error");
         } else {
           this._handler.cancel(id);
         }
@@ -1426,8 +1426,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       cancelAll: function cancelAll() {
         var storedIdsCopy = [],
           self = this;
-        qq.extend(storedIdsCopy, this._storedIds);
-        qq.each(storedIdsCopy, function (idx, storedFileId) {
+        _qq.extend(storedIdsCopy, this._storedIds);
+        _qq.each(storedIdsCopy, function (idx, storedFileId) {
           self.cancel(storedFileId);
         });
         this._handler.cancelAll();
@@ -1439,15 +1439,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var uploadData = this._uploadData.retrieve({
           id: id
         });
-        if (!qq.supportedFeatures.pause || !this._options.chunking.enabled) {
+        if (!_qq.supportedFeatures.pause || !this._options.chunking.enabled) {
           return false;
         }
-        if (uploadData.status === qq.status.PAUSED) {
-          this.log(qq.format("Paused file ID {} ({}) will be continued.  Not paused.", id, this.getName(id)));
+        if (uploadData.status === _qq.status.PAUSED) {
+          this.log(_qq.format("Paused file ID {} ({}) will be continued.  Not paused.", id, this.getName(id)));
           this._uploadFile(id);
           return true;
         } else {
-          this.log(qq.format("Ignoring continue for file ID {} ({}).  Not paused.", id, this.getName(id)), "error");
+          this.log(_qq.format("Ignoring continue for file ID {} ({}).  Not paused.", id, this.getName(id)), "error");
         }
         return false;
       },
@@ -1458,7 +1458,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return this._handler.isValid(fileOrBlobId);
       },
       drawThumbnail: function drawThumbnail(fileId, imgOrCanvas, maxSize, fromServer, customResizeFunction) {
-        var promiseToReturn = new qq.Promise(),
+        var promiseToReturn = new _qq.Promise(),
           fileOrUrl,
           options;
         if (this._imageGenerator) {
@@ -1468,7 +1468,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             maxSize: maxSize > 0 ? maxSize : null,
             scale: maxSize > 0
           };
-          if (!fromServer && qq.supportedFeatures.imagePreviews) {
+          if (!fromServer && _qq.supportedFeatures.imagePreviews) {
             fileOrUrl = this.getFile(fileId);
           }
           if (fileOrUrl == null) {
@@ -1515,7 +1515,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       getInProgress: function getInProgress() {
         return this._uploadData.retrieve({
-          status: [qq.status.UPLOADING, qq.status.UPLOAD_RETRYING, qq.status.QUEUED]
+          status: [_qq.status.UPLOADING, _qq.status.UPLOAD_RETRYING, _qq.status.QUEUED]
         }).length;
       },
       getName: function getName(id) {
@@ -1566,27 +1566,27 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       log: function log(str, level) {
         if (this._options.debug && (!level || level === "info")) {
-          qq.log("[Fine Uploader " + qq.version + "] " + str);
+          _qq.log("[Fine Uploader " + _qq.version + "] " + str);
         } else if (level && level !== "info") {
-          qq.log("[Fine Uploader " + qq.version + "] " + str, level);
+          _qq.log("[Fine Uploader " + _qq.version + "] " + str, level);
         }
       },
       pauseUpload: function pauseUpload(id) {
         var uploadData = this._uploadData.retrieve({
           id: id
         });
-        if (!qq.supportedFeatures.pause || !this._options.chunking.enabled) {
+        if (!_qq.supportedFeatures.pause || !this._options.chunking.enabled) {
           return false;
         }
-        if (qq.indexOf([qq.status.UPLOADING, qq.status.UPLOAD_RETRYING], uploadData.status) >= 0) {
+        if (_qq.indexOf([_qq.status.UPLOADING, _qq.status.UPLOAD_RETRYING], uploadData.status) >= 0) {
           if (this._handler.pause(id)) {
-            this._uploadData.setStatus(id, qq.status.PAUSED);
+            this._uploadData.setStatus(id, _qq.status.PAUSED);
             return true;
           } else {
-            this.log(qq.format("Unable to pause file ID {} ({}).", id, this.getName(id)), "error");
+            this.log(_qq.format("Unable to pause file ID {} ({}).", id, this.getName(id)), "error");
           }
         } else {
-          this.log(qq.format("Ignoring pause for file ID {} ({}).  Not in progress.", id, this.getName(id)), "error");
+          this.log(_qq.format("Ignoring pause for file ID {} ({}).  Not in progress.", id, this.getName(id)), "error");
         }
         return false;
       },
@@ -1602,7 +1602,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         this._retryTimeouts = [];
         this._preventRetries = [];
         this._thumbnailUrls = [];
-        qq.each(this._buttons, function (idx, button) {
+        _qq.each(this._buttons, function (idx, button) {
           button.reset();
         });
         this._paramsStore.reset();
@@ -1623,9 +1623,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       scaleImage: function scaleImage(id, specs) {
         var self = this;
-        return qq.Scaler.prototype.scaleImage(id, specs, {
-          log: qq.bind(self.log, self),
-          getFile: qq.bind(self.getFile, self),
+        return _qq.Scaler.prototype.scaleImage(id, specs, {
+          log: _qq.bind(self.log, self),
+          getFile: _qq.bind(self.getFile, self),
           uploadData: self._uploadData
         });
       },
@@ -1667,19 +1667,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           id: id
         });
         if (!fileRecord) {
-          throw new qq.Error(id + " is not a valid file ID.");
+          throw new _qq.Error(id + " is not a valid file ID.");
         }
         switch (newStatus) {
-          case qq.status.DELETED:
+          case _qq.status.DELETED:
             this._onDeleteComplete(id, null, false);
             break;
-          case qq.status.DELETE_FAILED:
+          case _qq.status.DELETE_FAILED:
             this._onDeleteComplete(id, null, true);
             break;
           default:
             var errorMessage = "Method setStatus called on '" + name + "' not implemented yet for " + newStatus;
             this.log(errorMessage);
-            throw new qq.Error(errorMessage);
+            throw new _qq.Error(errorMessage);
         }
       },
       uploadStoredFiles: function uploadStoredFiles() {
@@ -1690,14 +1690,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       }
     };
-    qq.basePrivateApi = {
+    _qq.basePrivateApi = {
       _addCannedFile: function _addCannedFile(sessionData) {
         var self = this;
         return this._uploadData.addFile({
           uuid: sessionData.uuid,
           name: sessionData.name,
           size: sessionData.size,
-          status: qq.status.UPLOAD_SUCCESSFUL,
+          status: _qq.status.UPLOAD_SUCCESSFUL,
           onBeforeStatusChange: function onBeforeStatusChange(id) {
             sessionData.deleteFileEndpoint && self.setDeleteFileEndpoint(sessionData.deleteFileEndpoint, id);
             sessionData.deleteFileParams && self.setDeleteFileParams(sessionData.deleteFileParams, id);
@@ -1710,7 +1710,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
       },
       _annotateWithButtonId: function _annotateWithButtonId(file, associatedInput) {
-        if (qq.isFile(file)) {
+        if (_qq.isFile(file)) {
           file.qqButtonId = this._getButtonId(associatedInput);
         }
       },
@@ -1719,7 +1719,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _createDeleteHandler: function _createDeleteHandler() {
         var self = this;
-        return new qq.DeleteFileAjaxRequester({
+        return new _qq.DeleteFileAjaxRequester({
           method: this._options.deleteFile.method.toUpperCase(),
           maxConnections: this._options.maxConnections,
           uuidParamName: this._options.request.uuidName,
@@ -1727,7 +1727,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           paramsStore: this._deleteFileParamsStore,
           endpointStore: this._deleteFileEndpointStore,
           cors: this._options.cors,
-          log: qq.bind(self.log, self),
+          log: _qq.bind(self.log, self),
           onDelete: function onDelete(id) {
             self._onDelete(id);
             self._options.callbacks.onDelete(id);
@@ -1740,15 +1740,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _createPasteHandler: function _createPasteHandler() {
         var self = this;
-        return new qq.PasteSupport({
+        return new _qq.PasteSupport({
           targetElement: this._options.paste.targetElement,
           callbacks: {
-            log: qq.bind(self.log, self),
+            log: _qq.bind(self.log, self),
             pasteReceived: function pasteReceived(blob) {
               self._handleCheckedCallback({
                 name: "onPasteReceived",
-                callback: qq.bind(self._options.callbacks.onPasteReceived, self, blob),
-                onSuccess: qq.bind(self._handlePasteSuccess, self, blob),
+                callback: _qq.bind(self._options.callbacks.onPasteReceived, self, blob),
+                onSuccess: _qq.bind(self._handlePasteSuccess, self, blob),
                 identifier: "pasted image"
               });
             }
@@ -1761,23 +1761,23 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           perIdReadOnlyValues = {},
           readOnlyValues = _readOnlyValues_,
           copy = function copy(orig) {
-            if (qq.isObject(orig)) {
-              return qq.extend({}, orig);
+            if (_qq.isObject(orig)) {
+              return _qq.extend({}, orig);
             }
             return orig;
           },
           getReadOnlyValues = function getReadOnlyValues() {
-            if (qq.isFunction(readOnlyValues)) {
+            if (_qq.isFunction(readOnlyValues)) {
               return readOnlyValues();
             }
             return readOnlyValues;
           },
           includeReadOnlyValues = function includeReadOnlyValues(id, existing) {
-            if (readOnlyValues && qq.isObject(existing)) {
-              qq.extend(existing, getReadOnlyValues());
+            if (readOnlyValues && _qq.isObject(existing)) {
+              _qq.extend(existing, getReadOnlyValues());
             }
             if (perIdReadOnlyValues[id]) {
-              qq.extend(existing, perIdReadOnlyValues[id]);
+              _qq.extend(existing, perIdReadOnlyValues[id]);
             }
           };
         return {
@@ -1800,17 +1800,17 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return copy(values);
           },
           addReadOnly: function addReadOnly(id, values) {
-            if (qq.isObject(store)) {
+            if (_qq.isObject(store)) {
               if (id === null) {
-                if (qq.isFunction(values)) {
+                if (_qq.isFunction(values)) {
                   readOnlyValues = values;
                 } else {
                   readOnlyValues = readOnlyValues || {};
-                  qq.extend(readOnlyValues, values);
+                  _qq.extend(readOnlyValues, values);
                 }
               } else {
                 perIdReadOnlyValues[id] = perIdReadOnlyValues[id] || {};
-                qq.extend(perIdReadOnlyValues[id], values);
+                _qq.extend(perIdReadOnlyValues[id], values);
               }
             }
           },
@@ -1826,7 +1826,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _createUploadDataTracker: function _createUploadDataTracker() {
         var self = this;
-        return new qq.UploadData({
+        return new _qq.UploadData({
           getName: function getName(id) {
             return self.getName(id);
           },
@@ -1854,8 +1854,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           allowedExtensions = spec.allowedExtensions || this._options.validation.allowedExtensions,
           button;
         function allowMultiple() {
-          if (qq.supportedFeatures.ajaxUploading) {
-            if (self._options.workarounds.iosEmptyVideos && qq.ios() && !qq.ios6() && self._isAllowedExtension(allowedExtensions, ".mov")) {
+          if (_qq.supportedFeatures.ajaxUploading) {
+            if (self._options.workarounds.iosEmptyVideos && _qq.ios() && !_qq.ios6() && self._isAllowedExtension(allowedExtensions, ".mov")) {
               return false;
             }
             if (spec.multiple === undefined) {
@@ -1865,7 +1865,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
           return false;
         }
-        button = new qq.UploadButton({
+        button = new _qq.UploadButton({
           acceptFiles: acceptFiles,
           element: spec.element,
           focusClass: this._options.classes.buttonFocus,
@@ -1897,7 +1897,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             chunking: this._options.chunking,
             resume: this._options.resume,
             blobs: this._options.blobs,
-            log: qq.bind(self.log, self),
+            log: _qq.bind(self.log, self),
             preventRetryParam: this._options.retry.preventRetryResponseProperty,
             onProgress: function onProgress(id, name, loaded, total) {
               if (loaded < 0 || total < 0) {
@@ -1923,11 +1923,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                   id: id
                 }).status,
                 retVal;
-              if (status === qq.status.UPLOAD_SUCCESSFUL || status === qq.status.UPLOAD_FAILED) {
+              if (status === _qq.status.UPLOAD_SUCCESSFUL || status === _qq.status.UPLOAD_FAILED) {
                 return;
               }
               retVal = self._onComplete(id, name, result, xhr);
-              if (retVal instanceof qq.Promise) {
+              if (retVal instanceof _qq.Promise) {
                 retVal.done(function () {
                   self._options.callbacks.onComplete(id, name, result, xhr);
                 });
@@ -1936,10 +1936,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               }
             },
             onCancel: function onCancel(id, name, cancelFinalizationEffort) {
-              var promise = new qq.Promise();
+              var promise = new _qq.Promise();
               self._handleCheckedCallback({
                 name: "onCancel",
-                callback: qq.bind(self._options.callbacks.onCancel, self, id, name),
+                callback: _qq.bind(self._options.callbacks.onCancel, self, id, name),
                 onFailure: promise.failure,
                 onSuccess: function onSuccess() {
                   cancelFinalizationEffort.then(function () {
@@ -1951,24 +1951,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               });
               return promise;
             },
-            onUploadPrep: qq.bind(this._onUploadPrep, this),
+            onUploadPrep: _qq.bind(this._onUploadPrep, this),
             onUpload: function onUpload(id, name) {
               self._onUpload(id, name);
               var onUploadResult = self._options.callbacks.onUpload(id, name);
-              if (qq.isGenericPromise(onUploadResult)) {
-                self.log(qq.format("onUpload for {} returned a Promise - waiting for resolution.", id));
+              if (_qq.isGenericPromise(onUploadResult)) {
+                self.log(_qq.format("onUpload for {} returned a Promise - waiting for resolution.", id));
                 return onUploadResult;
               }
-              return new qq.Promise().success();
+              return new _qq.Promise().success();
             },
             onUploadChunk: function onUploadChunk(id, name, chunkData) {
               self._onUploadChunk(id, chunkData);
               var onUploadChunkResult = self._options.callbacks.onUploadChunk(id, name, chunkData);
-              if (qq.isGenericPromise(onUploadChunkResult)) {
-                self.log(qq.format("onUploadChunk for {}.{} returned a Promise - waiting for resolution.", id, chunkData.partIndex));
+              if (_qq.isGenericPromise(onUploadChunkResult)) {
+                self.log(_qq.format("onUploadChunk for {}.{} returned a Promise - waiting for resolution.", id, chunkData.partIndex));
                 return onUploadChunkResult;
               }
-              return new qq.Promise().success();
+              return new _qq.Promise().success();
             },
             onUploadChunkSuccess: function onUploadChunkSuccess(id, chunkData, result, xhr) {
               self._onUploadChunkSuccess(id, chunkData);
@@ -1984,10 +1984,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               self.log("Server requested UUID change from '" + self.getUuid(id) + "' to '" + newUuid + "'");
               self.setUuid(id, newUuid);
             },
-            getName: qq.bind(self.getName, self),
-            getUuid: qq.bind(self.getUuid, self),
-            getSize: qq.bind(self.getSize, self),
-            setSize: qq.bind(self._setSize, self),
+            getName: _qq.bind(self.getName, self),
+            getUuid: _qq.bind(self.getUuid, self),
+            getSize: _qq.bind(self.getSize, self),
+            setSize: _qq.bind(self._setSize, self),
             getDataByUuid: function getDataByUuid(uuid) {
               return self.getUploads({
                 uuid: uuid
@@ -1997,34 +1997,34 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               var status = self.getUploads({
                 id: id
               }).status;
-              return status === qq.status.QUEUED || status === qq.status.SUBMITTED || status === qq.status.UPLOAD_RETRYING || status === qq.status.PAUSED;
+              return status === _qq.status.QUEUED || status === _qq.status.SUBMITTED || status === _qq.status.UPLOAD_RETRYING || status === _qq.status.PAUSED;
             },
             getIdsInProxyGroup: self._uploadData.getIdsInProxyGroup,
             getIdsInBatch: self._uploadData.getIdsInBatch,
             isInProgress: function isInProgress(id) {
               return self.getUploads({
                 id: id
-              }).status === qq.status.UPLOADING;
+              }).status === _qq.status.UPLOADING;
             },
-            getCustomResumeData: qq.bind(self._getCustomResumeData, self),
+            getCustomResumeData: _qq.bind(self._getCustomResumeData, self),
             setStatus: function setStatus(id, status) {
               self._uploadData.setStatus(id, status);
             }
           };
-        qq.each(this._options.request, function (prop, val) {
+        _qq.each(this._options.request, function (prop, val) {
           options[prop] = val;
         });
         options.customHeaders = this._customHeadersStore;
         if (additionalOptions) {
-          qq.each(additionalOptions, function (key, val) {
+          _qq.each(additionalOptions, function (key, val) {
             options[key] = val;
           });
         }
-        return new qq.UploadHandlerController(options, namespace);
+        return new _qq.UploadHandlerController(options, namespace);
       },
       _fileOrBlobRejected: function _fileOrBlobRejected(id) {
         this._netUploadedOrQueued--;
-        this._uploadData.setStatus(id, qq.status.REJECTED);
+        this._uploadData.setStatus(id, _qq.status.REJECTED);
       },
       _formatSize: function _formatSize(bytes) {
         if (bytes === 0) {
@@ -2040,17 +2040,17 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _generateExtraButtonSpecs: function _generateExtraButtonSpecs() {
         var self = this;
         this._extraButtonSpecs = {};
-        qq.each(this._options.extraButtons, function (idx, extraButtonOptionEntry) {
+        _qq.each(this._options.extraButtons, function (idx, extraButtonOptionEntry) {
           var multiple = extraButtonOptionEntry.multiple,
-            validation = qq.extend({}, self._options.validation, true),
-            extraButtonSpec = qq.extend({}, extraButtonOptionEntry);
+            validation = _qq.extend({}, self._options.validation, true),
+            extraButtonSpec = _qq.extend({}, extraButtonOptionEntry);
           if (multiple === undefined) {
             multiple = self._options.multiple;
           }
           if (extraButtonSpec.validation) {
-            qq.extend(validation, extraButtonOptionEntry.validation, true);
+            _qq.extend(validation, extraButtonOptionEntry.validation, true);
           }
-          qq.extend(extraButtonSpec, {
+          _qq.extend(extraButtonSpec, {
             multiple: multiple,
             validation: validation
           }, true);
@@ -2069,24 +2069,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var inputs,
           fileInput,
           fileBlobOrInput = buttonOrFileInputOrFile;
-        if (fileBlobOrInput instanceof qq.BlobProxy) {
+        if (fileBlobOrInput instanceof _qq.BlobProxy) {
           fileBlobOrInput = fileBlobOrInput.referenceBlob;
         }
-        if (fileBlobOrInput && !qq.isBlob(fileBlobOrInput)) {
-          if (qq.isFile(fileBlobOrInput)) {
+        if (fileBlobOrInput && !_qq.isBlob(fileBlobOrInput)) {
+          if (_qq.isFile(fileBlobOrInput)) {
             return fileBlobOrInput.qqButtonId;
           } else if (fileBlobOrInput.tagName.toLowerCase() === "input" && fileBlobOrInput.type.toLowerCase() === "file") {
-            return fileBlobOrInput.getAttribute(qq.UploadButton.BUTTON_ID_ATTR_NAME);
+            return fileBlobOrInput.getAttribute(_qq.UploadButton.BUTTON_ID_ATTR_NAME);
           }
           inputs = fileBlobOrInput.getElementsByTagName("input");
-          qq.each(inputs, function (idx, input) {
+          _qq.each(inputs, function (idx, input) {
             if (input.getAttribute("type") === "file") {
               fileInput = input;
               return false;
             }
           });
           if (fileInput) {
-            return fileInput.getAttribute(qq.UploadButton.BUTTON_ID_ATTR_NAME);
+            return fileInput.getAttribute(_qq.UploadButton.BUTTON_ID_ATTR_NAME);
           }
         }
       },
@@ -2095,7 +2095,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _getNotFinished: function _getNotFinished() {
         return this._uploadData.retrieve({
-          status: [qq.status.UPLOADING, qq.status.UPLOAD_RETRYING, qq.status.QUEUED, qq.status.SUBMITTING, qq.status.SUBMITTED, qq.status.PAUSED]
+          status: [_qq.status.UPLOADING, _qq.status.UPLOAD_RETRYING, _qq.status.QUEUED, _qq.status.SUBMITTING, _qq.status.SUBMITTED, _qq.status.PAUSED]
         }).length;
       },
       _getValidationBase: function _getValidationBase(buttonId) {
@@ -2103,9 +2103,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return extraButtonSpec ? extraButtonSpec.validation : this._options.validation;
       },
       _getValidationDescriptor: function _getValidationDescriptor(fileWrapper) {
-        if (fileWrapper.file instanceof qq.BlobProxy) {
+        if (fileWrapper.file instanceof _qq.BlobProxy) {
           return {
-            name: qq.getFilename(fileWrapper.file.referenceBlob),
+            name: _qq.getFilename(fileWrapper.file.referenceBlob),
             size: fileWrapper.file.referenceBlob.size
           };
         }
@@ -2121,13 +2121,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _getValidationDescriptors: function _getValidationDescriptors(fileWrappers) {
         var self = this,
           fileDescriptors = [];
-        qq.each(fileWrappers, function (idx, fileWrapper) {
+        _qq.each(fileWrappers, function (idx, fileWrapper) {
           fileDescriptors.push(self._getValidationDescriptor(fileWrapper));
         });
         return fileDescriptors;
       },
       _handleCameraAccess: function _handleCameraAccess() {
-        if (this._options.camera.ios && qq.ios()) {
+        if (this._options.camera.ios && _qq.ios()) {
           var acceptIosCamera = "image/*;capture=camera",
             button = this._options.camera.button,
             buttonId = button ? this._getButtonId(button) : this._defaultButtonId,
@@ -2141,7 +2141,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           } else {
             optionRoot.validation.acceptFiles += "," + acceptIosCamera;
           }
-          qq.each(this._buttons, function (idx, button) {
+          _qq.each(this._buttons, function (idx, button) {
             if (button.getButtonId() === buttonId) {
               button.setMultiple(optionRoot.multiple);
               button.setAcceptFiles(optionRoot.acceptFiles);
@@ -2153,7 +2153,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _handleCheckedCallback: function _handleCheckedCallback(details) {
         var self = this,
           callbackRetVal = details.callback();
-        if (qq.isGenericPromise(callbackRetVal)) {
+        if (_qq.isGenericPromise(callbackRetVal)) {
           this.log(details.name + " - waiting for " + details.name + " promise to be fulfilled for " + details.identifier);
           return callbackRetVal.then(function (successParam) {
             self.log(details.name + " promise success for " + details.identifier);
@@ -2181,12 +2181,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _handleNewFile: function _handleNewFile(file, batchId, newFileWrapperList) {
         var self = this,
-          uuid = qq.getUniqueId(),
+          uuid = _qq.getUniqueId(),
           size = -1,
-          name = qq.getFilename(file),
+          name = _qq.getFilename(file),
           actualFile = file.blob || file,
-          handler = this._customNewFileHandler ? this._customNewFileHandler : qq.bind(self._handleNewFileGeneric, self);
-        if (!qq.isInput(actualFile) && actualFile.size >= 0) {
+          handler = this._customNewFileHandler ? this._customNewFileHandler : _qq.bind(self._handleNewFileGeneric, self);
+        if (!_qq.isInput(actualFile) && actualFile.size >= 0) {
           size = actualFile.size;
         }
         handler(actualFile, name, uuid, size, newFileWrapperList, batchId, this._options.request.uuidName, {
@@ -2230,18 +2230,18 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _handleDeleteSuccess: function _handleDeleteSuccess(id) {
         if (this.getUploads({
           id: id
-        }).status !== qq.status.DELETED) {
+        }).status !== _qq.status.DELETED) {
           var name = this.getName(id);
           this._netUploadedOrQueued--;
           this._netUploaded--;
           this._handler.expunge(id);
-          this._uploadData.setStatus(id, qq.status.DELETED);
+          this._uploadData.setStatus(id, _qq.status.DELETED);
           this.log("Delete request for '" + name + "' has succeeded.");
         }
       },
       _handleDeleteFailed: function _handleDeleteFailed(id, xhrOrXdr) {
         var name = this.getName(id);
-        this._uploadData.setStatus(id, qq.status.DELETE_FAILED);
+        this._uploadData.setStatus(id, _qq.status.DELETE_FAILED);
         this.log("Delete request for '" + name + "' has failed.", "error");
         if (!xhrOrXdr || xhrOrXdr.withCredentials === undefined) {
           this._options.callbacks.onError(id, name, "Delete request failed", xhrOrXdr);
@@ -2261,7 +2261,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         this._extraButtonSpecs[button.getButtonId()] = spec;
       },
       _initFormSupportAndParams: function _initFormSupportAndParams() {
-        this._formSupport = qq.FormSupport && new qq.FormSupport(this._options.form, qq.bind(this.uploadStoredFiles, this), qq.bind(this.log, this));
+        this._formSupport = _qq.FormSupport && new _qq.FormSupport(this._options.form, _qq.bind(this.uploadStoredFiles, this), _qq.bind(this.log, this));
         if (this._formSupport && this._formSupport.attachedToForm) {
           this._paramsStore = this._createStore(this._options.request.params, this._formSupport.getFormInputsAsObject);
           this._options.autoUpload = this._formSupport.newAutoUpload;
@@ -2273,14 +2273,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       },
       _isDeletePossible: function _isDeletePossible() {
-        if (!qq.DeleteFileAjaxRequester || !this._options.deleteFile.enabled) {
+        if (!_qq.DeleteFileAjaxRequester || !this._options.deleteFile.enabled) {
           return false;
         }
         if (this._options.cors.expected) {
-          if (qq.supportedFeatures.deleteFileCorsXhr) {
+          if (_qq.supportedFeatures.deleteFileCorsXhr) {
             return true;
           }
-          if (qq.supportedFeatures.deleteFileCorsXdr && this._options.cors.allowXdr) {
+          if (_qq.supportedFeatures.deleteFileCorsXdr && this._options.cors.allowXdr) {
             return true;
           }
           return false;
@@ -2292,8 +2292,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (!allowed.length) {
           return true;
         }
-        qq.each(allowed, function (idx, allowedExt) {
-          if (qq.isString(allowedExt)) {
+        _qq.each(allowed, function (idx, allowedExt) {
+          if (_qq.isString(allowedExt)) {
             var extRegex = new RegExp("\\." + allowedExt + "$", "i");
             if (fileName.match(extRegex) != null) {
               valid = true;
@@ -2315,8 +2315,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         function r(name, replacement) {
           message = message.replace(name, replacement);
         }
-        qq.each(validationBase.allowedExtensions, function (idx, allowedExtension) {
-          if (qq.isString(allowedExtension)) {
+        _qq.each(validationBase.allowedExtensions, function (idx, allowedExtension) {
+          if (_qq.isString(allowedExtension)) {
             allowedExtensions.push(allowedExtension);
           }
         });
@@ -2327,7 +2327,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         r("{minSizeLimit}", this._formatSize(validationBase.minSizeLimit));
         placeholderMatch = message.match(/(\{\w+\})/g);
         if (placeholderMatch !== null) {
-          qq.each(placeholderMatch, function (idx, placeholder) {
+          _qq.each(placeholderMatch, function (idx, placeholder) {
             r(placeholder, names[idx]);
           });
         }
@@ -2337,7 +2337,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _manualRetry: function _manualRetry(id, callback) {
         if (this._onBeforeManualRetry(id)) {
           this._netUploadedOrQueued++;
-          this._uploadData.setStatus(id, qq.status.UPLOAD_RETRYING);
+          this._uploadData.setStatus(id, _qq.status.UPLOAD_RETRYING);
           if (callback) {
             callback(id);
           } else {
@@ -2349,9 +2349,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _maybeAllComplete: function _maybeAllComplete(id, status) {
         var self = this,
           notFinished = this._getNotFinished();
-        if (status === qq.status.UPLOAD_SUCCESSFUL) {
+        if (status === _qq.status.UPLOAD_SUCCESSFUL) {
           this._succeededSinceLastAllComplete.push(id);
-        } else if (status === qq.status.UPLOAD_FAILED) {
+        } else if (status === _qq.status.UPLOAD_FAILED) {
           this._failedSinceLastAllComplete.push(id);
         }
         if (notFinished === 0 && (this._succeededSinceLastAllComplete.length || this._failedSinceLastAllComplete.length)) {
@@ -2362,11 +2362,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _maybeHandleIos8SafariWorkaround: function _maybeHandleIos8SafariWorkaround() {
         var self = this;
-        if (this._options.workarounds.ios8SafariUploads && qq.ios800() && qq.iosSafari()) {
+        if (this._options.workarounds.ios8SafariUploads && _qq.ios800() && _qq.iosSafari()) {
           setTimeout(function () {
             window.alert(self._options.messages.unsupportedBrowserIos8Safari);
           }, 0);
-          throw new qq.Error(this._options.messages.unsupportedBrowserIos8Safari);
+          throw new _qq.Error(this._options.messages.unsupportedBrowserIos8Safari);
         }
       },
       _maybeParseAndSendUploadError: function _maybeParseAndSendUploadError(id, name, response, xhr) {
@@ -2389,9 +2389,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                 button = self._getButton(buttonId);
               self._handleCheckedCallback({
                 name: "onValidate",
-                callback: qq.bind(self._options.callbacks.onValidate, self, validationDescriptor, button),
-                onSuccess: qq.bind(self._onValidateCallbackSuccess, self, items, index, params, endpoint),
-                onFailure: qq.bind(self._onValidateCallbackFailure, self, items, index, params, endpoint),
+                callback: _qq.bind(self._options.callbacks.onValidate, self, validationDescriptor, button),
+                onSuccess: _qq.bind(self._onValidateCallbackSuccess, self, items, index, params, endpoint),
+                onFailure: _qq.bind(self._onValidateCallbackFailure, self, items, index, params, endpoint),
                 identifier: "Item '" + validationDescriptor.name + "', size: " + validationDescriptor.size
               });
             }, 0);
@@ -2404,7 +2404,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _onAllComplete: function _onAllComplete(successful, failed) {
         this._totalProgress && this._totalProgress.onAllComplete(successful, failed, this._preventRetries);
-        this._options.callbacks.onAllComplete(qq.extend([], successful), qq.extend([], failed));
+        this._options.callbacks.onAllComplete(_qq.extend([], successful), _qq.extend([], failed));
         this._succeededSinceLastAllComplete = [];
         this._failedSinceLastAllComplete = [];
       },
@@ -2416,7 +2416,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           self._maybeParseAndSendUploadError.apply(self, arguments);
           self._options.callbacks.onAutoRetry(id, name, self._autoRetries[id]);
           self._onBeforeAutoRetry(id, name);
-          self._uploadData.setStatus(id, qq.status.UPLOAD_RETRYING);
+          self._uploadData.setStatus(id, _qq.status.UPLOAD_RETRYING);
           self._retryTimeouts[id] = setTimeout(function () {
             self.log("Starting retry for " + name + "...");
             if (callback) {
@@ -2456,16 +2456,16 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _onCancel: function _onCancel(id, name) {
         this._netUploadedOrQueued--;
         clearTimeout(this._retryTimeouts[id]);
-        var storedItemIndex = qq.indexOf(this._storedIds, id);
+        var storedItemIndex = _qq.indexOf(this._storedIds, id);
         if (!this._options.autoUpload && storedItemIndex >= 0) {
           this._storedIds.splice(storedItemIndex, 1);
         }
-        this._uploadData.setStatus(id, qq.status.CANCELED);
+        this._uploadData.setStatus(id, _qq.status.CANCELED);
       },
       _onComplete: function _onComplete(id, name, result, xhr) {
         if (!result.success) {
           this._netUploadedOrQueued--;
-          this._uploadData.setStatus(id, qq.status.UPLOAD_FAILED);
+          this._uploadData.setStatus(id, _qq.status.UPLOAD_FAILED);
           if (result[this._options.retry.preventRetryResponseProperty] === true) {
             this._preventRetries[id] = true;
           }
@@ -2474,13 +2474,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             this._thumbnailUrls[id] = result.thumbnailUrl;
           }
           this._netUploaded++;
-          this._uploadData.setStatus(id, qq.status.UPLOAD_SUCCESSFUL);
+          this._uploadData.setStatus(id, _qq.status.UPLOAD_SUCCESSFUL);
         }
         this._maybeParseAndSendUploadError(id, name, result, xhr);
         return result.success ? true : false;
       },
       _onDelete: function _onDelete(id) {
-        this._uploadData.setStatus(id, qq.status.DELETING);
+        this._uploadData.setStatus(id, _qq.status.DELETING);
       },
       _onDeleteComplete: function _onDeleteComplete(id, xhrOrXdr, isError) {
         var name = this.getName(id);
@@ -2492,7 +2492,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _onInputChange: function _onInputChange(input) {
         var fileIndex;
-        if (qq.supportedFeatures.ajaxUploading) {
+        if (_qq.supportedFeatures.ajaxUploading) {
           for (fileIndex = 0; fileIndex < input.files.length; fileIndex++) {
             this._annotateWithButtonId(input.files[fileIndex], input);
           }
@@ -2500,7 +2500,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         } else if (input.value.length > 0) {
           this.addFiles(input);
         }
-        qq.each(this._buttons, function (idx, button) {
+        _qq.each(this._buttons, function (idx, button) {
           button.reset();
         });
       },
@@ -2510,7 +2510,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _onSubmit: function _onSubmit(id, name) {},
       _onSubmitCallbackSuccess: function _onSubmitCallbackSuccess(id, name) {
         this._onSubmit.apply(this, arguments);
-        this._uploadData.setStatus(id, qq.status.SUBMITTED);
+        this._uploadData.setStatus(id, _qq.status.SUBMITTED);
         this._onSubmitted.apply(this, arguments);
         if (this._options.autoUpload) {
           this._options.callbacks.onSubmitted.apply(this, arguments);
@@ -2524,13 +2524,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var uuid = this.getUuid(id),
           adjustedOnSuccessCallback;
         if (onSuccessCallback) {
-          adjustedOnSuccessCallback = qq.bind(onSuccessCallback, this, id, uuid, additionalMandatedParams);
+          adjustedOnSuccessCallback = _qq.bind(onSuccessCallback, this, id, uuid, additionalMandatedParams);
         }
         if (this._isDeletePossible()) {
           this._handleCheckedCallback({
             name: "onSubmitDelete",
-            callback: qq.bind(this._options.callbacks.onSubmitDelete, this, id),
-            onSuccess: adjustedOnSuccessCallback || qq.bind(this._deleteHandler.sendDelete, this, id, uuid, additionalMandatedParams),
+            callback: _qq.bind(this._options.callbacks.onSubmitDelete, this, id),
+            onSuccess: adjustedOnSuccessCallback || _qq.bind(this._deleteHandler.sendDelete, this, id, uuid, additionalMandatedParams),
             identifier: id
           });
           return true;
@@ -2545,7 +2545,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _onUploadPrep: function _onUploadPrep(id) {},
       _onUpload: function _onUpload(id, name) {
-        this._uploadData.setStatus(id, qq.status.UPLOADING);
+        this._uploadData.setStatus(id, _qq.status.UPLOADING);
       },
       _onUploadChunk: function _onUploadChunk(id, chunkData) {},
       _onUploadChunkSuccess: function _onUploadChunkSuccess(id, chunkData) {
@@ -2554,13 +2554,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       },
       _onUploadStatusChange: function _onUploadStatusChange(id, oldStatus, newStatus) {
-        if (newStatus === qq.status.PAUSED) {
+        if (newStatus === _qq.status.PAUSED) {
           clearTimeout(this._retryTimeouts[id]);
         }
       },
       _onValidateBatchCallbackFailure: function _onValidateBatchCallbackFailure(fileWrappers) {
         var self = this;
-        qq.each(fileWrappers, function (idx, fileWrapper) {
+        _qq.each(fileWrappers, function (idx, fileWrapper) {
           self._fileOrBlobRejected(fileWrapper.id);
         });
       },
@@ -2572,9 +2572,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           if (items.length > 0) {
             this._handleCheckedCallback({
               name: "onValidate",
-              callback: qq.bind(this._options.callbacks.onValidate, this, validationDescriptors[0], button),
-              onSuccess: qq.bind(this._onValidateCallbackSuccess, this, items, 0, params, endpoint),
-              onFailure: qq.bind(this._onValidateCallbackFailure, this, items, 0, params, endpoint),
+              callback: _qq.bind(this._options.callbacks.onValidate, this, validationDescriptors[0], button),
+              onSuccess: _qq.bind(this._onValidateCallbackSuccess, this, items, 0, params, endpoint),
+              onFailure: _qq.bind(this._onValidateCallbackFailure, this, items, 0, params, endpoint),
               identifier: "Item '" + items[0].file.name + "', size: " + items[0].file.size
             });
           } else {
@@ -2612,9 +2612,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           button = this._getButton(buttonId);
         this._handleCheckedCallback({
           name: "onValidateBatch",
-          callback: qq.bind(this._options.callbacks.onValidateBatch, this, validationDescriptors, button),
-          onSuccess: qq.bind(this._onValidateBatchCallbackSuccess, this, validationDescriptors, items, params, endpoint, button),
-          onFailure: qq.bind(this._onValidateBatchCallbackFailure, this, items),
+          callback: _qq.bind(this._options.callbacks.onValidateBatch, this, validationDescriptors, button),
+          onSuccess: _qq.bind(this._onValidateBatchCallbackSuccess, this, validationDescriptors, items, params, endpoint, button),
+          onFailure: _qq.bind(this._onValidateBatchCallbackFailure, this, items),
           identifier: "batch validation"
         });
       },
@@ -2631,14 +2631,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _refreshSessionData: function _refreshSessionData() {
         var self = this,
           options = this._options.session;
-        if (qq.Session && this._options.session.endpoint != null) {
+        if (_qq.Session && this._options.session.endpoint != null) {
           if (!this._session) {
-            qq.extend(options, {
+            _qq.extend(options, {
               cors: this._options.cors
             });
-            options.log = qq.bind(this.log, this);
-            options.addFileRecord = qq.bind(this._addCannedFile, this);
-            this._session = new qq.Session(options);
+            options.log = _qq.bind(this.log, this);
+            options.addFileRecord = _qq.bind(this._addCannedFile, this);
+            this._session = new _qq.Session(options);
           }
           setTimeout(function () {
             self._session.refresh().then(function (response, xhrOrXdr) {
@@ -2659,7 +2659,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var uploadData = this._uploadData.retrieve({
           id: id
         });
-        if (!this._preventRetries[id] && this._options.retry.enableAuto && uploadData.status !== qq.status.PAUSED) {
+        if (!this._preventRetries[id] && this._options.retry.enableAuto && uploadData.status !== _qq.status.PAUSED) {
           if (this._autoRetries[id] === undefined) {
             this._autoRetries[id] = 0;
           }
@@ -2675,7 +2675,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _trackButton: function _trackButton(id) {
         var buttonId;
-        if (qq.supportedFeatures.ajaxUploading) {
+        if (_qq.supportedFeatures.ajaxUploading) {
           buttonId = this._handler.getFile(id).qqButtonId;
         } else {
           buttonId = this._getButtonId(this._handler.getInput(id));
@@ -2686,7 +2686,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _updateFormSupportAndParams: function _updateFormSupportAndParams(formElementOrId) {
         this._options.form.element = formElementOrId;
-        this._formSupport = qq.FormSupport && new qq.FormSupport(this._options.form, qq.bind(this.uploadStoredFiles, this), qq.bind(this.log, this));
+        this._formSupport = _qq.FormSupport && new _qq.FormSupport(this._options.form, _qq.bind(this.uploadStoredFiles, this), _qq.bind(this.log, this));
         if (this._formSupport && this._formSupport.attachedToForm) {
           this._paramsStore.addReadOnly(null, this._formSupport.getFormInputsAsObject);
           this._options.autoUpload = this._formSupport.newAutoUpload;
@@ -2705,15 +2705,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
         this._handleCheckedCallback({
           name: "onSubmit",
-          callback: qq.bind(this._options.callbacks.onSubmit, this, id, name),
-          onSuccess: qq.bind(this._onSubmitCallbackSuccess, this, id, name),
-          onFailure: qq.bind(this._fileOrBlobRejected, this, id, name),
+          callback: _qq.bind(this._options.callbacks.onSubmit, this, id, name),
+          onSuccess: _qq.bind(this._onSubmitCallbackSuccess, this, id, name),
+          onFailure: _qq.bind(this._fileOrBlobRejected, this, id, name),
           identifier: id
         });
       },
       _uploadFile: function _uploadFile(id) {
         if (!this._handler.upload(id)) {
-          this._uploadData.setStatus(id, qq.status.QUEUED);
+          this._uploadData.setStatus(id, _qq.status.QUEUED);
         }
       },
       _uploadStoredFiles: function _uploadStoredFiles() {
@@ -2725,10 +2725,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this._uploadFile(idToUpload);
         }
         stillSubmitting = this.getUploads({
-          status: qq.status.SUBMITTING
+          status: _qq.status.SUBMITTING
         }).length;
         if (stillSubmitting) {
-          qq.log("Still waiting for " + stillSubmitting + " files to clear submit queue. Will re-parse stored IDs array shortly.");
+          _qq.log("Still waiting for " + stillSubmitting + " files to clear submit queue. Will re-parse stored IDs array shortly.");
           setTimeout(function () {
             self._uploadStoredFiles();
           }, 1e3);
@@ -2737,7 +2737,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _validateFileOrBlobData: function _validateFileOrBlobData(fileWrapper, validationDescriptor) {
         var self = this,
           file = function () {
-            if (fileWrapper.file instanceof qq.BlobProxy) {
+            if (fileWrapper.file instanceof _qq.BlobProxy) {
               return fileWrapper.file.referenceBlob;
             }
             return fileWrapper.file;
@@ -2746,11 +2746,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           size = validationDescriptor.size,
           buttonId = this._getButtonId(fileWrapper.file),
           validationBase = this._getValidationBase(buttonId),
-          validityChecker = new qq.Promise();
+          validityChecker = new _qq.Promise();
         validityChecker.then(function () {}, function () {
           self._fileOrBlobRejected(fileWrapper.id, name);
         });
-        if (qq.isFileOrInput(file) && !this._isAllowedExtension(validationBase.allowedExtensions, name)) {
+        if (_qq.isFileOrInput(file) && !this._isAllowedExtension(validationBase.allowedExtensions, name)) {
           this._itemError("typeError", name, file);
           return validityChecker.failure();
         }
@@ -2766,8 +2766,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this._itemError("minSizeError", name, file);
           return validityChecker.failure();
         }
-        if (qq.ImageValidation && qq.supportedFeatures.imagePreviews && qq.isFile(file)) {
-          new qq.ImageValidation(file, qq.bind(self.log, self)).validate(validationBase.image).then(validityChecker.success, function (errorCode) {
+        if (_qq.ImageValidation && _qq.supportedFeatures.imagePreviews && _qq.isFile(file)) {
+          new _qq.ImageValidation(file, _qq.bind(self.log, self)).validate(validationBase.image).then(validityChecker.success, function (errorCode) {
             self._itemError(errorCode + "ImageError", name, file);
             validityChecker.failure();
           });
@@ -2804,7 +2804,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
   (function () {
     "use strict";
 
-    qq.FineUploaderBasic = function (o) {
+    _qq.FineUploaderBasic = function (o) {
       var self = this;
       this._options = {
         debug: false,
@@ -2990,12 +2990,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           ios8BrowserCrash: false
         }
       };
-      qq.extend(this._options, o, true);
+      _qq.extend(this._options, o, true);
       this._buttons = [];
       this._extraButtonSpecs = {};
       this._buttonIdsForFileIds = [];
       this._wrapCallbacks();
-      this._disposeSupport = new qq.DisposeSupport();
+      this._disposeSupport = new _qq.DisposeSupport();
       this._storedIds = [];
       this._autoRetries = [];
       this._retryTimeouts = [];
@@ -3011,7 +3011,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       this._endpointStore = this._createStore(this._options.request.endpoint);
       this._deleteFileEndpointStore = this._createStore(this._options.deleteFile.endpoint);
       this._handler = this._createUploadHandler();
-      this._deleteHandler = qq.DeleteFileAjaxRequester && this._createDeleteHandler();
+      this._deleteHandler = _qq.DeleteFileAjaxRequester && this._createDeleteHandler();
       if (this._options.button) {
         this._defaultButtonId = this._createUploadButton({
           element: this._options.button,
@@ -3021,23 +3021,23 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       this._generateExtraButtonSpecs();
       this._handleCameraAccess();
       if (this._options.paste.targetElement) {
-        if (qq.PasteSupport) {
+        if (_qq.PasteSupport) {
           this._pasteHandler = this._createPasteHandler();
         } else {
           this.log("Paste support module not found", "error");
         }
       }
       this._options.warnBeforeUnload && this._preventLeaveInProgress();
-      this._imageGenerator = qq.ImageGenerator && new qq.ImageGenerator(qq.bind(this.log, this));
+      this._imageGenerator = _qq.ImageGenerator && new _qq.ImageGenerator(_qq.bind(this.log, this));
       this._refreshSessionData();
       this._succeededSinceLastAllComplete = [];
       this._failedSinceLastAllComplete = [];
-      this._scaler = qq.Scaler && new qq.Scaler(this._options.scaling, qq.bind(this.log, this)) || {};
+      this._scaler = _qq.Scaler && new _qq.Scaler(this._options.scaling, _qq.bind(this.log, this)) || {};
       if (this._scaler.enabled) {
-        this._customNewFileHandler = qq.bind(this._scaler.handleNewFile, this._scaler);
+        this._customNewFileHandler = _qq.bind(this._scaler.handleNewFile, this._scaler);
       }
-      if (qq.TotalProgress && qq.supportedFeatures.progressBar) {
-        this._totalProgress = new qq.TotalProgress(qq.bind(this._onTotalProgress, this), function (id) {
+      if (_qq.TotalProgress && _qq.supportedFeatures.progressBar) {
+        this._totalProgress = new _qq.TotalProgress(_qq.bind(this._onTotalProgress, this), function (id) {
           var entry = self._uploadData.retrieve({
             id: id
           });
@@ -3047,10 +3047,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       this._currentItemLimit = this._options.validation.itemLimit;
       this._customResumeDataStore = this._createStore();
     };
-    qq.FineUploaderBasic.prototype = qq.basePublicApi;
-    qq.extend(qq.FineUploaderBasic.prototype, qq.basePrivateApi);
+    _qq.FineUploaderBasic.prototype = _qq.basePublicApi;
+    _qq.extend(_qq.FineUploaderBasic.prototype, _qq.basePrivateApi);
   })();
-  qq.AjaxRequester = function (o) {
+  _qq.AjaxRequester = function (o) {
     "use strict";
 
     var log,
@@ -3084,18 +3084,18 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         onComplete: function onComplete(id, xhrOrXdr, isError) {},
         onProgress: null
       };
-    qq.extend(options, o);
+    _qq.extend(options, o);
     log = options.log;
-    if (qq.indexOf(options.validMethods, options.method) < 0) {
+    if (_qq.indexOf(options.validMethods, options.method) < 0) {
       throw new Error("'" + options.method + "' is not a supported method for this type of request!");
     }
     function isSimpleMethod() {
-      return qq.indexOf(["GET", "POST", "HEAD"], options.method) >= 0;
+      return _qq.indexOf(["GET", "POST", "HEAD"], options.method) >= 0;
     }
     function containsNonSimpleHeaders(headers) {
       var containsNonSimple = false;
-      qq.each(containsNonSimple, function (idx, header) {
-        if (qq.indexOf(["Accept", "Accept-Language", "Content-Language", "Content-Type"], header) < 0) {
+      _qq.each(containsNonSimple, function (idx, header) {
+        if (_qq.indexOf(["Accept", "Accept-Language", "Content-Language", "Content-Type"], header) < 0) {
           containsNonSimple = true;
           return false;
         }
@@ -3108,7 +3108,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     function getCorsAjaxTransport() {
       var xhrOrXdr;
       if (window.XMLHttpRequest || window.ActiveXObject) {
-        xhrOrXdr = qq.createXhrInstance();
+        xhrOrXdr = _qq.createXhrInstance();
         if (xhrOrXdr.withCredentials === undefined) {
           xhrOrXdr = new XDomainRequest();
           xhrOrXdr.onload = function () {};
@@ -3128,7 +3128,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           if (options.cors.expected) {
             xhrOrXdr = getCorsAjaxTransport();
           } else {
-            xhrOrXdr = qq.createXhrInstance();
+            xhrOrXdr = _qq.createXhrInstance();
           }
         }
         requestData[id].xhr = xhrOrXdr;
@@ -3136,7 +3136,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return xhrOrXdr;
     }
     function dequeue(id) {
-      var i = qq.indexOf(queue, id),
+      var i = _qq.indexOf(queue, id),
         max = options.maxConnections,
         nextId;
       delete requestData[id];
@@ -3167,13 +3167,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         params = options.paramsStore.get(id);
       }
       if (onDemandParams) {
-        qq.each(onDemandParams, function (name, val) {
+        _qq.each(onDemandParams, function (name, val) {
           params = params || {};
           params[name] = val;
         });
       }
       if (mandatedParams) {
-        qq.each(mandatedParams, function (name, val) {
+        _qq.each(mandatedParams, function (name, val) {
           params = params || {};
           params[name] = val;
         });
@@ -3206,7 +3206,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       } else if (shouldParamsBeInQueryString || !params) {
         xhr.send();
       } else if (params && options.contentType && options.contentType.toLowerCase().indexOf("application/x-www-form-urlencoded") >= 0) {
-        xhr.send(qq.obj2url(params, ""));
+        xhr.send(_qq.obj2url(params, ""));
       } else if (params && options.contentType && options.contentType.toLowerCase().indexOf("application/json") >= 0) {
         xhr.send(JSON.stringify(params));
       } else {
@@ -3221,10 +3221,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         endpoint += "/" + addToPath;
       }
       if (shouldParamsBeInQueryString && params) {
-        endpoint = qq.obj2url(params, endpoint);
+        endpoint = _qq.obj2url(params, endpoint);
       }
       if (additionalQueryParams) {
-        endpoint = qq.obj2url(additionalQueryParams, endpoint);
+        endpoint = _qq.obj2url(additionalQueryParams, endpoint);
       }
       return endpoint;
     }
@@ -3272,15 +3272,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (options.contentType && (method === "POST" || method === "PUT")) {
           xhr.setRequestHeader("Content-Type", options.contentType);
         }
-        qq.extend(allHeaders, qq.isFunction(customHeaders) ? customHeaders(id) : customHeaders);
-        qq.extend(allHeaders, onDemandHeaders);
-        qq.each(allHeaders, function (name, val) {
+        _qq.extend(allHeaders, _qq.isFunction(customHeaders) ? customHeaders(id) : customHeaders);
+        _qq.extend(allHeaders, onDemandHeaders);
+        _qq.each(allHeaders, function (name, val) {
           xhr.setRequestHeader(name, val);
         });
       }
     }
     function isResponseSuccessful(responseCode) {
-      return qq.indexOf(options.successfulResponseCodes[options.method], responseCode) >= 0;
+      return _qq.indexOf(options.successfulResponseCodes[options.method], responseCode) >= 0;
     }
     function prepareToSend(id, optXhr, addToPath, additionalParams, additionalQueryParams, additionalHeaders, payload) {
       requestData[id] = {
@@ -3296,7 +3296,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     }
     shouldParamsBeInQueryString = options.method === "GET" || options.method === "DELETE";
-    qq.extend(this, {
+    _qq.extend(this, {
       initTransport: function initTransport(id) {
         var path, params, headers, payload, cacheBuster, additionalQueryParams;
         return {
@@ -3325,7 +3325,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return this;
           },
           send: function send(optXhr) {
-            if (cacheBuster && qq.indexOf(["GET", "DELETE"], options.method) >= 0) {
+            if (cacheBuster && _qq.indexOf(["GET", "DELETE"], options.method) >= 0) {
               params.qqtimestamp = new Date().getTime();
             }
             return prepareToSend(id, optXhr, path, params, additionalQueryParams, headers, payload);
@@ -3337,21 +3337,21 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.UploadHandler = function (spec) {
+  _qq.UploadHandler = function (spec) {
     "use strict";
 
     var proxy = spec.proxy,
       fileState = {},
       onCancel = proxy.onCancel,
       getName = proxy.getName;
-    qq.extend(this, {
+    _qq.extend(this, {
       add: function add(id, fileItem) {
         fileState[id] = fileItem;
         fileState[id].temp = {};
       },
       cancel: function cancel(id) {
         var self = this,
-          cancelFinalizationEffort = new qq.Promise(),
+          cancelFinalizationEffort = new _qq.Promise(),
           onCancelRetVal = onCancel(id, getName(id), cancelFinalizationEffort);
         onCancelRetVal.then(function () {
           if (self.isValid(id)) {
@@ -3384,7 +3384,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.UploadHandlerController = function (o, namespace) {
+  _qq.UploadHandlerController = function (o, namespace) {
     "use strict";
 
     var controller = this,
@@ -3460,7 +3460,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             chunked.reset(id);
           } else {
             var inProgressChunksArray = handler._getFileState(id).chunking.inProgress;
-            inProgressIdx = inProgressChunksArray ? qq.indexOf(inProgressChunksArray, chunkIdx) : -1;
+            inProgressIdx = inProgressChunksArray ? _qq.indexOf(inProgressChunksArray, chunkIdx) : -1;
             if (inProgressIdx >= 0) {
               handler._getFileState(id).chunking.inProgress.splice(inProgressIdx, 1);
               handler._getFileState(id).chunking.remaining.unshift(chunkIdx);
@@ -3469,9 +3469,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           if (!handler._getFileState(id).temp.ignoreFailure) {
             if (concurrentChunkingPossible) {
               handler._getFileState(id).temp.ignoreFailure = true;
-              log(qq.format("Going to attempt to abort these chunks: {}. These are currently in-progress: {}.", JSON.stringify(Object.keys(handler._getXhrs(id))), JSON.stringify(handler._getFileState(id).chunking.inProgress)));
-              qq.each(handler._getXhrs(id), function (ckid, ckXhr) {
-                log(qq.format("Attempting to abort file {}.{}. XHR readyState {}. ", id, ckid, ckXhr.readyState));
+              log(_qq.format("Going to attempt to abort these chunks: {}. These are currently in-progress: {}.", JSON.stringify(Object.keys(handler._getXhrs(id))), JSON.stringify(handler._getFileState(id).chunking.inProgress)));
+              _qq.each(handler._getXhrs(id), function (ckid, ckXhr) {
+                log(_qq.format("Attempting to abort file {}.{}. XHR readyState {}. ", id, ckid, ckXhr.readyState));
                 ckXhr.abort();
                 ckXhr._cancelled = true;
               });
@@ -3529,15 +3529,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               chunked.sendNext(id);
             }
             if (chunkData.blob.size === 0) {
-              log(qq.format("Chunk {} for file {} will not be uploaded, zero sized chunk.", chunkIdx, id), "error");
+              log(_qq.format("Chunk {} for file {} will not be uploaded, zero sized chunk.", chunkIdx, id), "error");
               chunked.handleFailure(chunkIdx, id, "File is no longer available", null);
             }
             var onUploadChunkPromise = options.onUploadChunk(id, name, handler._getChunkDataForCallback(chunkData));
             onUploadChunkPromise.then(function (requestOverrides) {
               if (!options.isInProgress(id)) {
-                log(qq.format("Not sending chunked upload request for item {}.{} - no longer in progress.", id, chunkIdx));
+                log(_qq.format("Not sending chunked upload request for item {}.{} - no longer in progress.", id, chunkIdx));
               } else {
-                log(qq.format("Sending chunked upload request for item {}.{}, bytes {}-{} of {}.", id, chunkIdx, chunkData.start + 1, chunkData.end, size));
+                log(_qq.format("Sending chunked upload request for item {}.{}, bytes {}-{} of {}.", id, chunkIdx, chunkData.start + 1, chunkData.end, size));
                 var uploadChunkData = {
                   chunkIdx: chunkIdx,
                   id: id,
@@ -3549,8 +3549,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                   handler.clearCachedChunk(id, chunkIdx);
                   var inProgressChunks = handler._getFileState(id).chunking.inProgress || [],
                     responseToReport = _upload2.normalizeResponse(response, true),
-                    inProgressChunkIdx = qq.indexOf(inProgressChunks, chunkIdx);
-                  log(qq.format("Chunk {} for file {} uploaded successfully.", chunkIdx, id));
+                    inProgressChunkIdx = _qq.indexOf(inProgressChunks, chunkIdx);
+                  log(_qq.format("Chunk {} for file {} uploaded successfully.", chunkIdx, id));
                   chunked.done(id, chunkIdx, responseToReport, xhr);
                   if (inProgressChunkIdx >= 0) {
                     inProgressChunks.splice(inProgressChunkIdx, 1);
@@ -3561,7 +3561,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                   } else if (chunked.hasMoreParts(id)) {
                     chunked.sendNext(id);
                   } else {
-                    log(qq.format("File ID {} has no more chunks to send and these chunk indexes are still marked as in-progress: {}", id, JSON.stringify(inProgressChunks)));
+                    log(_qq.format("File ID {} has no more chunks to send and these chunk indexes are still marked as in-progress: {}", id, JSON.stringify(inProgressChunks)));
                   }
                 }, function failure(response, xhr) {
                   chunked.handleFailure(chunkIdx, id, response, xhr);
@@ -3583,7 +3583,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           var max = options.maxConnections,
             openChunkEntriesCount = 0,
             openChunksCount = 0;
-          qq.each(connectionManager._openChunks, function (fileId, openChunkIndexes) {
+          _qq.each(connectionManager._openChunks, function (fileId, openChunkIndexes) {
             openChunkEntriesCount++;
             openChunksCount += openChunkIndexes.length;
           });
@@ -3591,11 +3591,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         },
         free: function free(id, dontAllowNext) {
           var allowNext = !dontAllowNext,
-            waitingIndex = qq.indexOf(connectionManager._waiting, id),
-            connectionsIndex = qq.indexOf(connectionManager._open, id),
+            waitingIndex = _qq.indexOf(connectionManager._waiting, id),
+            connectionsIndex = _qq.indexOf(connectionManager._open, id),
             nextId;
           delete connectionManager._openChunks[id];
-          if (_upload2.getProxyOrBlob(id) instanceof qq.BlobProxy) {
+          if (_upload2.getProxyOrBlob(id) instanceof _qq.BlobProxy) {
             log("Generated blob upload has ended for " + id + ", disposing generated blob.");
             delete handler._getFileState(id).file;
           }
@@ -3612,12 +3612,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         },
         getWaitingOrConnected: function getWaitingOrConnected() {
           var waitingOrConnected = [];
-          qq.each(connectionManager._openChunks, function (fileId, chunks) {
+          _qq.each(connectionManager._openChunks, function (fileId, chunks) {
             if (chunks && chunks.length) {
               waitingOrConnected.push(parseInt(fileId));
             }
           });
-          qq.each(connectionManager._open, function (idx, fileId) {
+          _qq.each(connectionManager._open, function (idx, fileId) {
             if (!connectionManager._openChunks[fileId]) {
               waitingOrConnected.push(parseInt(fileId));
             }
@@ -3626,7 +3626,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return waitingOrConnected;
         },
         isUsingConnection: function isUsingConnection(id) {
-          return qq.indexOf(connectionManager._open, id) >= 0;
+          return _qq.indexOf(connectionManager._open, id) >= 0;
         },
         open: function open(id, chunkIdx) {
           if (chunkIdx == null) {
@@ -3695,8 +3695,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return handler.getProxy && handler.getProxy(id) || handler.getFile && handler.getFile(id);
         },
         initHandler: function initHandler() {
-          var handlerType = namespace ? qq[namespace] : qq.traditional,
-            handlerModuleSubtype = qq.supportedFeatures.ajaxUploading ? "Xhr" : "Form";
+          var handlerType = namespace ? _qq[namespace] : _qq.traditional,
+            handlerModuleSubtype = _qq.supportedFeatures.ajaxUploading ? "Xhr" : "Form";
           handler = new handlerType[handlerModuleSubtype + "UploadHandler"](options, {
             getCustomResumeData: options.getCustomResumeData,
             getDataByUuid: options.getDataByUuid,
@@ -3708,7 +3708,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             onProgress: options.onProgress,
             onUuidChanged: options.onUuidChanged,
             onFinalizing: function onFinalizing(id) {
-              options.setStatus(id, qq.status.UPLOAD_FINALIZING);
+              options.setStatus(id, _qq.status.UPLOAD_FINALIZING);
             }
           });
           if (handler._removeExpiredChunkingRecords) {
@@ -3719,7 +3719,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return options.isQueued(id);
         },
         maybeDefer: function maybeDefer(id, blob) {
-          if (blob && !handler.getFile(id) && blob instanceof qq.BlobProxy) {
+          if (blob && !handler.getFile(id) && blob instanceof _qq.BlobProxy) {
             options.onUploadPrep(id);
             log("Attempting to generate a blob on-demand for " + id);
             blob.create().then(function (generatedBlob) {
@@ -3733,8 +3733,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               if (errorMessage) {
                 errorResponse.error = errorMessage;
               }
-              log(qq.format("Failed to generate blob for ID {}.  Error message: {}.", id, errorMessage), "error");
-              options.onComplete(id, options.getName(id), qq.extend(errorResponse, preventRetryResponse), null);
+              log(_qq.format("Failed to generate blob for ID {}.  Error message: {}.", id, errorMessage), "error");
+              options.onComplete(id, options.getName(id), _qq.extend(errorResponse, preventRetryResponse), null);
               _upload2.maybeSendDeferredFiles(id);
               connectionManager.free(id);
             });
@@ -3748,7 +3748,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             uploadedThisId = false;
           if (idsInGroup && idsInGroup.length) {
             log("Maybe ready to upload proxy group file " + id);
-            qq.each(idsInGroup, function (idx, idInGroup) {
+            _qq.each(idsInGroup, function (idx, idInGroup) {
               if (_upload2.isDeferredEligibleForUpload(idInGroup) && !!handler.getFile(idInGroup)) {
                 uploadedThisId = idInGroup === id;
                 _upload2.now(idInGroup);
@@ -3769,9 +3769,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         },
         normalizeResponse: function normalizeResponse(originalResponse, successful) {
           var response = originalResponse;
-          if (!qq.isObject(originalResponse)) {
+          if (!_qq.isObject(originalResponse)) {
             response = {};
-            if (qq.isString(originalResponse) && !successful) {
+            if (_qq.isString(originalResponse) && !successful) {
               response.error = originalResponse;
             }
           }
@@ -3781,11 +3781,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         now: function now(id) {
           var name = options.getName(id);
           if (!controller.isValid(id)) {
-            throw new qq.Error(id + " is not a valid file ID to upload!");
+            throw new _qq.Error(id + " is not a valid file ID to upload!");
           }
           options.onUpload(id, name).then(function (response) {
             if (response && response.pause) {
-              options.setStatus(id, qq.status.PAUSED);
+              options.setStatus(id, _qq.status.PAUSED);
               handler.pause(id);
               connectionManager.free(id);
             } else {
@@ -3814,7 +3814,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
         }
       };
-    qq.extend(this, {
+    _qq.extend(this, {
       add: function add(id, file) {
         handler.add.apply(this, arguments);
       },
@@ -3836,7 +3836,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       cancel: function cancel(id) {
         var cancelRetVal = handler.cancel(id);
-        if (qq.isGenericPromise(cancelRetVal)) {
+        if (_qq.isGenericPromise(cancelRetVal)) {
           cancelRetVal.then(function () {
             _upload2.cancel(id);
           });
@@ -3915,9 +3915,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return !!handler.isResumable && handler.isResumable(id);
       }
     });
-    qq.extend(options, o);
+    _qq.extend(options, o);
     log = options.log;
-    chunkingPossible = options.chunking.enabled && qq.supportedFeatures.chunking;
+    chunkingPossible = options.chunking.enabled && _qq.supportedFeatures.chunking;
     concurrentChunkingPossible = chunkingPossible && options.chunking.concurrent.enabled;
     preventRetryResponse = function () {
       var response = {};
@@ -3926,21 +3926,21 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }();
     _upload2.initHandler();
   };
-  qq.WindowReceiveMessage = function (o) {
+  _qq.WindowReceiveMessage = function (o) {
     "use strict";
 
     var options = {
         log: function log(message, level) {}
       },
       callbackWrapperDetachers = {};
-    qq.extend(options, o);
-    qq.extend(this, {
+    _qq.extend(options, o);
+    _qq.extend(this, {
       receiveMessage: function receiveMessage(id, callback) {
         var onMessageCallbackWrapper = function onMessageCallbackWrapper(event) {
           callback(event.data);
         };
         if (window.postMessage) {
-          callbackWrapperDetachers[id] = qq(window).attach("message", onMessageCallbackWrapper);
+          callbackWrapperDetachers[id] = _qq(window).attach("message", onMessageCallbackWrapper);
         } else {
           log("iframe message passing not supported in this browser!", "error");
         }
@@ -3955,13 +3955,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.FormUploadHandler = function (spec) {
+  _qq.FormUploadHandler = function (spec) {
     "use strict";
 
     var options = spec.options,
       handler = this,
       proxy = spec.proxy,
-      formHandlerInstanceId = qq.getUniqueId(),
+      formHandlerInstanceId = _qq.getUniqueId(),
       onloadCallbacks = {},
       detachLoadEvents = {},
       postMessageCallbackTimers = {},
@@ -3969,7 +3969,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       inputName = options.inputName,
       getUuid = proxy.getUuid,
       log = proxy.log,
-      corsMessageReceiver = new qq.WindowReceiveMessage({
+      corsMessageReceiver = new _qq.WindowReceiveMessage({
         log: log
       });
     function expungeFile(id) {
@@ -3982,14 +3982,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       var iframe = document.getElementById(handler._getIframeName(id));
       if (iframe) {
         iframe.setAttribute("src", "javascript:false;");
-        qq(iframe).remove();
+        _qq(iframe).remove();
       }
     }
     function getFileIdForIframeName(iframeName) {
       return iframeName.split("_")[0];
     }
     function initIframeForUpload(name) {
-      var iframe = qq.toElement("<iframe src='javascript:false;' name='" + name + "' />");
+      var iframe = _qq.toElement("<iframe src='javascript:false;' name='" + name + "' />");
       iframe.setAttribute("id", name);
       iframe.style.display = "none";
       document.body.appendChild(iframe);
@@ -4000,7 +4000,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         fileId = getFileIdForIframeName(iframeName),
         uuid = getUuid(fileId);
       onloadCallbacks[uuid] = callback;
-      detachLoadEvents[fileId] = qq(iframe).attach("load", function () {
+      detachLoadEvents[fileId] = _qq(iframe).attach("load", function () {
         if (handler.getInput(fileId)) {
           log("Received iframe load event for CORS upload request (iframe name " + iframeName + ")");
           postMessageCallbackTimers[iframeName] = setTimeout(function () {
@@ -4032,8 +4032,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       });
     }
-    qq.extend(this, new qq.UploadHandler(spec));
-    qq.override(this, function (super_) {
+    _qq.extend(this, new _qq.UploadHandler(spec));
+    _qq.override(this, function (super_) {
       return {
         add: function add(id, fileInput) {
           super_.add(id, {
@@ -4041,7 +4041,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           });
           fileInput.setAttribute("name", inputName);
           if (fileInput.parentNode) {
-            qq(fileInput).remove();
+            _qq(fileInput).remove();
           }
         },
         expunge: function expunge(id) {
@@ -4053,7 +4053,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       };
     });
-    qq.extend(this, {
+    _qq.extend(this, {
       getInput: function getInput(id) {
         return handler._getFileState(id).input;
       },
@@ -4062,7 +4062,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (isCors) {
           registerPostMessageCallback(iframe, callback);
         } else {
-          detachLoadEvents[iframe.id] = qq(iframe).attach("load", function () {
+          detachLoadEvents[iframe.id] = _qq(iframe).attach("load", function () {
             log("Received response for " + iframe.id);
             if (!iframe.parentNode) {
               return;
@@ -4100,12 +4100,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           params = spec.params,
           paramsInBody = spec.paramsInBody,
           targetName = spec.targetName,
-          form = qq.toElement("<form method='" + method + "' enctype='multipart/form-data'></form>"),
+          form = _qq.toElement("<form method='" + method + "' enctype='multipart/form-data'></form>"),
           url = endpoint;
         if (paramsInBody) {
-          qq.obj2Inputs(params, form);
+          _qq.obj2Inputs(params, form);
         } else {
-          url = qq.obj2url(params, endpoint);
+          url = _qq.obj2url(params, endpoint);
         }
         form.setAttribute("action", url);
         form.setAttribute("target", targetName);
@@ -4116,7 +4116,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _parseJsonResponse: function _parseJsonResponse(innerHtmlOrMessage) {
         var response = {};
         try {
-          response = qq.parseJson(innerHtmlOrMessage);
+          response = _qq.parseJson(innerHtmlOrMessage);
         } catch (error) {
           log("Error when attempting to parse iframe upload response (" + error.message + ")", "error");
         }
@@ -4124,7 +4124,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.XhrUploadHandler = function (spec) {
+  _qq.XhrUploadHandler = function (spec) {
     "use strict";
 
     var handler = this,
@@ -4137,7 +4137,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           return fileState.chunkSize;
         } else {
           var chunkSize = chunking.partSize;
-          if (qq.isFunction(chunkSize)) {
+          if (_qq.isFunction(chunkSize)) {
             chunkSize = chunkSize(id, getSize(id));
           }
           fileState.chunkSize = chunkSize;
@@ -4145,8 +4145,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       },
       resume = spec.options.resume,
-      chunkFiles = chunking && spec.options.chunking.enabled && qq.supportedFeatures.chunking,
-      resumeEnabled = resume && spec.options.resume.enabled && chunkFiles && qq.supportedFeatures.resume,
+      chunkFiles = chunking && spec.options.chunking.enabled && _qq.supportedFeatures.chunking,
+      resumeEnabled = resume && spec.options.resume.enabled && chunkFiles && _qq.supportedFeatures.resume,
       getName = proxy.getName,
       getSize = proxy.getSize,
       getUuid = proxy.getUuid,
@@ -4157,7 +4157,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       log = proxy.log,
       getCustomResumeData = proxy.getCustomResumeData;
     function abort(id) {
-      qq.each(handler._getXhrs(id), function (xhrId, xhr) {
+      _qq.each(handler._getXhrs(id), function (xhrId, xhr) {
         var ajaxRequester = handler._getAjaxRequester(id, xhrId);
         xhr.onreadystatechange = null;
         xhr.upload.onprogress = null;
@@ -4165,15 +4165,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         ajaxRequester && ajaxRequester.canceled && ajaxRequester.canceled(id);
       });
     }
-    qq.extend(this, new qq.UploadHandler(spec));
-    qq.override(this, function (super_) {
+    _qq.extend(this, new _qq.UploadHandler(spec));
+    _qq.override(this, function (super_) {
       return {
         add: function add(id, blobOrProxy) {
-          if (qq.isFile(blobOrProxy) || qq.isBlob(blobOrProxy)) {
+          if (_qq.isFile(blobOrProxy) || _qq.isBlob(blobOrProxy)) {
             super_.add(id, {
               file: blobOrProxy
             });
-          } else if (blobOrProxy instanceof qq.BlobProxy) {
+          } else if (blobOrProxy instanceof _qq.BlobProxy) {
             super_.add(id, {
               proxy: blobOrProxy
             });
@@ -4191,7 +4191,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       };
     });
-    qq.extend(this, {
+    _qq.extend(this, {
       clearCachedChunk: function clearCachedChunk(id, chunkIdx) {
         var fileState = handler._getFileState(id);
         if (fileState) {
@@ -4211,9 +4211,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var lastChunkIdx = handler._getTotalChunks(id) - 1,
           xhr = handler._getXhr(id, lastChunkIdx);
         if (responseParser) {
-          return new qq.Promise().success(responseParser(xhr), xhr);
+          return new _qq.Promise().success(responseParser(xhr), xhr);
         }
-        return new qq.Promise().success({}, xhr);
+        return new _qq.Promise().success({}, xhr);
       },
       getFile: function getFile(id) {
         return handler.isValid(id) && handler._getFileState(id).file;
@@ -4253,9 +4253,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           inProgress = optInProgress || chunkingState.inProgress,
           remaining = optRemaining || chunkingState.remaining;
         if (inProgress) {
-          log(qq.format("Moving these chunks from in-progress {}, to remaining.", JSON.stringify(inProgress)));
+          log(_qq.format("Moving these chunks from in-progress {}, to remaining.", JSON.stringify(inProgress)));
           inProgress.reverse();
-          qq.each(inProgress, function (idx, chunkIdx) {
+          _qq.each(inProgress, function (idx, chunkIdx) {
             remaining.unshift(chunkIdx);
           });
           inProgress.length = 0;
@@ -4263,7 +4263,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       pause: function pause(id) {
         if (handler.isValid(id)) {
-          log(qq.format("Aborting XHR upload for {} '{}' due to pause instruction.", id, getName(id)));
+          log(_qq.format("Aborting XHR upload for {} '{}' due to pause instruction.", id, getName(id)));
           handler._getFileState(id).paused = true;
           abort(id);
           return true;
@@ -4297,15 +4297,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _clearXhrs: function _clearXhrs(id) {
         var tempState = handler._getFileState(id).temp;
-        qq.each(tempState.ajaxRequesters, function (chunkId) {
+        _qq.each(tempState.ajaxRequesters, function (chunkId) {
           delete tempState.ajaxRequesters[chunkId];
         });
-        qq.each(tempState.xhrs, function (chunkId) {
+        _qq.each(tempState.xhrs, function (chunkId) {
           delete tempState.xhrs[chunkId];
         });
       },
       _createXhr: function _createXhr(id, optChunkIdx) {
-        return handler._registerXhr(id, optChunkIdx, qq.createXhrInstance());
+        return handler._registerXhr(id, optChunkIdx, _qq.createXhrInstance());
       },
       _getAjaxRequester: function _getAjaxRequester(id, optChunkIdx) {
         var chunkIdx = optChunkIdx == null ? -1 : optChunkIdx;
@@ -4319,7 +4319,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           endBytes = startBytes + chunkSize >= fileSize ? fileSize : startBytes + chunkSize,
           totalChunks = handler._getTotalChunks(id),
           cachedChunks = this._getFileState(id).temp.cachedChunks,
-          blob = cachedChunks[chunkIndex] || qq.sliceBlob(fileOrBlob, startBytes, endBytes);
+          blob = cachedChunks[chunkIndex] || _qq.sliceBlob(fileOrBlob, startBytes, endBytes);
         cachedChunks[chunkIndex] = blob;
         return {
           part: chunkIndex,
@@ -4345,7 +4345,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           chunkSize = getChunkSize(id),
           endpoint = getEndpoint(id),
           customKeys = resume.customKeys(id),
-          localStorageId = qq.format("qq{}resume{}-{}-{}-{}-{}", namespace, formatVersion, name, size, chunkSize, endpoint);
+          localStorageId = _qq.format("qq{}resume{}-{}-{}-{}-{}", namespace, formatVersion, name, size, chunkSize, endpoint);
         customKeys.forEach(function (key) {
           localStorageId += "-" + key;
         });
@@ -4373,8 +4373,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _iterateResumeRecords: function _iterateResumeRecords(callback) {
         if (resumeEnabled) {
-          qq.each(localStorage, function (key, item) {
-            if (key.indexOf(qq.format("qq{}resume", namespace)) === 0) {
+          _qq.each(localStorage, function (key, item) {
+            if (key.indexOf(_qq.format("qq{}resume", namespace)) === 0) {
               var uploadData = JSON.parse(item);
               callback(key, uploadData);
             }
@@ -4415,7 +4415,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             if (getDataByUuid(persistedData.uuid)) {
               handler._markNotResumable(id);
             } else {
-              log(qq.format("Identified file with ID {} and name of {} as resumable.", id, getName(id)));
+              log(_qq.format("Identified file with ID {} and name of {} as resumable.", id, getName(id)));
               onUuidChanged(id, persistedData.uuid);
               state.key = persistedData.key;
               state.chunking = persistedData.chunking;
@@ -4449,7 +4449,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           try {
             localStorage.setItem(localStorageId, JSON.stringify(persistedData));
           } catch (error) {
-            log(qq.format("Unable to save resume data for '{}' due to error: '{}'.", id, error.toString()), "warn");
+            log(_qq.format("Unable to save resume data for '{}' due to error: '{}'.", id, error.toString()), "warn");
           }
         }
       },
@@ -4474,7 +4474,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                 estActualChunkLoaded = loadedForRequest - (totalForRequest - chunkSize),
                 totalLoadedForFile = totalSuccessfullyLoadedForFile;
               chunkProgress[chunkIdx] = estActualChunkLoaded;
-              qq.each(chunkProgress, function (chunkIdx, chunkLoaded) {
+              _qq.each(chunkProgress, function (chunkIdx, chunkLoaded) {
                 totalLoadedForFile += chunkLoaded;
               });
               onProgress(id, name, totalLoadedForFile, totalFileSize);
@@ -4520,7 +4520,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.DeleteFileAjaxRequester = function (o) {
+  _qq.DeleteFileAjaxRequester = function (o) {
     "use strict";
 
     var requester,
@@ -4541,7 +4541,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         onDelete: function onDelete(id) {},
         onDeleteComplete: function onDeleteComplete(id, xhrOrXdr, isError) {}
       };
-    qq.extend(options, o);
+    _qq.extend(options, o);
     function getMandatedParams() {
       if (options.method.toUpperCase() === "POST") {
         return {
@@ -4550,7 +4550,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       return {};
     }
-    requester = qq.extend(this, new qq.AjaxRequester({
+    requester = _qq.extend(this, new _qq.AjaxRequester({
       acceptHeader: "application/json",
       validMethods: ["POST", "DELETE"],
       method: options.method,
@@ -4566,7 +4566,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       onComplete: options.onDeleteComplete,
       cors: options.cors
     }));
-    qq.extend(this, {
+    _qq.extend(this, {
       sendDelete: function sendDelete(id, uuid, additionalMandatedParams) {
         var additionalOptions = additionalMandatedParams || {};
         options.log("Submitting delete file request for " + id);
@@ -4623,7 +4623,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     function renderImageToDataURL(img, blob, options, doSquash) {
       var canvas = document.createElement("canvas"),
         mime = options.mime || "image/jpeg",
-        promise = new qq.Promise();
+        promise = new _qq.Promise();
       renderImageToCanvas(img, blob, canvas, options, doSquash).then(function () {
         promise.success(canvas.toDataURL(mime, options.quality || .8));
       });
@@ -4631,8 +4631,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function maybeCalculateDownsampledDimensions(spec) {
       var maxPixels = 5241e3;
-      if (!qq.ios()) {
-        throw new qq.Error("Downsampled dimensions can only be reliably calculated for iOS!");
+      if (!_qq.ios()) {
+        throw new _qq.Error("Downsampled dimensions can only be reliably calculated for iOS!");
       }
       if (spec.origHeight * spec.origWidth > maxPixels) {
         return {
@@ -4647,7 +4647,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         width = options.width,
         height = options.height,
         ctx = canvas.getContext("2d"),
-        promise = new qq.Promise(),
+        promise = new _qq.Promise(),
         modifiedDimensions;
       ctx.save();
       if (options.resize) {
@@ -4663,19 +4663,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           targetWidth: width
         });
       }
-      if (!qq.supportedFeatures.unlimitedScaledImageSize) {
+      if (!_qq.supportedFeatures.unlimitedScaledImageSize) {
         modifiedDimensions = maybeCalculateDownsampledDimensions({
           origWidth: width,
           origHeight: height
         });
         if (modifiedDimensions) {
-          qq.log(qq.format("Had to reduce dimensions due to device limitations from {}w / {}h to {}w / {}h", width, height, modifiedDimensions.newWidth, modifiedDimensions.newHeight), "warn");
+          _qq.log(_qq.format("Had to reduce dimensions due to device limitations from {}w / {}h to {}w / {}h", width, height, modifiedDimensions.newWidth, modifiedDimensions.newHeight), "warn");
           width = modifiedDimensions.newWidth;
           height = modifiedDimensions.newHeight;
         }
       }
       transformCoordinate(canvas, width, height, options.orientation);
-      if (qq.ios()) {
+      if (_qq.ios()) {
         (function () {
           if (detectSubsampling(img)) {
             iw /= 2;
@@ -4722,7 +4722,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         imageHeight = resizeInfo.imageHeight,
         imageWidth = resizeInfo.imageWidth,
         orientation = resizeInfo.orientation,
-        promise = new qq.Promise(),
+        promise = new _qq.Promise(),
         resize = resizeInfo.resize,
         sourceCanvas = document.createElement("canvas"),
         sourceCanvasContext = sourceCanvas.getContext("2d"),
@@ -4862,7 +4862,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       opt = {
         width: width,
         height: height
-      }, qq.each(options, function (optionsKey, optionsValue) {
+      }, _qq.each(options, function (optionsKey, optionsValue) {
         opt[optionsKey] = optionsValue;
       });
       if (tagName === "img") {
@@ -4880,9 +4880,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         this.onrender(target);
       }
     };
-    qq.MegaPixImage = MegaPixImage;
+    _qq.MegaPixImage = MegaPixImage;
   })();
-  qq.ImageGenerator = function (log) {
+  _qq.ImageGenerator = function (log) {
     "use strict";
 
     function isImg(el) {
@@ -4901,7 +4901,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     function determineMimeOfFileName(nameWithPath) {
       var pathSegments = nameWithPath.split("/"),
         name = pathSegments[pathSegments.length - 1].split("?")[0],
-        extension = qq.getExtension(name);
+        extension = _qq.getExtension(name);
       extension = extension && extension.toLowerCase();
       switch (extension) {
         case "jpeg":
@@ -4933,7 +4933,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       if (targetHostname.toLowerCase() !== window.location.hostname.toLowerCase()) {
         return true;
       }
-      if (targetPort !== window.location.port && !qq.ie()) {
+      if (targetPort !== window.location.port && !_qq.ie()) {
         return true;
       }
       return false;
@@ -4964,13 +4964,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         registerCanvasDrawImageListener(imgOrCanvas, promise);
       } else {
         promise.failure(imgOrCanvas);
-        log(qq.format("Element container of type {} is not supported!", imgOrCanvas.tagName), "error");
+        log(_qq.format("Element container of type {} is not supported!", imgOrCanvas.tagName), "error");
       }
       return registered;
     }
     function draw(fileOrBlob, container, options) {
-      var drawPreview = new qq.Promise(),
-        identifier = new qq.Identify(fileOrBlob, log),
+      var drawPreview = new _qq.Promise(),
+        identifier = new _qq.Identify(fileOrBlob, log),
         maxSize = options.maxSize,
         orient = options.orient == null ? true : options.orient,
         megapixErrorHandler = function megapixErrorHandler() {
@@ -4982,11 +4982,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       identifier.isPreviewable().then(function (mime) {
         var dummyExif = {
             parse: function parse() {
-              return new qq.Promise().success();
+              return new _qq.Promise().success();
             }
           },
-          exif = orient ? new qq.Exif(fileOrBlob, log) : dummyExif,
-          mpImg = new qq.MegaPixImage(fileOrBlob, megapixErrorHandler);
+          exif = orient ? new _qq.Exif(fileOrBlob, log) : dummyExif,
+          mpImg = new _qq.MegaPixImage(fileOrBlob, megapixErrorHandler);
         if (registerThumbnailRenderedListener(container, drawPreview)) {
           exif.parse().then(function (exif) {
             var orientation = exif && exif.Orientation;
@@ -4998,7 +4998,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               resize: options.customResizeFunction
             });
           }, function (failureMsg) {
-            log(qq.format("EXIF data could not be parsed ({}).  Assuming orientation = 1.", failureMsg));
+            log(_qq.format("EXIF data could not be parsed ({}).  Assuming orientation = 1.", failureMsg));
             mpImg.render(container, {
               maxWidth: maxSize,
               maxHeight: maxSize,
@@ -5015,7 +5015,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function drawOnCanvasOrImgFromUrl(url, canvasOrImg, draw, maxSize, customResizeFunction) {
       var tempImg = new Image(),
-        tempImgRender = new qq.Promise();
+        tempImgRender = new _qq.Promise();
       registerThumbnailRenderedListener(tempImg, tempImgRender);
       if (isCrossOrigin(url)) {
         tempImg.crossOrigin = "anonymous";
@@ -5023,7 +5023,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       tempImg.src = url;
       tempImgRender.then(function rendered() {
         registerThumbnailRenderedListener(canvasOrImg, draw);
-        var mpImg = new qq.MegaPixImage(tempImg);
+        var mpImg = new _qq.MegaPixImage(tempImg);
         mpImg.render(canvasOrImg, {
           maxWidth: maxSize,
           maxHeight: maxSize,
@@ -5034,14 +5034,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function drawOnImgFromUrlWithCssScaling(url, img, draw, maxSize) {
       registerThumbnailRenderedListener(img, draw);
-      qq(img).css({
+      _qq(img).css({
         maxWidth: maxSize + "px",
         maxHeight: maxSize + "px"
       });
       img.src = url;
     }
     function drawFromUrl(url, container, options) {
-      var draw = new qq.Promise(),
+      var draw = new _qq.Promise(),
         scale = options.scale,
         maxSize = scale ? options.maxSize : null;
       if (scale && isImg(container)) {
@@ -5061,9 +5061,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       return draw;
     }
-    qq.extend(this, {
+    _qq.extend(this, {
       generate: function generate(fileBlobOrUrl, container, options) {
-        if (qq.isString(fileBlobOrUrl)) {
+        if (_qq.isString(fileBlobOrUrl)) {
           log("Attempting to update thumbnail based on server response.");
           return drawFromUrl(fileBlobOrUrl, container, options || {});
         } else {
@@ -5078,7 +5078,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     this._testing.isCrossOrigin = isCrossOrigin;
     this._testing.determineMimeOfFileName = determineMimeOfFileName;
   };
-  qq.Exif = function (fileOrBlob, log) {
+  _qq.Exif = function (fileOrBlob, log) {
     "use strict";
 
     var TAG_IDS = [274],
@@ -5103,9 +5103,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         thePromise = promise;
       if (theOffset === undefined) {
         theOffset = 2;
-        thePromise = new qq.Promise();
+        thePromise = new _qq.Promise();
       }
-      qq.readBlobToHex(fileOrBlob, theOffset, 4).then(function (hex) {
+      _qq.readBlobToHex(fileOrBlob, theOffset, 4).then(function (hex) {
         var match = /^ffe([0-9])/.exec(hex),
           segmentLength;
         if (match) {
@@ -5122,8 +5122,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return thePromise;
     }
     function getApp1Offset() {
-      var promise = new qq.Promise();
-      qq.readBlobToHex(fileOrBlob, 0, 6).then(function (hex) {
+      var promise = new _qq.Promise();
+      _qq.readBlobToHex(fileOrBlob, 0, 6).then(function (hex) {
         if (hex.indexOf("ffd8") !== 0) {
           promise.failure("Not a valid JPEG!");
         } else {
@@ -5137,15 +5137,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return promise;
     }
     function isLittleEndian(app1Start) {
-      var promise = new qq.Promise();
-      qq.readBlobToHex(fileOrBlob, app1Start + 10, 2).then(function (hex) {
+      var promise = new _qq.Promise();
+      _qq.readBlobToHex(fileOrBlob, app1Start + 10, 2).then(function (hex) {
         promise.success(hex === "4949");
       });
       return promise;
     }
     function getDirEntryCount(app1Start, littleEndian) {
-      var promise = new qq.Promise();
-      qq.readBlobToHex(fileOrBlob, app1Start + 18, 2).then(function (hex) {
+      var promise = new _qq.Promise();
+      _qq.readBlobToHex(fileOrBlob, app1Start + 18, 2).then(function (hex) {
         if (littleEndian) {
           return promise.success(parseLittleEndian(hex));
         } else {
@@ -5157,7 +5157,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     function getIfd(app1Start, dirEntries) {
       var offset = app1Start + 20,
         bytes = dirEntries * 12;
-      return qq.readBlobToHex(fileOrBlob, offset, bytes);
+      return _qq.readBlobToHex(fileOrBlob, offset, bytes);
     }
     function getDirEntries(ifdHex) {
       var entries = [],
@@ -5170,9 +5170,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function getTagValues(littleEndian, dirEntries) {
       var TAG_VAL_OFFSET = 16,
-        tagsToFind = qq.extend([], TAG_IDS),
+        tagsToFind = _qq.extend([], TAG_IDS),
         vals = {};
-      qq.each(dirEntries, function (idx, entry) {
+      _qq.each(dirEntries, function (idx, entry) {
         var idHex = entry.slice(0, 4),
           id = littleEndian ? parseLittleEndian(idHex) : parseInt(idHex, 16),
           tagsToFindIdx = tagsToFind.indexOf(id),
@@ -5192,19 +5192,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return vals;
     }
-    qq.extend(this, {
+    _qq.extend(this, {
       parse: function parse() {
-        var parser = new qq.Promise(),
+        var parser = new _qq.Promise(),
           onParseFailure = function onParseFailure(message) {
-            log(qq.format("EXIF header parse failed: '{}' ", message));
+            log(_qq.format("EXIF header parse failed: '{}' ", message));
             parser.failure(message);
           };
         getApp1Offset().then(function (app1Offset) {
-          log(qq.format("Moving forward with EXIF header parsing for '{}'", fileOrBlob.name === undefined ? "blob" : fileOrBlob.name));
+          log(_qq.format("Moving forward with EXIF header parsing for '{}'", fileOrBlob.name === undefined ? "blob" : fileOrBlob.name));
           isLittleEndian(app1Offset).then(function (littleEndian) {
-            log(qq.format("EXIF Byte order is {} endian", littleEndian ? "little" : "big"));
+            log(_qq.format("EXIF Byte order is {} endian", littleEndian ? "little" : "big"));
             getDirEntryCount(app1Offset, littleEndian).then(function (dirEntryCount) {
-              log(qq.format("Found {} APP1 directory entries", dirEntryCount));
+              log(_qq.format("Found {} APP1 directory entries", dirEntryCount));
               getIfd(app1Offset, dirEntryCount).then(function (ifdHex) {
                 var dirEntries = getDirEntries(ifdHex),
                   tagValues = getTagValues(littleEndian, dirEntries);
@@ -5220,13 +5220,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     this._testing = {};
     this._testing.parseLittleEndian = parseLittleEndian;
   };
-  qq.Identify = function (fileOrBlob, log) {
+  _qq.Identify = function (fileOrBlob, log) {
     "use strict";
 
     function isIdentifiable(magicBytes, questionableBytes) {
       var identifiable = false,
         magicBytesEntries = [].concat(magicBytes);
-      qq.each(magicBytesEntries, function (idx, magicBytesArrayEntry) {
+      _qq.each(magicBytesEntries, function (idx, magicBytesArrayEntry) {
         if (questionableBytes.indexOf(magicBytesArrayEntry) === 0) {
           identifiable = true;
           return false;
@@ -5234,27 +5234,27 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       return identifiable;
     }
-    qq.extend(this, {
+    _qq.extend(this, {
       isPreviewable: function isPreviewable() {
         var self = this,
-          identifier = new qq.Promise(),
+          identifier = new _qq.Promise(),
           previewable = false,
           name = fileOrBlob.name === undefined ? "blob" : fileOrBlob.name;
-        log(qq.format("Attempting to determine if {} can be rendered in this browser", name));
+        log(_qq.format("Attempting to determine if {} can be rendered in this browser", name));
         log("First pass: check type attribute of blob object.");
         if (this.isPreviewableSync()) {
           log("Second pass: check for magic bytes in file header.");
-          qq.readBlobToHex(fileOrBlob, 0, 4).then(function (hex) {
-            qq.each(self.PREVIEWABLE_MIME_TYPES, function (mime, bytes) {
+          _qq.readBlobToHex(fileOrBlob, 0, 4).then(function (hex) {
+            _qq.each(self.PREVIEWABLE_MIME_TYPES, function (mime, bytes) {
               if (isIdentifiable(bytes, hex)) {
-                if (mime !== "image/tiff" || qq.supportedFeatures.tiffPreviews) {
+                if (mime !== "image/tiff" || _qq.supportedFeatures.tiffPreviews) {
                   previewable = true;
                   identifier.success(mime);
                 }
                 return false;
               }
             });
-            log(qq.format("'{}' is {} able to be rendered in this browser", name, previewable ? "" : "NOT"));
+            log(_qq.format("'{}' is {} able to be rendered in this browser", name, previewable ? "" : "NOT"));
             if (!previewable) {
               identifier.failure();
             }
@@ -5269,12 +5269,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       isPreviewableSync: function isPreviewableSync() {
         var fileMime = fileOrBlob.type,
-          isRecognizedImage = qq.indexOf(Object.keys(this.PREVIEWABLE_MIME_TYPES), fileMime) >= 0,
+          isRecognizedImage = _qq.indexOf(Object.keys(this.PREVIEWABLE_MIME_TYPES), fileMime) >= 0,
           previewable = false,
           name = fileOrBlob.name === undefined ? "blob" : fileOrBlob.name;
         if (isRecognizedImage) {
           if (fileMime === "image/tiff") {
-            previewable = qq.supportedFeatures.tiffPreviews;
+            previewable = _qq.supportedFeatures.tiffPreviews;
           } else {
             previewable = true;
           }
@@ -5284,19 +5284,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.Identify.prototype.PREVIEWABLE_MIME_TYPES = {
+  _qq.Identify.prototype.PREVIEWABLE_MIME_TYPES = {
     "image/jpeg": "ffd8ff",
     "image/gif": "474946",
     "image/png": "89504e",
     "image/bmp": "424d",
     "image/tiff": ["49492a00", "4d4d002a"]
   };
-  qq.ImageValidation = function (blob, log) {
+  _qq.ImageValidation = function (blob, log) {
     "use strict";
 
     function hasNonZeroLimits(limits) {
       var atLeastOne = false;
-      qq.each(limits, function (limit, value) {
+      _qq.each(limits, function (limit, value) {
         if (value > 0) {
           atLeastOne = true;
           return false;
@@ -5305,8 +5305,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return atLeastOne;
     }
     function getWidthHeight() {
-      var sizeDetermination = new qq.Promise();
-      new qq.Identify(blob, log).isPreviewable().then(function () {
+      var sizeDetermination = new _qq.Promise();
+      new _qq.Identify(blob, log).isPreviewable().then(function () {
         var image = new Image(),
           url = window.URL && window.URL.createObjectURL ? window.URL : window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL : null;
         if (url) {
@@ -5330,7 +5330,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function getFailingLimit(limits, dimensions) {
       var failingLimit;
-      qq.each(limits, function (limitName, limitValue) {
+      _qq.each(limits, function (limitName, limitValue) {
         if (limitValue > 0) {
           var limitMatcher = /(max|min)(Width|Height)/.exec(limitName),
             dimensionPropName = limitMatcher[2].charAt(0).toLowerCase() + limitMatcher[2].slice(1),
@@ -5354,7 +5354,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return failingLimit;
     }
     this.validate = function (limits) {
-      var validationEffort = new qq.Promise();
+      var validationEffort = new _qq.Promise();
       log("Attempting to validate image.");
       if (hasNonZeroLimits(limits)) {
         getWidthHeight().then(function (dimensions) {
@@ -5371,7 +5371,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return validationEffort;
     };
   };
-  qq.Session = function (spec) {
+  _qq.Session = function (spec) {
     "use strict";
 
     var options = {
@@ -5382,9 +5382,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       addFileRecord: function addFileRecord(sessionData) {},
       log: function log(message, level) {}
     };
-    qq.extend(options, spec, true);
+    _qq.extend(options, spec, true);
     function isJsonResponseValid(response) {
-      if (qq.isArray(response)) {
+      if (_qq.isArray(response)) {
         return true;
       }
       options.log("Session response is not an array.", "error");
@@ -5393,13 +5393,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       var someItemsIgnored = false;
       success = success && isJsonResponseValid(fileItems);
       if (success) {
-        qq.each(fileItems, function (idx, fileItem) {
+        _qq.each(fileItems, function (idx, fileItem) {
           if (fileItem.uuid == null) {
             someItemsIgnored = true;
-            options.log(qq.format("Session response item {} did not include a valid UUID - ignoring.", idx), "error");
+            options.log(_qq.format("Session response item {} did not include a valid UUID - ignoring.", idx), "error");
           } else if (fileItem.name == null) {
             someItemsIgnored = true;
-            options.log(qq.format("Session response item {} did not include a valid name - ignoring.", idx), "error");
+            options.log(_qq.format("Session response item {} did not include a valid name - ignoring.", idx), "error");
           } else {
             try {
               options.addFileRecord(fileItem);
@@ -5415,19 +5415,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       promise[success && !someItemsIgnored ? "success" : "failure"](fileItems, xhrOrXdr);
     }
     this.refresh = function () {
-      var refreshEffort = new qq.Promise(),
+      var refreshEffort = new _qq.Promise(),
         refreshCompleteCallback = function refreshCompleteCallback(response, success, xhrOrXdr) {
           handleFileItems(response, success, xhrOrXdr, refreshEffort);
         },
-        requesterOptions = qq.extend({}, options),
-        requester = new qq.SessionAjaxRequester(qq.extend(requesterOptions, {
+        requesterOptions = _qq.extend({}, options),
+        requester = new _qq.SessionAjaxRequester(_qq.extend(requesterOptions, {
           onComplete: refreshCompleteCallback
         }));
       requester.queryServer();
       return refreshEffort;
     };
   };
-  qq.SessionAjaxRequester = function (spec) {
+  _qq.SessionAjaxRequester = function (spec) {
     "use strict";
 
     var requester,
@@ -5442,12 +5442,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         onComplete: function onComplete(response, success, xhrOrXdr) {},
         log: function log(str, level) {}
       };
-    qq.extend(options, spec);
+    _qq.extend(options, spec);
     function onComplete(id, xhrOrXdr, isError) {
       var response = null;
       if (xhrOrXdr.responseText != null) {
         try {
-          response = qq.parseJson(xhrOrXdr.responseText);
+          response = _qq.parseJson(xhrOrXdr.responseText);
         } catch (err) {
           options.log("Problem parsing session response: " + err.message, "error");
           isError = true;
@@ -5455,7 +5455,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
       options.onComplete(response, !isError, xhrOrXdr);
     }
-    requester = qq.extend(this, new qq.AjaxRequester({
+    requester = _qq.extend(this, new _qq.AjaxRequester({
       acceptHeader: "application/json",
       validMethods: ["GET"],
       method: "GET",
@@ -5469,15 +5469,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       onComplete: onComplete,
       cors: options.cors
     }));
-    qq.extend(this, {
+    _qq.extend(this, {
       queryServer: function queryServer() {
-        var params = qq.extend({}, options.params);
+        var params = _qq.extend({}, options.params);
         options.log("Session query request.");
         requester.initTransport("sessionRefresh").withParams(params).withCacheBuster().send();
       }
     });
   };
-  qq.Scaler = function (spec, log) {
+  _qq.Scaler = function (spec, log) {
     "use strict";
 
     var self = this,
@@ -5489,28 +5489,28 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       failedToScaleText = spec.failureText,
       includeExif = spec.includeExif,
       sizes = this._getSortedSizes(spec.sizes);
-    qq.extend(this, {
-      enabled: qq.supportedFeatures.scaling && sizes.length > 0,
+    _qq.extend(this, {
+      enabled: _qq.supportedFeatures.scaling && sizes.length > 0,
       getFileRecords: function getFileRecords(originalFileUuid, originalFileName, originalBlobOrBlobData) {
         var self = this,
           records = [],
           originalBlob = originalBlobOrBlobData.blob ? originalBlobOrBlobData.blob : originalBlobOrBlobData,
-          identifier = new qq.Identify(originalBlob, log);
+          identifier = new _qq.Identify(originalBlob, log);
         if (identifier.isPreviewableSync()) {
-          qq.each(sizes, function (idx, sizeRecord) {
+          _qq.each(sizes, function (idx, sizeRecord) {
             var outputType = self._determineOutputType({
               defaultType: defaultType,
               requestedType: sizeRecord.type,
               refType: originalBlob.type
             });
             records.push({
-              uuid: qq.getUniqueId(),
+              uuid: _qq.getUniqueId(),
               name: self._getName(originalFileName, {
                 name: sizeRecord.name,
                 type: outputType,
                 refType: originalBlob.type
               }),
-              blob: new qq.BlobProxy(originalBlob, qq.bind(self._generateScaledImage, self, {
+              blob: new _qq.BlobProxy(originalBlob, _qq.bind(self._generateScaledImage, self, {
                 customResizeFunction: customResizeFunction,
                 maxSize: sizeRecord.maxSize,
                 orient: orient,
@@ -5546,11 +5546,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           addFileToHandler = api.addFileToHandler,
           uploadData = api.uploadData,
           paramsStore = api.paramsStore,
-          proxyGroupId = qq.getUniqueId();
-        qq.each(self.getFileRecords(uuid, name, file), function (idx, record) {
+          proxyGroupId = _qq.getUniqueId();
+        _qq.each(self.getFileRecords(uuid, name, file), function (idx, record) {
           var blobSize = record.size,
             id;
-          if (record.blob instanceof qq.BlobProxy) {
+          if (record.blob instanceof _qq.BlobProxy) {
             blobSize = -1;
           }
           id = uploadData.addFile({
@@ -5560,7 +5560,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             batchId: batchId,
             proxyGroupId: proxyGroupId
           });
-          if (record.blob instanceof qq.BlobProxy) {
+          if (record.blob instanceof _qq.BlobProxy) {
             scaledIds.push(id);
           } else {
             originalId = id;
@@ -5572,11 +5572,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               file: record.blob
             });
           } else {
-            uploadData.setStatus(id, qq.status.REJECTED);
+            uploadData.setStatus(id, _qq.status.REJECTED);
           }
         });
         if (originalId !== null) {
-          qq.each(scaledIds, function (idx, scaledId) {
+          _qq.each(scaledIds, function (idx, scaledId) {
             var params = {
               qqparentuuid: uploadData.retrieve({
                 id: originalId
@@ -5604,14 +5604,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.extend(qq.Scaler.prototype, {
+  _qq.extend(_qq.Scaler.prototype, {
     scaleImage: function scaleImage(id, specs, api) {
       "use strict";
 
-      if (!qq.supportedFeatures.scaling) {
-        throw new qq.Error("Scaling is not supported in this browser!");
+      if (!_qq.supportedFeatures.scaling) {
+        throw new _qq.Error("Scaling is not supported in this browser!");
       }
-      var scalingEffort = new qq.Promise(),
+      var scalingEffort = new _qq.Promise(),
         log = api.log,
         file = api.getFile(id),
         uploadData = api.uploadData.retrieve({
@@ -5631,14 +5631,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             maxSize: specs.maxSize
           }]
         },
-        scaler = new qq.Scaler(scalingOptions, log);
-      if (!qq.Scaler || !qq.supportedFeatures.imagePreviews || !file) {
+        scaler = new _qq.Scaler(scalingOptions, log);
+      if (!_qq.Scaler || !_qq.supportedFeatures.imagePreviews || !file) {
         scalingEffort.failure();
         log("Could not generate requested scaled image for " + id + ".  " + "Scaling is either not possible in this browser, or the file could not be located.", "error");
       } else {
-        qq.bind(function () {
+        _qq.bind(function () {
           var record = scaler.getFileRecords(uuid, name, file)[0];
-          if (record && record.blob instanceof qq.BlobProxy) {
+          if (record && record.blob instanceof _qq.BlobProxy) {
             record.blob.create().then(scalingEffort.success, scalingEffort.failure);
           } else {
             log(id + " is not a scalable image!", "error");
@@ -5663,9 +5663,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       if (!requestedType) {
         return defaultType;
       }
-      if (qq.indexOf(Object.keys(qq.Identify.prototype.PREVIEWABLE_MIME_TYPES), requestedType) >= 0) {
+      if (_qq.indexOf(Object.keys(_qq.Identify.prototype.PREVIEWABLE_MIME_TYPES), requestedType) >= 0) {
         if (requestedType === "image/tiff") {
-          return qq.supportedFeatures.tiffPreviews ? requestedType : defaultType;
+          return _qq.supportedFeatures.tiffPreviews ? requestedType : defaultType;
         }
         return requestedType;
       }
@@ -5678,7 +5678,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         versionType = scaledVersionProperties.type || "image/png",
         referenceType = scaledVersionProperties.refType,
         scaledName = "",
-        scaledExt = qq.getExtension(originalName),
+        scaledExt = _qq.getExtension(originalName),
         nameAppendage = "";
       if (scaledVersionProperties.name && scaledVersionProperties.name.trim().length) {
         nameAppendage = " (" + scaledVersionProperties.name + ")";
@@ -5697,7 +5697,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     _getSortedSizes: function _getSortedSizes(sizes) {
       "use strict";
 
-      sizes = qq.extend([], sizes);
+      sizes = _qq.extend([], sizes);
       return sizes.sort(function (a, b) {
         if (a.maxSize > b.maxSize) {
           return 1;
@@ -5720,8 +5720,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         quality = spec.quality,
         failedText = spec.failedText,
         includeExif = spec.includeExif && sourceFile.type === "image/jpeg" && type === "image/jpeg",
-        scalingEffort = new qq.Promise(),
-        imageGenerator = new qq.ImageGenerator(log),
+        scalingEffort = new _qq.Promise(),
+        imageGenerator = new _qq.ImageGenerator(log),
         canvas = document.createElement("canvas");
       log("Attempting to generate scaled version for " + sourceFile.name);
       imageGenerator.generate(sourceFile, canvas, {
@@ -5732,7 +5732,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var scaledImageDataUri = canvas.toDataURL(type, quality),
           signalSuccess = function signalSuccess() {
             log("Success generating scaled version for " + sourceFile.name);
-            var blob = qq.dataUriToBlob(scaledImageDataUri);
+            var blob = _qq.dataUriToBlob(scaledImageDataUri);
             scalingEffort.success(blob);
           };
         if (includeExif) {
@@ -5756,11 +5756,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       "use strict";
 
       var reader = new FileReader(),
-        insertionEffort = new qq.Promise(),
+        insertionEffort = new _qq.Promise(),
         originalImageDataUri = "";
       reader.onload = function () {
         originalImageDataUri = reader.result;
-        insertionEffort.success(qq.ExifRestorer.restore(originalImageDataUri, scaledImageDataUri));
+        insertionEffort.success(_qq.ExifRestorer.restore(originalImageDataUri, scaledImageDataUri));
       };
       reader.onerror = function () {
         log("Problem reading " + originalImage.name + " during attempt to transfer EXIF data to scaled version.", "error");
@@ -5781,7 +5781,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       mimeString = dataUri.split(",")[0].split(":")[1].split(";")[0];
       arrayBuffer = new ArrayBuffer(byteString.length);
       intArray = new Uint8Array(arrayBuffer);
-      qq.each(byteString, function (idx, character) {
+      _qq.each(byteString, function (idx, character) {
         intArray[idx] = character.charCodeAt(0);
       });
       return this._createBlob(arrayBuffer, mimeString);
@@ -5801,7 +5801,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     }
   });
-  qq.ExifRestorer = function () {
+  _qq.ExifRestorer = function () {
     var ExifRestorer = {};
     ExifRestorer.KEY_STR = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv" + "wxyz0123456789+/" + "=";
     ExifRestorer.encode64 = function (input) {
@@ -5930,7 +5930,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     };
     return ExifRestorer;
   }();
-  qq.TotalProgress = function (callback, getSize) {
+  _qq.TotalProgress = function (callback, getSize) {
     "use strict";
 
     var perFileProgress = {},
@@ -5947,8 +5947,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       noRetryableFiles = function noRetryableFiles(failed, retryable) {
         var none = true;
-        qq.each(failed, function (idx, failedId) {
-          if (qq.indexOf(retryable, failedId) >= 0) {
+        _qq.each(failed, function (idx, failedId) {
+          if (_qq.indexOf(retryable, failedId) >= 0) {
             none = false;
             return false;
           }
@@ -5991,12 +5991,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
         callbackProxy(totalLoaded, totalSize);
       };
-    qq.extend(this, {
+    _qq.extend(this, {
       onAllComplete: onAllComplete,
       onStatusChange: function onStatusChange(id, oldStatus, newStatus) {
-        if (newStatus === qq.status.CANCELED || newStatus === qq.status.REJECTED) {
+        if (newStatus === _qq.status.CANCELED || newStatus === _qq.status.REJECTED) {
           onCancel(id);
-        } else if (newStatus === qq.status.SUBMITTING) {
+        } else if (newStatus === _qq.status.SUBMITTING) {
           onNew(id);
         }
       },
@@ -6017,7 +6017,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.PasteSupport = function (o) {
+  _qq.PasteSupport = function (o) {
     "use strict";
 
     var options, detachPasteHandler;
@@ -6032,10 +6032,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return item.type && item.type.indexOf("image/") === 0;
     }
     function registerPasteHandler() {
-      detachPasteHandler = qq(options.targetElement).attach("paste", function (event) {
+      detachPasteHandler = _qq(options.targetElement).attach("paste", function (event) {
         var clipboardData = event.clipboardData;
         if (clipboardData) {
-          qq.each(clipboardData.items, function (idx, item) {
+          _qq.each(clipboardData.items, function (idx, item) {
             if (isImage(item)) {
               var blob = item.getAsFile();
               options.callbacks.pasteReceived(blob);
@@ -6049,22 +6049,22 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         detachPasteHandler();
       }
     }
-    qq.extend(options, o);
+    _qq.extend(options, o);
     registerPasteHandler();
-    qq.extend(this, {
+    _qq.extend(this, {
       reset: function reset() {
         unregisterPasteHandler();
       }
     });
   };
-  qq.FormSupport = function (options, startUpload, log) {
+  _qq.FormSupport = function (options, startUpload, log) {
     "use strict";
 
     var self = this,
       interceptSubmit = options.interceptSubmit,
       formEl = options.element,
       autoUpload = options.autoUpload;
-    qq.extend(this, {
+    _qq.extend(this, {
       newEndpoint: null,
       newAutoUpload: autoUpload,
       attachedToForm: false,
@@ -6090,7 +6090,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function maybeUploadOnSubmit(formEl) {
       var nativeSubmit = formEl.submit;
-      qq(formEl).attach("submit", function (event) {
+      _qq(formEl).attach("submit", function (event) {
         event = event || window.event;
         if (event.preventDefault) {
           event.preventDefault();
@@ -6105,7 +6105,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function determineFormEl(formEl) {
       if (formEl) {
-        if (qq.isString(formEl)) {
+        if (_qq.isString(formEl)) {
           formEl = document.getElementById(formEl);
         }
         if (formEl) {
@@ -6119,17 +6119,17 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     formEl = determineFormEl(formEl);
     this.attachedToForm = !!formEl;
   };
-  qq.extend(qq.FormSupport.prototype, {
+  _qq.extend(_qq.FormSupport.prototype, {
     _form2Obj: function _form2Obj(form) {
       "use strict";
 
       var obj = {},
         notIrrelevantType = function notIrrelevantType(type) {
           var irrelevantTypes = ["button", "image", "reset", "submit"];
-          return qq.indexOf(irrelevantTypes, type.toLowerCase()) < 0;
+          return _qq.indexOf(irrelevantTypes, type.toLowerCase()) < 0;
         },
         radioOrCheckbox = function radioOrCheckbox(type) {
-          return qq.indexOf(["checkbox", "radio"], type.toLowerCase()) >= 0;
+          return _qq.indexOf(["checkbox", "radio"], type.toLowerCase()) >= 0;
         },
         ignoreValue = function ignoreValue(el) {
           if (radioOrCheckbox(el.type) && !el.checked) {
@@ -6139,7 +6139,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         },
         selectValue = function selectValue(select) {
           var value = null;
-          qq.each(qq(select).children(), function (idx, child) {
+          _qq.each(_qq(select).children(), function (idx, child) {
             if (child.tagName.toLowerCase() === "option" && child.selected) {
               value = child.value;
               return false;
@@ -6147,8 +6147,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           });
           return value;
         };
-      qq.each(form.elements, function (idx, el) {
-        if ((qq.isInput(el, true) || el.tagName.toLowerCase() === "textarea") && notIrrelevantType(el.type) && !ignoreValue(el)) {
+      _qq.each(form.elements, function (idx, el) {
+        if ((_qq.isInput(el, true) || el.tagName.toLowerCase() === "textarea") && notIrrelevantType(el.type) && !ignoreValue(el)) {
           obj[el.name] = el.value;
         } else if (el.tagName.toLowerCase() === "select" && !ignoreValue(el)) {
           var value = selectValue(el);
@@ -6160,8 +6160,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return obj;
     }
   });
-  qq.traditional = qq.traditional || {};
-  qq.traditional.FormUploadHandler = function (options, proxy) {
+  _qq.traditional = _qq.traditional || {};
+  _qq.traditional.FormUploadHandler = function (options, proxy) {
     "use strict";
 
     var handler = this,
@@ -6205,7 +6205,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     this.uploadFile = function (id) {
       var input = handler.getInput(id),
         iframe = handler._createIframe(id),
-        promise = new qq.Promise(),
+        promise = new _qq.Promise(),
         form;
       form = createForm(id, iframe);
       form.appendChild(input);
@@ -6214,7 +6214,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var response = responseFromMessage ? responseFromMessage : getIframeContentJson(id, iframe);
         handler._detachLoadEvent(id);
         if (!options.cors.expected) {
-          qq(iframe).remove();
+          _qq(iframe).remove();
         }
         if (response.success) {
           promise.success(response);
@@ -6224,10 +6224,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       });
       log("Sending upload request for " + id);
       form.submit();
-      qq(form).remove();
+      _qq(form).remove();
       return promise;
     };
-    qq.extend(this, new qq.FormUploadHandler({
+    _qq.extend(this, new _qq.FormUploadHandler({
       options: {
         isCors: options.cors.expected,
         inputName: options.inputName
@@ -6240,8 +6240,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     }));
   };
-  qq.traditional = qq.traditional || {};
-  qq.traditional.XhrUploadHandler = function (spec, proxy) {
+  _qq.traditional = _qq.traditional || {};
+  _qq.traditional.XhrUploadHandler = function (spec, proxy) {
     "use strict";
 
     var handler = this,
@@ -6264,7 +6264,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           params[spec.filenameParam] = name;
         }
       },
-      allChunksDoneRequester = new qq.traditional.AllChunksDoneAjaxRequester({
+      allChunksDoneRequester = new _qq.traditional.AllChunksDoneAjaxRequester({
         cors: spec.cors,
         endpoint: spec.chunking.success.endpoint,
         headers: spec.chunking.success.headers,
@@ -6274,7 +6274,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         params: spec.chunking.success.params
       }),
       createReadyStateChangedHandler = function createReadyStateChangedHandler(id, xhr) {
-        var promise = new qq.Promise();
+        var promise = new _qq.Promise();
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
             var result = onUploadOrChunkComplete(id, xhr);
@@ -6298,7 +6298,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return params;
       },
       isErrorUploadResponse = function isErrorUploadResponse(xhr, response) {
-        return qq.indexOf([200, 201, 202, 203, 204], xhr.status) < 0 || spec.requireSuccessJson && !response.success || response.reset;
+        return _qq.indexOf([200, 201, 202, 203, 204], xhr.status) < 0 || spec.requireSuccessJson && !response.success || response.reset;
       },
       onUploadOrChunkComplete = function onUploadOrChunkComplete(id, xhr) {
         var response;
@@ -6313,15 +6313,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       parseResponse = function parseResponse(upload, xhr) {
         var response = {};
         try {
-          log(qq.format("Received response status {} with body: {}", xhr.status, xhr.responseText));
-          response = qq.parseJson(xhr.responseText);
+          log(_qq.format("Received response status {} with body: {}", xhr.status, xhr.responseText));
+          response = _qq.parseJson(xhr.responseText);
         } catch (error) {
           upload && spec.requireSuccessJson && log("Error when attempting to parse xhr response text (" + error.message + ")", "error");
         }
         return response;
       },
       sendChunksCompleteRequest = function sendChunksCompleteRequest(id) {
-        var promise = new qq.Promise();
+        var promise = new _qq.Promise();
         allChunksDoneRequester.complete(id, handler._createXhr(id), getChunksCompleteParams(id), spec.customHeaders.get(id)).then(function (xhr) {
           promise.success(parseResponse(false, xhr), xhr);
         }, function (xhr) {
@@ -6344,12 +6344,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           name = getName(id),
           size = getSize(id);
         if (spec.omitDefaultParams) {
-          params = qq.extend({}, customParams);
-          qq.extend(params, xhrOverrideParams);
+          params = _qq.extend({}, customParams);
+          _qq.extend(params, xhrOverrideParams);
         } else {
-          params = qq.extend({}, customParams);
-          qq.extend(params, xhrOverrideParams);
-          qq.extend(params, defaultParams);
+          params = _qq.extend({}, customParams);
+          _qq.extend(params, xhrOverrideParams);
+          _qq.extend(params, defaultParams);
           params[spec.uuidName] = getUuid(id);
           params[spec.filenameParam] = name;
           if (multipart) {
@@ -6359,7 +6359,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
         }
         if (!spec.paramsInBody) {
-          endpoint = qq.obj2url(params, endpoint);
+          endpoint = _qq.obj2url(params, endpoint);
         }
         xhr.open(method, endpoint, true);
         if (spec.cors.expected && spec.cors.sendCredentials) {
@@ -6367,7 +6367,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
         if (multipart) {
           if (spec.paramsInBody) {
-            qq.obj2FormData(params, formData);
+            _qq.obj2FormData(params, formData);
           }
           formData.append(spec.inputName, fileOrBlob);
           return formData;
@@ -6379,7 +6379,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var id = headersOptions.id;
         var xhr = headersOptions.xhr;
         if (headerOverrides) {
-          qq.each(headerOverrides, function (headerName, headerValue) {
+          _qq.each(headerOverrides, function (headerName, headerValue) {
             xhr.setRequestHeader(headerName, headerValue);
           });
         } else {
@@ -6392,12 +6392,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             xhr.setRequestHeader("Content-Type", "application/octet-stream");
             xhr.setRequestHeader("X-Mime-Type", fileOrBlob.type);
           }
-          qq.each(extraHeaders, function (name, val) {
+          _qq.each(extraHeaders, function (name, val) {
             xhr.setRequestHeader(name, val);
           });
         }
       };
-    qq.extend(this, {
+    _qq.extend(this, {
       uploadChunk: function uploadChunk(uploadChunkParams) {
         var id = uploadChunkParams.id;
         var chunkIdx = uploadChunkParams.chunkIdx;
@@ -6456,28 +6456,28 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return promise;
       }
     });
-    qq.extend(this, new qq.XhrUploadHandler({
-      options: qq.extend({
+    _qq.extend(this, new _qq.XhrUploadHandler({
+      options: _qq.extend({
         namespace: "traditional"
       }, spec),
-      proxy: qq.extend({
+      proxy: _qq.extend({
         getEndpoint: spec.endpointStore.get
       }, proxy)
     }));
-    qq.override(this, function (super_) {
+    _qq.override(this, function (super_) {
       return {
         finalizeChunks: function finalizeChunks(id) {
           proxy.onFinalizing(id);
           if (spec.chunking.success.endpoint) {
             return sendChunksCompleteRequest(id);
           } else {
-            return super_.finalizeChunks(id, qq.bind(parseResponse, this, true));
+            return super_.finalizeChunks(id, _qq.bind(parseResponse, this, true));
           }
         }
       };
     });
   };
-  qq.traditional.AllChunksDoneAjaxRequester = function (o) {
+  _qq.traditional.AllChunksDoneAjaxRequester = function (o) {
     "use strict";
 
     var requester,
@@ -6494,14 +6494,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       promises = {},
       endpointHandler = {
         get: function get(id) {
-          if (qq.isFunction(options.endpoint)) {
+          if (_qq.isFunction(options.endpoint)) {
             return options.endpoint(id);
           }
           return options.endpoint;
         }
       };
-    qq.extend(options, o);
-    requester = qq.extend(this, new qq.AjaxRequester({
+    _qq.extend(options, o);
+    requester = _qq.extend(this, new _qq.AjaxRequester({
       acceptHeader: "application/json",
       contentType: options.jsonPayload ? "application/json" : "application/x-www-form-urlencoded",
       validMethods: [options.method],
@@ -6520,9 +6520,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       }
     }));
-    qq.extend(this, {
+    _qq.extend(this, {
       complete: function complete(id, xhr, params, headers) {
-        var promise = new qq.Promise();
+        var promise = new _qq.Promise();
         options.log("Submitting All Chunks Done request for " + id);
         promises[id] = promise;
         requester.initTransport(id).withParams(options.params(id) || params).withHeaders(options.headers(id) || headers).send(xhr);
@@ -6530,7 +6530,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.DragAndDrop = function (o) {
+  _qq.DragAndDrop = function (o) {
     "use strict";
 
     var options,
@@ -6538,16 +6538,16 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       HIDE_BEFORE_ENTER_ATTR = "qq-hide-dropzone",
       uploadDropZones = [],
       droppedFiles = [],
-      disposeSupport = new qq.DisposeSupport();
+      disposeSupport = new _qq.DisposeSupport();
     options = {
       dropZoneElements: [],
       allowMultipleItems: true,
       classes: {
         dropActive: null
       },
-      callbacks: new qq.DragAndDrop.callbacks()
+      callbacks: new _qq.DragAndDrop.callbacks()
     };
-    qq.extend(options, o, true);
+    _qq.extend(options, o, true);
     function uploadDroppedFiles(files, uploadDropZone) {
       var filesAsArray = Array.prototype.slice.call(files);
       options.callbacks.dropLog("Grabbed " + files.length + " dropped files.");
@@ -6555,7 +6555,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       options.callbacks.processingDroppedFilesComplete(filesAsArray, uploadDropZone.getElement());
     }
     function traverseFileTree(entry) {
-      var parseEntryPromise = new qq.Promise();
+      var parseEntryPromise = new _qq.Promise();
       if (entry.isFile) {
         entry.file(function (file) {
           file.qqPath = extractDirectoryPath(entry);
@@ -6568,7 +6568,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       } else if (entry.isDirectory) {
         getFilesInDirectory(entry).then(function allEntriesRead(entries) {
           var entriesLeft = entries.length;
-          qq.each(entries, function (idx, entry) {
+          _qq.each(entries, function (idx, entry) {
             traverseFileTree(entry).done(function () {
               entriesLeft -= 1;
               if (entriesLeft === 0) {
@@ -6597,7 +6597,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return fullPath;
     }
     function getFilesInDirectory(entry, reader, accumEntries, existingPromise) {
-      var promise = existingPromise || new qq.Promise(),
+      var promise = existingPromise || new _qq.Promise(),
         dirReader = reader || entry.createReader();
       dirReader.readEntries(function readSuccess(entries) {
         var newEntries = accumEntries ? accumEntries.concat(entries) : entries;
@@ -6613,7 +6613,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function handleDataTransfer(dataTransfer, uploadDropZone) {
       var pendingFolderPromises = [],
-        handleDataTransferPromise = new qq.Promise();
+        handleDataTransferPromise = new _qq.Promise();
       options.callbacks.processingDroppedFiles();
       uploadDropZone.dropDisabled(true);
       if (dataTransfer.files.length > 1 && !options.allowMultipleItems) {
@@ -6623,8 +6623,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         handleDataTransferPromise.failure();
       } else {
         droppedFiles = [];
-        if (qq.isFolderDropSupported(dataTransfer)) {
-          qq.each(dataTransfer.items, function (idx, item) {
+        if (_qq.isFolderDropSupported(dataTransfer)) {
+          _qq.each(dataTransfer.items, function (idx, item) {
             var entry = item.webkitGetAsEntry();
             if (entry) {
               if (entry.isFile) {
@@ -6649,15 +6649,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return handleDataTransferPromise;
     }
     function setupDropzone(dropArea) {
-      var dropZone = new qq.UploadDropZone({
+      var dropZone = new _qq.UploadDropZone({
         HIDE_ZONES_EVENT_NAME: HIDE_ZONES_EVENT_NAME,
         element: dropArea,
         onEnter: function onEnter(e) {
-          qq(dropArea).addClass(options.classes.dropActive);
+          _qq(dropArea).addClass(options.classes.dropActive);
           e.stopPropagation();
         },
         onLeaveNotDescendants: function onLeaveNotDescendants(e) {
-          qq(dropArea).removeClass(options.classes.dropActive);
+          _qq(dropArea).removeClass(options.classes.dropActive);
         },
         onDrop: function onDrop(e) {
           handleDataTransfer(e.dataTransfer, dropZone).then(function () {
@@ -6670,13 +6670,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       disposeSupport.addDisposer(function () {
         dropZone.dispose();
       });
-      qq(dropArea).hasAttribute(HIDE_BEFORE_ENTER_ATTR) && qq(dropArea).hide();
+      _qq(dropArea).hasAttribute(HIDE_BEFORE_ENTER_ATTR) && _qq(dropArea).hide();
       uploadDropZones.push(dropZone);
       return dropZone;
     }
     function isFileDrag(dragEvent) {
       var fileDrag;
-      qq.each(dragEvent.dataTransfer.types, function (key, val) {
+      _qq.each(dragEvent.dataTransfer.types, function (key, val) {
         if (val === "Files") {
           fileDrag = true;
           return false;
@@ -6685,7 +6685,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       return fileDrag;
     }
     function leavingDocumentOut(e) {
-      if (qq.safari()) {
+      if (_qq.safari()) {
         return e.x < 0 || e.y < 0;
       }
       return e.x === 0 && e.y === 0;
@@ -6694,20 +6694,20 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       var dropZones = options.dropZoneElements,
         maybeHideDropZones = function maybeHideDropZones() {
           setTimeout(function () {
-            qq.each(dropZones, function (idx, dropZone) {
-              qq(dropZone).hasAttribute(HIDE_BEFORE_ENTER_ATTR) && qq(dropZone).hide();
-              qq(dropZone).removeClass(options.classes.dropActive);
+            _qq.each(dropZones, function (idx, dropZone) {
+              _qq(dropZone).hasAttribute(HIDE_BEFORE_ENTER_ATTR) && _qq(dropZone).hide();
+              _qq(dropZone).removeClass(options.classes.dropActive);
             });
           }, 10);
         };
-      qq.each(dropZones, function (idx, dropZone) {
+      _qq.each(dropZones, function (idx, dropZone) {
         var uploadDropZone = setupDropzone(dropZone);
-        if (dropZones.length && qq.supportedFeatures.fileDrop) {
+        if (dropZones.length && _qq.supportedFeatures.fileDrop) {
           disposeSupport.attach(document, "dragenter", function (e) {
             if (!uploadDropZone.dropDisabled() && isFileDrag(e)) {
-              qq.each(dropZones, function (idx, dropZone) {
-                if (dropZone instanceof HTMLElement && qq(dropZone).hasAttribute(HIDE_BEFORE_ENTER_ATTR)) {
-                  qq(dropZone).css({
+              _qq.each(dropZones, function (idx, dropZone) {
+                if (dropZone instanceof HTMLElement && _qq(dropZone).hasAttribute(HIDE_BEFORE_ENTER_ATTR)) {
+                  _qq(dropZone).css({
                     display: "block"
                   });
                 }
@@ -6721,7 +6721,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           maybeHideDropZones();
         }
       });
-      disposeSupport.attach(qq(document).children()[0], "mouseenter", function (e) {
+      disposeSupport.attach(_qq(document).children()[0], "mouseenter", function (e) {
         maybeHideDropZones();
       });
       disposeSupport.attach(document, "drop", function (e) {
@@ -6733,7 +6733,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       disposeSupport.attach(document, HIDE_ZONES_EVENT_NAME, maybeHideDropZones);
     }
     setupDragDrop();
-    qq.extend(this, {
+    _qq.extend(this, {
       setupExtraDropzone: function setupExtraDropzone(element) {
         options.dropZoneElements.push(element);
         setupDropzone(element);
@@ -6749,7 +6749,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       dispose: function dispose() {
         disposeSupport.dispose();
-        qq.each(uploadDropZones, function (idx, dropZone) {
+        _qq.each(uploadDropZones, function (idx, dropZone) {
           dropZone.dispose();
         });
       }
@@ -6757,24 +6757,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     this._testing = {};
     this._testing.extractDirectoryPath = extractDirectoryPath;
   };
-  qq.DragAndDrop.callbacks = function () {
+  _qq.DragAndDrop.callbacks = function () {
     "use strict";
 
     return {
       processingDroppedFiles: function processingDroppedFiles() {},
       processingDroppedFilesComplete: function processingDroppedFilesComplete(files, targetEl) {},
       dropError: function dropError(code, errorSpecifics) {
-        qq.log("Drag & drop error code '" + code + " with these specifics: '" + errorSpecifics + "'", "error");
+        _qq.log("Drag & drop error code '" + code + " with these specifics: '" + errorSpecifics + "'", "error");
       },
       dropLog: function dropLog(message, level) {
-        qq.log(message, level);
+        _qq.log(message, level);
       }
     };
   };
-  qq.UploadDropZone = function (o) {
+  _qq.UploadDropZone = function (o) {
     "use strict";
 
-    var disposeSupport = new qq.DisposeSupport(),
+    var disposeSupport = new _qq.DisposeSupport(),
       options,
       element,
       preventDrop,
@@ -6786,10 +6786,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       onLeaveNotDescendants: function onLeaveNotDescendants(e) {},
       onDrop: function onDrop(e) {}
     };
-    qq.extend(options, o);
+    _qq.extend(options, o);
     element = options.element;
     function dragoverShouldBeCanceled() {
-      return qq.safari() || qq.firefox() && qq.windows();
+      return _qq.safari() || _qq.firefox() && _qq.windows();
     }
     function disableDropOutside(e) {
       if (!dropOutsideDisabled) {
@@ -6809,13 +6809,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     }
     function isValidFileDrag(e) {
-      if (!qq.supportedFeatures.fileDrop) {
+      if (!_qq.supportedFeatures.fileDrop) {
         return false;
       }
       var effectTest,
         dt = e.dataTransfer,
-        isSafari = qq.safari();
-      effectTest = qq.ie() && qq.supportedFeatures.fileDrop ? true : dt.effectAllowed !== "none";
+        isSafari = _qq.safari();
+      effectTest = _qq.ie() && _qq.supportedFeatures.fileDrop ? true : dt.effectAllowed !== "none";
       return dt && effectTest && (dt.files && dt.files.length || !isSafari && dt.types.contains && dt.types.contains("Files") || dt.types.includes && dt.types.includes("Files"));
     }
     function isOrSetDropDisabled(isDisabled) {
@@ -6846,7 +6846,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (!isValidFileDrag(e)) {
           return;
         }
-        var effect = qq.ie() && qq.supportedFeatures.fileDrop ? null : e.dataTransfer.effectAllowed;
+        var effect = _qq.ie() && _qq.supportedFeatures.fileDrop ? null : e.dataTransfer.effectAllowed;
         if (effect === "move" || effect === "linkMove") {
           e.dataTransfer.dropEffect = "move";
         } else {
@@ -6869,7 +6869,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
         options.onLeave(e);
         var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);
-        if (qq(this).contains(relatedTarget)) {
+        if (_qq(this).contains(relatedTarget)) {
           return;
         }
         options.onLeaveNotDescendants(e);
@@ -6888,7 +6888,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     disableDropOutside();
     attachEvents();
-    qq.extend(this, {
+    _qq.extend(this, {
       dropDisabled: function dropDisabled(isDisabled) {
         return isOrSetDropDisabled(isDisabled);
       },
@@ -6905,7 +6905,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
   (function () {
     "use strict";
 
-    qq.uiPublicApi = {
+    _qq.uiPublicApi = {
       addInitialFiles: function addInitialFiles(cannedFileList) {
         this._parent.prototype.addInitialFiles.apply(this, arguments);
         this._templating.addCacheToDom();
@@ -6967,7 +6967,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return file.qqDropTarget;
       }
     };
-    qq.uiPrivateApi = {
+    _qq.uiPrivateApi = {
       _getButton: function _getButton(buttonId) {
         var button = this._parent.prototype._getButton.apply(this, arguments);
         if (!button) {
@@ -6981,8 +6981,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         this._templating.removeFile(fileId);
       },
       _setupClickAndEditEventHandlers: function _setupClickAndEditEventHandlers() {
-        this._fileButtonsClickHandler = qq.FileButtonsClickHandler && this._bindFileButtonsClickEvent();
-        this._focusinEventSupported = !qq.firefox();
+        this._fileButtonsClickHandler = _qq.FileButtonsClickHandler && this._bindFileButtonsClickEvent();
+        this._focusinEventSupported = !_qq.firefox();
         if (this._isEditFilenameEnabled()) {
           this._filenameClickHandler = this._bindFilenameClickEvent();
           this._filenameInputFocusInHandler = this._bindFilenameInputFocusInEvent();
@@ -6995,7 +6995,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           templating = this._templating,
           defaultDropZone = templating.getDropZone();
         defaultDropZone && dropZoneElements.push(defaultDropZone);
-        return new qq.DragAndDrop({
+        return new _qq.DragAndDrop({
           dropZoneElements: dropZoneElements,
           allowMultipleItems: this._options.multiple,
           classes: {
@@ -7007,7 +7007,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             },
             processingDroppedFilesComplete: function processingDroppedFilesComplete(files, targetEl) {
               templating.hideDropProcessing();
-              qq.each(files, function (idx, file) {
+              _qq.each(files, function (idx, file) {
                 file.qqDropTarget = targetEl;
               });
               if (files.length) {
@@ -7025,7 +7025,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       _bindFileButtonsClickEvent: function _bindFileButtonsClickEvent() {
         var self = this;
-        return new qq.FileButtonsClickHandler({
+        return new _qq.FileButtonsClickHandler({
           templating: this._templating,
           log: function log(message, lvl) {
             self.log(message, lvl);
@@ -7051,7 +7051,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         });
       },
       _isEditFilenameEnabled: function _isEditFilenameEnabled() {
-        return this._templating.isEditFilenamePossible() && !this._options.autoUpload && qq.FilenameClickHandler && qq.FilenameInputFocusHandler && qq.FilenameInputFocusHandler;
+        return this._templating.isEditFilenamePossible() && !this._options.autoUpload && _qq.FilenameClickHandler && _qq.FilenameInputFocusHandler && _qq.FilenameInputFocusHandler;
       },
       _filenameEditHandler: function _filenameEditHandler() {
         var self = this,
@@ -7073,8 +7073,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             self.setName(id, newName);
           },
           onEditingStatusChange: function onEditingStatusChange(id, isEditing) {
-            var qqInput = qq(templating.getEditInput(id)),
-              qqFileContainer = qq(templating.getFileContainer(id));
+            var qqInput = _qq(templating.getEditInput(id)),
+              qqFileContainer = _qq(templating.getFileContainer(id));
             if (isEditing) {
               qqInput.addClass("qq-editing");
               templating.hideFilename(id);
@@ -7091,30 +7091,30 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       _onUploadStatusChange: function _onUploadStatusChange(id, oldStatus, newStatus) {
         this._parent.prototype._onUploadStatusChange.apply(this, arguments);
         if (this._isEditFilenameEnabled()) {
-          if (this._templating.getFileContainer(id) && newStatus !== qq.status.SUBMITTED) {
+          if (this._templating.getFileContainer(id) && newStatus !== _qq.status.SUBMITTED) {
             this._templating.markFilenameEditable(id);
             this._templating.hideEditIcon(id);
           }
         }
-        if (oldStatus === qq.status.UPLOAD_RETRYING && newStatus === qq.status.UPLOADING) {
+        if (oldStatus === _qq.status.UPLOAD_RETRYING && newStatus === _qq.status.UPLOADING) {
           this._templating.hideRetry(id);
           this._templating.setStatusText(id);
-          qq(this._templating.getFileContainer(id)).removeClass(this._classes.retrying);
-        } else if (newStatus === qq.status.UPLOAD_FAILED) {
+          _qq(this._templating.getFileContainer(id)).removeClass(this._classes.retrying);
+        } else if (newStatus === _qq.status.UPLOAD_FAILED) {
           this._templating.hidePause(id);
         }
       },
       _bindFilenameInputFocusInEvent: function _bindFilenameInputFocusInEvent() {
-        var spec = qq.extend({}, this._filenameEditHandler());
-        return new qq.FilenameInputFocusInHandler(spec);
+        var spec = _qq.extend({}, this._filenameEditHandler());
+        return new _qq.FilenameInputFocusInHandler(spec);
       },
       _bindFilenameInputFocusEvent: function _bindFilenameInputFocusEvent() {
-        var spec = qq.extend({}, this._filenameEditHandler());
-        return new qq.FilenameInputFocusHandler(spec);
+        var spec = _qq.extend({}, this._filenameEditHandler());
+        return new _qq.FilenameInputFocusHandler(spec);
       },
       _bindFilenameClickEvent: function _bindFilenameClickEvent() {
-        var spec = qq.extend({}, this._filenameEditHandler());
-        return new qq.FilenameClickHandler(spec);
+        var spec = _qq.extend({}, this._filenameEditHandler());
+        return new _qq.FilenameClickHandler(spec);
       },
       _storeForLater: function _storeForLater(id) {
         this._parent.prototype._storeForLater.apply(this, arguments);
@@ -7170,27 +7170,27 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             return;
           }
           templating.setStatusText(id);
-          qq(fileContainer).removeClass(self._classes.retrying);
+          _qq(fileContainer).removeClass(self._classes.retrying);
           templating.hideProgress(id);
           if (self.getUploads({
             id: id
-          }).status !== qq.status.UPLOAD_FAILED) {
+          }).status !== _qq.status.UPLOAD_FAILED) {
             templating.hideCancel(id);
           }
           templating.hideSpinner(id);
           if (result.success) {
             self._markFileAsSuccessful(id);
           } else {
-            qq(fileContainer).addClass(self._classes.fail);
+            _qq(fileContainer).addClass(self._classes.fail);
             templating.showCancel(id);
             if (templating.isRetryPossible() && !self._preventRetries[id]) {
-              qq(fileContainer).addClass(self._classes.retryable);
+              _qq(fileContainer).addClass(self._classes.retryable);
               templating.showRetry(id);
             }
             self._controlFailureTextDisplay(id, result);
           }
         }
-        if (parentRetVal instanceof qq.Promise) {
+        if (parentRetVal instanceof _qq.Promise) {
           parentRetVal.done(function (newResult) {
             completeUpload(newResult);
           });
@@ -7204,7 +7204,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (this._isDeletePossible()) {
           templating.showDeleteButton(id);
         }
-        qq(templating.getFileContainer(id)).addClass(this._classes.success);
+        _qq(templating.getFileContainer(id)).addClass(this._classes.success);
         this._maybeUpdateThumbnail(id);
       },
       _onUploadPrep: function _onUploadPrep(id) {
@@ -7239,25 +7239,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           retryNote = this._options.retry.autoRetryNote.replace(/\{retryNum\}/g, retryNumForDisplay);
           retryNote = retryNote.replace(/\{maxAuto\}/g, maxAuto);
           this._templating.setStatusText(id, retryNote);
-          qq(this._templating.getFileContainer(id)).addClass(this._classes.retrying);
+          _qq(this._templating.getFileContainer(id)).addClass(this._classes.retrying);
         }
       },
       _onBeforeManualRetry: function _onBeforeManualRetry(id) {
         if (this._parent.prototype._onBeforeManualRetry.apply(this, arguments)) {
           this._templating.resetProgress(id);
-          qq(this._templating.getFileContainer(id)).removeClass(this._classes.fail);
+          _qq(this._templating.getFileContainer(id)).removeClass(this._classes.fail);
           this._templating.setStatusText(id);
           this._templating.showSpinner(id);
           this._showCancelLink(id);
           return true;
         } else {
-          qq(this._templating.getFileContainer(id)).addClass(this._classes.retryable);
+          _qq(this._templating.getFileContainer(id)).addClass(this._classes.retryable);
           this._templating.showRetry(id);
           return false;
         }
       },
       _onSubmitDelete: function _onSubmitDelete(id) {
-        var onSuccessCallback = qq.bind(this._onSubmitDeleteSuccess, this);
+        var onSuccessCallback = _qq.bind(this._onSubmitDeleteSuccess, this);
         this._parent.prototype._onSubmitDelete.call(this, id, onSuccessCallback);
       },
       _onSubmitDeleteSuccess: function _onSubmitDeleteSuccess(id, uuid, additionalMandatedParams) {
@@ -7291,7 +7291,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           self = this,
           retVal;
         retVal = this._options.showConfirm(confirmMessage);
-        if (qq.isGenericPromise(retVal)) {
+        if (_qq.isGenericPromise(retVal)) {
           retVal.then(function () {
             self._sendDeleteRequest.apply(self, deleteRequestArgs);
           });
@@ -7313,7 +7313,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           };
         }
         if (!canned) {
-          if (this._options.disableCancelForFormUploads && !qq.supportedFeatures.ajaxUploading) {
+          if (this._options.disableCancelForFormUploads && !_qq.supportedFeatures.ajaxUploading) {
             this._templating.disableCancel();
           }
           if (!this._options.multiple) {
@@ -7336,7 +7336,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           this._templating.generatePreview(id, this.getFile(id), this._options.thumbnails.customResizer);
         }
         this._filesInBatchAddedToUi += 1;
-        if (canned || this._options.display.fileSizeOnSubmit && qq.supportedFeatures.ajaxUploading) {
+        if (canned || this._options.display.fileSizeOnSubmit && _qq.supportedFeatures.ajaxUploading) {
           this._displayFileSize(id);
         }
       },
@@ -7386,7 +7386,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         this._templating.getFileContainer(id).title = text;
       },
       _showCancelLink: function _showCancelLink(id) {
-        if (!this._options.disableCancelForFormUploads || qq.supportedFeatures.ajaxUploading) {
+        if (!this._options.disableCancelForFormUploads || _qq.supportedFeatures.ajaxUploading) {
           this._templating.showCancel(id);
         }
       },
@@ -7420,7 +7420,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           fileStatus = this.getUploads({
             id: fileId
           }).status;
-        if (fileStatus !== qq.status.DELETED && (thumbnailUrl || this._options.thumbnails.placeholders.waitUntilResponse || !qq.supportedFeatures.imagePreviews)) {
+        if (fileStatus !== _qq.status.DELETED && (thumbnailUrl || this._options.thumbnails.placeholders.waitUntilResponse || !_qq.supportedFeatures.imagePreviews)) {
           this._templating.updateThumbnail(fileId, thumbnailUrl, this._options.thumbnails.customResizer);
         }
       },
@@ -7442,13 +7442,13 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     };
   })();
-  qq.FineUploader = function (o, namespace) {
+  _qq.FineUploader = function (o, namespace) {
     "use strict";
 
     var self = this;
-    this._parent = namespace ? qq[namespace].FineUploaderBasic : qq.FineUploaderBasic;
+    this._parent = namespace ? _qq[namespace].FineUploaderBasic : _qq.FineUploaderBasic;
     this._parent.apply(this, arguments);
-    qq.extend(this._options, {
+    _qq.extend(this._options, {
       element: null,
       button: null,
       listElement: null,
@@ -7536,9 +7536,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       }
     }, true);
-    qq.extend(this._options, o, true);
-    this._templating = new qq.Templating({
-      log: qq.bind(this.log, this),
+    _qq.extend(this._options, o, true);
+    this._templating = new _qq.Templating({
+      log: _qq.bind(this.log, this),
       templateIdOrEl: this._options.template,
       containerEl: this._options.element,
       fileContainerEl: this._options.listElement,
@@ -7559,9 +7559,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       text: this._options.text
     });
-    if (this._options.workarounds.ios8SafariUploads && qq.ios800() && qq.iosSafari()) {
+    if (this._options.workarounds.ios8SafariUploads && _qq.ios800() && _qq.iosSafari()) {
       this._templating.renderFailure(this._options.messages.unsupportedBrowserIos8Safari);
-    } else if (!qq.supportedFeatures.uploading || this._options.cors.expected && !qq.supportedFeatures.uploadCors) {
+    } else if (!_qq.supportedFeatures.uploading || this._options.cors.expected && !_qq.supportedFeatures.uploadCors) {
       this._templating.renderFailure(this._options.messages.unsupportedBrowser);
     } else {
       this._wrapCallbacks();
@@ -7574,11 +7574,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }).getButtonId();
       }
       this._setupClickAndEditEventHandlers();
-      if (qq.DragAndDrop && qq.supportedFeatures.fileDrop) {
+      if (_qq.DragAndDrop && _qq.supportedFeatures.fileDrop) {
         this._dnd = this._setupDragAndDrop();
       }
       if (this._options.paste.targetElement && this._options.paste.promptForName) {
-        if (qq.PasteSupport) {
+        if (_qq.PasteSupport) {
           this._setupPastePrompt();
         } else {
           this.log("Paste support module not found.", "error");
@@ -7588,11 +7588,11 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       this._filesInBatchAddedToUi = 0;
     }
   };
-  qq.extend(qq.FineUploader.prototype, qq.basePublicApi);
-  qq.extend(qq.FineUploader.prototype, qq.basePrivateApi);
-  qq.extend(qq.FineUploader.prototype, qq.uiPublicApi);
-  qq.extend(qq.FineUploader.prototype, qq.uiPrivateApi);
-  qq.Templating = function (spec) {
+  _qq.extend(_qq.FineUploader.prototype, _qq.basePublicApi);
+  _qq.extend(_qq.FineUploader.prototype, _qq.basePrivateApi);
+  _qq.extend(_qq.FineUploader.prototype, _qq.uiPublicApi);
+  _qq.extend(_qq.FineUploader.prototype, _qq.uiPrivateApi);
+  _qq.Templating = function (spec) {
     "use strict";
 
     var FILE_ID_ATTR = "qq-file-id",
@@ -7668,8 +7668,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         thumbnail: "qq-thumbnail-selector"
       },
       previewGeneration = {},
-      cachedThumbnailNotAvailableImg = new qq.Promise(),
-      cachedWaitingForThumbnailImg = new qq.Promise(),
+      cachedThumbnailNotAvailableImg = new _qq.Promise(),
+      cachedWaitingForThumbnailImg = new _qq.Promise(),
       log,
       isEditElementsExist,
       isRetryElementExist,
@@ -7709,7 +7709,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       },
       displayWaitingImg = function displayWaitingImg(thumbnail) {
-        var waitingImgPlacement = new qq.Promise();
+        var waitingImgPlacement = new _qq.Promise();
         cachedWaitingForThumbnailImg.then(function (img) {
           maybeScalePlaceholderViaCss(img, thumbnail);
           if (!thumbnail.src) {
@@ -7775,7 +7775,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return getTemplateEl(getFile(id), selectorClasses.editNameIcon);
       },
       getFile = function getFile(id) {
-        return fileBatch.map[id] || qq(fileList).getFirstByClass(FILE_CLASS_PREFIX + id);
+        return fileBatch.map[id] || _qq(fileList).getFirstByClass(FILE_CLASS_PREFIX + id);
       },
       getFilename = function getFilename(id) {
         return getTemplateEl(getFile(id), selectorClasses.file);
@@ -7799,27 +7799,27 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return getTemplateEl(getFile(id), selectorClasses.spinner);
       },
       getTemplateEl = function getTemplateEl(context, cssClass) {
-        return context && qq(context).getFirstByClass(cssClass);
+        return context && _qq(context).getFirstByClass(cssClass);
       },
       getThumbnail = function getThumbnail(id) {
         return showThumbnails && getTemplateEl(getFile(id), selectorClasses.thumbnail);
       },
       hide = function hide(el) {
-        el && qq(el).addClass(options.classes.hide);
+        el && _qq(el).addClass(options.classes.hide);
       },
       maybeScalePlaceholderViaCss = function maybeScalePlaceholderViaCss(placeholder, thumbnail) {
         var maxWidth = placeholder.style.maxWidth,
           maxHeight = placeholder.style.maxHeight;
         if (maxHeight && maxWidth && !thumbnail.style.maxWidth && !thumbnail.style.maxHeight) {
-          qq(thumbnail).css({
+          _qq(thumbnail).css({
             maxWidth: maxWidth,
             maxHeight: maxHeight
           });
         }
       },
       maybeSetDisplayNotAvailableImg = function maybeSetDisplayNotAvailableImg(id, thumbnail) {
-        var previewing = previewGeneration[id] || new qq.Promise().failure(),
-          notAvailableImgPlacement = new qq.Promise();
+        var previewing = previewGeneration[id] || new _qq.Promise().failure(),
+          notAvailableImgPlacement = new _qq.Promise();
         cachedThumbnailNotAvailableImg.then(function (img) {
           previewing.then(function () {
             notAvailableImgPlacement.success();
@@ -7841,10 +7841,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (options.templateIdOrEl == null) {
           throw new Error("You MUST specify either a template element or ID!");
         }
-        if (qq.isString(options.templateIdOrEl)) {
+        if (_qq.isString(options.templateIdOrEl)) {
           scriptEl = document.getElementById(options.templateIdOrEl);
           if (scriptEl === null) {
-            throw new Error(qq.format("Cannot find template script at ID '{}'!", options.templateIdOrEl));
+            throw new Error(_qq.format("Cannot find template script at ID '{}'!", options.templateIdOrEl));
           }
           scriptHtml = scriptEl.innerHTML;
         } else {
@@ -7853,50 +7853,50 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
           scriptHtml = options.templateIdOrEl.innerHTML;
         }
-        scriptHtml = qq.trimStr(scriptHtml);
+        scriptHtml = _qq.trimStr(scriptHtml);
         tempTemplateEl = document.createElement("div");
-        tempTemplateEl.appendChild(qq.toElement(scriptHtml));
-        uploaderEl = qq(tempTemplateEl).getFirstByClass(selectorClasses.uploader);
+        tempTemplateEl.appendChild(_qq.toElement(scriptHtml));
+        uploaderEl = _qq(tempTemplateEl).getFirstByClass(selectorClasses.uploader);
         if (options.button) {
-          defaultButton = qq(tempTemplateEl).getFirstByClass(selectorClasses.button);
+          defaultButton = _qq(tempTemplateEl).getFirstByClass(selectorClasses.button);
           if (defaultButton) {
-            qq(defaultButton).remove();
+            _qq(defaultButton).remove();
           }
         }
-        if (!qq.DragAndDrop || !qq.supportedFeatures.fileDrop) {
-          dropProcessing = qq(tempTemplateEl).getFirstByClass(selectorClasses.dropProcessing);
+        if (!_qq.DragAndDrop || !_qq.supportedFeatures.fileDrop) {
+          dropProcessing = _qq(tempTemplateEl).getFirstByClass(selectorClasses.dropProcessing);
           if (dropProcessing) {
-            qq(dropProcessing).remove();
+            _qq(dropProcessing).remove();
           }
         }
-        dropArea = qq(tempTemplateEl).getFirstByClass(selectorClasses.drop);
-        if (dropArea && !qq.DragAndDrop) {
+        dropArea = _qq(tempTemplateEl).getFirstByClass(selectorClasses.drop);
+        if (dropArea && !_qq.DragAndDrop) {
           log("DnD module unavailable.", "info");
-          qq(dropArea).remove();
+          _qq(dropArea).remove();
         }
-        if (!qq.supportedFeatures.fileDrop) {
+        if (!_qq.supportedFeatures.fileDrop) {
           uploaderEl.removeAttribute(DROPZPONE_TEXT_ATTR);
-          if (dropArea && qq(dropArea).hasAttribute(HIDE_DROPZONE_ATTR)) {
-            qq(dropArea).css({
+          if (dropArea && _qq(dropArea).hasAttribute(HIDE_DROPZONE_ATTR)) {
+            _qq(dropArea).css({
               display: "none"
             });
           }
-        } else if (qq(uploaderEl).hasAttribute(DROPZPONE_TEXT_ATTR) && dropArea) {
-          dropTextEl = qq(dropArea).getFirstByClass(selectorClasses.dropText);
-          dropTextEl && qq(dropTextEl).remove();
+        } else if (_qq(uploaderEl).hasAttribute(DROPZPONE_TEXT_ATTR) && dropArea) {
+          dropTextEl = _qq(dropArea).getFirstByClass(selectorClasses.dropText);
+          dropTextEl && _qq(dropTextEl).remove();
         }
-        thumbnail = qq(tempTemplateEl).getFirstByClass(selectorClasses.thumbnail);
+        thumbnail = _qq(tempTemplateEl).getFirstByClass(selectorClasses.thumbnail);
         if (!showThumbnails) {
-          thumbnail && qq(thumbnail).remove();
+          thumbnail && _qq(thumbnail).remove();
         } else if (thumbnail) {
           thumbnailMaxSize = parseInt(thumbnail.getAttribute(THUMBNAIL_MAX_SIZE_ATTR));
           thumbnailMaxSize = thumbnailMaxSize > 0 ? thumbnailMaxSize : null;
-          serverScale = qq(thumbnail).hasAttribute(THUMBNAIL_SERVER_SCALE_ATTR);
+          serverScale = _qq(thumbnail).hasAttribute(THUMBNAIL_SERVER_SCALE_ATTR);
         }
         showThumbnails = showThumbnails && thumbnail;
-        isEditElementsExist = qq(tempTemplateEl).getByClass(selectorClasses.editFilenameInput).length > 0;
-        isRetryElementExist = qq(tempTemplateEl).getByClass(selectorClasses.retry).length > 0;
-        fileListNode = qq(tempTemplateEl).getFirstByClass(selectorClasses.list);
+        isEditElementsExist = _qq(tempTemplateEl).getByClass(selectorClasses.editFilenameInput).length > 0;
+        isRetryElementExist = _qq(tempTemplateEl).getByClass(selectorClasses.retry).length > 0;
+        fileListNode = _qq(tempTemplateEl).getFirstByClass(selectorClasses.list);
         if (fileListNode == null) {
           throw new Error("Could not find the file list container in the template!");
         }
@@ -7915,7 +7915,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         var parentEl = fileList,
           beforeEl = parentEl.firstChild;
         if (index > 0) {
-          beforeEl = qq(parentEl).children()[index].nextSibling;
+          beforeEl = _qq(parentEl).children()[index].nextSibling;
         }
         parentEl.insertBefore(el, beforeEl);
       },
@@ -7930,14 +7930,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             orient: true,
             scale: true
           };
-        if (qq.supportedFeatures.imagePreviews) {
+        if (_qq.supportedFeatures.imagePreviews) {
           if (thumbnail) {
             if (options.limits.maxThumbs && options.limits.maxThumbs <= generatedThumbnails) {
               maybeSetDisplayNotAvailableImg(id, thumbnail);
               generateNextQueuedPreview();
             } else {
               displayWaitingImg(thumbnail).done(function () {
-                previewGeneration[id] = new qq.Promise();
+                previewGeneration[id] = new _qq.Promise();
                 previewGeneration[id].done(function () {
                   setTimeout(generateNextQueuedPreview, options.limits.timeBetweenThumbs);
                 });
@@ -7993,27 +7993,27 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       setProgressBarWidth = function setProgressBarWidth(id, percent) {
         var bar = getProgress(id),
           progressBarSelector = id == null ? selectorClasses.totalProgressBar : selectorClasses.progressBar;
-        if (bar && !qq(bar).hasClass(progressBarSelector)) {
-          bar = qq(bar).getFirstByClass(progressBarSelector);
+        if (bar && !_qq(bar).hasClass(progressBarSelector)) {
+          bar = _qq(bar).getFirstByClass(progressBarSelector);
         }
         if (bar) {
-          qq(bar).css({
+          _qq(bar).css({
             width: percent + "%"
           });
           bar.setAttribute("aria-valuenow", percent);
         }
       },
       show = function show(el) {
-        el && qq(el).removeClass(options.classes.hide);
+        el && _qq(el).removeClass(options.classes.hide);
       },
       useCachedPreview = function useCachedPreview(targetThumbnailId, cachedThumbnailId) {
         var targetThumbnail = getThumbnail(targetThumbnailId),
           cachedThumbnail = getThumbnail(cachedThumbnailId);
-        log(qq.format("ID {} is the same file as ID {}.  Will use generated thumbnail from ID {} instead.", targetThumbnailId, cachedThumbnailId, cachedThumbnailId));
+        log(_qq.format("ID {} is the same file as ID {}.  Will use generated thumbnail from ID {} instead.", targetThumbnailId, cachedThumbnailId, cachedThumbnailId));
         previewGeneration[cachedThumbnailId].then(function () {
           generatedThumbnails++;
           previewGeneration[targetThumbnailId].success();
-          log(qq.format("Now using previously generated thumbnail created for ID {} on ID {}.", cachedThumbnailId, targetThumbnailId));
+          log(_qq.format("Now using previously generated thumbnail created for ID {} on ID {}.", cachedThumbnailId, targetThumbnailId));
           targetThumbnail.src = cachedThumbnail.src;
           show(targetThumbnail);
         }, function () {
@@ -8023,9 +8023,9 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
         });
       };
-    qq.extend(options, spec);
+    _qq.extend(options, spec);
     log = options.log;
-    if (!qq.supportedFeatures.imagePreviews) {
+    if (!_qq.supportedFeatures.imagePreviews) {
       options.limits.timeBetweenThumbs = 0;
       options.limits.maxThumbs = 0;
     }
@@ -8033,7 +8033,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     showThumbnails = options.imageGenerator !== undefined;
     templateDom = parseAndGetTemplate();
     cacheThumbnailPlaceholders();
-    qq.extend(this, {
+    _qq.extend(this, {
       render: function render() {
         log("Rendering template in DOM.");
         generatedThumbnails = 0;
@@ -8044,7 +8044,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         log("Template rendering complete");
       },
       renderFailure: function renderFailure(message) {
-        var cantRenderEl = qq.toElement(message);
+        var cantRenderEl = _qq.toElement(message);
         container.innerHTML = "";
         container.appendChild(cantRenderEl);
       },
@@ -8067,10 +8067,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         if (batch) {
           fileBatch.map[id] = fileEl;
         }
-        qq(fileEl).addClass(FILE_CLASS_PREFIX + id);
+        _qq(fileEl).addClass(FILE_CLASS_PREFIX + id);
         uploaderEl.removeAttribute(DROPZPONE_TEXT_ATTR);
         if (fileNameEl) {
-          qq(fileNameEl).setText(name);
+          _qq(fileNameEl).setText(name);
           fileNameEl.setAttribute("title", name);
         }
         fileEl.setAttribute(FILE_ID_ATTR, id);
@@ -8081,7 +8081,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
         if (hideForever) {
           fileEl.style.display = "none";
-          qq(fileEl).addClass(HIDDEN_FOREVER_CLASS);
+          _qq(fileEl).addClass(HIDDEN_FOREVER_CLASS);
         } else {
           hide(getProgress(id));
           hide(getSize(id));
@@ -8097,7 +8097,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             cachedWaitingForThumbnailImg.then(function (waitingImg) {
               thumb.src = waitingImg.src;
               if (waitingImg.style.maxHeight && waitingImg.style.maxWidth) {
-                qq(thumb).css({
+                _qq(thumb).css({
                   maxHeight: waitingImg.style.maxHeight,
                   maxWidth: waitingImg.style.maxWidth
                 });
@@ -8116,7 +8116,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         fileBatch.map = {};
       },
       removeFile: function removeFile(id) {
-        qq(getFile(id)).remove();
+        _qq(getFile(id)).remove();
       },
       getFileId: function getFileId(el) {
         var currentNode = el;
@@ -8132,12 +8132,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       markFilenameEditable: function markFilenameEditable(id) {
         var filename = getFilename(id);
-        filename && qq(filename).addClass(options.classes.editable);
+        filename && _qq(filename).addClass(options.classes.editable);
       },
       updateFilename: function updateFilename(id, name) {
         var filenameEl = getFilename(id);
         if (filenameEl) {
-          qq(filenameEl).setText(name);
+          _qq(filenameEl).setText(name);
           filenameEl.setAttribute("title", name);
         }
       },
@@ -8148,7 +8148,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         show(getFilename(id));
       },
       isFileName: function isFileName(el) {
-        return qq(el).hasClass(selectorClasses.file);
+        return _qq(el).hasClass(selectorClasses.file);
       },
       getButton: function getButton() {
         return options.button || getTemplateEl(container, selectorClasses.button);
@@ -8179,23 +8179,23 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       },
       showEditIcon: function showEditIcon(id) {
         var icon = getEditIcon(id);
-        icon && qq(icon).addClass(options.classes.editable);
+        icon && _qq(icon).addClass(options.classes.editable);
       },
       isHiddenForever: function isHiddenForever(id) {
-        return qq(getFile(id)).hasClass(HIDDEN_FOREVER_CLASS);
+        return _qq(getFile(id)).hasClass(HIDDEN_FOREVER_CLASS);
       },
       hideEditIcon: function hideEditIcon(id) {
         var icon = getEditIcon(id);
-        icon && qq(icon).removeClass(options.classes.editable);
+        icon && _qq(icon).removeClass(options.classes.editable);
       },
       isEditIcon: function isEditIcon(el) {
-        return qq(el).hasClass(selectorClasses.editNameIcon, true);
+        return _qq(el).hasClass(selectorClasses.editNameIcon, true);
       },
       getEditInput: function getEditInput(id) {
         return getTemplateEl(getFile(id), selectorClasses.editFilenameInput);
       },
       isEditInput: function isEditInput(el) {
-        return qq(el).hasClass(selectorClasses.editFilenameInput, true);
+        return _qq(el).hasClass(selectorClasses.editFilenameInput, true);
       },
       updateProgress: function updateProgress(id, loaded, total) {
         var bar = getProgress(id),
@@ -8230,14 +8230,14 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       showCancel: function showCancel(id) {
         if (!isCancelDisabled) {
           var cancel = getCancel(id);
-          cancel && qq(cancel).removeClass(options.classes.hide);
+          cancel && _qq(cancel).removeClass(options.classes.hide);
         }
       },
       hideCancel: function hideCancel(id) {
         hide(getCancel(id));
       },
       isCancel: function isCancel(el) {
-        return qq(el).hasClass(selectorClasses.cancel, true);
+        return _qq(el).hasClass(selectorClasses.cancel, true);
       },
       allowPause: function allowPause(id) {
         show(getPause(id));
@@ -8252,10 +8252,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         hide(getPause(id));
       },
       isPause: function isPause(el) {
-        return qq(el).hasClass(selectorClasses.pause, true);
+        return _qq(el).hasClass(selectorClasses.pause, true);
       },
       isContinueButton: function isContinueButton(el) {
-        return qq(el).hasClass(selectorClasses.continueButton, true);
+        return _qq(el).hasClass(selectorClasses.continueButton, true);
       },
       allowContinueButton: function allowContinueButton(id) {
         show(getContinue(id));
@@ -8273,34 +8273,34 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         hide(getDelete(id));
       },
       isDeleteButton: function isDeleteButton(el) {
-        return qq(el).hasClass(selectorClasses.deleteButton, true);
+        return _qq(el).hasClass(selectorClasses.deleteButton, true);
       },
       isRetry: function isRetry(el) {
-        return qq(el).hasClass(selectorClasses.retry, true);
+        return _qq(el).hasClass(selectorClasses.retry, true);
       },
       updateSize: function updateSize(id, text) {
         var size = getSize(id);
         if (size) {
           show(size);
-          qq(size).setText(text);
+          _qq(size).setText(text);
         }
       },
       setStatusText: function setStatusText(id, text) {
         var textEl = getTemplateEl(getFile(id), selectorClasses.statusText);
         if (textEl) {
           if (text == null) {
-            qq(textEl).clearText();
+            _qq(textEl).clearText();
           } else {
-            qq(textEl).setText(text);
+            _qq(textEl).setText(text);
           }
         }
       },
       hideSpinner: function hideSpinner(id) {
-        qq(getFile(id)).removeClass(IN_PROGRESS_CLASS);
+        _qq(getFile(id)).removeClass(IN_PROGRESS_CLASS);
         hide(getSpinner(id));
       },
       showSpinner: function showSpinner(id) {
-        qq(getFile(id)).addClass(IN_PROGRESS_CLASS);
+        _qq(getFile(id)).addClass(IN_PROGRESS_CLASS);
         show(getSpinner(id));
       },
       generatePreview: function generatePreview(id, optFileOrBlob, customResizeFunction) {
@@ -8326,7 +8326,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       },
       hasDialog: function hasDialog(type) {
-        return qq.supportedFeatures.dialogElement && !!getDialog(type);
+        return _qq.supportedFeatures.dialogElement && !!getDialog(type);
       },
       showDialog: function showDialog(type, message, defaultValue) {
         var dialog = getDialog(type),
@@ -8334,25 +8334,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           inputEl = dialog.getElementsByTagName("INPUT")[0],
           cancelBtn = getTemplateEl(dialog, selectorClasses.dialogCancelButton),
           okBtn = getTemplateEl(dialog, selectorClasses.dialogOkButton),
-          promise = new qq.Promise(),
+          promise = new _qq.Promise(),
           closeHandler = function closeHandler() {
-            cancelBtn.removeEventListener("click", cancelClickHandler);
-            okBtn && okBtn.removeEventListener("click", okClickHandler);
+            cancelBtn.removeEventListener("click", _cancelClickHandler);
+            okBtn && okBtn.removeEventListener("click", _okClickHandler);
             promise.failure();
           },
-          cancelClickHandler = function cancelClickHandler() {
-            cancelBtn.removeEventListener("click", cancelClickHandler);
+          _cancelClickHandler = function cancelClickHandler() {
+            cancelBtn.removeEventListener("click", _cancelClickHandler);
             dialog.close();
           },
-          okClickHandler = function okClickHandler() {
+          _okClickHandler = function okClickHandler() {
             dialog.removeEventListener("close", closeHandler);
-            okBtn.removeEventListener("click", okClickHandler);
+            okBtn.removeEventListener("click", _okClickHandler);
             dialog.close();
             promise.success(inputEl && inputEl.value);
           };
         dialog.addEventListener("close", closeHandler);
-        cancelBtn.addEventListener("click", cancelClickHandler);
-        okBtn && okBtn.addEventListener("click", okClickHandler);
+        cancelBtn.addEventListener("click", _cancelClickHandler);
+        okBtn && okBtn.addEventListener("click", _okClickHandler);
         if (inputEl) {
           inputEl.value = defaultValue;
         }
@@ -8362,16 +8362,16 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       }
     });
   };
-  qq.UiEventHandler = function (s, protectedApi) {
+  _qq.UiEventHandler = function (s, protectedApi) {
     "use strict";
 
-    var disposer = new qq.DisposeSupport(),
+    var disposer = new _qq.DisposeSupport(),
       spec = {
         eventType: "click",
         attachTo: null,
         onHandled: function onHandled(target, event) {}
       };
-    qq.extend(this, {
+    _qq.extend(this, {
       addHandler: function addHandler(element) {
         _addHandler(element);
       },
@@ -8386,7 +8386,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         spec.onHandled(target, event);
       });
     }
-    qq.extend(protectedApi, {
+    _qq.extend(protectedApi, {
       getFileIdFromItem: function getFileIdFromItem(item) {
         return item.qqFileId;
       },
@@ -8394,12 +8394,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         return disposer;
       }
     });
-    qq.extend(spec, s);
+    _qq.extend(spec, s);
     if (spec.attachTo) {
       _addHandler(spec.attachTo);
     }
   };
-  qq.FileButtonsClickHandler = function (s) {
+  _qq.FileButtonsClickHandler = function (s) {
     "use strict";
 
     var inheritedInternalApi = {},
@@ -8431,25 +8431,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       };
     function examineEvent(target, event) {
-      qq.each(buttonHandlers, function (buttonType, handler) {
+      _qq.each(buttonHandlers, function (buttonType, handler) {
         var firstLetterCapButtonType = buttonType.charAt(0).toUpperCase() + buttonType.slice(1),
           fileId;
         if (spec.templating["is" + firstLetterCapButtonType](target)) {
           fileId = spec.templating.getFileId(target);
-          qq.preventDefault(event);
-          spec.log(qq.format("Detected valid file button click event on file '{}', ID: {}.", spec.onGetName(fileId), fileId));
+          _qq.preventDefault(event);
+          spec.log(_qq.format("Detected valid file button click event on file '{}', ID: {}.", spec.onGetName(fileId), fileId));
           handler(fileId);
           return false;
         }
       });
     }
-    qq.extend(spec, s);
+    _qq.extend(spec, s);
     spec.eventType = "click";
     spec.onHandled = examineEvent;
     spec.attachTo = spec.templating.getFileList();
-    qq.extend(this, new qq.UiEventHandler(spec, inheritedInternalApi));
+    _qq.extend(this, new _qq.UiEventHandler(spec, inheritedInternalApi));
   };
-  qq.FilenameClickHandler = function (s) {
+  _qq.FilenameClickHandler = function (s) {
     "use strict";
 
     var inheritedInternalApi = {},
@@ -8463,23 +8463,23 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         onGetUploadStatus: function onGetUploadStatus(fileId) {},
         onGetName: function onGetName(fileId) {}
       };
-    qq.extend(spec, s);
+    _qq.extend(spec, s);
     function examineEvent(target, event) {
       if (spec.templating.isFileName(target) || spec.templating.isEditIcon(target)) {
         var fileId = spec.templating.getFileId(target),
           status = spec.onGetUploadStatus(fileId);
-        if (status === qq.status.SUBMITTED) {
-          spec.log(qq.format("Detected valid filename click event on file '{}', ID: {}.", spec.onGetName(fileId), fileId));
-          qq.preventDefault(event);
+        if (status === _qq.status.SUBMITTED) {
+          spec.log(_qq.format("Detected valid filename click event on file '{}', ID: {}.", spec.onGetName(fileId), fileId));
+          _qq.preventDefault(event);
           inheritedInternalApi.handleFilenameEdit(fileId, target, true);
         }
       }
     }
     spec.eventType = "click";
     spec.onHandled = examineEvent;
-    qq.extend(this, new qq.FilenameEditHandler(spec, inheritedInternalApi));
+    _qq.extend(this, new _qq.FilenameEditHandler(spec, inheritedInternalApi));
   };
-  qq.FilenameInputFocusInHandler = function (s, inheritedInternalApi) {
+  _qq.FilenameInputFocusInHandler = function (s, inheritedInternalApi) {
     "use strict";
 
     var spec = {
@@ -8494,25 +8494,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       if (spec.templating.isEditInput(target)) {
         var fileId = spec.templating.getFileId(target),
           status = spec.onGetUploadStatus(fileId);
-        if (status === qq.status.SUBMITTED) {
-          spec.log(qq.format("Detected valid filename input focus event on file '{}', ID: {}.", spec.onGetName(fileId), fileId));
+        if (status === _qq.status.SUBMITTED) {
+          spec.log(_qq.format("Detected valid filename input focus event on file '{}', ID: {}.", spec.onGetName(fileId), fileId));
           inheritedInternalApi.handleFilenameEdit(fileId, target);
         }
       }
     }
     spec.eventType = "focusin";
     spec.onHandled = handleInputFocus;
-    qq.extend(spec, s);
-    qq.extend(this, new qq.FilenameEditHandler(spec, inheritedInternalApi));
+    _qq.extend(spec, s);
+    _qq.extend(this, new _qq.FilenameEditHandler(spec, inheritedInternalApi));
   };
-  qq.FilenameInputFocusHandler = function (spec) {
+  _qq.FilenameInputFocusHandler = function (spec) {
     "use strict";
 
     spec.eventType = "focus";
     spec.attachTo = null;
-    qq.extend(this, new qq.FilenameInputFocusInHandler(spec, {}));
+    _qq.extend(this, new _qq.FilenameInputFocusInHandler(spec, {}));
   };
-  qq.FilenameEditHandler = function (s, inheritedInternalApi) {
+  _qq.FilenameEditHandler = function (s, inheritedInternalApi) {
     "use strict";
 
     var spec = {
@@ -8533,12 +8533,12 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
     }
     function getOriginalExtension(fileId) {
       var origName = spec.onGetName(fileId);
-      return qq.getExtension(origName);
+      return _qq.getExtension(origName);
     }
     function handleNameUpdate(newFilenameInputEl, fileId) {
       var newName = newFilenameInputEl.value,
         origExtension;
-      if (newName !== undefined && qq.trimStr(newName).length > 0) {
+      if (newName !== undefined && _qq.trimStr(newName).length > 0) {
         origExtension = getOriginalExtension(fileId);
         if (origExtension !== undefined) {
           newName = newName + "." + origExtension;
@@ -8560,10 +8560,10 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }
       });
     }
-    qq.extend(spec, s);
+    _qq.extend(spec, s);
     spec.attachTo = spec.templating.getFileList();
-    qq.extend(this, new qq.UiEventHandler(spec, inheritedInternalApi));
-    qq.extend(inheritedInternalApi, {
+    _qq.extend(this, new _qq.UiEventHandler(spec, inheritedInternalApi));
+    _qq.extend(inheritedInternalApi, {
       handleFilenameEdit: function handleFilenameEdit(id, target, focusInput) {
         var newFilenameInputEl = spec.templating.getEditInput(id);
         spec.onEditingStatusChange(id, true);

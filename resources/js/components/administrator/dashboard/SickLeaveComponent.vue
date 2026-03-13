@@ -29,10 +29,12 @@
                                     {{ leave.name }}
                                 </th>
                                 <th scope="row">
-                                    {{ leave.number_of_days }}
+                                    <span v-if="leave.number_of_days == 1">{{ leave.number_of_days }} day</span>
+                                    <span v-else> {{ leave.number_of_days }} days </span>
                                 </th>
                                 <th scope="row">
-                                    {{ formatDate(leave.created_at) }}
+                                    <span v-if="leave.number_of_days == 1"> {{ formatDate(leave.leave_from) }} </span>
+                                    <span v-else> {{ formatDate(leave.leave_from) }} to {{ formatDate(leave.leave_to) </span>
                                 </th>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -80,7 +82,7 @@
         computed: {
             sortedSickLeaves() {
                 return [...this.sickLeaves].sort((a, b) => {
-                    return new Date(b.created_at) - new Date(a.created_at);
+                    return new Date(b.leave_from) - new Date(a.leave_to);
                 });
             }
         },
